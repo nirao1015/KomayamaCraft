@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b83e794fb3354a4b451d59d59fa2132, type: 3}
+  m_Name: IronScale
+  m_EditorClassIdentifier: 
+  definitionId: item.iron_scale
+  displayName: "\u9244\u9C57"
+  description: "\u9244\u9C57\u7363\u304B\u3089\u975E\u81F4\u6B7B\u7684\u306B\u63A1\u96C6\u3067\u304D\u308B\u91D1\u5C5E\u8CEA\u306E\u9C57\u3002"
+  icon: {fileID: 3746133895855155937, guid: 7c01c6627e24294469d928fd54c7194c, type: 3}
+  category: 0
+  maxStack: 8
+  traitIds:
+  - prototype

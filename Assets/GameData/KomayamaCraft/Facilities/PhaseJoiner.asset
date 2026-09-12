@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a103b17c9d2e4f5086a7b8c9d0e1f201, type: 3}
+  m_Name: PhaseJoiner
+  m_EditorClassIdentifier: Assembly-CSharp::FacilityDefinition
+  definitionId: facility.phase_joiner
+  displayName: "\u4F4D\u76F8\u63A5\u5408\u6A5F"
+  description: 
+  icon: {fileID: 0}
+  prefab: {fileID: 3933153547702215292, guid: b7317e7d62765394898df239ecc8db30, type: 3}
+  capabilities: 1
+  supportedRecipes:
+  - {fileID: 11400000, guid: b710e74c10543c44685d21a630e4a0a9, type: 2}
+  - {fileID: 11400000, guid: 33a3d5d4f968d9c4784e061d16c3a2db, type: 2}
+  - {fileID: 11400000, guid: 71be5766ba6196e42963a2e04c201675, type: 2}
+  - {fileID: 11400000, guid: 13d143a7a087eb44dadf7087a3dfe1d0, type: 2}
+  constructionCost:
+  - item: {fileID: 11400000, guid: 3c48e54cb0038cb4f9e62155d1429fd3, type: 2}
+    amount: 2
+  inputCapacity: 8
+  outputCapacity: 8
+  storageCapacity: 0
+  usesFuel: 1
+  acceptedFuelItems:
+  - {fileID: 11400000, guid: d667da4ad423ab64895d1bd558623a3c, type: 2}
+  fuelCapacity: 8
+  requiredUnlockId: unlock.tier3_star_chart

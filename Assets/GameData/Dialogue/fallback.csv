@@ -1,0 +1,6 @@
+type,speaker,text,slot,sprite_key,mode,audio_key
+bg,,,,dialog_bg_01,,
+bgm,,,,,,bgm_maoudamashii_minzoku11
+line,語り部,動く。,,,,
+bgm_stop,,,,,2.0,
+end,,,,,,

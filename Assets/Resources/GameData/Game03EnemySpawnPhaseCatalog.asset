@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7022cc9f9fe317145aedc3ba25940733, type: 3}
+  m_Name: Game03EnemySpawnPhaseCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::Game03EnemySpawnPhaseCatalog
+  phase01: {fileID: 4900000, guid: d001570dc2e3e5e4186d74b087fcc166, type: 3}
+  phase02: {fileID: 4900000, guid: 86d32a91ebc8c7648839bc189a9d66d3, type: 3}
+  phase03: {fileID: 4900000, guid: c3419cda701f13a48a590aee5c1c84d5, type: 3}
+  phase04: {fileID: 4900000, guid: 6c97b807222e4e94da590a2880dca1a6, type: 3}
+  phase05: {fileID: 4900000, guid: b93d99079a203e24898d8edd08100cc7, type: 3}
+  phase06: {fileID: 4900000, guid: 3611d3256a5b8dc4ba735f7fbbb2ffa1, type: 3}
+  phase07: {fileID: 4900000, guid: e0e339305a6f8984ca3a2e945864f028, type: 3}

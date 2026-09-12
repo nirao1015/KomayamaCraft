@@ -1,0 +1,12 @@
+---
+description: Place scene-specific scripts under scene folders
+alwaysApply: true
+---
+
+# Scene Script Placement
+
+- シーン専用スクリプトは `Assets/Scripts/<scene_name>/` に配置する。
+- 例: `menu_scene` は `Assets/Scripts/menu/`、`logo_scene` は `Assets/Scripts/logo/`。
+- 新規タスクでも同じルールを継続し、`Assets/Scripts` 直下にシーン専用スクリプトを置かない。
+- 共通利用が明確なスクリプトのみ共通フォルダへ置く。
+- 例外: 敵関連スクリプトは `Assets/Scripts/Enemy/` に配置する（`Enemy01Controller` など）。

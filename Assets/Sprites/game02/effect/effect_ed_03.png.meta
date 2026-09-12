@@ -1,0 +1,1781 @@
+fileFormatVersion: 2
+guid: c53c4e96299fc564e986dca3c617a7af
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3627091437744619220
+    second: effect_ed_03_0
+  - first:
+      213: -5225445688935111359
+    second: effect_ed_03_1
+  - first:
+      213: -1301179902037056562
+    second: effect_ed_03_2
+  - first:
+      213: -4311215385082906248
+    second: effect_ed_03_3
+  - first:
+      213: 8586267321640438660
+    second: effect_ed_03_4
+  - first:
+      213: -6954444234144349535
+    second: effect_ed_03_5
+  - first:
+      213: 8424314674482118258
+    second: effect_ed_03_6
+  - first:
+      213: -8710869630503004301
+    second: effect_ed_03_7
+  - first:
+      213: 8034536201891839639
+    second: effect_ed_03_8
+  - first:
+      213: 8031291139049656706
+    second: effect_ed_03_9
+  - first:
+      213: -5821129939421789179
+    second: effect_ed_03_10
+  - first:
+      213: 4019422480285034210
+    second: effect_ed_03_11
+  - first:
+      213: 1530886370324149366
+    second: effect_ed_03_12
+  - first:
+      213: 4312435155378432811
+    second: effect_ed_03_13
+  - first:
+      213: 2046650572650111301
+    second: effect_ed_03_14
+  - first:
+      213: -8103907237412869309
+    second: effect_ed_03_15
+  - first:
+      213: -5190332094803340266
+    second: effect_ed_03_16
+  - first:
+      213: -2958706119230794530
+    second: effect_ed_03_17
+  - first:
+      213: 4994499113247799659
+    second: effect_ed_03_18
+  - first:
+      213: 7744866956950219460
+    second: effect_ed_03_19
+  - first:
+      213: 8982550548123975897
+    second: effect_ed_03_20
+  - first:
+      213: -4887114281929655829
+    second: effect_ed_03_21
+  - first:
+      213: -5325051192683305
+    second: effect_ed_03_22
+  - first:
+      213: -7016780353820623143
+    second: effect_ed_03_23
+  - first:
+      213: -1346691784280654930
+    second: effect_ed_03_24
+  - first:
+      213: 1854597390756955929
+    second: effect_ed_03_25
+  - first:
+      213: 1595693374156351826
+    second: effect_ed_03_26
+  - first:
+      213: 1285352318224302084
+    second: effect_ed_03_27
+  - first:
+      213: -1630154579466250428
+    second: effect_ed_03_28
+  - first:
+      213: 6897175824408790416
+    second: effect_ed_03_29
+  - first:
+      213: 3417280529658398668
+    second: effect_ed_03_30
+  - first:
+      213: -6507779560192034002
+    second: effect_ed_03_31
+  - first:
+      213: 5873816365253571334
+    second: effect_ed_03_32
+  - first:
+      213: 6259255152425079061
+    second: effect_ed_03_33
+  - first:
+      213: 7941199904603325013
+    second: effect_ed_03_34
+  - first:
+      213: -6666592699104004085
+    second: effect_ed_03_35
+  - first:
+      213: 2084428914673829836
+    second: effect_ed_03_36
+  - first:
+      213: -2053770338537207095
+    second: effect_ed_03_37
+  - first:
+      213: 3124807967281137169
+    second: effect_ed_03_38
+  - first:
+      213: -5479361042541516079
+    second: effect_ed_03_39
+  - first:
+      213: 5211034694229510250
+    second: effect_ed_03_40
+  - first:
+      213: 6873443492708453732
+    second: effect_ed_03_41
+  - first:
+      213: -1608066189156158214
+    second: effect_ed_03_42
+  - first:
+      213: 544825352977715564
+    second: effect_ed_03_43
+  - first:
+      213: 1982605155175850786
+    second: effect_ed_03_44
+  - first:
+      213: 5814176433967094224
+    second: effect_ed_03_45
+  - first:
+      213: -2972154637176957296
+    second: effect_ed_03_46
+  - first:
+      213: -1136058181885083990
+    second: effect_ed_03_47
+  - first:
+      213: -3490699557700392616
+    second: effect_ed_03_48
+  - first:
+      213: -4398648954769763842
+    second: effect_ed_03_49
+  - first:
+      213: 2290259512607354339
+    second: effect_ed_03_50
+  - first:
+      213: 5106827407330415274
+    second: effect_ed_03_51
+  - first:
+      213: 7811556790854442431
+    second: effect_ed_03_52
+  - first:
+      213: -771370486203276243
+    second: effect_ed_03_53
+  - first:
+      213: -6749541531362051066
+    second: effect_ed_03_54
+  - first:
+      213: -6251711414185689828
+    second: effect_ed_03_55
+  - first:
+      213: -2290896761312734894
+    second: effect_ed_03_56
+  - first:
+      213: -3300656680432827330
+    second: effect_ed_03_57
+  - first:
+      213: -2864868806476790188
+    second: effect_ed_03_58
+  - first:
+      213: -1269867466108843599
+    second: effect_ed_03_59
+  - first:
+      213: 4320231699534786946
+    second: effect_ed_03_60
+  - first:
+      213: 8135729215976521272
+    second: effect_ed_03_61
+  - first:
+      213: -8567689270801967580
+    second: effect_ed_03_62
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: effect_ed_03_0
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 943
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4def0aa0274065230800000000000000
+      internalID: 3627091437744619220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_1
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 863
+        width: 85
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1452dedd4dc7b77b0800000000000000
+      internalID: -5225445688935111359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_2
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 935
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec32436e5c741fde0800000000000000
+      internalID: -1301179902037056562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_3
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 887
+        width: 66
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8793fe5f27c7b24c0800000000000000
+      internalID: -4311215385082906248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_4
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 956
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48b4ce413ac882770800000000000000
+      internalID: 8586267321640438660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_5
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 918
+        width: 40
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a20095b0d9dc7f90800000000000000
+      internalID: -6954444234144349535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_6
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 936
+        width: 19
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27efd90009d29e470800000000000000
+      internalID: 8424314674482118258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_7
+      rect:
+        serializedVersion: 2
+        x: 757
+        y: 911
+        width: 47
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37751252936cc1780800000000000000
+      internalID: -8710869630503004301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_8
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 914
+        width: 34
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79e77c85b18608f60800000000000000
+      internalID: 8034536201891839639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_9
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 935
+        width: 22
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2811cc64db0e47f60800000000000000
+      internalID: 8031291139049656706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_10
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 935
+        width: 18
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5048f596921373fa0800000000000000
+      internalID: -5821129939421789179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_11
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 921
+        width: 33
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e6eb93337bd7c730800000000000000
+      internalID: 4019422480285034210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_12
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 918
+        width: 18
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67478a6fa0dce3510800000000000000
+      internalID: 1530886370324149366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_13
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 871
+        width: 88
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2bec31fce8d8db30800000000000000
+      internalID: 4312435155378432811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_14
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 891
+        width: 68
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 541e82a2ad9276c10800000000000000
+      internalID: 2046650572650111301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_15
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 750
+        width: 143
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34be94dcd43298f80800000000000000
+      internalID: -8103907237412869309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_16
+      rect:
+        serializedVersion: 2
+        x: 951
+        y: 907
+        width: 26
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61410f6957c38f7b0800000000000000
+      internalID: -5190332094803340266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_17
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 863
+        width: 66
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed45970e57090f6d0800000000000000
+      internalID: -2958706119230794530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_18
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 881
+        width: 37
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6973244b76005540800000000000000
+      internalID: 4994499113247799659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_19
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 831
+        width: 45
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4caada9967b4b7b60800000000000000
+      internalID: 7744866956950219460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_20
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 853
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d08be5c12e68ac70800000000000000
+      internalID: 8982550548123975897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_21
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 803
+        width: 42
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be938d0247b7d2cb0800000000000000
+      internalID: -4887114281929655829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_22
+      rect:
+        serializedVersion: 2
+        x: 975
+        y: 832
+        width: 22
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d4df37e4e41deff0800000000000000
+      internalID: -5325051192683305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_23
+      rect:
+        serializedVersion: 2
+        x: 967
+        y: 817
+        width: 21
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9def497d1736f9e90800000000000000
+      internalID: -7016780353820623143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_24
+      rect:
+        serializedVersion: 2
+        x: 999
+        y: 839
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eabb30015f69f4de0800000000000000
+      internalID: -1346691784280654930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_25
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 806
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9174f65308adcb910800000000000000
+      internalID: 1854597390756955929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_26
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 748
+        width: 27
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 259a8016baa052610800000000000000
+      internalID: 1595693374156351826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_27
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 761
+        width: 30
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4000cf29f1d76d110800000000000000
+      internalID: 1285352318224302084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_28
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 715
+        width: 66
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44710f10c078069e0800000000000000
+      internalID: -1630154579466250428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_29
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 722
+        width: 27
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0954c479ed0b7bf50800000000000000
+      internalID: 6897175824408790416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_30
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 628
+        width: 118
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc7c524498e9c6f20800000000000000
+      internalID: 3417280529658398668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_31
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 692
+        width: 47
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2bb43e38f8bfa5a0800000000000000
+      internalID: -6507779560192034002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_32
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 703
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 603b0d60ddcf38150800000000000000
+      internalID: 5873816365253571334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_33
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 631
+        width: 29
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51194dee5675dd650800000000000000
+      internalID: 6259255152425079061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_34
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 654
+        width: 31
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5524f3c2d3fc43e60800000000000000
+      internalID: 7941199904603325013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_35
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 607
+        width: 48
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0871b3e2418b73a0800000000000000
+      internalID: -6666592699104004085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_36
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 590
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc7cfaadd016dec10800000000000000
+      internalID: 2084428914673829836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_37
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 488
+        width: 96
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ca814922ca8f73e0800000000000000
+      internalID: -2053770338537207095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_38
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 479
+        width: 26
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1164a115a4c8d5b20800000000000000
+      internalID: 3124807967281137169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_39
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 490
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dae237a92665f3b0800000000000000
+      internalID: -5479361042541516079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_40
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 404
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6849c5f170515840800000000000000
+      internalID: 5211034694229510250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_41
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 251
+        width: 127
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46d8b968070636f50800000000000000
+      internalID: 6873443492708453732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_42
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 365
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af4f70422500fa9e0800000000000000
+      internalID: -1608066189156158214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_43
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 270
+        width: 236
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c611ddc95cb9f8700800000000000000
+      internalID: 544825352977715564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_44
+      rect:
+        serializedVersion: 2
+        x: 923
+        y: 357
+        width: 32
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2236d1462e0a38b10800000000000000
+      internalID: 1982605155175850786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_45
+      rect:
+        serializedVersion: 2
+        x: 964
+        y: 366
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d95e0079aa10b050800000000000000
+      internalID: 5814176433967094224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_46
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 313
+        width: 26
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0969989ca19c0c6d0800000000000000
+      internalID: -2972154637176957296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_47
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 219
+        width: 125
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aae30984a19eb30f0800000000000000
+      internalID: -1136058181885083990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_48
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 337
+        width: 35
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 859a7ad2f3b8e8fc0800000000000000
+      internalID: -3490699557700392616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_49
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 272
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef11e47a41cd4f2c0800000000000000
+      internalID: -4398648954769763842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_50
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 274
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3edab6474e2a8cf10800000000000000
+      internalID: 2290259512607354339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_51
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 175
+        width: 68
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa2982748781fd640800000000000000
+      internalID: 5106827407330415274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_52
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 231
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbd5bad8389386c60800000000000000
+      internalID: 7811556790854442431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_53
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 143
+        width: 101
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2422a331aa8b45f0800000000000000
+      internalID: -771370486203276243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_54
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 214
+        width: 32
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60c3b62ecbfc452a0800000000000000
+      internalID: -6749541531362051066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_55
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 128
+        width: 56
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1df43f77957d39a0800000000000000
+      internalID: -6251711414185689828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_56
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 175
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2519cd488891530e0800000000000000
+      internalID: -2290896761312734894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_57
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 171
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e34084d9c36b132d0800000000000000
+      internalID: -3300656680432827330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_58
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 152
+        width: 36
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4568addcff0fd38d0800000000000000
+      internalID: -2864868806476790188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_59
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 88
+        width: 95
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b9c1c28446806ee0800000000000000
+      internalID: -1269867466108843599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_60
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 159
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 281372657db84fb30800000000000000
+      internalID: 4320231699534786946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_61
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 119
+        width: 107
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83e3c03fd9ae7e070800000000000000
+      internalID: 8135729215976521272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: effect_ed_03_62
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 96
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4265ce37004791980800000000000000
+      internalID: -8567689270801967580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      effect_ed_03_0: 3627091437744619220
+      effect_ed_03_1: -5225445688935111359
+      effect_ed_03_10: -5821129939421789179
+      effect_ed_03_11: 4019422480285034210
+      effect_ed_03_12: 1530886370324149366
+      effect_ed_03_13: 4312435155378432811
+      effect_ed_03_14: 2046650572650111301
+      effect_ed_03_15: -8103907237412869309
+      effect_ed_03_16: -5190332094803340266
+      effect_ed_03_17: -2958706119230794530
+      effect_ed_03_18: 4994499113247799659
+      effect_ed_03_19: 7744866956950219460
+      effect_ed_03_2: -1301179902037056562
+      effect_ed_03_20: 8982550548123975897
+      effect_ed_03_21: -4887114281929655829
+      effect_ed_03_22: -5325051192683305
+      effect_ed_03_23: -7016780353820623143
+      effect_ed_03_24: -1346691784280654930
+      effect_ed_03_25: 1854597390756955929
+      effect_ed_03_26: 1595693374156351826
+      effect_ed_03_27: 1285352318224302084
+      effect_ed_03_28: -1630154579466250428
+      effect_ed_03_29: 6897175824408790416
+      effect_ed_03_3: -4311215385082906248
+      effect_ed_03_30: 3417280529658398668
+      effect_ed_03_31: -6507779560192034002
+      effect_ed_03_32: 5873816365253571334
+      effect_ed_03_33: 6259255152425079061
+      effect_ed_03_34: 7941199904603325013
+      effect_ed_03_35: -6666592699104004085
+      effect_ed_03_36: 2084428914673829836
+      effect_ed_03_37: -2053770338537207095
+      effect_ed_03_38: 3124807967281137169
+      effect_ed_03_39: -5479361042541516079
+      effect_ed_03_4: 8586267321640438660
+      effect_ed_03_40: 5211034694229510250
+      effect_ed_03_41: 6873443492708453732
+      effect_ed_03_42: -1608066189156158214
+      effect_ed_03_43: 544825352977715564
+      effect_ed_03_44: 1982605155175850786
+      effect_ed_03_45: 5814176433967094224
+      effect_ed_03_46: -2972154637176957296
+      effect_ed_03_47: -1136058181885083990
+      effect_ed_03_48: -3490699557700392616
+      effect_ed_03_49: -4398648954769763842
+      effect_ed_03_5: -6954444234144349535
+      effect_ed_03_50: 2290259512607354339
+      effect_ed_03_51: 5106827407330415274
+      effect_ed_03_52: 7811556790854442431
+      effect_ed_03_53: -771370486203276243
+      effect_ed_03_54: -6749541531362051066
+      effect_ed_03_55: -6251711414185689828
+      effect_ed_03_56: -2290896761312734894
+      effect_ed_03_57: -3300656680432827330
+      effect_ed_03_58: -2864868806476790188
+      effect_ed_03_59: -1269867466108843599
+      effect_ed_03_6: 8424314674482118258
+      effect_ed_03_60: 4320231699534786946
+      effect_ed_03_61: 8135729215976521272
+      effect_ed_03_62: -8567689270801967580
+      effect_ed_03_7: -8710869630503004301
+      effect_ed_03_8: 8034536201891839639
+      effect_ed_03_9: 8031291139049656706
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

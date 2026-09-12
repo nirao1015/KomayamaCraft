@@ -1,0 +1,1651 @@
+fileFormatVersion: 2
+guid: 0336b541f242b8a41b4fff810cd900aa
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4004885639349815545
+    second: buzz_effect_p1_0
+  - first:
+      213: -7471910241737675475
+    second: buzz_effect_p1_1
+  - first:
+      213: 1225597850687765291
+    second: buzz_effect_p1_2
+  - first:
+      213: 1693888237508178868
+    second: buzz_effect_p1_3
+  - first:
+      213: -6586796861886073354
+    second: buzz_effect_p1_4
+  - first:
+      213: -7333839715553711660
+    second: buzz_effect_p1_5
+  - first:
+      213: -2838821632407546634
+    second: buzz_effect_p1_6
+  - first:
+      213: 8562281427943232705
+    second: buzz_effect_p1_7
+  - first:
+      213: 7927719109343648305
+    second: buzz_effect_p1_8
+  - first:
+      213: -2501115945914443525
+    second: buzz_effect_p1_9
+  - first:
+      213: -1848410632764130711
+    second: buzz_effect_p1_10
+  - first:
+      213: -7460427874589507582
+    second: buzz_effect_p1_11
+  - first:
+      213: -4370965959979536383
+    second: buzz_effect_p1_12
+  - first:
+      213: 1877375353225946122
+    second: buzz_effect_p1_13
+  - first:
+      213: -7170370388529771063
+    second: buzz_effect_p1_14
+  - first:
+      213: 7722998730297721125
+    second: buzz_effect_p1_15
+  - first:
+      213: 6042843582247707056
+    second: buzz_effect_p1_16
+  - first:
+      213: 9184569527939135361
+    second: buzz_effect_p1_17
+  - first:
+      213: 911402585330387631
+    second: buzz_effect_p1_18
+  - first:
+      213: 6737375703365948600
+    second: buzz_effect_p1_19
+  - first:
+      213: 9103372842626848003
+    second: buzz_effect_p1_20
+  - first:
+      213: -5921727913767124417
+    second: buzz_effect_p1_21
+  - first:
+      213: -3307075924580021482
+    second: buzz_effect_p1_22
+  - first:
+      213: 7043672026786961385
+    second: buzz_effect_p1_23
+  - first:
+      213: 7533858625853385430
+    second: buzz_effect_p1_24
+  - first:
+      213: -7264479579266895402
+    second: buzz_effect_p1_25
+  - first:
+      213: 6487229829136171540
+    second: buzz_effect_p1_26
+  - first:
+      213: -6879116619218071117
+    second: buzz_effect_p1_27
+  - first:
+      213: -5725750481900417943
+    second: buzz_effect_p1_28
+  - first:
+      213: 3479387151966045735
+    second: buzz_effect_p1_29
+  - first:
+      213: 2125731953310848522
+    second: buzz_effect_p1_30
+  - first:
+      213: 8499305494331143898
+    second: buzz_effect_p1_31
+  - first:
+      213: -8715208447445060407
+    second: buzz_effect_p1_32
+  - first:
+      213: -1122716633185889186
+    second: buzz_effect_p1_33
+  - first:
+      213: -6568269133771887490
+    second: buzz_effect_p1_34
+  - first:
+      213: -8416133565005242097
+    second: buzz_effect_p1_35
+  - first:
+      213: 3091915694277553856
+    second: buzz_effect_p1_36
+  - first:
+      213: -4531941869629025682
+    second: buzz_effect_p1_37
+  - first:
+      213: -6689735171579562254
+    second: buzz_effect_p1_38
+  - first:
+      213: 3133502009765437815
+    second: buzz_effect_p1_39
+  - first:
+      213: -7965905173597746133
+    second: buzz_effect_p1_40
+  - first:
+      213: -5709215485571788356
+    second: buzz_effect_p1_41
+  - first:
+      213: 3235606157530661928
+    second: buzz_effect_p1_42
+  - first:
+      213: -3721558118355230227
+    second: buzz_effect_p1_43
+  - first:
+      213: -3702935112291211307
+    second: buzz_effect_p1_44
+  - first:
+      213: -6990500159183892731
+    second: buzz_effect_p1_45
+  - first:
+      213: -5160645803979381631
+    second: buzz_effect_p1_46
+  - first:
+      213: -7744456396770087981
+    second: buzz_effect_p1_47
+  - first:
+      213: 4479695036250031268
+    second: buzz_effect_p1_48
+  - first:
+      213: -1461162628135103065
+    second: buzz_effect_p1_49
+  - first:
+      213: 6829776284694352625
+    second: buzz_effect_p1_50
+  - first:
+      213: 2295291513905186230
+    second: buzz_effect_p1_51
+  - first:
+      213: -2869462983614428428
+    second: buzz_effect_p1_52
+  - first:
+      213: 639902368789317851
+    second: buzz_effect_p1_53
+  - first:
+      213: 1218133931993462774
+    second: buzz_effect_p1_54
+  - first:
+      213: -4130517964114403323
+    second: buzz_effect_p1_55
+  - first:
+      213: 7459298058833539176
+    second: buzz_effect_p1_56
+  - first:
+      213: -5242286536922370410
+    second: buzz_effect_p1_57
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: buzz_effect_p1_0
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 1064
+        width: 118
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 707bd74dab9cb68c0800000000000000
+      internalID: -4004885639349815545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_1
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 1097
+        width: 108
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2d6f9719317e4890800000000000000
+      internalID: -7471910241737675475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_2
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 1004
+        width: 91
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2bf9bf60c2320110800000000000000
+      internalID: 1225597850687765291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_3
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 1056
+        width: 117
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b333ed9066e18710800000000000000
+      internalID: 1693888237508178868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_4
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 890
+        width: 185
+        height: 304
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f57f97072ff694a0800000000000000
+      internalID: -6586796861886073354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_5
+      rect:
+        serializedVersion: 2
+        x: 1098
+        y: 1054
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d9e4c292a7f83a90800000000000000
+      internalID: -7333839715553711660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_6
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 907
+        width: 112
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f457ab14ca7a98d0800000000000000
+      internalID: -2838821632407546634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_7
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 786
+        width: 214
+        height: 264
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c41b73089553d670800000000000000
+      internalID: 8562281427943232705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_8
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 882
+        width: 67
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13a118fe68ae40e60800000000000000
+      internalID: 7927719109343648305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_9
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 902
+        width: 79
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf854b57c404a4dd0800000000000000
+      internalID: -2501115945914443525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_10
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 766
+        width: 226
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96af903a2502956e0800000000000000
+      internalID: -1848410632764130711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_11
+      rect:
+        serializedVersion: 2
+        x: 1115
+        y: 786
+        width: 124
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2008ba6006c377890800000000000000
+      internalID: -7460427874589507582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_12
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 681
+        width: 324
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10078162e953753c0800000000000000
+      internalID: -4370965959979536383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_13
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 832
+        width: 68
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a042b1fdfe6cd0a10800000000000000
+      internalID: 1877375353225946122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_14
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 802
+        width: 70
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cd04b33f1abd7c90800000000000000
+      internalID: -7170370388529771063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_15
+      rect:
+        serializedVersion: 2
+        x: 678
+        y: 831
+        width: 68
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52140305d6a9d2b60800000000000000
+      internalID: 7722998730297721125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_16
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 740
+        width: 106
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b1af11c83e7cd350800000000000000
+      internalID: 6042843582247707056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_17
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 712
+        width: 81
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18770bfd255267f70800000000000000
+      internalID: 9184569527939135361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_18
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 711
+        width: 70
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faa8df192d3f5ac00800000000000000
+      internalID: 911402585330387631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_19
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 743
+        width: 57
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b4997d8187ff7d50800000000000000
+      internalID: 6737375703365948600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_20
+      rect:
+        serializedVersion: 2
+        x: 1027
+        y: 760
+        width: 65
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30516be5e5da55e70800000000000000
+      internalID: 9103372842626848003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_21
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 598
+        width: 101
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f32456b46dbc1dda0800000000000000
+      internalID: -5921727913767124417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_22
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 664
+        width: 55
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61b492ed7f7ea12d0800000000000000
+      internalID: -3307075924580021482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_23
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 690
+        width: 59
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e71efea36620c160800000000000000
+      internalID: 7043672026786961385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_24
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 621
+        width: 69
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dae00e0184ad8860800000000000000
+      internalID: 7533858625853385430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_25
+      rect:
+        serializedVersion: 2
+        x: 857
+        y: 665
+        width: 70
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d1b7bfbf426f2b90800000000000000
+      internalID: -7264479579266895402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_26
+      rect:
+        serializedVersion: 2
+        x: 860
+        y: 597
+        width: 356
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 412caf5a825470a50800000000000000
+      internalID: 6487229829136171540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_27
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 528
+        width: 230
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b15507c1e77880a0800000000000000
+      internalID: -6879116619218071117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_28
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 611
+        width: 80
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96ccdc5e54c0a80b0800000000000000
+      internalID: -5725750481900417943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_29
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 583
+        width: 63
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7268efc1e24494030800000000000000
+      internalID: 3479387151966045735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_30
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 606
+        width: 61
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a065acce2fd108d10800000000000000
+      internalID: 2125731953310848522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_31
+      rect:
+        serializedVersion: 2
+        x: 1001
+        y: 536
+        width: 76
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad6322bd05993f570800000000000000
+      internalID: 8499305494331143898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_32
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 483
+        width: 85
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c4bd8a971c5d0780800000000000000
+      internalID: -8715208447445060407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_33
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 514
+        width: 58
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e545887ab2f4b60f0800000000000000
+      internalID: -1122716633185889186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_34
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 518
+        width: 63
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7c2d54e502d8d4a0800000000000000
+      internalID: -6568269133771887490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_35
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 539
+        width: 68
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f01ee9bfc13e33b80800000000000000
+      internalID: -8416133565005242097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_36
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 365
+        width: 295
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ce6ed831f0b8ea20800000000000000
+      internalID: 3091915694277553856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_37
+      rect:
+        serializedVersion: 2
+        x: 1116
+        y: 490
+        width: 108
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e62da0e71ee4b11c0800000000000000
+      internalID: -4531941869629025682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_38
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 402
+        width: 118
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f630902e494923a0800000000000000
+      internalID: -6689735171579562254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_39
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 382
+        width: 154
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 771aa03d97f6c7b20800000000000000
+      internalID: 3133502009765437815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_40
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 428
+        width: 66
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2c8245237b637190800000000000000
+      internalID: -7965905173597746133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_41
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 468
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb1955cb3cac4c0b0800000000000000
+      internalID: -5709215485571788356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_42
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 460
+        width: 51
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8248ea448ae27ec20800000000000000
+      internalID: 3235606157530661928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_43
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 391
+        width: 111
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de12778eb9e5a5cc0800000000000000
+      internalID: -3721558118355230227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_44
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 216
+        width: 211
+        height: 223
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d7af8562288c9cc0800000000000000
+      internalID: -3702935112291211307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_45
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 368
+        width: 61
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50f48897421ccfe90800000000000000
+      internalID: -6990500159183892731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_46
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 375
+        width: 73
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 184e23acbf3b168b0800000000000000
+      internalID: -5160645803979381631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_47
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 263
+        width: 106
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3db640460f9268490800000000000000
+      internalID: -7744456396770087981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_48
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 270
+        width: 85
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a483c9a6e21b2e30800000000000000
+      internalID: 4479695036250031268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_49
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 229
+        width: 84
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a55eeec458e8bbe0800000000000000
+      internalID: -1461162628135103065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_50
+      rect:
+        serializedVersion: 2
+        x: 740
+        y: 270
+        width: 87
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f21890685d38ce50800000000000000
+      internalID: 6829776284694352625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_51
+      rect:
+        serializedVersion: 2
+        x: 1072
+        y: 203
+        width: 116
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b5894e88738adf10800000000000000
+      internalID: 2295291513905186230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_52
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 162
+        width: 73
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fa87859e9e9d28d0800000000000000
+      internalID: -2869462983614428428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_53
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 90
+        width: 114
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd84e9660d361e800800000000000000
+      internalID: 639902368789317851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_54
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 115
+        width: 104
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f7f1517b5ea7e010800000000000000
+      internalID: 1218133931993462774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_55
+      rect:
+        serializedVersion: 2
+        x: 931
+        y: 102
+        width: 134
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 500679acbc37da6c0800000000000000
+      internalID: -4130517964114403323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_56
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 57
+        width: 103
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 860b88e3010c48760800000000000000
+      internalID: 7459298058833539176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buzz_effect_p1_57
+      rect:
+        serializedVersion: 2
+        x: 1098
+        y: 66
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69eede36b28af37b0800000000000000
+      internalID: -5242286536922370410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      buzz_effect_p1_0: -4004885639349815545
+      buzz_effect_p1_1: -7471910241737675475
+      buzz_effect_p1_10: -1848410632764130711
+      buzz_effect_p1_11: -7460427874589507582
+      buzz_effect_p1_12: -4370965959979536383
+      buzz_effect_p1_13: 1877375353225946122
+      buzz_effect_p1_14: -7170370388529771063
+      buzz_effect_p1_15: 7722998730297721125
+      buzz_effect_p1_16: 6042843582247707056
+      buzz_effect_p1_17: 9184569527939135361
+      buzz_effect_p1_18: 911402585330387631
+      buzz_effect_p1_19: 6737375703365948600
+      buzz_effect_p1_2: 1225597850687765291
+      buzz_effect_p1_20: 9103372842626848003
+      buzz_effect_p1_21: -5921727913767124417
+      buzz_effect_p1_22: -3307075924580021482
+      buzz_effect_p1_23: 7043672026786961385
+      buzz_effect_p1_24: 7533858625853385430
+      buzz_effect_p1_25: -7264479579266895402
+      buzz_effect_p1_26: 6487229829136171540
+      buzz_effect_p1_27: -6879116619218071117
+      buzz_effect_p1_28: -5725750481900417943
+      buzz_effect_p1_29: 3479387151966045735
+      buzz_effect_p1_3: 1693888237508178868
+      buzz_effect_p1_30: 2125731953310848522
+      buzz_effect_p1_31: 8499305494331143898
+      buzz_effect_p1_32: -8715208447445060407
+      buzz_effect_p1_33: -1122716633185889186
+      buzz_effect_p1_34: -6568269133771887490
+      buzz_effect_p1_35: -8416133565005242097
+      buzz_effect_p1_36: 3091915694277553856
+      buzz_effect_p1_37: -4531941869629025682
+      buzz_effect_p1_38: -6689735171579562254
+      buzz_effect_p1_39: 3133502009765437815
+      buzz_effect_p1_4: -6586796861886073354
+      buzz_effect_p1_40: -7965905173597746133
+      buzz_effect_p1_41: -5709215485571788356
+      buzz_effect_p1_42: 3235606157530661928
+      buzz_effect_p1_43: -3721558118355230227
+      buzz_effect_p1_44: -3702935112291211307
+      buzz_effect_p1_45: -6990500159183892731
+      buzz_effect_p1_46: -5160645803979381631
+      buzz_effect_p1_47: -7744456396770087981
+      buzz_effect_p1_48: 4479695036250031268
+      buzz_effect_p1_49: -1461162628135103065
+      buzz_effect_p1_5: -7333839715553711660
+      buzz_effect_p1_50: 6829776284694352625
+      buzz_effect_p1_51: 2295291513905186230
+      buzz_effect_p1_52: -2869462983614428428
+      buzz_effect_p1_53: 639902368789317851
+      buzz_effect_p1_54: 1218133931993462774
+      buzz_effect_p1_55: -4130517964114403323
+      buzz_effect_p1_56: 7459298058833539176
+      buzz_effect_p1_57: -5242286536922370410
+      buzz_effect_p1_6: -2838821632407546634
+      buzz_effect_p1_7: 8562281427943232705
+      buzz_effect_p1_8: 7927719109343648305
+      buzz_effect_p1_9: -2501115945914443525
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

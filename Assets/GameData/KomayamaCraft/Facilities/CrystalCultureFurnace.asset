@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a103b17c9d2e4f5086a7b8c9d0e1f201, type: 3}
+  m_Name: CrystalCultureFurnace
+  m_EditorClassIdentifier: Assembly-CSharp::FacilityDefinition
+  definitionId: facility.crystal_culture_furnace
+  displayName: "\u7D50\u6676\u57F9\u990A\u7089"
+  description: 
+  icon: {fileID: 0}
+  prefab: {fileID: 4274590244628778092, guid: e8ebcd1e53d3db74facb94fe07601364, type: 3}
+  capabilities: 1
+  supportedRecipes:
+  - {fileID: 11400000, guid: 5c20e9b973e3fd44992ca91b6827cb62, type: 2}
+  - {fileID: 11400000, guid: 42c517b1059db484284cfe54eb974bb6, type: 2}
+  - {fileID: 11400000, guid: eecd57c8041d57843971eff3eb03e546, type: 2}
+  - {fileID: 11400000, guid: 9ff0befcaae09a24d9d783cd04bdd7d7, type: 2}
+  - {fileID: 11400000, guid: 751f381d5efa62a4e971579315ff2ca9, type: 2}
+  - {fileID: 11400000, guid: 82d41e6b9c7106d408a01993c65e8c9f, type: 2}
+  constructionCost:
+  - item: {fileID: 11400000, guid: 81e94dfa5199bac01b173bf31f508798, type: 2}
+    amount: 3
+  inputCapacity: 8
+  outputCapacity: 8
+  storageCapacity: 0
+  usesFuel: 1
+  acceptedFuelItems:
+  - {fileID: 11400000, guid: d667da4ad423ab64895d1bd558623a3c, type: 2}
+  fuelCapacity: 8
+  requiredUnlockId: unlock.tier2_ship_repair

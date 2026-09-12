@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c325d39e1f405172a8b9c0d1e2f3a423, type: 3}
+  m_Name: OrbitCocoon
+  m_EditorClassIdentifier: Assembly-CSharp::ResourceNodeDefinition
+  definitionId: resource_node.orbit_cocoon
+  displayName: "\u8ECC\u9053\u7E6D"
+  description: 
+  icon: {fileID: 0}
+  prefab: {fileID: 5941526239748334098, guid: a0ef06fb4fb2bc8488030a1ba9abbfae, type: 3}
+  kind: 0
+  yields:
+  - item: {fileID: 11400000, guid: e09f7149698da0c439c105df1003a605, type: 2}
+    amount: 1
+  gatheringSeconds: 0
+  reharvestMode: 3
+  reharvestSeconds: 0
+  requiredUnlockId: 

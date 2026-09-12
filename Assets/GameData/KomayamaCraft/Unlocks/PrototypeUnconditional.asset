@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c425d39e1f465718e5f60718293a4bc9, type: 3}
+  m_Name: PrototypeUnconditional
+  m_EditorClassIdentifier: 
+  definitionId: unlock.prototype_unconditional
+  displayName: "\u691C\u8A3C\u7528\u521D\u671F\u89E3\u653E"
+  description: "M1\u306E\u6761\u4EF6\u306A\u3057\u89E3\u653E\u3068\u6C38\u7D9AID\u53D6\u5F97\u306E\u78BA\u8A8D\u7528\u3002"
+  icon: {fileID: 0}
+  anyOfConditionGroups: []
+  targets:
+  - targetType: 4
+    item: {fileID: 0}
+    recipe: {fileID: 0}
+    facility: {fileID: 0}
+    resourceNode: {fileID: 0}
+    identifier: m1_prototype_access
+    tier: 0

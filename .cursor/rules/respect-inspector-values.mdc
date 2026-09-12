@@ -1,0 +1,11 @@
+---
+description: Do not overwrite inspector-set values
+alwaysApply: true
+---
+
+# Respect Inspector Values
+
+- ユーザーが Inspector で設定した値は、コード内で初期化時に上書きしない。
+- `SerializeField` の値は、未設定時の補完以外では変更しない。
+- 値の補完が必要な場合は「null/empty のときのみ」に限定する。
+- 既存シーンで調整済みの Transform / Collider / Renderer の値は、要求がない限り変更しない。

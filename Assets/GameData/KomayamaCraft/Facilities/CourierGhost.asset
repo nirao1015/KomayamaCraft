@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a103b17c9d2e4f5086a7b8c9d0e1f201, type: 3}
+  m_Name: CourierGhost
+  m_EditorClassIdentifier: Assembly-CSharp::FacilityDefinition
+  definitionId: facility.courier_ghost
+  displayName: Courier Ghost
+  description: "\u5730\u9762\u56DE\u53CE\u3001\u6307\u5B9A\u63A1\u96C6\u3001\u71C3\u6599\u88DC\u7D66\u3092\u884C\u3046\u4F5C\u696D\u8005\u3002"
+  icon: {fileID: 0}
+  prefab: {fileID: 3240687833414380050, guid: 36a41d42155e42e44b500fd1326087d7, type: 3}
+  capabilities: 4
+  supportedRecipes: []
+  constructionCost:
+  - item: {fileID: 11400000, guid: 81e94dfa5199bac01b173bf31f508798, type: 2}
+    amount: 2
+  inputCapacity: 0
+  outputCapacity: 0
+  storageCapacity: 0
+  usesFuel: 0
+  acceptedFuelItems: []
+  fuelCapacity: 0
+  requiredUnlockId: 

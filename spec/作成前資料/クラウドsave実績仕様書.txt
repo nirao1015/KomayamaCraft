@@ -1,0 +1,188 @@
+◆スチームクラウド仕様
+●クラウドsaveは Steam Auto-Cloud を使用する。
+
+●saveデータ配置場所
+　persistentDataPath 配下にセーブデータを作成する。
+　音量・共通進行・タイトルデバッグ全解放は saveData/playerData.json のみ（PlayerPrefs / 旧 sound_volume.json は使用しない）。
+　Windows実体パス例:
+　C:\Users\<UserName>\AppData\LocalLow\<CompanyName>\<ProductName>
+
+●Steam Auto-Cloud 設定
+　Root: WinAppDataLocalLow
+　Subdirectory: <CompanyName>/<ProductName>/saveData
+　Pattern: *.json
+
+●persistentDataPath 内ディレクトリ構成
+　saveData（Auto-Cloud 同期対象）
+　　playerData.json
+　　　共通設定・共通進行
+　　　ボリューム設定
+　　　game01 クリア済み
+　　　game02 クリア済み
+　　　game03 クリア済み
+　　game02Data.json
+　　　game02 の進行セーブデータ
+　　game03Data.json
+　　　game03 のゲーム外成長データ
+
+●saveデータ共通ルール
+　全ファイルに version を持つこと。
+　全ファイルに updatedAtUtc を持つこと。
+　updatedAtUtc は UTC ISO8601 形式（例: 2026-05-11T12:34:56Z）で記録すること。
+　保存時はファイル全体を上書きし、部分破損を避けること。
+
+●互換方針
+　読み込み時は version を見て移行処理を行うこと。
+　未知 version の場合はエラー扱いせず、可能な範囲で読み込み、不足値は安全な初期値で補完すること。
+
+
+◆スチーム実績仕様
+●基本仕様
+　logo_scene 表示時に Steam 実績状態を取得する。
+　取得リトライ上限は 3 回（同一セッション内）とする。
+　3 回失敗した実績は、そのセッション中は「未知状態」として扱う。
+
+　実績状態をメモリ保持するコントローラを作成し、全画面で共通利用する。
+　1セッション中に同一実績へ重複申請しないため、申請済みフラグをメモリで保持する。
+
+　実績解除申請は SetAchievement を使用する。
+　申請リトライ上限は 2 回（同一トリガーに対して）とする。
+　解除済み実績への再申請は許容するが、原則としてメモリ保持で抑止する。
+
+　StoreStats の呼び出しは、解除申請成功時または複数解除のバッチ反映タイミングで必ず実行する。
+
+●実績ID命名規約
+　ACH_GAME01_*
+　ACH_GAME02_*
+　ACH_GAME03_*
+
+●トリガー判定の実装ルール
+　「GameClearedPanel 演出開始時」「表示した際」は、すべて Show 呼び出し時点で判定する。
+　同一条件を複数箇所で判定しない。各実績に対して判定箇所は1つに固定する。
+
+●ゲーム1
+　ACH_GAME01_01
+・First Contact
+　ゲーム1を開始した
+　　game_stage_scene を開始し、StageStart 演出が終わった時
+
+・生還
+　ACH_GAME01_02
+　ゲーム1をクリアした
+　　GameClearedPanel の Show 呼び出し時
+
+●ゲーム2
+　ACH_GAME02_01
+・ON AIR
+　ゲーム2を開始した
+　　game02_scene を開始し、StageStart 演出が終わった時
+
+　ACH_GAME02_02
+・未知との遭遇
+　ゲーム2で初めてファンを獲得した
+　　Game02MsgManager.firstFanParson01Message の表示条件と同一条件を満たした時
+
+　ACH_GAME02_03
+・Buzz
+　動画がBuzzった
+　　WorkMovie_1 に配置した動画がバズ判定になった時
+
+ACH_GAME02_04
+・お散歩大好き（隠し実績）
+　編集者を散歩させた
+　　WorkEditorExt に初めて仕事させた時
+
+ACH_GAME02_05
+・NEKOにまっしぐら
+　猫と100回遊んだ
+　　CatButton を累計100回以上押した時
+
+ACH_GAME02_06
+・めぐりあい銀河
+　ゲーム2をクリアした
+　　GameClearedPanel の Show 呼び出し時
+
+ACH_GAME02_07
+・まだだ、まだ終わらんよ
+　はじめてゲーム2で1000万人気を獲得した
+　　人気が 1000万以上に初回到達した時
+
+ACH_GAME02_08
+●ゲーム3
+ACH_GAME03_01
+・駒山荒野に立つ
+　ゲーム3を開始した
+　　game03_scene を開始し、ゲーム開始演出が終わった時
+
+ACH_GAME03_02
+・おさらばで御座います
+　ゲーム3をクリアした
+　　GameClearedPanel の Show 呼び出し時
+
+ACH_GAME03_03
+・既知との遭遇
+　ゲーム3で仲間が加入した
+　　Weapon02Oj～Weapon07Oj の入手状態をセーブに保持し、
+　　ポッド降下演出時の武器抽選で Weapon02Oj を初めて入手した時
+
+ACH_GAME03_04
+・I'll Be Back
+　はじめて強化してゲームを始めた
+　　ゲーム外成長要素ありの状態で game03_scene を開始し、
+　　ゲーム開始演出が終わった時
+
+ACH_GAME03_05
+・個別の6人
+　仲間を全員加入させた
+　　Weapon02Oj～Weapon07Oj をすべて累積入手した時（game03Data.json の acquiredCompanionWeaponMask）。
+　　ランをまたいで記録。セーブ読込時にも条件を満たしていれば実績を付与する。
+
+ACH_GAME03_06
+・キリ オウチ デンワスル
+　通信機を使用した
+　　ItemComDevice を取得した時
+
+◆実装前の環境設定手順（Steamworks 登録済み前提）
+●1. Steamworks 側設定（管理画面）
+　Steamworks > App Admin > Steam Cloud で Auto-Cloud を有効化する。
+　Root: WinAppDataLocalLow
+　Subdirectory: <CompanyName>/<ProductName>/saveData
+　Pattern: *.json
+　OS は Windows を対象に設定する（将来 Mac/Linux 対応時は別途 Root を追加する）。
+　公開前に設定を保存し、対象ブランチへ反映する。
+
+●2. 実績定義の登録
+　Steamworks > Achievements で本仕様の実績を全件登録する。
+　API Name は命名規約に従う（ACH_GAME01_* / ACH_GAME02_* / ACH_GAME03_*）。
+　表示名、説明文、隠し実績フラグ、アイコン（達成/未達）を設定する。
+　実装前に「実績ID一覧表（API Name とゲーム内表示名の対応）」を確定する。
+
+●3. Unity 側 Steam API 利用準備
+　Steamworks 用 C# ラッパー（Steamworks.NET など）をプロジェクトへ導入する。
+　起動時に Steam 初期化を行う常駐コンポーネントを 1 つ用意する。
+　初期化失敗時は、クラウド/実績処理を無効化してゲーム本体は継続可能にする。
+　終了時に Steam API の終了処理を呼ぶ。
+
+●4. AppID・実行環境設定（開発/QA）
+　ローカル実行時は `steam_appid.txt`（中身は AppID）を exe と同じ階層に配置する。
+　Steam クライアント起動中に、対象 AppID の権限があるアカウントでログインする。
+　テストは Steam ライブラリからの起動でも確認する（ローカル直起動との差分確認）。
+　配布ビルドには `steam_appid.txt` を同梱しない。
+
+●5. ビルド設定・配置ルール
+　Company Name / Product Name を固定する（変更すると persistentDataPath が変わる）。
+　セーブ保存先は `persistentDataPath/saveData/*.json` に統一する。
+　セーブ更新時は tmp 書き出し後に置換し、破損耐性を確保する。
+　ログ系ファイルは Auto-Cloud 同期対象に含めない（本仕様どおり現状維持）。
+
+●6. テストアカウント運用
+　少なくとも 2 台（または 2 環境）で同一 Steam アカウント同期テストを行う。
+　別途、実績検証専用アカウントを用意し、解除状態のリセット手順を決める。
+　テスト手順書に「初回起動」「再起動」「オフライン復帰」「競合発生時」を含める。
+
+●7. 実装完了時の確認項目（受け入れ）
+　game02Data.json / game03Data.json / playerData.json が saveData 配下へ出力される。
+　Steam Cloud が 3 ファイルを同期対象として検知する。
+　実績トリガー発火時に SetAchievement → StoreStats が成功する。
+　既存旧セーブ（旧パス）を読んだ場合に新パスへ移行保存される。
+　Steam API 失敗時にゲーム進行が止まらない（未知状態運用）。
