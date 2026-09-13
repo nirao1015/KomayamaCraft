@@ -8,6 +8,7 @@ namespace KomayamaCraft
     {
         [SerializeField] private Camera targetCamera;
         [SerializeField] private KCWorldSettings worldSettings;
+        [SerializeField] private KCMouseFoxFollower foxFollower;
         [SerializeField, Min(0f)] private float moveSpeed = 6f;
         [SerializeField] private Vector2 minimumPosition = new(-6f, -3f);
         [SerializeField] private Vector2 maximumPosition = new(6f, 3f);
@@ -17,18 +18,27 @@ namespace KomayamaCraft
         [SerializeField, Min(0.1f)] private float minimumOrthographicSize = 2.5f;
         [SerializeField, Min(0.1f)] private float maximumOrthographicSize = 8f;
 
+        private bool movedThisFrame;
+
         private void Awake()
         {
             if (targetCamera == null)
             {
                 targetCamera = GetComponent<Camera>();
             }
+
+            if (foxFollower == null)
+            {
+                foxFollower = FindFirstObjectByType<KCMouseFoxFollower>();
+            }
         }
 
         private void Update()
         {
+            movedThisFrame = false;
             ApplyZoom();
             ApplyMove();
+            foxFollower?.NotifyCameraMoving(movedThisFrame);
         }
 
         private void ApplyZoom()
@@ -87,6 +97,11 @@ namespace KomayamaCraft
 
         public void PanByWorldDelta(Vector2 worldDelta)
         {
+            if (worldDelta.sqrMagnitude > 0.0000001f)
+            {
+                movedThisFrame = true;
+            }
+
             Vector3 position = transform.position;
             position.x = Mathf.Clamp(
                 position.x + worldDelta.x,

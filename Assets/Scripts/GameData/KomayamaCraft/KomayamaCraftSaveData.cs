@@ -8,7 +8,7 @@ using System.Collections.Generic;
 [Serializable]
 public sealed class KomayamaCraftSaveData
 {
-    public const int CurrentVersion = 3;
+    public const int CurrentVersion = 4;
 
     public int version = CurrentVersion;
     public string buildVersion = string.Empty;
@@ -26,6 +26,7 @@ public sealed class KomayamaCraftSaveData
     public List<GhostSaveDto> ghosts = new List<GhostSaveDto>();
     public ShipProgressSaveDto ship = new ShipProgressSaveDto();
     public ProgressSaveDto progress = new ProgressSaveDto();
+    public FoxFollowerSaveDto foxFollower = new FoxFollowerSaveDto();
 
     /// <summary>
     /// 欠損フィールドを含むJSONの復元後に、コレクションを安全な空状態へ補完する。
@@ -76,6 +77,11 @@ public sealed class KomayamaCraftSaveData
         if (progress == null)
         {
             progress = new ProgressSaveDto();
+        }
+
+        if (foxFollower == null)
+        {
+            foxFollower = new FoxFollowerSaveDto();
         }
 
         ship.EnsureCollections();
@@ -266,6 +272,15 @@ public sealed class ResourceNodeSaveDto
     public bool isDepleted;
     public float gatheringProgress01;
     public float reharvestRemainingSeconds;
+}
+
+[Serializable]
+public sealed class FoxFollowerSaveDto
+{
+    public int displayMode;
+    public float screenViewportX = 0.2f;
+    public float screenViewportY = 0.5f;
+    public float displayHeight = 2.4f;
 }
 
 [Serializable]

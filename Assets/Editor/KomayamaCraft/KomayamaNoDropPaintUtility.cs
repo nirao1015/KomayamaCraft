@@ -189,16 +189,20 @@ public static class KomayamaNoDropPaintUtility
         KomayamaDropArea[] areas = Object.FindObjectsByType<KomayamaDropArea>(
             FindObjectsInactive.Include,
             FindObjectsSortMode.None);
-        int dropBlockerMask = LayerMask.GetMask(
-            LayerName,
-            "Facility",
-            "ResourceNode",
-            "NativeLife");
         for (int i = 0; i < areas.Length; i++)
         {
+            if (areas[i] == null)
+            {
+                continue;
+            }
+
             SerializedObject serialized = new(areas[i]);
-            serialized.FindProperty("noDropPaint").objectReferenceValue = paint;
-            serialized.FindProperty("blockingLayers").intValue = dropBlockerMask;
+            SerializedProperty noDrop = serialized.FindProperty("noDropPaint");
+            if (noDrop != null)
+            {
+                noDrop.objectReferenceValue = paint;
+            }
+
             serialized.ApplyModifiedPropertiesWithoutUndo();
         }
     }

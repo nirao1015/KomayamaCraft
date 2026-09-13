@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 public static class KomayamaWorldLayerSetup
 {
     private const string PlaceholderPath = "Assets/GameData/KomayamaCraft/World/LayerPlaceholder.png";
-    private const int ScreenColumns = 10;
-    private const int ScreenRows = 6;
+    private const int ScreenColumns = 6;
+    private const int ScreenRows = 8;
     private const int SeaExtraScreens = 1;
 
     [MenuItem("KomayamaCraft/ワールドレイヤーをシーンへ用意", false, 50)]
@@ -59,17 +59,22 @@ public static class KomayamaWorldLayerSetup
         Transform continentRoot = EnsureContainer(root.transform, "Layer_Continent");
         RemoveOwnSprite(seaRoot);
         RemoveOwnSprite(continentRoot);
-            EnsureRegionGrid(
+            int seaMinX = -SeaExtraScreens;
+        int seaMaxX = ScreenColumns - 1 + SeaExtraScreens;
+        int seaMinY = -SeaExtraScreens;
+        int seaMaxY = ScreenRows - 1 + SeaExtraScreens;
+        EnsureRegionGrid(
             seaRoot,
             placeholder,
             new Vector2(screenWidth, screenHeight),
-            -SeaExtraScreens,
-            ScreenColumns - 1 + SeaExtraScreens,
-            -SeaExtraScreens,
-            ScreenRows - 1 + SeaExtraScreens,
+            seaMinX,
+            seaMaxX,
+            seaMinY,
+            seaMaxY,
             "WorldSea",
             Color.white,
             Color.white);
+        RemoveOutOfRangeRegionCells(seaRoot, seaMinX, seaMaxX, seaMinY, seaMaxY);
         EnsureRegionGrid(
             continentRoot,
             placeholder,
@@ -81,6 +86,12 @@ public static class KomayamaWorldLayerSetup
             "WorldContinent",
             Color.white,
             Color.white);
+        RemoveOutOfRangeRegionCells(
+            continentRoot,
+            0,
+            ScreenColumns - 1,
+            0,
+            ScreenRows - 1);
         EnsureContainer(root.transform, "Layer_Objects");
         EnsureContainer(root.transform, "Layer_Effects");
         GameObject guide = EnsureLayer(root.transform, "ContinentGuide", placeholder, continentSize, "WorldContinent", 10, new Color(1f, 0.92f, 0.2f, 0.12f));
@@ -205,6 +216,33 @@ public static class KomayamaWorldLayerSetup
                     local,
                     sortingLayer,
                     checker ? colorA : colorB);
+            }
+        }
+    }
+
+    private static void RemoveOutOfRangeRegionCells(
+        Transform parent,
+        int minX,
+        int maxX,
+        int minY,
+        int maxY)
+    {
+        for (int i = parent.childCount - 1; i >= 0; i--)
+        {
+            Transform child = parent.GetChild(i);
+            var match = System.Text.RegularExpressions.Regex.Match(
+                child.name,
+                @"Region_X(-?\d+)_Y(-?\d+)");
+            if (!match.Success)
+            {
+                continue;
+            }
+
+            int x = int.Parse(match.Groups[1].Value);
+            int y = int.Parse(match.Groups[2].Value);
+            if (x < minX || x > maxX || y < minY || y > maxY)
+            {
+                Object.DestroyImmediate(child.gameObject);
             }
         }
     }

@@ -1,0 +1,419 @@
+fileFormatVersion: 2
+guid: 45279ebe01819424588eead85fda2285
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5618765137161141319
+    second: fox_idle_spin_spritesheet_4x2_0
+  - first:
+      213: 2864369171611845683
+    second: fox_idle_spin_spritesheet_4x2_1
+  - first:
+      213: -4906795151217563188
+    second: fox_idle_spin_spritesheet_4x2_2
+  - first:
+      213: -5354554512949136872
+    second: fox_idle_spin_spritesheet_4x2_3
+  - first:
+      213: 4145606540727738218
+    second: fox_idle_spin_spritesheet_4x2_4
+  - first:
+      213: -5923101733342059169
+    second: fox_idle_spin_spritesheet_4x2_5
+  - first:
+      213: 9176763803829869259
+    second: fox_idle_spin_spritesheet_4x2_6
+  - first:
+      213: 3169825509406024030
+    second: fox_idle_spin_spritesheet_4x2_7
+  - first:
+      213: 5133242344766197585
+    second: fox_idle_spin_spritesheet_4x2_8
+  - first:
+      213: 3543588976488278040
+    second: fox_idle_spin_spritesheet_4x2_9
+  - first:
+      213: 2778669979471045262
+    second: fox_idle_spin_spritesheet_4x2_10
+  - first:
+      213: -2827824349264733477
+    second: fox_idle_spin_spritesheet_4x2_11
+  - first:
+      213: 7398761675546370967
+    second: fox_idle_spin_spritesheet_4x2_12
+  - first:
+      213: 3275383519858419549
+    second: fox_idle_spin_spritesheet_4x2_13
+  - first:
+      213: -6518110544284036712
+    second: fox_idle_spin_spritesheet_4x2_14
+  - first:
+      213: -8862491432660246031
+    second: fox_idle_spin_spritesheet_4x2_15
+  - first:
+      213: -7653354627710266601
+    second: fox_idle_spin_spritesheet_4x2_16
+  - first:
+      213: 7712963979771348410
+    second: fox_idle_spin_spritesheet_4x2_17
+  - first:
+      213: -7776900504816028205
+    second: fox_idle_spin_spritesheet_4x2_18
+  - first:
+      213: 8308164508514478789
+    second: fox_idle_spin_spritesheet_4x2_19
+  - first:
+      213: -8141715002857617704
+    second: fox_idle_spin_spritesheet_4x2_20
+  - first:
+      213: -3672590367234913983
+    second: fox_idle_spin_spritesheet_4x2_21
+  - first:
+      213: 3587671086476233257
+    second: fox_idle_spin_spritesheet_4x2_22
+  - first:
+      213: -2140009010947644788
+    second: fox_idle_spin_spritesheet_4x2_23
+  - first:
+      213: 4653436659955489764
+    second: fox_idle_spin_spritesheet_4x2_24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: fox_idle_spin_spritesheet_4x2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74cb6dc6f1dd9fd40800000000000000
+      internalID: 5618765137161141319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_idle_spin_spritesheet_4x2_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3340183e59840c720800000000000000
+      internalID: 2864369171611845683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_idle_spin_spritesheet_4x2_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc9611aaecf87ebb0800000000000000
+      internalID: -4906795151217563188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_idle_spin_spritesheet_4x2_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 812b3354a0dc0b5b0800000000000000
+      internalID: -5354554512949136872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_idle_spin_spritesheet_4x2_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6fdc963f27288930800000000000000
+      internalID: 4145606540727738218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_idle_spin_spritesheet_4x2_5
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5565affa5aeccda0800000000000000
+      internalID: -5923101733342059169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_idle_spin_spritesheet_4x2_6
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bca11fa1f0a6a5f70800000000000000
+      internalID: 9176763803829869259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_idle_spin_spritesheet_4x2_7
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e512e10a18b7dfb20800000000000000
+      internalID: 3169825509406024030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      fox_idle_spin_spritesheet_4x2_0: 5618765137161141319
+      fox_idle_spin_spritesheet_4x2_1: 2864369171611845683
+      fox_idle_spin_spritesheet_4x2_10: 2778669979471045262
+      fox_idle_spin_spritesheet_4x2_11: -2827824349264733477
+      fox_idle_spin_spritesheet_4x2_12: 7398761675546370967
+      fox_idle_spin_spritesheet_4x2_13: 3275383519858419549
+      fox_idle_spin_spritesheet_4x2_14: -6518110544284036712
+      fox_idle_spin_spritesheet_4x2_15: -8862491432660246031
+      fox_idle_spin_spritesheet_4x2_16: -7653354627710266601
+      fox_idle_spin_spritesheet_4x2_17: 7712963979771348410
+      fox_idle_spin_spritesheet_4x2_18: -7776900504816028205
+      fox_idle_spin_spritesheet_4x2_19: 8308164508514478789
+      fox_idle_spin_spritesheet_4x2_2: -4906795151217563188
+      fox_idle_spin_spritesheet_4x2_20: -8141715002857617704
+      fox_idle_spin_spritesheet_4x2_21: -3672590367234913983
+      fox_idle_spin_spritesheet_4x2_22: 3587671086476233257
+      fox_idle_spin_spritesheet_4x2_23: -2140009010947644788
+      fox_idle_spin_spritesheet_4x2_24: 4653436659955489764
+      fox_idle_spin_spritesheet_4x2_3: -5354554512949136872
+      fox_idle_spin_spritesheet_4x2_4: 4145606540727738218
+      fox_idle_spin_spritesheet_4x2_5: -5923101733342059169
+      fox_idle_spin_spritesheet_4x2_6: 9176763803829869259
+      fox_idle_spin_spritesheet_4x2_7: 3169825509406024030
+      fox_idle_spin_spritesheet_4x2_8: 5133242344766197585
+      fox_idle_spin_spritesheet_4x2_9: 3543588976488278040
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

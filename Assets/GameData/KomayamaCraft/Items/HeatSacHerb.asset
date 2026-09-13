@@ -15,7 +15,7 @@ MonoBehaviour:
   definitionId: item.heat_sac_herb
   displayName: "\u71B1\u56A2\u8349\u306E\u56A2"
   description: "\u71B1\u3092\u84C4\u3048\u305F\u8349\u304B\u3089\u63A1\u53D6\u3067\u304D\u308B\u71C3\u6599\u7D20\u6750\u3002"
-  icon: {fileID: -2145505119624505394, guid: 4f0dc9047b5f23b49856c13038b6c6b3, type: 3}
+  icon: {fileID: -4859868333400095048, guid: da32f04369878694db33f4964ca6996b, type: 3}
   category: 4
   maxStack: 8
   traitIds:

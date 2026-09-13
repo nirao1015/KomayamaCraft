@@ -32,6 +32,10 @@ namespace KomayamaCraft
         [Tooltip("右クリック長押し中に、次の1個を置くまでの秒数。0なら毎フレーム1個です。")]
         private float dropHoldRepeatSeconds = 0.12f;
 
+        [SerializeField, Min(500), InspectorName("最大アイテム数")]
+        [Tooltip("地面に同時に置ける上限。隙間があってもこの数を超えては置けません。セーブ復元はこの上限を使いません。")]
+        private int maxGroundItems = 1000;
+
         [Header("手持ち")]
         [SerializeField, Min(1)]
         [Tooltip("今ピックアップできる個数。テスト用は10。アップグレード後の上限は下の最大値です。")]
@@ -58,6 +62,8 @@ namespace KomayamaCraft
         public float DropHoldStartDelay => Mathf.Max(0f, dropHoldStartDelay);
 
         public float DropHoldRepeatSeconds => Mathf.Max(0f, dropHoldRepeatSeconds);
+
+        public int MaxGroundItems => Mathf.Max(500, maxGroundItems);
 
         public float ItemFootprint => Mathf.Max(VisualSize.x, VisualSize.y);
 

@@ -15,7 +15,7 @@ MonoBehaviour:
   definitionId: item.iron_scale
   displayName: "\u9244\u9C57"
   description: "\u9244\u9C57\u7363\u304B\u3089\u975E\u81F4\u6B7B\u7684\u306B\u63A1\u96C6\u3067\u304D\u308B\u91D1\u5C5E\u8CEA\u306E\u9C57\u3002"
-  icon: {fileID: 3746133895855155937, guid: 7c01c6627e24294469d928fd54c7194c, type: 3}
+  icon: {fileID: 2445097995256437405, guid: a6637f7b48f3a204181de20e96c61040, type: 3}
   category: 0
   maxStack: 8
   traitIds:

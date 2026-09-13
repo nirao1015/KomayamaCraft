@@ -27,10 +27,6 @@ namespace KomayamaCraft
         private float pushAnimationSeconds = 0.45f;
 
         [Header("ねじ込み押しのけ")]
-        [SerializeField, Min(500), InspectorName("地面の最大個数")]
-        [Tooltip("隙間がある限り置ける計算上の上限。500未満にはしません。セーブ復元はこの上限を使いません。")]
-        private int maxGroundItems = 800;
-
         [SerializeField, Range(0.15f, 0.9f), InspectorName("連鎖の減衰")]
         [Tooltip("1ホップごとに押し量を何倍にするか。小さいほど遠くはほとんど動きません。")]
         private float pushDecay = 0.55f;
@@ -73,7 +69,10 @@ namespace KomayamaCraft
             }
         }
 
-        private int MaxGroundItems => Mathf.Max(500, maxGroundItems);
+        private int MaxGroundItems =>
+            itemSettings != null
+                ? itemSettings.MaxGroundItems
+                : 1000;
 
         private void Awake()
         {

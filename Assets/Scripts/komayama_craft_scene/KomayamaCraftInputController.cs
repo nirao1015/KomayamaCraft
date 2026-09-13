@@ -18,6 +18,7 @@ namespace KomayamaCraft
         [SerializeField] private KomayamaCraftCameraController cameraController;
         [SerializeField] private KomayamaEscapeController escapeController;
         [SerializeField] private KomayamaCraftDebugManager debugManager;
+        [SerializeField] private KCMouseFoxFollower foxFollower;
         [SerializeField] private LayerMask interactableLayers;
         [SerializeField, Min(1f)] private float mapDragStartPixels = 10f;
         [SerializeField, Min(0f)] private float holdStartDelay = 0.35f;
@@ -91,9 +92,21 @@ namespace KomayamaCraft
                 return;
             }
 
+            if (foxFollower == null)
+            {
+                foxFollower = FindFirstObjectByType<KCMouseFoxFollower>();
+            }
+
+            if (foxFollower != null && foxFollower.TryConsumePointerInteraction())
+            {
+                foxFollower.NotifyRightDropHolding(false);
+                return;
+            }
+
             if (buildController != null &&
                 buildController.Mode != KomayamaInputMode.Field)
             {
+                foxFollower?.NotifyRightDropHolding(false);
                 HandleBuildOrEdit(mouse);
                 return;
             }
@@ -107,6 +120,8 @@ namespace KomayamaCraft
             {
                 if (HandleMapDrag(mouse))
                 {
+                    foxFollower?.NotifyRightDropHolding(false);
+                    foxFollower?.NotifyGatherHolding(false, GatherHoldRepeatSeconds);
                     return;
                 }
 
@@ -115,19 +130,29 @@ namespace KomayamaCraft
                 KomayamaResourceNode hoveredResource =
                     GetResourceNodeUnderPointer();
                 if (heldResourceNode != null &&
-                    hoveredResource == heldResourceNode &&
-                    Time.unscaledTime >= nextGatherAt)
+                    hoveredResource == heldResourceNode)
                 {
-                    heldResourceNode.TryGather();
-                    nextGatherAt =
-                        Time.unscaledTime + GatherHoldRepeatSeconds;
+                    if (Time.unscaledTime >= nextGatherAt)
+                    {
+                        heldResourceNode.TryGather();
+                        nextGatherAt =
+                            Time.unscaledTime + GatherHoldRepeatSeconds;
+                        // 2回目以降の採集＝長押し。間隔をコマ等分でループ。
+                        foxFollower?.NotifyGatherHolding(
+                            true,
+                            GatherHoldRepeatSeconds);
+                    }
                 }
-                else if (hoveredResource == null &&
-                         Time.unscaledTime >= nextLeftRepeatAt)
+                else
                 {
-                    HandleLeft(false, false);
-                    nextLeftRepeatAt =
-                        Time.unscaledTime + HoldRepeatSeconds;
+                    foxFollower?.NotifyGatherHolding(false, GatherHoldRepeatSeconds);
+                    if (hoveredResource == null &&
+                        Time.unscaledTime >= nextLeftRepeatAt)
+                    {
+                        HandleLeft(false, false);
+                        nextLeftRepeatAt =
+                            Time.unscaledTime + HoldRepeatSeconds;
+                    }
                 }
             }
             else
@@ -135,6 +160,7 @@ namespace KomayamaCraft
                 heldResourceNode = null;
                 mapDragPending = false;
                 mapDragging = false;
+                foxFollower?.NotifyGatherHolding(false, GatherHoldRepeatSeconds);
             }
 
             if (mouse.rightButton.wasPressedThisFrame)
@@ -146,6 +172,12 @@ namespace KomayamaCraft
             {
                 RepeatRightHold();
             }
+
+            bool dropping =
+                mouse.rightButton.isPressed &&
+                hand != null &&
+                !hand.IsEmpty;
+            foxFollower?.NotifyRightDropHolding(dropping);
         }
 
         private void BeginLeftPress(Mouse mouse)
@@ -301,7 +333,11 @@ namespace KomayamaCraft
 
             if (allowResourceGather && resourceNode != null)
             {
-                resourceNode.TryGather();
+                if (resourceNode.TryGather())
+                {
+                    foxFollower?.NotifyValidGatherStarted();
+                }
+
                 return;
             }
 
@@ -482,13 +518,22 @@ namespace KomayamaCraft
                 return;
             }
 
-            Collider2D hit = Physics2D.OverlapPoint(
+            Collider2D[] hits = Physics2D.OverlapPointAll(
                 worldPosition,
                 interactableLayers);
+
+            KomayamaDepositBin depositBin = FindUnderPointer<KomayamaDepositBin>(hits);
+            if (depositBin != null)
+            {
+                if (!depositBin.TryDepositOne(hand, out string binReason))
+                {
+                    Reject(binReason);
+                }
+                return;
+            }
+
             KomayamaProcessingFacility facility =
-                hit != null
-                    ? hit.GetComponentInParent<KomayamaProcessingFacility>()
-                    : null;
+                FindUnderPointer<KomayamaProcessingFacility>(hits);
             if (facility != null)
             {
                 if (!facility.TryDepositOne(hand, out string depositReason))
@@ -499,9 +544,7 @@ namespace KomayamaCraft
             }
 
             KomayamaStorageFacility storage =
-                hit != null
-                    ? hit.GetComponentInParent<KomayamaStorageFacility>()
-                    : null;
+                FindUnderPointer<KomayamaStorageFacility>(hits);
             if (storage != null)
             {
                 if (!storage.TryDepositOne(hand, out string storageReason))
@@ -526,6 +569,30 @@ namespace KomayamaCraft
 
             hand.TryRemoveOne(heldItem, out _);
             seManager?.Play(KomayamaCraftSeCue.Drop);
+        }
+
+        private static T FindUnderPointer<T>(Collider2D[] hits) where T : Component
+        {
+            if (hits == null)
+            {
+                return null;
+            }
+
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if (hits[i] == null)
+                {
+                    continue;
+                }
+
+                T found = hits[i].GetComponentInParent<T>();
+                if (found != null)
+                {
+                    return found;
+                }
+            }
+
+            return null;
         }
 
         private bool TryGetPointerWorldPosition(out Vector2 worldPosition)
