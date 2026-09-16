@@ -19,8 +19,14 @@ public class FixedAspectCanvasFitter : MonoBehaviour
     [SerializeField] private float matchWidthOrHeight = 0.5f;
 
     [Header("Draw Order")]
-    [SerializeField] private bool forceFrontSorting = true;
-    [SerializeField] private int minimumSortingOrder = 200;
+    [SerializeField, Tooltip("ON のとき sortingOrder を下限以上にする。Sorting Layer は触らない（KomayamaScreenCanvasBands が帯を担当）。")]
+    private bool forceFrontSorting = false;
+    [SerializeField] private int minimumSortingOrder = 0;
+
+    [Header("World Depth (2D)")]
+    [Tooltip("ON にすると planeDistance をワールド（典型 z=0）より手前に固定する。Screen Space Camera で地形の後ろに潜るのを防ぐ。")]
+    [SerializeField] private bool forceFrontPlaneDistance = false;
+    [SerializeField] private float frontPlaneDistance = 1f;
 
     private int lastScreenWidth = -1;
     private int lastScreenHeight = -1;
@@ -101,8 +107,10 @@ public class FixedAspectCanvasFitter : MonoBehaviour
         }
 
         // カメラ前方の確実に見える位置へ置く（far clip も超えない）
+        // 2D ワールド（z≈0）より手前に置く場合は frontPlaneDistance を使う
+        float desiredPlane = forceFrontPlaneDistance ? frontPlaneDistance : targetCanvas.planeDistance;
         float safePlaneDistance = Mathf.Clamp(
-            targetCanvas.planeDistance,
+            desiredPlane,
             targetCamera.nearClipPlane + 0.1f,
             targetCamera.farClipPlane - 0.1f);
         targetCanvas.planeDistance = safePlaneDistance;

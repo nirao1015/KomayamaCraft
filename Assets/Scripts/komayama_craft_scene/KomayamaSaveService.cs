@@ -275,6 +275,7 @@ namespace KomayamaCraft
             progress?.CaptureSave(data);
             FindFirstObjectByType<KomayamaShip>()?.CaptureSave(data.ship);
             FindFirstObjectByType<KCMouseFoxFollower>()?.CaptureSave(data.foxFollower);
+            FindFirstObjectByType<KomayamaCraftCameraController>()?.CaptureSave(data.cameraView);
             return data;
         }
 
@@ -321,6 +322,7 @@ namespace KomayamaCraft
             FindFirstObjectByType<KomayamaProgressService>()?.ApplySave(data);
             FindFirstObjectByType<KomayamaShip>()?.ApplySave(data.ship);
             FindFirstObjectByType<KCMouseFoxFollower>()?.ApplySave(data.foxFollower);
+            FindFirstObjectByType<KomayamaCraftCameraController>()?.ApplySave(data.cameraView);
         }
 
         private void ApplyFacilities(KomayamaCraftSaveData data)

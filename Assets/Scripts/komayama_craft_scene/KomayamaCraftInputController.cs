@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace KomayamaCraft
 {
@@ -19,6 +21,7 @@ namespace KomayamaCraft
         [SerializeField] private KomayamaEscapeController escapeController;
         [SerializeField] private KomayamaCraftDebugManager debugManager;
         [SerializeField] private KCMouseFoxFollower foxFollower;
+        [SerializeField] private KomayamaFacilityMenuView facilityMenu;
         [SerializeField] private LayerMask interactableLayers;
         [SerializeField, Min(1f)] private float mapDragStartPixels = 10f;
         [SerializeField, Min(0f)] private float holdStartDelay = 0.35f;
@@ -33,6 +36,10 @@ namespace KomayamaCraft
         private bool mapDragPending;
         private bool mapDragging;
         private Vector2 mapDragLastScreen;
+        /// <summary>
+        /// ??????????????????????????????????
+        /// </summary>
+        private bool suppressFacilityDepositUntilRightRelease;
 
         private bool RapidHoldRepeat =>
             debugManager != null && debugManager.RapidHoldDrop;
@@ -137,7 +144,7 @@ namespace KomayamaCraft
                         heldResourceNode.TryGather();
                         nextGatherAt =
                             Time.unscaledTime + GatherHoldRepeatSeconds;
-                        // 2回目以降の採集＝長押し。間隔をコマ等分でループ。
+                        // 2????????????????????????
                         foxFollower?.NotifyGatherHolding(
                             true,
                             GatherHoldRepeatSeconds);
@@ -165,12 +172,17 @@ namespace KomayamaCraft
 
             if (mouse.rightButton.wasPressedThisFrame)
             {
+                suppressFacilityDepositUntilRightRelease = false;
                 HandleRight();
                 nextRightRepeatAt = Time.unscaledTime + RightHoldStartDelay;
             }
             else if (mouse.rightButton.isPressed)
             {
                 RepeatRightHold();
+            }
+            else
+            {
+                suppressFacilityDepositUntilRightRelease = false;
             }
 
             bool dropping =
@@ -311,11 +323,21 @@ namespace KomayamaCraft
                 return;
             }
 
+            // 施設上でもドロップ拾いを施設メニューより優先する
+            if (TryTakeDropped(worldPosition, dropped, quietPickupFailure))
+            {
+                return;
+            }
+
             if (facility != null)
             {
-                if (!facility.TryCollectOne(hand, out string collectReason))
+                if (facilityMenu != null)
                 {
-                    Reject(collectReason);
+                    facilityMenu.Open(facility);
+                }
+                else
+                {
+                    Reject("????????????");
                 }
 
                 return;
@@ -337,27 +359,38 @@ namespace KomayamaCraft
                 {
                     foxFollower?.NotifyValidGatherStarted();
                 }
-
-                return;
             }
+        }
 
-            if (dropped != null)
+        /// <summary>
+        /// クリック位置のドロップ、または拾い半径内のドロップを手に入れる。
+        /// </summary>
+        private bool TryTakeDropped(
+            Vector2 worldPosition,
+            KomayamaDroppedItem droppedAtPoint,
+            bool quietFailure)
+        {
+            KomayamaDroppedItem target = droppedAtPoint;
+            if (target == null && !TryGetDroppedNear(worldPosition, out target))
             {
-                if (dropped.TryTakeOne(hand))
-                {
-                    seManager?.Play(KomayamaCraftSeCue.Pickup);
-                }
-                else if (!quietPickupFailure)
-                {
-                    Reject(hand != null
-                        ? hand.GetAddFailureReason(dropped.Item)
-                        : "回収できません");
-                }
-
-                return;
+                return false;
             }
 
-            TryPickupDroppedNear(worldPosition, quietPickupFailure);
+            if (target.TryTakeOne(hand))
+            {
+                seManager?.Play(KomayamaCraftSeCue.Pickup);
+                return true;
+            }
+
+            if (!quietFailure)
+            {
+                Reject(hand != null
+                    ? hand.GetAddFailureReason(target.Item)
+                    : "???????");
+            }
+
+            // 拾い対象はあったが失敗（満杯など）。施設メニューへフォールスルーしない。
+            return true;
         }
 
         private void ResolveLeftTargets(
@@ -451,7 +484,7 @@ namespace KomayamaCraft
             {
                 Reject(hand != null
                     ? hand.GetAddFailureReason(dropped.Item)
-                    : "回収できません");
+                    : "???????");
             }
         }
 
@@ -532,10 +565,30 @@ namespace KomayamaCraft
                 return;
             }
 
+            KomayamaProvisionalFacility provisional =
+                FindUnderPointer<KomayamaProvisionalFacility>(hits);
+            if (provisional != null)
+            {
+                // ?????????????????????????????????
+                if (provisional.TryDepositConstructionMaterial(hand, out bool completed) &&
+                    completed)
+                {
+                    // ??????????????????????
+                    suppressFacilityDepositUntilRightRelease = true;
+                }
+
+                return;
+            }
+
             KomayamaProcessingFacility facility =
                 FindUnderPointer<KomayamaProcessingFacility>(hits);
             if (facility != null)
             {
+                if (suppressFacilityDepositUntilRightRelease)
+                {
+                    return;
+                }
+
                 if (!facility.TryDepositOne(hand, out string depositReason))
                 {
                     Reject(depositReason);
@@ -547,6 +600,11 @@ namespace KomayamaCraft
                 FindUnderPointer<KomayamaStorageFacility>(hits);
             if (storage != null)
             {
+                if (suppressFacilityDepositUntilRightRelease)
+                {
+                    return;
+                }
+
                 if (!storage.TryDepositOne(hand, out string storageReason))
                 {
                     Reject(storageReason);
@@ -557,13 +615,13 @@ namespace KomayamaCraft
             ItemDefinition heldItem = hand.Item;
             if (dropArea == null || !dropArea.Contains(worldPosition))
             {
-                Reject("DropAreaの外にはアイテムを置けません");
+                Reject("DropArea??????????????");
                 return;
             }
 
             if (!dropArea.TrySpawnAt(heldItem, 1, worldPosition, out _))
             {
-                Reject("置ける空間がないため、ドロップできません");
+                Reject("????????????????????");
                 return;
             }
 
@@ -620,8 +678,38 @@ namespace KomayamaCraft
 
         private bool IsPointerOverUi()
         {
-            return eventSystem != null && eventSystem.IsPointerOverGameObject();
+            if (eventSystem == null)
+            {
+                return false;
+            }
+
+            // Physics2DRaycaster ????????? Collider ??
+            // IsPointerOverGameObject() ? true ??????????????
+            // Canvas?GraphicRaycaster????? UI ?????
+            Mouse mouse = Mouse.current;
+            if (mouse == null)
+            {
+                return false;
+            }
+
+            var pointerData = new PointerEventData(eventSystem)
+            {
+                position = mouse.position.ReadValue(),
+            };
+            uiRaycastScratch.Clear();
+            eventSystem.RaycastAll(pointerData, uiRaycastScratch);
+            for (int i = 0; i < uiRaycastScratch.Count; i++)
+            {
+                if (uiRaycastScratch[i].module is GraphicRaycaster)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
+
+        private readonly List<RaycastResult> uiRaycastScratch = new List<RaycastResult>();
 
         private void HandleModeKeys()
         {
@@ -638,7 +726,14 @@ namespace KomayamaCraft
 
             if (keyboard.escapeKey.wasPressedThisFrame)
             {
-                buildController.SetMode(KomayamaInputMode.Field);
+                if (facilityMenu != null && facilityMenu.IsOpen)
+                {
+                    facilityMenu.Close();
+                }
+                else
+                {
+                    buildController.SetMode(KomayamaInputMode.Field);
+                }
             }
             else if (keyboard.bKey.wasPressedThisFrame)
             {

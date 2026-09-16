@@ -279,7 +279,7 @@ namespace KomayamaCraft
 
             spriteRenderer.color = Color.white;
             spriteRenderer.drawMode = SpriteDrawMode.Simple;
-            spriteRenderer.sortingLayerName = "WorldOverlay";
+            spriteRenderer.sortingLayerName = "WorldDrop";
             spriteRenderer.sortingOrder = 10;
             if (spriteRenderer.transform == transform)
             {

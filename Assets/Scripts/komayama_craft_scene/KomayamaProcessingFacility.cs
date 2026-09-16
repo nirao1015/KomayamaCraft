@@ -5,10 +5,10 @@ namespace KomayamaCraft
 {
     public enum KomayamaFacilityState
     {
+        Idle,
         WaitingForInput,
         WaitingForFuel,
-        Processing,
-        WaitingForOutput
+        Processing
     }
 
     [DisallowMultipleComponent]
@@ -19,31 +19,38 @@ namespace KomayamaCraft
         [SerializeField] private string instanceId;
         [SerializeField] private KomayamaCraftHud hud;
         [SerializeField] private KomayamaCraftSeManager seManager;
+        [SerializeField] private KomayamaDropArea dropArea;
+        [SerializeField] private KCBuildSettings buildSettings;
+        [SerializeField] private KomayamaFacilityWorldOverlay worldOverlay;
 
         private readonly List<ItemDefinition> inputItems = new();
         private readonly List<int> inputAmounts = new();
-        private readonly List<ItemDefinition> outputItems = new();
-        private readonly List<int> outputAmounts = new();
         private ItemDefinition fuelItem;
         private int fuelAmount;
         private float progressSeconds;
-        private KomayamaFacilityState state = KomayamaFacilityState.WaitingForInput;
+        private KomayamaFacilityState state = KomayamaFacilityState.Idle;
 
         public FacilityDefinition Definition => definition;
         public RecipeDefinition Recipe => recipe;
         public string InstanceId => instanceId;
         public int InputAmount => Total(inputAmounts);
-        public int OutputAmount => Total(outputAmounts);
         public int FuelAmount => fuelAmount;
+        public int FuelCapacity => definition != null ? definition.FuelCapacity : 0;
         public string FuelItemName =>
             fuelItem != null ? fuelItem.DisplayName : "燃料なし";
         public string RecipeName => recipe != null ? recipe.DisplayName : "未選択";
         public string InputItemName => DescribeStacks(inputItems, inputAmounts, "材料なし");
-        public string OutputItemName => DescribeStacks(outputItems, outputAmounts, "完成品なし");
         public float Progress01 => recipe != null && recipe.ProcessingSeconds > 0f
             ? Mathf.Clamp01(progressSeconds / recipe.ProcessingSeconds)
             : 0f;
+        public float RemainingSeconds => recipe != null
+            ? Mathf.Max(0f, recipe.ProcessingSeconds - progressSeconds)
+            : 0f;
         public KomayamaFacilityState State => state;
+        public bool HasSelectedRecipe => recipe != null;
+        public bool UsesFuel => definition != null && definition.UsesFuel;
+
+        public event System.Action StateChanged;
 
         private void Awake()
         {
@@ -51,9 +58,15 @@ namespace KomayamaCraft
             {
                 instanceId = GameDataId.CreateInstanceId();
             }
+
+            EnsureOverlay();
         }
 
-        public void BindRuntime(KomayamaCraftHud runtimeHud, KomayamaCraftSeManager runtimeSe)
+        public void BindRuntime(
+            KomayamaCraftHud runtimeHud,
+            KomayamaCraftSeManager runtimeSe,
+            KomayamaDropArea runtimeDropArea,
+            KCBuildSettings runtimeBuildSettings)
         {
             if (hud == null)
             {
@@ -64,6 +77,19 @@ namespace KomayamaCraft
             {
                 seManager = runtimeSe;
             }
+
+            if (dropArea == null)
+            {
+                dropArea = runtimeDropArea;
+            }
+
+            if (buildSettings == null)
+            {
+                buildSettings = runtimeBuildSettings;
+            }
+
+            EnsureOverlay();
+            NotifyStateChanged();
         }
 
         public void Configure(
@@ -77,6 +103,71 @@ namespace KomayamaCraft
             {
                 instanceId = savedInstanceId;
             }
+
+            if (recipe == null)
+            {
+                state = KomayamaFacilityState.Idle;
+            }
+
+            EnsureOverlay();
+            NotifyStateChanged();
+        }
+
+        public Vector2 GetDropOrigin()
+        {
+            float block = buildSettings != null ? buildSettings.BlockSize : 0.5f;
+            float offset = buildSettings != null
+                ? buildSettings.FacilityDropOffsetBelowFootprint
+                : 0.35f;
+            float width = definition != null
+                ? definition.FootprintWidthBlocks * block
+                : block;
+            float height = definition != null
+                ? definition.FootprintHeightBlocks * block
+                : block;
+            Vector2 center = transform.position;
+            float bottom = center.y - height * 0.5f;
+            return new Vector2(center.x, bottom - offset);
+        }
+
+        public int GetInputAmount(ItemDefinition item)
+        {
+            return GetAmount(inputItems, inputAmounts, item);
+        }
+
+        public bool TrySelectRecipe(RecipeDefinition selected, out string failureReason)
+        {
+            failureReason = null;
+            if (definition == null || selected == null)
+            {
+                failureReason = "レシピを選べません";
+                return false;
+            }
+
+            if (!definition.SupportsRecipe(selected.DefinitionId))
+            {
+                failureReason = "この設備では使えないレシピです";
+                return false;
+            }
+
+            if (recipe == selected)
+            {
+                return true;
+            }
+
+            if (recipe != null)
+            {
+                AbortProcessingKeepFuel();
+                DropUnusedInputs();
+            }
+
+            recipe = selected;
+            progressSeconds = 0f;
+            state = KomayamaFacilityState.WaitingForInput;
+            hud?.ShowMessage($"レシピ: {RecipeName}");
+            TryStartProcessing();
+            NotifyStateChanged();
+            return true;
         }
 
         public bool TryCycleRecipe(int delta, out string failureReason)
@@ -88,15 +179,7 @@ namespace KomayamaCraft
                 return false;
             }
 
-            if (state == KomayamaFacilityState.Processing ||
-                InputAmount > 0 ||
-                OutputAmount > 0)
-            {
-                failureReason = "材料や完成品がある間はレシピを変えられません";
-                return false;
-            }
-
-            int current = 0;
+            int current = -1;
             for (int i = 0; i < definition.SupportedRecipes.Count; i++)
             {
                 if (definition.SupportedRecipes[i] == recipe)
@@ -106,47 +189,64 @@ namespace KomayamaCraft
                 }
             }
 
-            int next = current + delta;
             int count = definition.SupportedRecipes.Count;
+            int next = current < 0 ? 0 : current + delta;
             next %= count;
             if (next < 0)
             {
                 next += count;
             }
 
-            recipe = definition.SupportedRecipes[next];
-            state = KomayamaFacilityState.WaitingForInput;
-            hud?.ShowMessage($"レシピ: {RecipeName}");
-            return true;
+            return TrySelectRecipe(definition.SupportedRecipes[next], out failureReason);
         }
 
-        public void EvacuateTo(KomayamaHandInventory hand, KomayamaDropArea dropArea)
+        /// <summary>メニュー「排出」。停止中は素材＋燃料、生産中は素材のみ（進行破棄・燃料残留）。</summary>
+        public void EjectContents()
         {
-            if (state == KomayamaFacilityState.Processing &&
-                recipe != null)
+            bool processing = state == KomayamaFacilityState.Processing;
+            if (processing)
             {
-                RefundRecipeInputs(hand, dropArea);
-                hud?.ShowMessage("加工を中断し、材料を戻しました");
+                AbortProcessingKeepFuel();
             }
 
-            DumpStacks(outputItems, outputAmounts, hand, dropArea);
-            DumpStacks(inputItems, inputAmounts, hand, dropArea);
-            if (fuelItem != null && fuelAmount > 0)
+            DropUnusedInputs();
+            if (!processing)
             {
-                KomayamaFacilityContents.GiveOrDrop(
-                    fuelItem,
-                    fuelAmount,
-                    hand,
-                    dropArea,
-                    transform.position);
+                DropFuel();
             }
 
+            progressSeconds = 0f;
+            if (recipe == null)
+            {
+                state = KomayamaFacilityState.Idle;
+            }
+            else
+            {
+                state = KomayamaFacilityState.WaitingForInput;
+                TryStartProcessing();
+            }
+
+            NotifyStateChanged();
+        }
+
+        /// <summary>解体時。未使用入力は返却、加工中消費分・燃料は消滅。</summary>
+        public void EvacuateTo(KomayamaHandInventory hand, KomayamaDropArea evacuateDropArea)
+        {
+            KomayamaDropArea target = evacuateDropArea != null ? evacuateDropArea : dropArea;
+            if (state == KomayamaFacilityState.Processing)
+            {
+                AbortProcessingKeepFuel();
+            }
+
+            DumpStacksToGround(inputItems, inputAmounts, target);
             ClearStacks(inputItems, inputAmounts);
-            ClearStacks(outputItems, outputAmounts);
             fuelItem = null;
             fuelAmount = 0;
             progressSeconds = 0f;
-            state = KomayamaFacilityState.WaitingForInput;
+            state = recipe == null
+                ? KomayamaFacilityState.Idle
+                : KomayamaFacilityState.WaitingForInput;
+            NotifyStateChanged();
         }
 
         public void CaptureSave(FacilitySaveDto dto)
@@ -160,16 +260,15 @@ namespace KomayamaCraft
             dto.processingState = state switch
             {
                 KomayamaFacilityState.Processing => FacilityProcessingState.Processing,
-                KomayamaFacilityState.WaitingForOutput => FacilityProcessingState.WaitingForOutput,
                 KomayamaFacilityState.WaitingForFuel => FacilityProcessingState.WaitingForFuel,
-                _ => FacilityProcessingState.WaitingForInput
+                KomayamaFacilityState.WaitingForInput => FacilityProcessingState.WaitingForInput,
+                _ => FacilityProcessingState.Idle
             };
             dto.EnsureCollections();
             dto.inputItems.Clear();
             dto.outputItems.Clear();
             dto.fuelItems.Clear();
             CopyStacks(inputItems, inputAmounts, dto.inputItems);
-            CopyStacks(outputItems, outputAmounts, dto.outputItems);
             if (fuelItem != null && fuelAmount > 0)
             {
                 dto.fuelItems.Add(new ItemStackSaveDto
@@ -189,12 +288,10 @@ namespace KomayamaCraft
 
             instanceId = dto.instanceId;
             ClearStacks(inputItems, inputAmounts);
-            ClearStacks(outputItems, outputAmounts);
             fuelItem = null;
             fuelAmount = 0;
             progressSeconds = 0f;
             LoadStacks(dto.inputItems, inputItems, inputAmounts);
-            LoadStacks(dto.outputItems, outputItems, outputAmounts);
             if (dto.fuelItems != null &&
                 dto.fuelItems.Count > 0 &&
                 GameDataCatalogs.KomayamaItems.TryGet(
@@ -205,6 +302,7 @@ namespace KomayamaCraft
                 fuelAmount = Mathf.Max(0, dto.fuelItems[0].amount);
             }
 
+            recipe = null;
             if (!string.IsNullOrEmpty(dto.selectedRecipeId) &&
                 GameDataCatalogs.KomayamaRecipes.TryGet(
                     dto.selectedRecipeId,
@@ -216,25 +314,38 @@ namespace KomayamaCraft
             state = dto.processingState switch
             {
                 FacilityProcessingState.Processing => KomayamaFacilityState.Processing,
-                FacilityProcessingState.WaitingForOutput => KomayamaFacilityState.WaitingForOutput,
                 FacilityProcessingState.WaitingForFuel => KomayamaFacilityState.WaitingForFuel,
-                _ => KomayamaFacilityState.WaitingForInput
+                FacilityProcessingState.WaitingForInput => KomayamaFacilityState.WaitingForInput,
+                FacilityProcessingState.WaitingForOutput => KomayamaFacilityState.WaitingForInput,
+                FacilityProcessingState.Paused => KomayamaFacilityState.Idle,
+                _ => recipe == null
+                    ? KomayamaFacilityState.Idle
+                    : KomayamaFacilityState.WaitingForInput
             };
             if (recipe != null && recipe.ProcessingSeconds > 0f)
             {
                 progressSeconds = Mathf.Clamp01(dto.processingProgress01) * recipe.ProcessingSeconds;
             }
+
+            NotifyStateChanged();
         }
 
         private void Update()
         {
             if (recipe == null)
             {
+                if (state != KomayamaFacilityState.Idle)
+                {
+                    state = KomayamaFacilityState.Idle;
+                    NotifyStateChanged();
+                }
+
                 return;
             }
 
             if (state == KomayamaFacilityState.WaitingForInput ||
-                state == KomayamaFacilityState.WaitingForFuel)
+                state == KomayamaFacilityState.WaitingForFuel ||
+                state == KomayamaFacilityState.Idle)
             {
                 TryStartProcessing();
                 return;
@@ -246,6 +357,7 @@ namespace KomayamaCraft
             }
 
             progressSeconds += Time.deltaTime;
+            worldOverlay?.Refresh(this);
             if (progressSeconds < recipe.ProcessingSeconds)
             {
                 return;
@@ -268,16 +380,22 @@ namespace KomayamaCraft
                 return false;
             }
 
-            ItemDefinition incoming = hand.FindFirst(NeedsMoreRecipeInput)
-                ?? hand.FindFirst(IsAcceptedFuel);
+            ItemDefinition incoming = hand.FindFirst(
+                item => CanAcceptFuel(item) || AcceptsAsRecipeInput(item));
             if (incoming == null)
             {
-                failureReason = "このレシピには投入できる素材がありません";
+                failureReason = recipe != null
+                    ? "このレシピには投入できる素材がありません"
+                    : "投入できる燃料がありません";
                 return false;
             }
 
-            bool needsMoreInput = NeedsMoreRecipeInput(incoming);
-            if (needsMoreInput)
+            if (CanAcceptFuel(incoming) && !AcceptsAsRecipeInput(incoming))
+            {
+                return TryDepositFuel(hand, incoming, out failureReason);
+            }
+
+            if (AcceptsAsRecipeInput(incoming))
             {
                 if (definition == null || InputAmount >= definition.InputCapacity)
                 {
@@ -294,39 +412,11 @@ namespace KomayamaCraft
                 AddStack(inputItems, inputAmounts, incoming, 1);
                 seManager?.Play(KomayamaCraftSeCue.Deposit);
                 TryStartProcessing();
+                NotifyStateChanged();
                 return true;
             }
 
-            if (IsAcceptedFuel(incoming))
-            {
-                if (definition == null || fuelAmount >= definition.FuelCapacity)
-                {
-                    failureReason = "燃料置き場が満杯です";
-                    return false;
-                }
-
-                if (fuelItem != null && fuelItem != incoming)
-                {
-                    failureReason = $"燃料は{fuelItem.DisplayName}だけ受け入れます";
-                    return false;
-                }
-
-                if (!hand.TryRemoveOne(incoming, out _))
-                {
-                    failureReason = "投入できる素材がありません";
-                    return false;
-                }
-
-                fuelItem = incoming;
-                fuelAmount++;
-                seManager?.Play(KomayamaCraftSeCue.Deposit);
-                TryStartProcessing();
-                return true;
-            }
-
-            failureReason = recipe != null
-                ? $"このレシピには{incoming.DisplayName}を投入できません"
-                : "投入できる素材がありません";
+            failureReason = "投入できません";
             return false;
         }
 
@@ -359,17 +449,14 @@ namespace KomayamaCraft
                 return false;
             }
 
-            if (fuelItem != null && fuelItem != item)
-            {
-                return false;
-            }
-
             fuelItem = item;
             fuelAmount++;
             TryStartProcessing();
+            NotifyStateChanged();
             return true;
         }
 
+        /// <summary>旧左クリック回収。完成品は常時地面排出のため未使用。</summary>
         public bool TryCollectOne(KomayamaHandInventory hand)
         {
             return TryCollectOne(hand, out _);
@@ -377,49 +464,68 @@ namespace KomayamaCraft
 
         public bool TryCollectOne(KomayamaHandInventory hand, out string failureReason)
         {
+            failureReason = "完成品は施設下へ自動排出されます";
+            return false;
+        }
+
+        public string DescribeStatusMessage()
+        {
+            if (recipe == null)
+            {
+                return "レシピ未選択";
+            }
+
+            return state switch
+            {
+                KomayamaFacilityState.Processing => "生産中",
+                KomayamaFacilityState.WaitingForFuel => "燃料を入れてください",
+                KomayamaFacilityState.WaitingForInput => "素材を入れてください",
+                _ => "待機中"
+            };
+        }
+
+        private bool TryDepositFuel(
+            KomayamaHandInventory hand,
+            ItemDefinition incoming,
+            out string failureReason)
+        {
             failureReason = null;
-            if (hand == null || OutputAmount <= 0)
+            if (definition == null || fuelAmount >= definition.FuelCapacity)
             {
-                failureReason = "回収できる完成品がありません";
+                failureReason = "燃料置き場が満杯です";
                 return false;
             }
 
-            ItemDefinition outputItem = outputItems[0];
-            if (!hand.TryAdd(outputItem))
+            if (fuelItem != null && fuelItem != incoming)
             {
-                failureReason = hand.GetAddFailureReason(outputItem);
+                failureReason = $"燃料は{fuelItem.DisplayName}だけ受け入れます";
                 return false;
             }
 
-            outputAmounts[0]--;
-            if (outputAmounts[0] <= 0)
+            if (!hand.TryRemoveOne(incoming, out _))
             {
-                outputItems.RemoveAt(0);
-                outputAmounts.RemoveAt(0);
+                failureReason = "投入できる素材がありません";
+                return false;
             }
 
-            if (OutputAmount <= 0)
-            {
-                state = KomayamaFacilityState.WaitingForInput;
-                TryStartProcessing();
-            }
-
-            seManager?.Play(KomayamaCraftSeCue.Pickup);
+            fuelItem = incoming;
+            fuelAmount++;
+            seManager?.Play(KomayamaCraftSeCue.Deposit);
+            TryStartProcessing();
+            NotifyStateChanged();
             return true;
         }
 
         private void TryStartProcessing()
         {
-            if (recipe == null ||
-                state == KomayamaFacilityState.Processing ||
-                OutputAmount > 0)
+            if (recipe == null || state == KomayamaFacilityState.Processing)
             {
                 return;
             }
 
             if (!HasAllInputs())
             {
-                state = KomayamaFacilityState.WaitingForInput;
+                SetState(KomayamaFacilityState.WaitingForInput);
                 return;
             }
 
@@ -427,7 +533,7 @@ namespace KomayamaCraft
             {
                 if (fuelAmount <= 0 || fuelItem == null)
                 {
-                    state = KomayamaFacilityState.WaitingForFuel;
+                    SetState(KomayamaFacilityState.WaitingForFuel);
                     return;
                 }
             }
@@ -444,18 +550,24 @@ namespace KomayamaCraft
             }
 
             progressSeconds = 0f;
-            state = KomayamaFacilityState.Processing;
+            SetState(KomayamaFacilityState.Processing);
         }
 
         private void CompleteProcessing()
         {
             progressSeconds = 0f;
+            Vector2 origin = GetDropOrigin();
             if (recipe.OutputMode == RecipeOutputMode.WeightedSingle)
             {
                 if (recipe.TrySelectWeightedOutput(Random.Range(0, int.MaxValue), out RecipeOutput selected) &&
                     selected.Item != null)
                 {
-                    AddStack(outputItems, outputAmounts, selected.Item, selected.Amount);
+                    KomayamaFacilityContents.DropOnly(
+                        selected.Item,
+                        selected.Amount,
+                        dropArea,
+                        origin);
+                    KomayamaProgressService.Instance?.NotifyCrafted(selected.Item);
                 }
             }
             else
@@ -463,19 +575,67 @@ namespace KomayamaCraft
                 for (int i = 0; i < recipe.Outputs.Count; i++)
                 {
                     RecipeOutput output = recipe.Outputs[i];
-                    if (output.Item != null && output.Amount > 0)
+                    if (output.Item == null || output.Amount <= 0)
                     {
-                        AddStack(outputItems, outputAmounts, output.Item, output.Amount);
+                        continue;
                     }
+
+                    KomayamaFacilityContents.DropOnly(
+                        output.Item,
+                        output.Amount,
+                        dropArea,
+                        origin);
+                    KomayamaProgressService.Instance?.NotifyCrafted(output.Item);
                 }
             }
 
-            state = KomayamaFacilityState.WaitingForOutput;
             seManager?.Play(KomayamaCraftSeCue.ProcessingComplete);
             hud?.ShowMessage($"{recipe.DisplayName}が完了しました");
-            for (int i = 0; i < outputItems.Count; i++)
+            SetState(KomayamaFacilityState.WaitingForInput);
+            TryStartProcessing();
+        }
+
+        private void AbortProcessingKeepFuel()
+        {
+            progressSeconds = 0f;
+            if (state == KomayamaFacilityState.Processing)
             {
-                KomayamaProgressService.Instance?.NotifyCrafted(outputItems[i]);
+                state = recipe == null
+                    ? KomayamaFacilityState.Idle
+                    : KomayamaFacilityState.WaitingForInput;
+            }
+        }
+
+        private void DropUnusedInputs()
+        {
+            DumpStacksToGround(inputItems, inputAmounts, dropArea);
+            ClearStacks(inputItems, inputAmounts);
+        }
+
+        private void DropFuel()
+        {
+            if (fuelItem != null && fuelAmount > 0)
+            {
+                KomayamaFacilityContents.DropOnly(
+                    fuelItem,
+                    fuelAmount,
+                    dropArea,
+                    GetDropOrigin());
+            }
+
+            fuelItem = null;
+            fuelAmount = 0;
+        }
+
+        private void DumpStacksToGround(
+            List<ItemDefinition> items,
+            List<int> amounts,
+            KomayamaDropArea target)
+        {
+            Vector2 origin = GetDropOrigin();
+            for (int i = 0; i < items.Count; i++)
+            {
+                KomayamaFacilityContents.DropOnly(items[i], amounts[i], target, origin);
             }
         }
 
@@ -508,30 +668,11 @@ namespace KomayamaCraft
             }
         }
 
-        private void RefundRecipeInputs(KomayamaHandInventory hand, KomayamaDropArea dropArea)
+        private bool AcceptsAsRecipeInput(ItemDefinition item)
         {
-            for (int i = 0; i < recipe.Inputs.Count; i++)
-            {
-                ItemAmount required = recipe.Inputs[i];
-                KomayamaFacilityContents.GiveOrDrop(
-                    required.Item,
-                    required.Amount,
-                    hand,
-                    dropArea,
-                    transform.position);
-            }
-        }
-
-        private bool IsRecipeInput(ItemDefinition item)
-        {
-            return RequiredInputAmount(item) > 0;
-        }
-
-        private bool NeedsMoreRecipeInput(ItemDefinition item)
-        {
-            int required = RequiredInputAmount(item);
-            return required > 0 &&
-                   GetAmount(inputItems, inputAmounts, item) < required;
+            return RequiredInputAmount(item) > 0 &&
+                   definition != null &&
+                   InputAmount < definition.InputCapacity;
         }
 
         private int RequiredInputAmount(ItemDefinition item)
@@ -569,6 +710,34 @@ namespace KomayamaCraft
             }
 
             return false;
+        }
+
+        private void EnsureOverlay()
+        {
+            if (worldOverlay == null)
+            {
+                worldOverlay = GetComponent<KomayamaFacilityWorldOverlay>();
+            }
+
+            worldOverlay?.Refresh(this);
+        }
+
+        private void SetState(KomayamaFacilityState next)
+        {
+            if (state == next)
+            {
+                worldOverlay?.Refresh(this);
+                return;
+            }
+
+            state = next;
+            NotifyStateChanged();
+        }
+
+        private void NotifyStateChanged()
+        {
+            worldOverlay?.Refresh(this);
+            StateChanged?.Invoke();
         }
 
         private static void AddStack(
@@ -627,23 +796,6 @@ namespace KomayamaCraft
                 }
 
                 return;
-            }
-        }
-
-        private void DumpStacks(
-            List<ItemDefinition> items,
-            List<int> amounts,
-            KomayamaHandInventory hand,
-            KomayamaDropArea dropArea)
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                KomayamaFacilityContents.GiveOrDrop(
-                    items[i],
-                    amounts[i],
-                    hand,
-                    dropArea,
-                    transform.position);
             }
         }
 

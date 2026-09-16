@@ -55,10 +55,6 @@ namespace KomayamaCraft
         [SerializeField, Min(0.01f)] private float wheelHeightStep = 0.15f;
         [SerializeField] private Vector2 screenViewportPosition = new(0.2f, 0.5f);
 
-        [Header("うたたね")]
-        [SerializeField, Min(0f)] private float dozeIdleBaseSeconds = 12f;
-        [SerializeField, Min(0f)] private float dozeIdleRandomSeconds = 8f;
-
         [Header("テスト：優先度5キック")]
         [SerializeField] private bool enableSpinTestKick = true;
         [SerializeField, Min(0f)] private float spinTestDelaySeconds = 6f;
@@ -80,7 +76,6 @@ namespace KomayamaCraft
         private bool gatherHoldActive;
         private float gatherHoldIntervalSeconds = 0.5f;
         private float idleSeconds;
-        private float dozeThresholdSeconds;
         private Vector2 lastMouseScreen;
         private bool hasLastMouse;
         private bool spinTestFired;
@@ -95,6 +90,21 @@ namespace KomayamaCraft
             spriteRenderer != null &&
             spriteRenderer.enabled;
 
+        /// <summary>無操作経過（unscaled）。うたたね判定はアンビエント側。</summary>
+        public float IdleSecondsUnscaled => idleSeconds;
+
+        public bool IsDozePlaying =>
+            IsPlaying(ClipDozeEnter) || IsPlaying(ClipDozeLoop);
+
+        /// <summary>うたたね開始を受けられる状態か（高優先再生中・操作中は不可）。</summary>
+        public bool CanAcceptDozeAmbience =>
+            IsVisible &&
+            !cameraMoving &&
+            !rightDropHolding &&
+            !gatherHoldActive &&
+            !IsDozePlaying &&
+            (activeClip == null || activeClip.priority <= 2);
+
         private void Awake()
         {
             if (spriteRenderer == null)
@@ -103,7 +113,6 @@ namespace KomayamaCraft
             }
 
             EnsureBaseClipExists();
-            ResetDozeThreshold();
             PlayClip(ClipBase, force: true);
             ApplyVisibility();
             ApplyDisplaySize();
@@ -138,7 +147,7 @@ namespace KomayamaCraft
                 return;
             }
 
-            playElapsed += Time.unscaledDeltaTime;
+            playElapsed += Time.deltaTime;
             TrackUserActivity();
             EvaluateTriggers();
             TickAnimation();
@@ -270,8 +279,7 @@ namespace KomayamaCraft
         public void NotifyUserActivity()
         {
             idleSeconds = 0f;
-            ResetDozeThreshold();
-            if (IsPlaying(ClipDozeEnter) || IsPlaying(ClipDozeLoop))
+            if (IsDozePlaying)
             {
                 EndActiveClip();
             }
@@ -437,17 +445,42 @@ namespace KomayamaCraft
             {
                 TryBeginClip(ClipPickPlace);
             }
-
-            if (!cameraMoving &&
-                !rightDropHolding &&
-                idleSeconds >= dozeThresholdSeconds &&
-                !IsPlaying(ClipDozeEnter) &&
-                !IsPlaying(ClipDozeLoop) &&
-                (activeClip == null || activeClip.priority <= 2))
-            {
-                TryBeginClip(ClipDozeEnter);
-            }
         }
+
+        /// <summary>
+        /// 地図アンビエント側から低優先クリップを要求する。
+        /// 優先度上限を超えるクリップや、より高い優先度再生中は拒否する。
+        /// </summary>
+        public bool TryRequestAmbienceClip(string clipId, int maxAllowedPriority)
+        {
+            ClipDefinition clip = FindClip(clipId);
+            if (clip == null || clip.frames == null || clip.frames.Length == 0)
+            {
+                return false;
+            }
+
+            if (clip.priority > maxAllowedPriority)
+            {
+                return false;
+            }
+
+            if (activeClip != null && clip.priority < activeClip.priority)
+            {
+                return false;
+            }
+
+            if (activeClip != null &&
+                clip.priority == activeClip.priority &&
+                string.Equals(activeClipId, clipId, StringComparison.Ordinal))
+            {
+                return false;
+            }
+
+            PlayClip(clipId, force: true);
+            return true;
+        }
+
+        public bool IsPlayingClip(string clipId) => IsPlaying(clipId);
 
         private void TryBeginClip(string clipId)
         {
@@ -521,7 +554,7 @@ namespace KomayamaCraft
                 return;
             }
 
-            frameTimer += Time.unscaledDeltaTime;
+            frameTimer += Time.deltaTime;
             float step = CurrentFrameSeconds();
             while (frameTimer >= step)
             {
@@ -786,13 +819,6 @@ namespace KomayamaCraft
 
             Debug.LogWarning(
                 "[KCMouseFoxFollower] 優先度1の base クリップがありません。Inspector で設定してください。");
-        }
-
-        private void ResetDozeThreshold()
-        {
-            dozeThresholdSeconds =
-                dozeIdleBaseSeconds +
-                UnityEngine.Random.Range(0f, Mathf.Max(0f, dozeIdleRandomSeconds));
         }
 
         private static void SyncClipDurations(ClipDefinition clip)

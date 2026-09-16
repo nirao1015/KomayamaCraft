@@ -8,7 +8,7 @@ using System.Collections.Generic;
 [Serializable]
 public sealed class KomayamaCraftSaveData
 {
-    public const int CurrentVersion = 4;
+    public const int CurrentVersion = 5;
 
     public int version = CurrentVersion;
     public string buildVersion = string.Empty;
@@ -27,6 +27,7 @@ public sealed class KomayamaCraftSaveData
     public ShipProgressSaveDto ship = new ShipProgressSaveDto();
     public ProgressSaveDto progress = new ProgressSaveDto();
     public FoxFollowerSaveDto foxFollower = new FoxFollowerSaveDto();
+    public CameraViewSaveDto cameraView = new CameraViewSaveDto();
 
     /// <summary>
     /// 欠損フィールドを含むJSONの復元後に、コレクションを安全な空状態へ補完する。
@@ -82,6 +83,11 @@ public sealed class KomayamaCraftSaveData
         if (foxFollower == null)
         {
             foxFollower = new FoxFollowerSaveDto();
+        }
+
+        if (cameraView == null)
+        {
+            cameraView = new CameraViewSaveDto();
         }
 
         ship.EnsureCollections();
@@ -281,6 +287,17 @@ public sealed class FoxFollowerSaveDto
     public float screenViewportX = 0.2f;
     public float screenViewportY = 0.5f;
     public float displayHeight = 2.4f;
+}
+
+/// <summary>
+/// フィールドカメラの位置とズーム（orthographicSize）。
+/// orthographicSize が未設定（旧セーブ）のときはロード時に適用しない。
+/// </summary>
+[Serializable]
+public sealed class CameraViewSaveDto
+{
+    public Float2SaveDto position;
+    public float orthographicSize;
 }
 
 [Serializable]

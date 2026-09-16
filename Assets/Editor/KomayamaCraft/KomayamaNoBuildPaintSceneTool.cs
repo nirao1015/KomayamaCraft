@@ -270,8 +270,8 @@ public static class KomayamaNoBuildPaintSceneTool
         };
         Handles.DrawSolidRectangleWithOutline(
             corners,
-            new Color(0.15f, 0.45f, 1f, 0.18f),
-            new Color(0.2f, 0.65f, 1f, 0.95f));
+            new Color(0.15f, 0.75f, 0.3f, 0.18f),
+            new Color(0.2f, 0.9f, 0.35f, 0.95f));
     }
 
     private static bool TryGetCell(Tilemap tilemap, Vector2 guiPoint, out Vector3Int cell)

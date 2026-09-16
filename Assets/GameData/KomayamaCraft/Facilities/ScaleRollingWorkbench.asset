@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "\u9C57\u5727\u5EF6\u4F5C\u696D\u53F0"
   description: "\u9244\u9C57\u3092\u677F\u3084\u56FA\u5B9A\u90E8\u54C1\u3078\u52A0\u5DE5\u3059\u308BTier
     1\u306E\u57FA\u790E\u8A2D\u5099\u3002"
-  icon: {fileID: 21300000, guid: 6886db5fac1305b4d82a95ca744de0c7, type: 3}
+  icon: {fileID: 21300000, guid: 24c01348ff1e7f0438a31ce7dbbe0204, type: 3}
   prefab: {fileID: 100000, guid: 187a28e36495a6c7f3a4b5c6d7e8f978, type: 3}
   capabilities: 1
   supportedRecipes:
@@ -27,6 +27,8 @@ MonoBehaviour:
   constructionCost:
   - item: {fileID: 11400000, guid: 70d83ce94088a9f90a062ae20e4f7687, type: 2}
     amount: 5
+  footprintWidthBlocks: 10
+  footprintHeightBlocks: 8
   inputCapacity: 8
   outputCapacity: 8
   storageCapacity: 0

@@ -136,7 +136,8 @@ namespace KomayamaCraft
                 FindObjectsSortMode.None);
             for (int i = 0; i < facilities.Length; i++)
             {
-                if (facilities[i] != null && facilities[i].OutputAmount > 0)
+                if (facilities[i] != null &&
+                    facilities[i].State == KomayamaFacilityState.Processing)
                 {
                     return true;
                 }

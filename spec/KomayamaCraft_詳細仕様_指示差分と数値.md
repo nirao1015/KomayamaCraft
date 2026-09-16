@@ -10,6 +10,11 @@
   - 保存契約：`spec/データ基盤_保存データ契約.md`
   - 永続ID：`spec/データ基盤_永続ID規約.md`
   - Unityレイヤー：`spec/Unity_初期プロジェクト設定.md`
+  - クエストログ表示：`spec/KomayamaCraft_クエストログ表示_詳細仕様.md`
+  - 建設メニュー（menu建設）：`spec/KomayamaCraft_建設メニュー_詳細仕様.md`
+  - 施設加工操作：`spec/KomayamaCraft_施設加工操作_詳細仕様.md`
+  - 多言語対応：`spec/KomayamaCraft_多言語対応_詳細仕様.md`
+  - 自動化プレイテスト（設計草案）：`spec/KomayamaCraft_自動化プレイテスト_詳細仕様.md`
 - 値の書き方
   - **確定**：口頭または文書で明示された値。
   - **現行値**：シーンまたはデータの Inspector に入っている値。確定と違う場合は現行値を優先して実装を読む。
@@ -170,7 +175,7 @@
 - 現行の判定箱：サイズ **115.2 × 86.4**、オフセット **(-7.5, 3.2)**。大陸予約と同じ。
 - ドロップ禁止は `World / DropRestrictionGrid / NoDropPaint`。`WorldLayers` の下には置かない。
 - `NoDropPaint` のセルは **0.5 × 0.5**。Scene View は半透明。プレイ中はデバッグ表示がオンのときだけ同じ表示。
-- 建設不可塗りは別。ドロップ禁止と共有しない。
+- 建設不可塗りは別。ドロップ禁止と共有しない。セル辺長は建設側も **0.5**（`KCBuildSettings.blockSize`／`BuildRestrictionGrid`）。詳細は建設メニュー仕様。
 
 ---
 
@@ -205,29 +210,34 @@
 | 海の画面数 | 横 8 × 縦 10 | 現行値（大陸の外周に1画面ぶん） |
 | 大陸の中心 | 不時着船。現行座標 (-7.5, 3.2) | 確定（中心）／現行値（座標） |
 
-### 5.2 レイヤー
+### 5.2 レイヤー（描画バンド）
 
-描画は次の4段。親は `World / WorldLayers`。
+描画は **ワールド帯（Sorting Layer）** と **画面 UI 帯（シーン直下 Canvas）** に分ける。帯同士で Sorting Layer を共有しない。詳細は `spec/KomayamaCraft_描画バンド整理_詳細仕様.md`。
 
-| 子 | Sorting Layer |
-| --- | --- |
-| 海 | `WorldSea` |
-| 大陸 | `WorldContinent` |
-| オブジェクト | `WorldObject` |
-| エフェクト | `WorldEffect` |
+#### ワールド帯（下 → 上）
 
-`WorldLayers` の上（`World` 直下の兄妹）に、次を置く。
-
-| オブジェクト | Sorting / Canvas | 役割 |
+| Sorting Layer | ヒエラルキー親 | 載せるもの |
 | --- | --- | --- |
-| `Layer_Mouse` | `WorldMouse` | カーソル追従の手持ちアイコン・個数、および追従狐 |
-| `Layer_System` | Overlay Canvas 300 | メニュー・設定・スキルの大枠。`MenuRoot` / `SettingsRoot` / `SkillRoot` |
+| `WorldSea` | `World/WorldLayers/Layer_Sea` | 海 |
+| `WorldContinent` | `…/Layer_Continent` | 地形 |
+| `WorldObject` | `…/Layer_Objects` | 採集発生点など（施設以外） |
+| `WorldFacility` | `World/Layer_Facilities` | 仮組・完成施設・保管 |
+| `WorldEffect` | `…/Layer_Effects` | エフェクト |
+| `WorldDrop` | `World/Layer_Drops` | 地面ドロップ |
+| `WorldOverlay` | 制限グリッド・建設プレビュー・施設ワールド HUD | ワールドに張り付く補助表示 |
+| `WorldMouse` | `World/Layer_Mouse` | 手持ちアイコン・狐 |
 
-描画順は `WorldLayers` ＜ `Layer_Mouse` ＜ `Layer_System`。
+#### 画面 UI 帯（Screen Space - Camera・シーン直下）
 
-ドロップや禁止塗りのデバッグ表示など、エフェクトより前・マウスより後ろに出すものは `WorldOverlay`。
+| Sorting Layer | Canvas | 載せるもの |
+| --- | --- | --- |
+| `UiHud` | `HudCanvas` | `MessageText`（トースト）のみ |
+| `UiSystem` | `SystemCanvas` | メニュー・設定・スキル・クエストログ・施設メニュー |
+| `UiDebug` | `DebugCanvas` | Guide/State/Hand・DebugOverlay・倍速（本番 OFF で非表示） |
 
-`DropRestrictionGrid` は `World` 直下。`WorldLayers` の子にしない。ツールが World や WorldLayers を改名・再親化してはならない。
+`World/Layer_System` は互換用の空シェル可。Screen UI はシーン直下へ置く。
+
+`DropRestrictionGrid` / `BuildRestrictionGrid` は `World` 直下のまま（ワールド Overlay 帯）。
 
 ### 5.3 カメラ操作
 
@@ -242,6 +252,12 @@
 | 1倍 | 5.4 |
 | 空ドラッグ移動 | イベント中以外。何もない位置を左ドラッグすると、下の土地を引っ張るようにカメラが逆向きへ動く。強さは `KCConfigValues / ワールド設定` の引っ張り強さ（現行 1） |
 | 移動範囲 | 大陸の内側。現行クランプ (-55.5, -34.6) 〜 (40.5, 41.0)。1倍画面の半分を大陸端から引いた値 |
+| 段階開放 | 初期＋**3回**拡大（計4段階）。カメラ**中心** Clamp。未開放外は止めのみ（霧なし）。クエスト連動は後続。デバッグは `KomayamaCraftDebugManager` の「地域開放（カメラ）」0〜4 | 確定（仮範囲値は Inspector） |
+| セーブ | カメラ位置（x, y）とズーム（orthographicSize）を保存する。`CameraViewSaveDto`。旧セーブに無い場合は上書きしない | 確定 |
+
+### 5.4 建設ブロック（建設メニュー仕様への参照）
+
+建設の吸い付き・建設不可マスのセル辺長は **0.5**（ドロップ禁止と同寸）。詳細は `spec/KomayamaCraft_建設メニュー_詳細仕様.md`。
 
 ---
 
@@ -259,7 +275,7 @@
 
 レシピ内容の正本はサプライチェーン資料と Tier 4 詳細。ここでは後続指示と現行データで固まった数だけ書く。
 
-初期フィールドには生産・精製施設をあらかじめ置かない。プレハブと定義は残し、建設メニューから置く。クリック範囲・ドロップ範囲を建設不可にする方針は後続（未実装）。
+初期フィールドには生産・精製施設をあらかじめ置かない。プレハブと定義は残し、建設メニューから置く。クリック範囲・ドロップ範囲を建設不可にする方針は建設メニュー仕様に従う（実装中）。
 
 | 設備 | 建設費 | 入力 | 出力 | 燃料枠 | 保管 |
 | --- | --- | --- | --- | --- | --- |
@@ -270,6 +286,10 @@
 | 真空紡績機 | 位相継手 2 | 8 | 8 | 8 | — |
 
 加工レシピは「ほぼ1個ずつ」を基本とする。Tier 4 の入力・燃料は `KomayamaCraft_Tier4詳細.md` のとおり。加工完了 SE は `ProcessingComplete`（現行 `シャキーン2`）。
+
+完成施設のメニュー分岐・自動生産・排出・ワールド常時表示・完成品の地面排出は `spec/KomayamaCraft_施設加工操作_詳細仕様.md` が正本。内部出力スロット／`WaitingForOutput` は使わない。
+
+完成施設上の左クリック優先は **地面ドロップ拾い ＞ 施設メニュー**（同詳細仕様 §2.0）。
 
 チェストの左クリック取出は、押し続けると最後の1個を残す。改めて左クリックしたとき空になる（要素設計書の確定を維持）。
 

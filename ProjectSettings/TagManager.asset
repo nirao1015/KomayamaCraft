@@ -50,14 +50,29 @@ TagManager:
   - name: WorldObject
     uniqueID: 1003
     locked: 0
+  - name: WorldFacility
+    uniqueID: 1010
+    locked: 0
   - name: WorldEffect
     uniqueID: 1004
+    locked: 0
+  - name: WorldDrop
+    uniqueID: 1011
     locked: 0
   - name: WorldOverlay
     uniqueID: 1005
     locked: 0
   - name: WorldMouse
     uniqueID: 1006
+    locked: 0
+  - name: UiHud
+    uniqueID: 1020
+    locked: 0
+  - name: UiSystem
+    uniqueID: 1021
+    locked: 0
+  - name: UiDebug
+    uniqueID: 1022
     locked: 0
   - name: WorldSystem
     uniqueID: 1007

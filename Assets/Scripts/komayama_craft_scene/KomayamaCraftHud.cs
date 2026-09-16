@@ -202,10 +202,10 @@ namespace KomayamaCraft
             {
                 KomayamaFacilityState.Processing =>
                     $"{name} [{recipe}]: 加工中 {target.Progress01:P0}{fuel}",
-                KomayamaFacilityState.WaitingForOutput =>
-                    $"{name} [{recipe}]: 完成品 {target.OutputItemName}{fuel}",
                 KomayamaFacilityState.WaitingForFuel =>
                     $"{name} [{recipe}]: 燃料不足 {target.InputItemName}{fuel}",
+                KomayamaFacilityState.Idle =>
+                    $"{name} [{recipe}]: 待機{fuel}",
                 _ =>
                     $"{name} [{recipe}]: 材料 {target.InputItemName}{fuel}"
             };

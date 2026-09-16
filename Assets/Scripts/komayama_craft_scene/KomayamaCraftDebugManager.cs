@@ -8,6 +8,9 @@ namespace KomayamaCraft
         private const string NoDropPaintLayerName = "DropBlocker";
         private const string NoBuildPaintLayerName = "PlacementBlocker";
 
+        /// <summary>デバッグ倍速の段階。自動化プレイテストからは変更しない。</summary>
+        private static readonly float[] GameSpeedMultipliers = { 0.5f, 1f, 3f, 5f, 10f };
+
         [Header("本番")]
         [SerializeField, InspectorName("本番リリース用"), Tooltip(
             "ON のとき、下の開発用チェックはすべて無効になる。")]
@@ -34,12 +37,37 @@ namespace KomayamaCraft
             "ON のとき、左クリック長押しの回収・採集の連打間隔を極端に短くする。右クリックのドロップ間隔は変えない。")]
         private bool rapidHoldDrop;
 
+        [Header("ゲーム倍速（デバッグ）")]
+        [SerializeField, Range(0, 4), InspectorName("初期倍速段階")]
+        [Tooltip("0=0.5倍 / 1=等速 / 2=3倍 / 3=5倍 / 4=10倍。本番リリース用が ON のときは常に等速。自動化プレイテストからは変更しない。Time.timeScale 経由で生産・演出・アニメ等すべてに効く。")]
+        private int initialGameSpeedStepIndex = 1;
+
+        [Header("カメラ移動範囲（デバッグ）")]
+        [SerializeField, Range(0, 4), InspectorName("地域開放（カメラ）")]
+        [Tooltip(
+            "0=海・全域 / 1=初期 / 2=1段階開放 / 3=2段階開放 / 4=3段階開放。\n" +
+            "本番リリース用が ON のときは無効（進行段階のみ）。クエスト連動は未実装。")]
+        private int cameraAreaUnlockDebug = 1;
+
         [Header("参照")]
-        [SerializeField, Tooltip("デバッグオーバーレイのルート。")]
+        [SerializeField, Tooltip("ゲーム時間（倍速・一時停止）の正本。未設定時はシーン検索。")]
+        private KomayamaGameClock gameClock;
+
+        [SerializeField, Tooltip("デバッグ Canvas（Guide/State/Hand/Overlay 等）。未設定時は debugOverlay のみ切替。")]
+        private GameObject debugCanvas;
+
+        [SerializeField, Tooltip("デバッグオーバーレイのルート（互換用）。")]
         private GameObject debugOverlay;
 
         [SerializeField, Tooltip("ペイント表示の切り替えに使うゲームカメラ。")]
         private Camera gameplayCamera;
+
+        [SerializeField, Tooltip("カメラ移動範囲のデバッグ上書き先。")]
+        private KomayamaCraftCameraController cameraController;
+
+        private int gameSpeedStepIndex = 1;
+
+        public bool ProductionReleaseBuild => productionReleaseBuild;
 
         public bool VerboseDropLogging =>
             !productionReleaseBuild && verboseDropLogging;
@@ -47,25 +75,142 @@ namespace KomayamaCraft
         public bool RapidHoldDrop =>
             !productionReleaseBuild && rapidHoldDrop;
 
+        public int GameSpeedStepIndex =>
+            Mathf.Clamp(gameSpeedStepIndex, 0, GameSpeedMultipliers.Length - 1);
+
+        public float GameSpeedMultiplier =>
+            productionReleaseBuild
+                ? 1f
+                : GameSpeedMultipliers[GameSpeedStepIndex];
+
+        public bool IsGamePaused =>
+            gameClock != null && gameClock.IsPaused;
+
+        public static string FormatGameSpeedLabel(int stepIndex)
+        {
+            int clamped = Mathf.Clamp(stepIndex, 0, GameSpeedMultipliers.Length - 1);
+            float scale = GameSpeedMultipliers[clamped];
+            if (Mathf.Approximately(scale, 0.5f))
+            {
+                return "x0.5";
+            }
+
+            if (Mathf.Approximately(scale, 1f))
+            {
+                return "x1";
+            }
+
+            return "x" + Mathf.RoundToInt(scale);
+        }
+
+        public void CycleGameSpeed()
+        {
+            if (productionReleaseBuild)
+            {
+                return;
+            }
+
+            gameSpeedStepIndex = (GameSpeedStepIndex + 1) % GameSpeedMultipliers.Length;
+            ApplyGameSpeed();
+        }
+
+        public void SetGameSpeedStepIndex(int stepIndex)
+        {
+            if (productionReleaseBuild)
+            {
+                return;
+            }
+
+            gameSpeedStepIndex = Mathf.Clamp(stepIndex, 0, GameSpeedMultipliers.Length - 1);
+            ApplyGameSpeed();
+        }
+
+        /// <summary>デバッグ用。ゲーム時間の一時停止をトグルする。</summary>
+        public void ToggleGamePause()
+        {
+            if (productionReleaseBuild)
+            {
+                return;
+            }
+
+            EnsureGameClock();
+            gameClock?.TogglePaused();
+        }
+
+        public void SetGamePaused(bool paused)
+        {
+            if (productionReleaseBuild)
+            {
+                return;
+            }
+
+            EnsureGameClock();
+            gameClock?.SetPaused(paused);
+        }
+
         private void Awake()
         {
+            if (cameraController == null)
+            {
+                cameraController = FindFirstObjectByType<KomayamaCraftCameraController>();
+            }
+
+            EnsureGameClock();
+            gameSpeedStepIndex = Mathf.Clamp(
+                initialGameSpeedStepIndex,
+                0,
+                GameSpeedMultipliers.Length - 1);
             ApplyDebugVisibility();
+            ApplyCameraAreaDebug();
+            ApplyGameSpeed();
         }
 
         private void OnValidate()
         {
+            cameraAreaUnlockDebug = Mathf.Clamp(cameraAreaUnlockDebug, 0, 4);
+            initialGameSpeedStepIndex = Mathf.Clamp(
+                initialGameSpeedStepIndex,
+                0,
+                GameSpeedMultipliers.Length - 1);
             if (Application.isPlaying)
             {
                 ApplyDebugVisibility();
+                ApplyCameraAreaDebug();
+                if (!productionReleaseBuild)
+                {
+                    gameSpeedStepIndex = initialGameSpeedStepIndex;
+                }
+
+                ApplyGameSpeed();
             }
+        }
+
+        private void EnsureGameClock()
+        {
+            if (gameClock != null)
+            {
+                return;
+            }
+
+            gameClock = FindFirstObjectByType<KomayamaGameClock>(FindObjectsInactive.Include);
+            if (gameClock != null)
+            {
+                return;
+            }
+
+            gameClock = gameObject.AddComponent<KomayamaGameClock>();
         }
 
         private void ApplyDebugVisibility()
         {
-            if (debugOverlay != null)
+            bool showDebug = !productionReleaseBuild && showDebugOverlay;
+            if (debugCanvas != null)
             {
-                debugOverlay.SetActive(
-                    !productionReleaseBuild && showDebugOverlay);
+                debugCanvas.SetActive(showDebug);
+            }
+            else if (debugOverlay != null)
+            {
+                debugOverlay.SetActive(showDebug);
             }
 
             if (gameplayCamera == null)
@@ -75,6 +220,33 @@ namespace KomayamaCraft
 
             ApplyLayerVisibility(NoDropPaintLayerName, showNoDropPaint);
             ApplyLayerVisibility(NoBuildPaintLayerName, showNoBuildPaint);
+        }
+
+        private void ApplyCameraAreaDebug()
+        {
+            if (cameraController == null)
+            {
+                return;
+            }
+
+            if (productionReleaseBuild)
+            {
+                cameraController.SetDebugAreaOverride(null);
+                return;
+            }
+
+            cameraController.SetDebugAreaOverride(cameraAreaUnlockDebug);
+        }
+
+        private void ApplyGameSpeed()
+        {
+            EnsureGameClock();
+            if (gameClock == null)
+            {
+                return;
+            }
+
+            gameClock.SetSpeedMultiplier(GameSpeedMultiplier);
         }
 
         private void ApplyLayerVisibility(string layerName, bool show)

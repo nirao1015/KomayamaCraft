@@ -37,7 +37,8 @@ public static class KomayamaCraftM2SceneSetup
         Collider2D surface = EnsurePlacementSurface(scene, world);
         Tilemap noBuild = EnsureNoBuildPaint(scene, world);
         SpriteRenderer preview = EnsurePreview(scene, world);
-        EnsureStorageInstance(scene, world, hud, se);
+        Transform facilityRoot = EnsureFacilityLayer(scene, world);
+        EnsureStorageInstance(scene, facilityRoot, hud, se);
         HideLayerFromCameras(scene, "PlacementBlocker");
 
         GameObject systems = FindNamed(scene, "KomayamaCraftSystems");
@@ -70,7 +71,7 @@ public static class KomayamaCraftM2SceneSetup
         SetObject(build, "placementSurface", surface);
         SetObject(build, "noBuildPaint", noBuild);
         SetObject(build, "previewRenderer", preview);
-        SetObject(build, "facilityRoot", world);
+        SetObject(build, "facilityRoot", facilityRoot);
         SetLayerMask(
             build,
             "blockedLayers",
@@ -191,6 +192,7 @@ public static class KomayamaCraftM2SceneSetup
         }
 
         existing.layer = LayerMask.NameToLayer("PlacementSurface");
+        existing.SetActive(true);
         BoxCollider2D box = existing.GetComponent<BoxCollider2D>();
         if (box == null)
         {
@@ -198,7 +200,22 @@ public static class KomayamaCraftM2SceneSetup
         }
 
         box.isTrigger = true;
-        box.size = new Vector2(16f, 8f);
+        // FieldDropArea と同程度の建設可能範囲（未設定時のフォールバックは小さすぎる）
+        GameObject dropArea = FindNamed(scene, "FieldDropArea");
+        BoxCollider2D dropBox = dropArea != null
+            ? dropArea.GetComponent<BoxCollider2D>()
+            : null;
+        if (dropBox != null)
+        {
+            box.size = dropBox.size;
+            box.offset = dropBox.offset;
+            existing.transform.position = dropArea.transform.position;
+        }
+        else if (box.size.x < 1f || box.size.y < 1f)
+        {
+            box.size = new Vector2(115.2f, 86.4f);
+        }
+
         return box;
     }
 
@@ -216,6 +233,14 @@ public static class KomayamaCraftM2SceneSetup
 
             Grid grid = gridObject.AddComponent<Grid>();
             grid.cellSize = new Vector3(0.5f, 0.5f, 1f);
+        }
+        else
+        {
+            Grid existingGrid = gridObject.GetComponent<Grid>();
+            if (existingGrid != null)
+            {
+                existingGrid.cellSize = new Vector3(0.5f, 0.5f, 1f);
+            }
         }
 
         Transform paintTransform = gridObject.transform.Find("NoBuildPaint");
@@ -235,7 +260,8 @@ public static class KomayamaCraftM2SceneSetup
             tilemap = paintObject.AddComponent<Tilemap>();
         }
 
-        tilemap.color = new Color(0.2f, 0.55f, 1f, 0.4f);
+        // 建設不可は緑。ドロップ禁止（赤）と区別する。
+        tilemap.color = new Color(0.2f, 0.85f, 0.35f, 0.4f);
         if (paintObject.GetComponent<TilemapRenderer>() == null)
         {
             TilemapRenderer renderer = paintObject.AddComponent<TilemapRenderer>();
@@ -268,9 +294,59 @@ public static class KomayamaCraftM2SceneSetup
         return renderer;
     }
 
+    /// <summary>
+    /// WorldLayers の次・Layer_Mouse の前に建設物ルートを確保する。
+    /// </summary>
+    private static Transform EnsureFacilityLayer(Scene scene, Transform world)
+    {
+        GameObject existing = FindNamed(scene, "Layer_Facilities");
+        if (existing == null)
+        {
+            existing = new GameObject("Layer_Facilities");
+            SceneManager.MoveGameObjectToScene(existing, scene);
+            if (world != null)
+            {
+                existing.transform.SetParent(world, false);
+            }
+        }
+        else if (world != null && existing.transform.parent != world)
+        {
+            existing.transform.SetParent(world, true);
+        }
+
+        if (world != null)
+        {
+            int worldLayersIndex = -1;
+            int mouseIndex = -1;
+            for (int i = 0; i < world.childCount; i++)
+            {
+                string childName = world.GetChild(i).name;
+                if (childName == "WorldLayers")
+                {
+                    worldLayersIndex = i;
+                }
+
+                if (childName == "Layer_Mouse")
+                {
+                    mouseIndex = i;
+                }
+            }
+
+            int targetIndex = worldLayersIndex >= 0 ? worldLayersIndex + 1 : 0;
+            if (mouseIndex >= 0 && targetIndex > mouseIndex)
+            {
+                targetIndex = mouseIndex;
+            }
+
+            existing.transform.SetSiblingIndex(targetIndex);
+        }
+
+        return existing.transform;
+    }
+
     private static void EnsureStorageInstance(
         Scene scene,
-        Transform world,
+        Transform facilityRoot,
         KomayamaCraftHud hud,
         KomayamaCraftSeManager se)
     {
@@ -283,9 +359,9 @@ public static class KomayamaCraftM2SceneSetup
         GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab, scene);
         instance.name = "PrototypeStorage";
         instance.transform.position = new Vector3(0f, 2.2f, 0f);
-        if (world != null)
+        if (facilityRoot != null)
         {
-            instance.transform.SetParent(world, true);
+            instance.transform.SetParent(facilityRoot, true);
         }
 
         if (instance.TryGetComponent(out KomayamaStorageFacility storage))

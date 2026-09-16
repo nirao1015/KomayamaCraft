@@ -26,6 +26,8 @@ public static class KomayamaWorldLayerSetup
         EnsureSortingLayer("WorldObject", 1003);
         EnsureSortingLayer("WorldEffect", 1004);
         EnsureSortingLayer("WorldOverlay", 1005);
+        EnsureSortingLayer("WorldMouse", 1006);
+        EnsureSortingLayer("WorldSystem", 1007);
 
         Sprite placeholder = EnsurePlaceholderSprite();
         Camera camera = Camera.main;

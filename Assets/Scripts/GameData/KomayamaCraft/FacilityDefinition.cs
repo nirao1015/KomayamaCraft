@@ -35,6 +35,10 @@ public sealed class FacilityDefinition : ScriptableObject
 
     [Header("Construction")]
     [SerializeField] private ItemAmount[] constructionCost = Array.Empty<ItemAmount>();
+    [SerializeField, Min(1), InspectorName("占有幅（ブロック）")]
+    private int footprintWidthBlocks = 3;
+    [SerializeField, Min(1), InspectorName("占有高さ（ブロック）")]
+    private int footprintHeightBlocks = 2;
 
     [Header("Capacity")]
     [SerializeField, Min(0)] private int inputCapacity;
@@ -57,6 +61,8 @@ public sealed class FacilityDefinition : ScriptableObject
     public FacilityCapability Capabilities => capabilities;
     public IReadOnlyList<RecipeDefinition> SupportedRecipes => supportedRecipes;
     public IReadOnlyList<ItemAmount> ConstructionCost => constructionCost;
+    public int FootprintWidthBlocks => Mathf.Max(1, footprintWidthBlocks);
+    public int FootprintHeightBlocks => Mathf.Max(1, footprintHeightBlocks);
     public int InputCapacity => inputCapacity;
     public int OutputCapacity => outputCapacity;
     public int StorageCapacity => storageCapacity;
