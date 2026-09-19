@@ -157,7 +157,7 @@ namespace KomayamaCraft
             RememberLastPlayedSlot(slot);
         }
 
-        public static bool TryConsumeBootRequest(out bool startNew, out int slot)
+        public static bool TryPeekBootRequest(out bool startNew, out int slot)
         {
             startNew = false;
             slot = LastPlayedSlot;
@@ -167,7 +167,6 @@ namespace KomayamaCraft
             }
 
             string text = File.ReadAllText(BootFilePath).Trim();
-            File.Delete(BootFilePath);
             string[] parts = text.Split(',');
             if (parts.Length < 2 || !int.TryParse(parts[1], out slot))
             {
@@ -176,6 +175,21 @@ namespace KomayamaCraft
 
             startNew = parts[0] == "new";
             slot = ClampSlot(slot);
+            return true;
+        }
+
+        public static bool TryConsumeBootRequest(out bool startNew, out int slot)
+        {
+            if (!TryPeekBootRequest(out startNew, out slot))
+            {
+                return false;
+            }
+
+            if (File.Exists(BootFilePath))
+            {
+                File.Delete(BootFilePath);
+            }
+
             return true;
         }
 

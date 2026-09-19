@@ -167,10 +167,32 @@ namespace KomayamaCraft
             {
                 SetMode(KomayamaInputMode.Build);
             }
-            else
+
+            UpdatePreview(Vector2.zero, false);
+        }
+
+        public bool TrySelectFacilityByDefinitionId(string definitionId)
+        {
+            if (buildableFacilities == null || string.IsNullOrEmpty(definitionId))
             {
-                UpdatePreview(Vector2.zero, false);
+                return false;
             }
+
+            for (int i = 0; i < buildableFacilities.Length; i++)
+            {
+                FacilityDefinition facility = buildableFacilities[i];
+                if (facility != null &&
+                    string.Equals(
+                        facility.DefinitionId,
+                        definitionId,
+                        System.StringComparison.Ordinal))
+                {
+                    SelectBuildIndex(i);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void UpdatePreview(Vector2 worldPosition, bool visible)
@@ -247,8 +269,8 @@ namespace KomayamaCraft
                 return false;
             }
 
-            GameObject provisional = CreateProvisional(selected, snapped);
-            if (provisional == null)
+            GameObject provisionalGo = CreateProvisional(selected, snapped);
+            if (provisionalGo == null)
             {
                 failureReason = "仮組を作成できません";
                 return false;
@@ -258,8 +280,18 @@ namespace KomayamaCraft
             hud?.ShowMessage($"{selected.DisplayName}を仮組しました");
             SetMode(KomayamaInputMode.Field);
             ClearForbidCursor();
+            KomayamaProvisionalFacility provisional =
+                provisionalGo.GetComponent<KomayamaProvisionalFacility>();
+            if (provisional != null)
+            {
+                ProvisionalFacilityPlaced?.Invoke(provisional);
+            }
+
             return true;
         }
+
+        /// <summary>仮組の新規設置に成功したとき。</summary>
+        public static event System.Action<KomayamaProvisionalFacility> ProvisionalFacilityPlaced;
 
         public GameObject SpawnCompletedFacility(FacilityDefinition definition, Vector2 position)
         {
@@ -389,6 +421,11 @@ namespace KomayamaCraft
 
                 created.transform.localScale = Vector3.one;
                 FitSpriteToFootprint(createdRenderer, definition);
+                if (created.TryGetComponent(out BoxCollider2D createdBox))
+                {
+                    // Transform スケール後も、当たり判定を見た目サイズに合わせる
+                    MatchColliderToRenderedSprite(createdBox, createdRenderer);
+                }
             }
 
             BindCreatedFacility(created, definition, instanceId);
@@ -473,26 +510,48 @@ namespace KomayamaCraft
                 definition.FootprintWidthBlocks,
                 definition.FootprintHeightBlocks);
             FitSpriteToFootprint(sr, definition);
-            // 見た目よりコライダーが小さいと右クリックが外れて地面ドロップエラーになる
-            ExpandColliderToSprite(box, sr);
+            // 見た目と同じ当たり判定（root にコライダー、子にスプライト）
+            MatchColliderToRenderedSprite(box, sr);
             provisional.Configure(definition, this, hud, seManager, valid);
             return root;
         }
 
-        private static void ExpandColliderToSprite(BoxCollider2D box, SpriteRenderer spriteRenderer)
+        /// <summary>
+        /// BoxCollider2D のローカル size/offset を、描画中スプライトの見た目に一致させる。
+        /// Transform.localScale で引き伸ばした後も、ワールド上の当たり＝スプライト枠になる。
+        /// </summary>
+        private static void MatchColliderToRenderedSprite(BoxCollider2D box, SpriteRenderer spriteRenderer)
         {
             if (box == null || spriteRenderer == null || spriteRenderer.sprite == null)
             {
                 return;
             }
 
-            Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
-            spriteSize.x *= Mathf.Abs(spriteRenderer.transform.localScale.x);
-            spriteSize.y *= Mathf.Abs(spriteRenderer.transform.localScale.y);
-            box.size = new Vector2(
-                Mathf.Max(box.size.x, spriteSize.x) * 1.2f,
-                Mathf.Max(box.size.y, spriteSize.y) * 1.2f);
-            box.offset = Vector2.zero;
+            Transform boxTransform = box.transform;
+            Transform spriteTransform = spriteRenderer.transform;
+
+            // スプライトのワールド AABB を、コライダー側ローカルへ戻す
+            Bounds world = spriteRenderer.bounds;
+            Vector3 localCenter = boxTransform.InverseTransformPoint(world.center);
+            Vector3 localMin = boxTransform.InverseTransformPoint(world.min);
+            Vector3 localMax = boxTransform.InverseTransformPoint(world.max);
+            Vector2 localSize = new Vector2(
+                Mathf.Abs(localMax.x - localMin.x),
+                Mathf.Abs(localMax.y - localMin.y));
+
+            // 同一 Transform 上なら sprite.bounds.size（ローカル）で足りるが、
+            // 子にスプライトがある仮組でも正しく合わせる
+            if (spriteTransform == boxTransform)
+            {
+                Vector2 native = spriteRenderer.sprite.bounds.size;
+                box.size = native;
+                box.offset = spriteRenderer.sprite.bounds.center;
+            }
+            else
+            {
+                box.size = localSize;
+                box.offset = new Vector2(localCenter.x, localCenter.y);
+            }
         }
 
         private void FitPreviewToFootprint(FacilityDefinition definition)

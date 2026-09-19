@@ -8,7 +8,7 @@ using System.Collections.Generic;
 [Serializable]
 public sealed class KomayamaCraftSaveData
 {
-    public const int CurrentVersion = 5;
+    public const int CurrentVersion = 6;
 
     public int version = CurrentVersion;
     public string buildVersion = string.Empty;
@@ -28,6 +28,9 @@ public sealed class KomayamaCraftSaveData
     public ProgressSaveDto progress = new ProgressSaveDto();
     public FoxFollowerSaveDto foxFollower = new FoxFollowerSaveDto();
     public CameraViewSaveDto cameraView = new CameraViewSaveDto();
+    public List<QuestProgressSaveDto> questProgress = new List<QuestProgressSaveDto>();
+    /// <summary>チュートリアルで建設・設定メニュー（セーブ）が解禁済みか。</summary>
+    public bool craftTutorialMenusUnlocked;
 
     /// <summary>
     /// 欠損フィールドを含むJSONの復元後に、コレクションを安全な空状態へ補完する。
@@ -90,6 +93,11 @@ public sealed class KomayamaCraftSaveData
             cameraView = new CameraViewSaveDto();
         }
 
+        if (questProgress == null)
+        {
+            questProgress = new List<QuestProgressSaveDto>();
+        }
+
         ship.EnsureCollections();
         progress.EnsureCollections();
 
@@ -102,6 +110,11 @@ public sealed class KomayamaCraftSaveData
         for (int i = 0; i < deliveryProgress.Count; i++)
         {
             deliveryProgress[i]?.EnsureCollections();
+        }
+
+        for (int i = 0; i < questProgress.Count; i++)
+        {
+            questProgress[i]?.EnsureCollections();
         }
     }
 }
@@ -298,6 +311,42 @@ public sealed class CameraViewSaveDto
 {
     public Float2SaveDto position;
     public float orthographicSize;
+}
+
+public enum QuestSaveStatus
+{
+    Inactive = 0,
+    Active = 1,
+    Completed = 2
+}
+
+[Serializable]
+public sealed class QuestProgressSaveDto
+{
+    public string questId = string.Empty;
+    public QuestSaveStatus status;
+    public List<string> completedObjectiveIds = new List<string>();
+    public List<QuestCounterSaveDto> counters = new List<QuestCounterSaveDto>();
+
+    public void EnsureCollections()
+    {
+        if (completedObjectiveIds == null)
+        {
+            completedObjectiveIds = new List<string>();
+        }
+
+        if (counters == null)
+        {
+            counters = new List<QuestCounterSaveDto>();
+        }
+    }
+}
+
+[Serializable]
+public sealed class QuestCounterSaveDto
+{
+    public string counterId = string.Empty;
+    public int value;
 }
 
 [Serializable]

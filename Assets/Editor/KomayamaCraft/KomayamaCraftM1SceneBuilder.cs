@@ -420,7 +420,7 @@ public static class KomayamaCraftM1SceneBuilder
         debugRect.anchorMin = Vector2.one;
         debugRect.anchorMax = Vector2.one;
         debugRect.pivot = Vector2.one;
-        debugRect.anchoredPosition = new Vector2(-24f, -160f);
+        debugRect.anchoredPosition = new Vector2(-24f, -20f);
         debugRect.sizeDelta = new Vector2(400f, 100f);
 
         SetObject(hud, "handText", hand);

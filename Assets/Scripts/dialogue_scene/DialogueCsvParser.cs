@@ -192,6 +192,10 @@ namespace DialogueScene
                     return DialogueRowType.FxShakeStop;
                 case "fx_game03_ed_finale":
                     return DialogueRowType.FxGame03EdFinale;
+                case "dim":
+                    return DialogueRowType.Dim;
+                case "camera":
+                    return DialogueRowType.Camera;
                 case "end":
                     return DialogueRowType.End;
                 default:

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: IronScaleRolling
   m_EditorClassIdentifier: 
   definitionId: recipe.iron_scale_rolling
-  displayName: "\u9244\u9C57\u5727\u5EF6"
+  displayName: "\u9C57\u9244\u677F"
   inputs:
   - item: {fileID: 11400000, guid: 70d83ce94088a9f90a062ae20e4f7687, type: 2}
-    amount: 1
+    amount: 2
   requiredFacilityId: facility.scale_rolling_workbench
   requiredUnlockId: 
   processingSeconds: 1.5

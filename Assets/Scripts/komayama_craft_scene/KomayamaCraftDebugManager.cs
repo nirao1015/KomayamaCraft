@@ -33,9 +33,31 @@ namespace KomayamaCraft
             "ON のとき、ドロップ処理の詳細を Console に出す。")]
         private bool verboseDropLogging;
 
+        [SerializeField, InspectorName("OP演出しない"), Tooltip(
+            "ON のとき新規ゲームでも OP（目覚め＋会話）をスキップする。本番リリース用が ON のときは無効（常に OP あり）。")]
+        private bool skipOpeningPresentation;
+
         [SerializeField, InspectorName("長押しで超速連打"), Tooltip(
             "ON のとき、左クリック長押しの回収・採集の連打間隔を極端に短くする。右クリックのドロップ間隔は変えない。")]
         private bool rapidHoldDrop;
+
+        public enum DebugQuestStartPoint
+        {
+            None = 0,
+            SituationSurvey = 1,
+            RainLeak = 2
+        }
+
+        [SerializeField, HideInInspector, Tooltip("旧フィールド。KomayamaQuestDebugController へ移行済み。")]
+        private DebugQuestStartPoint debugQuestStart = DebugQuestStartPoint.None;
+
+        [SerializeField, InspectorName("クエストデバッグ"), Tooltip(
+            "開始シナリオはこちらのコンポーネントで選ぶ。未設定なら子／同オブジェクトを検索。")]
+        private KomayamaQuestDebugController questDebugController;
+
+        [SerializeField, InspectorName("チュートリアル自動プレイ"), Tooltip(
+            "ON のとき Play 開始で OP→初期納品まで自動プレイする。本番リリース用が ON のときは無効。OPスキップより優先して OP を通す。")]
+        private bool startTutorialAutoPlay;
 
         [Header("ゲーム倍速（デバッグ）")]
         [SerializeField, Range(0, 4), InspectorName("初期倍速段階")]
@@ -74,6 +96,45 @@ namespace KomayamaCraft
 
         public bool RapidHoldDrop =>
             !productionReleaseBuild && rapidHoldDrop;
+
+        /// <summary>デバッグで OP を飛ばすとき true。本番リリース用 ON では常に false。</summary>
+        public bool SkipOpeningPresentation =>
+            !productionReleaseBuild && skipOpeningPresentation;
+
+        /// <summary>デバッグ用の開始クエスト。本番リリース用 ON では常に None。</summary>
+        [System.Obsolete("KomayamaQuestDebugController.ActiveScenario を使う")]
+        public DebugQuestStartPoint DebugQuestStart =>
+            MapLegacyStartPoint(QuestDebugScenario);
+
+        /// <summary>クエストデバッグの開始シナリオ。本番 ON では None。</summary>
+        public KomayamaQuestDebugController.Scenario QuestDebugScenario
+        {
+            get
+            {
+                if (productionReleaseBuild)
+                {
+                    return KomayamaQuestDebugController.Scenario.None;
+                }
+
+                EnsureQuestDebugController();
+                return questDebugController != null
+                    ? questDebugController.ActiveScenario
+                    : MapFromLegacy(debugQuestStart);
+            }
+        }
+
+        public KomayamaQuestDebugController QuestDebugController
+        {
+            get
+            {
+                EnsureQuestDebugController();
+                return questDebugController;
+            }
+        }
+
+        /// <summary>チュートリアル自動プレイ開始。本番リリース用 ON では常に false。</summary>
+        public bool StartTutorialAutoPlay =>
+            !productionReleaseBuild && startTutorialAutoPlay;
 
         public int GameSpeedStepIndex =>
             Mathf.Clamp(gameSpeedStepIndex, 0, GameSpeedMultipliers.Length - 1);
@@ -155,6 +216,7 @@ namespace KomayamaCraft
                 cameraController = FindFirstObjectByType<KomayamaCraftCameraController>();
             }
 
+            EnsureQuestDebugController();
             EnsureGameClock();
             gameSpeedStepIndex = Mathf.Clamp(
                 initialGameSpeedStepIndex,
@@ -165,6 +227,50 @@ namespace KomayamaCraft
             ApplyGameSpeed();
         }
 
+        private void EnsureQuestDebugController()
+        {
+            if (questDebugController != null)
+            {
+                return;
+            }
+
+            questDebugController = GetComponent<KomayamaQuestDebugController>();
+            if (questDebugController == null)
+            {
+                questDebugController =
+                    GetComponentInChildren<KomayamaQuestDebugController>(true);
+            }
+        }
+
+        private static DebugQuestStartPoint MapLegacyStartPoint(
+            KomayamaQuestDebugController.Scenario scenario)
+        {
+            switch (scenario)
+            {
+                case KomayamaQuestDebugController.Scenario.SituationSurveyIntro:
+                    return DebugQuestStartPoint.SituationSurvey;
+                case KomayamaQuestDebugController.Scenario.RainLeakIntro:
+                case KomayamaQuestDebugController.Scenario.RainLeakPreDelivery:
+                    return DebugQuestStartPoint.RainLeak;
+                default:
+                    return DebugQuestStartPoint.None;
+            }
+        }
+
+        private static KomayamaQuestDebugController.Scenario MapFromLegacy(
+            DebugQuestStartPoint point)
+        {
+            switch (point)
+            {
+                case DebugQuestStartPoint.SituationSurvey:
+                    return KomayamaQuestDebugController.Scenario.SituationSurveyIntro;
+                case DebugQuestStartPoint.RainLeak:
+                    return KomayamaQuestDebugController.Scenario.RainLeakIntro;
+                default:
+                    return KomayamaQuestDebugController.Scenario.None;
+            }
+        }
+
         private void OnValidate()
         {
             cameraAreaUnlockDebug = Mathf.Clamp(cameraAreaUnlockDebug, 0, 4);
@@ -172,6 +278,7 @@ namespace KomayamaCraft
                 initialGameSpeedStepIndex,
                 0,
                 GameSpeedMultipliers.Length - 1);
+            EnsureQuestDebugController();
             if (Application.isPlaying)
             {
                 ApplyDebugVisibility();

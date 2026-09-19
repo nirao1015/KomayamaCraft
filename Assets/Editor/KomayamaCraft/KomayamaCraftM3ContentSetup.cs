@@ -108,7 +108,16 @@ public static class KomayamaCraftM3ContentSetup
             new Color(0.55f, 0.95f, 0.45f, 1f),
             1.35f);
 
-        RecipeDefinition rolling = Load<RecipeDefinition>($"{RecipesFolder}/IronScaleRolling.asset");
+        RecipeDefinition rolling = UpsertRecipe(
+            "IronScaleRolling",
+            "recipe.iron_scale_rolling",
+            "鱗鉄板",
+            "facility.scale_rolling_workbench",
+            true,
+            1.5f,
+            RecipeOutputMode.Fixed,
+            Inputs(ironScale, 2),
+            Outputs(ironScalePlate, 1, 1));
         RecipeDefinition rivet = UpsertRecipe(
             "ScaleRivet",
             "recipe.scale_rivet",
@@ -237,7 +246,7 @@ public static class KomayamaCraftM3ContentSetup
             "鱗圧延作業台",
             workbenchPrefab,
             FacilityCapability.Processing,
-            new[] { rolling, rivet, radiator, frame },
+            new[] { rolling },
             Inputs(ironScale, 5),
             8,
             8,

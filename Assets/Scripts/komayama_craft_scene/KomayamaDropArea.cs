@@ -298,8 +298,16 @@ namespace KomayamaCraft
             }
 
             spawned = SpawnDropped(item, amount, travelFrom, resolved[newIndex]);
+            if (spawned != null)
+            {
+                GroundItemSpawned?.Invoke(item, Mathf.Max(1, amount));
+            }
+
             return spawned != null;
         }
+
+        /// <summary>地面にドロップが生成されたとき（ロード除く通常スポーン）。</summary>
+        public static event System.Action<ItemDefinition, int> GroundItemSpawned;
 
         private KomayamaDroppedItem SpawnDropped(
             ItemDefinition item,

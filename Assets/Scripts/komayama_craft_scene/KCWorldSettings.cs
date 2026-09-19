@@ -14,12 +14,12 @@ namespace KomayamaCraft
         [Tooltip("何もない場所を左ドラッグして、下の土地を引っ張る強さ。1でマウスと同じ距離。大きくすると同じドラッグでより遠くまで動きます。")]
         private float mapDragPullStrength = 1f;
 
-        [SerializeField, Min(0.1f), InspectorName("ズーム下限")]
-        [Tooltip("マウスホイールでズームインしたときの直交サイズの下限。小さいほど寄れる。今の初期値は 2.5。")]
+        [SerializeField, Min(0.1f), InspectorName("ズーム下限"), Tooltip(
+            "マウスホイールで最も寄ったときの Orthographic Size。カメラ演出もこの値を上限寄りとして使う。正本は本コンポーネント（KCConfigValues）。")]
         private float zoomMinimumOrthographicSize = 2.5f;
 
-        [SerializeField, Min(0.1f), InspectorName("ズーム上限")]
-        [Tooltip("マウスホイールでズームアウトしたときの直交サイズの上限。大きいほど引ける。今の初期値は 8。")]
+        [SerializeField, Min(0.1f), InspectorName("ズーム上限"), Tooltip(
+            "マウスホイールで最も引いたときの Orthographic Size。正本は本コンポーネント（KCConfigValues）。")]
         private float zoomMaximumOrthographicSize = 8f;
 
         public float WasdMoveSpeed => wasdMoveSpeed;

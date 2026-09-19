@@ -21,9 +21,6 @@ MonoBehaviour:
   capabilities: 1
   supportedRecipes:
   - {fileID: 11400000, guid: e74fa350b7ff0126718d915975b6df5e, type: 2}
-  - {fileID: 11400000, guid: 5ec0f7dfb0e8eb94ea14799eb8c7692e, type: 2}
-  - {fileID: 11400000, guid: 18fda1c8e2f29344ba2cd71f48b6b197, type: 2}
-  - {fileID: 11400000, guid: 865a50a818c268c45a395d38537f0f52, type: 2}
   constructionCost:
   - item: {fileID: 11400000, guid: 70d83ce94088a9f90a062ae20e4f7687, type: 2}
     amount: 5

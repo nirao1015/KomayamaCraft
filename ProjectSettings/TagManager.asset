@@ -50,6 +50,9 @@ TagManager:
   - name: WorldObject
     uniqueID: 1003
     locked: 0
+  - name: WorldNpc
+    uniqueID: 1012
+    locked: 0
   - name: WorldFacility
     uniqueID: 1010
     locked: 0

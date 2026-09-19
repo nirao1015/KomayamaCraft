@@ -74,13 +74,55 @@ namespace KomayamaCraft
         [SerializeField] private bool enableEdgeScroll;
         [SerializeField, Min(0f)] private float edgeThresholdPixels = 16f;
         [SerializeField, Min(0.01f)] private float zoomStep = 0.6f;
-        [SerializeField, Min(0.1f)] private float minimumOrthographicSize = 2.5f;
-        [SerializeField, Min(0.1f)] private float maximumOrthographicSize = 8f;
+
+        // ズーム上下限の正本は KCConfigValues / KCWorldSettings。
+        // ここは worldSettings 未設定時のフォールバックのみ。
+        [SerializeField, HideInInspector] private float minimumOrthographicSize = 2.5f;
+        [SerializeField, HideInInspector] private float maximumOrthographicSize = 8f;
 
         private bool movedThisFrame;
         private int? debugAreaOverride;
+        private bool dialogueFramingActive;
+        private Vector3 dialogueRestorePosition;
+        private float dialogueRestoreOrthoSize;
+        private Coroutine dialogueFrameRoutine;
 
         public int UnlockStage => Mathf.Clamp(unlockStage, 0, UnlockStageCount - 1);
+
+        /// <summary>
+        /// ズーム下限（最も寄る）。正本は <see cref="KCWorldSettings"/>。
+        /// </summary>
+        public float MinimumOrthographicSize
+        {
+            get
+            {
+                GetConfiguredZoomRange(out float min, out _);
+                return min;
+            }
+        }
+
+        /// <summary>
+        /// ズーム上限（最も引く）。正本は <see cref="KCWorldSettings"/>。
+        /// </summary>
+        public float MaximumOrthographicSize
+        {
+            get
+            {
+                GetConfiguredZoomRange(out _, out float max);
+                return max;
+            }
+        }
+
+        /// <summary>会話オーバーレイ中はパン／ズーム入力を受けない。</summary>
+        public bool DialogueFramingActive => dialogueFramingActive;
+
+        /// <summary>宇宙船修理演出など、パン／ズーム入力を止めるフレーミング中。</summary>
+        public bool CinematicFramingActive => cinematicFramingActive;
+
+        private bool cinematicFramingActive;
+        private Vector3 cinematicRestorePosition;
+        private float cinematicRestoreOrthoSize;
+        private Coroutine cinematicFrameRoutine;
 
         private void Awake()
         {
@@ -106,9 +148,304 @@ namespace KomayamaCraft
         private void Update()
         {
             movedThisFrame = false;
-            ApplyZoom();
-            ApplyMove();
+            if (!dialogueFramingActive && !cinematicFramingActive)
+            {
+                ApplyZoom();
+                ApplyMove();
+            }
+
             foxFollower?.NotifyCameraMoving(movedThisFrame);
+        }
+
+        /// <summary>会話開始時に現在の位置・サイズを記録する。</summary>
+        public void BeginDialogueFramingSnapshot()
+        {
+            dialogueRestorePosition = transform.position;
+            Camera cam = targetCamera != null ? targetCamera : GetComponent<Camera>();
+            dialogueRestoreOrthoSize = cam != null && cam.orthographic
+                ? cam.orthographicSize
+                : maximumOrthographicSize;
+            dialogueFramingActive = true;
+        }
+
+        /// <summary>スナップショットへ戻し、会話フレーミングを終了する。</summary>
+        public void EndDialogueFramingAndRestore()
+        {
+            if (dialogueFrameRoutine != null)
+            {
+                StopCoroutine(dialogueFrameRoutine);
+                dialogueFrameRoutine = null;
+            }
+
+            transform.position = dialogueRestorePosition;
+            Camera cam = targetCamera != null ? targetCamera : GetComponent<Camera>();
+            if (cam != null && cam.orthographic)
+            {
+                cam.orthographicSize = dialogueRestoreOrthoSize;
+            }
+
+            ClampToActiveBounds();
+            dialogueFramingActive = false;
+        }
+
+        /// <summary>位置は維持したまま会話フレーミングだけ終了する（OP 用）。</summary>
+        public void EndDialogueFramingKeepPosition()
+        {
+            if (dialogueFrameRoutine != null)
+            {
+                StopCoroutine(dialogueFrameRoutine);
+                dialogueFrameRoutine = null;
+            }
+
+            ClampToActiveBounds();
+            dialogueFramingActive = false;
+        }
+
+        /// <summary>ワールド座標へ即時移動（OP 開始時の船上など）。</summary>
+        public void SnapToWorldCenter(Vector2 worldCenter)
+        {
+            BoundsRect bounds = GetActiveBounds();
+            Vector2 clamped = bounds.Clamp(worldCenter);
+            Vector3 position = transform.position;
+            position.x = clamped.x;
+            position.y = clamped.y;
+            transform.position = position;
+        }
+
+        /// <summary>宇宙船修理演出用スナップショット。</summary>
+        public void BeginCinematicFramingSnapshot()
+        {
+            cinematicRestorePosition = transform.position;
+            Camera cam = targetCamera != null ? targetCamera : GetComponent<Camera>();
+            cinematicRestoreOrthoSize = cam != null && cam.orthographic
+                ? cam.orthographicSize
+                : maximumOrthographicSize;
+            cinematicFramingActive = true;
+        }
+
+        /// <summary>
+        /// 通常ズーム下限を超えて寄れるフレーミング。
+        /// <paramref name="orthographicSize"/> が 0 以下ならサイズは変えない。
+        /// </summary>
+        public void FrameForCinematic(
+            Vector2 worldCenter,
+            float orthographicSize,
+            float durationSeconds)
+        {
+            if (!cinematicFramingActive)
+            {
+                BeginCinematicFramingSnapshot();
+            }
+
+            if (cinematicFrameRoutine != null)
+            {
+                StopCoroutine(cinematicFrameRoutine);
+                cinematicFrameRoutine = null;
+            }
+
+            float duration = Mathf.Max(0f, durationSeconds);
+            if (duration <= 0.0001f)
+            {
+                ApplyCinematicFrameImmediate(worldCenter, orthographicSize);
+                return;
+            }
+
+            cinematicFrameRoutine = StartCoroutine(
+                FrameForCinematicRoutine(worldCenter, orthographicSize, duration));
+        }
+
+        /// <summary>スナップショット位置へズームアウト（復元は End で確定）。</summary>
+        public void FrameForCinematicRestore(float durationSeconds)
+        {
+            if (!cinematicFramingActive)
+            {
+                return;
+            }
+
+            if (cinematicFrameRoutine != null)
+            {
+                StopCoroutine(cinematicFrameRoutine);
+                cinematicFrameRoutine = null;
+            }
+
+            cinematicFrameRoutine = StartCoroutine(
+                FrameForCinematicRoutine(
+                    new Vector2(cinematicRestorePosition.x, cinematicRestorePosition.y),
+                    cinematicRestoreOrthoSize,
+                    Mathf.Max(0f, durationSeconds)));
+        }
+
+        public void EndCinematicFramingAndRestore()
+        {
+            if (cinematicFrameRoutine != null)
+            {
+                StopCoroutine(cinematicFrameRoutine);
+                cinematicFrameRoutine = null;
+            }
+
+            transform.position = cinematicRestorePosition;
+            Camera cam = targetCamera != null ? targetCamera : GetComponent<Camera>();
+            if (cam != null && cam.orthographic)
+            {
+                cam.orthographicSize = cinematicRestoreOrthoSize;
+            }
+
+            ClampToActiveBounds();
+            cinematicFramingActive = false;
+        }
+
+        private void ApplyCinematicFrameImmediate(Vector2 worldCenter, float orthographicSize)
+        {
+            BoundsRect bounds = GetActiveBounds();
+            Vector2 clamped = bounds.Clamp(worldCenter);
+            Vector3 position = transform.position;
+            position.x = clamped.x;
+            position.y = clamped.y;
+            transform.position = position;
+
+            if (orthographicSize > 0.01f)
+            {
+                Camera cam = targetCamera != null ? targetCamera : GetComponent<Camera>();
+                if (cam != null && cam.orthographic)
+                {
+                    GetConfiguredZoomRange(out float minSize, out float maxSize);
+                    cam.orthographicSize = Mathf.Clamp(orthographicSize, minSize, maxSize);
+                }
+            }
+        }
+
+        private System.Collections.IEnumerator FrameForCinematicRoutine(
+            Vector2 worldCenter,
+            float orthographicSize,
+            float duration)
+        {
+            Vector3 startPos = transform.position;
+            Camera cam = targetCamera != null ? targetCamera : GetComponent<Camera>();
+            float startSize = cam != null && cam.orthographic ? cam.orthographicSize : startPos.z;
+            BoundsRect bounds = GetActiveBounds();
+            Vector2 endXy = bounds.Clamp(worldCenter);
+            Vector3 endPos = new Vector3(endXy.x, endXy.y, startPos.z);
+
+            float endSize = startSize;
+            if (orthographicSize > 0.01f && cam != null && cam.orthographic)
+            {
+                GetConfiguredZoomRange(out float minSize, out float maxSize);
+                endSize = Mathf.Clamp(orthographicSize, minSize, maxSize);
+            }
+
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+                t = t * t * (3f - 2f * t);
+                transform.position = Vector3.Lerp(startPos, endPos, t);
+                if (cam != null && cam.orthographic)
+                {
+                    cam.orthographicSize = Mathf.Lerp(startSize, endSize, t);
+                }
+
+                yield return null;
+            }
+
+            transform.position = endPos;
+            if (cam != null && cam.orthographic)
+            {
+                cam.orthographicSize = endSize;
+            }
+
+            cinematicFrameRoutine = null;
+        }
+
+        /// <summary>
+        /// 会話中の一時フレーミング。<paramref name="durationSeconds"/> が 0 以下なら即時。
+        /// <paramref name="orthographicSize"/> が 0 以下ならサイズは変えない。
+        /// </summary>
+        public void FrameForDialogue(Vector2 worldCenter, float orthographicSize, float durationSeconds)
+        {
+            if (!dialogueFramingActive)
+            {
+                BeginDialogueFramingSnapshot();
+            }
+
+            if (dialogueFrameRoutine != null)
+            {
+                StopCoroutine(dialogueFrameRoutine);
+                dialogueFrameRoutine = null;
+            }
+
+            float duration = Mathf.Max(0f, durationSeconds);
+            if (duration <= 0.0001f)
+            {
+                ApplyDialogueFrameImmediate(worldCenter, orthographicSize);
+                return;
+            }
+
+            dialogueFrameRoutine = StartCoroutine(
+                FrameForDialogueRoutine(worldCenter, orthographicSize, duration));
+        }
+
+        private void ApplyDialogueFrameImmediate(Vector2 worldCenter, float orthographicSize)
+        {
+            BoundsRect bounds = GetActiveBounds();
+            Vector2 clamped = bounds.Clamp(worldCenter);
+            Vector3 position = transform.position;
+            position.x = clamped.x;
+            position.y = clamped.y;
+            transform.position = position;
+
+            if (orthographicSize > 0.01f)
+            {
+                Camera cam = targetCamera != null ? targetCamera : GetComponent<Camera>();
+                if (cam != null && cam.orthographic)
+                {
+                    GetConfiguredZoomRange(out float minSize, out float maxSize);
+                    cam.orthographicSize = Mathf.Clamp(orthographicSize, minSize, maxSize);
+                }
+            }
+        }
+
+        private System.Collections.IEnumerator FrameForDialogueRoutine(
+            Vector2 worldCenter,
+            float orthographicSize,
+            float duration)
+        {
+            Vector3 startPos = transform.position;
+            Camera cam = targetCamera != null ? targetCamera : GetComponent<Camera>();
+            float startSize = cam != null && cam.orthographic ? cam.orthographicSize : startPos.z;
+            BoundsRect bounds = GetActiveBounds();
+            Vector2 endXy = bounds.Clamp(worldCenter);
+            Vector3 endPos = new Vector3(endXy.x, endXy.y, startPos.z);
+
+            float endSize = startSize;
+            if (orthographicSize > 0.01f && cam != null && cam.orthographic)
+            {
+                GetConfiguredZoomRange(out float minSize, out float maxSize);
+                endSize = Mathf.Clamp(orthographicSize, minSize, maxSize);
+            }
+
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+                t = t * t * (3f - 2f * t);
+                transform.position = Vector3.Lerp(startPos, endPos, t);
+                if (cam != null && cam.orthographic)
+                {
+                    cam.orthographicSize = Mathf.Lerp(startSize, endSize, t);
+                }
+
+                yield return null;
+            }
+
+            transform.position = endPos;
+            if (cam != null && cam.orthographic)
+            {
+                cam.orthographicSize = endSize;
+            }
+
+            dialogueFrameRoutine = null;
         }
 
         /// <summary>
@@ -191,14 +528,7 @@ namespace KomayamaCraft
             float notches = Mathf.Abs(scrollY) >= WheelNotch * 0.5f
                 ? scrollY / WheelNotch
                 : Mathf.Sign(scrollY);
-            float configuredMin = worldSettings != null
-                ? worldSettings.ZoomMinimumOrthographicSize
-                : minimumOrthographicSize;
-            float configuredMax = worldSettings != null
-                ? worldSettings.ZoomMaximumOrthographicSize
-                : maximumOrthographicSize;
-            float minSize = Mathf.Min(configuredMin, configuredMax);
-            float maxSize = Mathf.Max(configuredMin, configuredMax);
+            GetConfiguredZoomRange(out float minSize, out float maxSize);
             targetCamera.orthographicSize = Mathf.Clamp(
                 targetCamera.orthographicSize - notches * zoomStep,
                 minSize,
@@ -279,15 +609,23 @@ namespace KomayamaCraft
                 return;
             }
 
+            GetConfiguredZoomRange(out float minSize, out float maxSize);
+            cam.orthographicSize = Mathf.Clamp(dto.orthographicSize, minSize, maxSize);
+        }
+
+        /// <summary>
+        /// ズーム上下限。正本は KCConfigValues の <see cref="KCWorldSettings"/>。
+        /// </summary>
+        private void GetConfiguredZoomRange(out float minSize, out float maxSize)
+        {
             float configuredMin = worldSettings != null
                 ? worldSettings.ZoomMinimumOrthographicSize
                 : minimumOrthographicSize;
             float configuredMax = worldSettings != null
                 ? worldSettings.ZoomMaximumOrthographicSize
                 : maximumOrthographicSize;
-            float minSize = Mathf.Min(configuredMin, configuredMax);
-            float maxSize = Mathf.Max(configuredMin, configuredMax);
-            cam.orthographicSize = Mathf.Clamp(dto.orthographicSize, minSize, maxSize);
+            minSize = Mathf.Min(configuredMin, configuredMax);
+            maxSize = Mathf.Max(configuredMin, configuredMax);
         }
 
         private void ClampToActiveBounds()

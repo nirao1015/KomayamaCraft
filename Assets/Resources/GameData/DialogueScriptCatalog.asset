@@ -13,15 +13,60 @@ MonoBehaviour:
   m_Name: DialogueScriptCatalog
   m_EditorClassIdentifier: Assembly-CSharp::DialogueScriptCatalog
   entries:
+  - sceneName: komayama_craft_scene
+    stageName: craft_quest_leak_after_place
+    csv: {fileID: 4900000, guid: 0f25d0ca8de6d2141b6ab5f8fe53a720, type: 3}
+  - sceneName: komayama_craft_scene
+    stageName: craft_quest_leak_intro_b
+    csv: {fileID: 4900000, guid: 2dc18008bbe4c2246976cdae870d8176, type: 3}
+  - sceneName: komayama_craft_scene
+    stageName: craft_quest_leak_deliver_hint
+    csv: {fileID: 4900000, guid: 347840ecb1046ea4dac90dfc286103d1, type: 3}
+  - sceneName: komayama_craft_scene
+    stageName: craft_quest_leak_ask_deliver
+    csv: {fileID: 4900000, guid: 63abdf7a2c352ac43a172765f169e6e8, type: 3}
+  - sceneName: komayama_craft_scene
+    stageName: craft_quest_leak_after_recipe
+    csv: {fileID: 4900000, guid: 6c46b0e011b0b6b4f80d7c635e15deae, type: 3}
+  - sceneName: komayama_craft_scene
+    stageName: craft_intro_01
+    csv: {fileID: 4900000, guid: 6ff84ffe7c2b8c043a37e5d020867051, type: 3}
   - sceneName: game03_scene
     stageName: 01
     csv: {fileID: 4900000, guid: a8b4e2c91d0f4a7b8e9c0d1f2a3b4c5e, type: 3}
+  - sceneName: komayama_craft_scene
+    stageName: craft_quest_leak_make_bench
+    csv: {fileID: 4900000, guid: aa3a214c26c80024dad7183adbc82350, type: 3}
+  - sceneName: komayama_craft_scene
+    stageName: craft_quest_leak_intro_a
+    csv: {fileID: 4900000, guid: acf7b33c6e54c52459b540011a645391, type: 3}
+  - sceneName: komayama_craft_scene
+    stageName: craft_quest_leak_pick_recipe
+    csv: {fileID: 4900000, guid: b7172d95bcbe34b4d91fc6f6bcc1bb5b, type: 3}
+  - sceneName: komayama_craft_scene
+    stageName: craft_quest_leak_deliver_done
+    csv: {fileID: 4900000, guid: c6197470029737a4aafa5395c7c0bd1e, type: 3}
+  - sceneName: komayama_craft_scene
+    stageName: craft_npc_unit05_default
+    csv: {fileID: 4900000, guid: c7ccec0741728e347a13e1a819414dee, type: 3}
+  - sceneName: komayama_craft_scene
+    stageName: craft_quest_leak_feed
+    csv: {fileID: 4900000, guid: cfae105b436117945bb0793b31f06b43, type: 3}
   - sceneName: game_stage_scene
     stageName: stage_01
     csv: {fileID: 4900000, guid: d2c3b4a5968778695a4b3c2d1e0f1a2b, type: 3}
+  - sceneName: komayama_craft_scene
+    stageName: craft_op_01
+    csv: {fileID: 4900000, guid: d84b8385a89c4fa47855dc07d896ca76, type: 3}
   - sceneName: game02_scene
     stageName: 01
     csv: {fileID: 4900000, guid: e12ce0de65a666549b5e7992e66ce29d, type: 3}
+  - sceneName: komayama_craft_scene
+    stageName: craft_quest_situation_end
+    csv: {fileID: 4900000, guid: e5952fde2c4c3ff46a154fcb9ed26f6f, type: 3}
+  - sceneName: komayama_craft_scene
+    stageName: craft_quest_situation_start
+    csv: {fileID: 4900000, guid: e725e5d192de1824eaa9ddcb6ed04442, type: 3}
   - sceneName: game03_scene
     stageName: ed
     csv: {fileID: 4900000, guid: f7a3c91d2b8e4f6a9c0d1e2f3a4b5c6d, type: 3}

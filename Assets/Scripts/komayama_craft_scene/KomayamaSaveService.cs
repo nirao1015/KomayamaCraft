@@ -110,6 +110,12 @@ namespace KomayamaCraft
 
         public bool TrySave()
         {
+            if (!IsCraftSaveAllowed())
+            {
+                hud?.ShowMessage("まだセーブできない");
+                return false;
+            }
+
             bool saved = TrySaveSilent();
             hud?.ShowMessage(saved ? "セーブしました" : "セーブに失敗しました");
             return saved;
@@ -117,6 +123,11 @@ namespace KomayamaCraft
 
         public bool TrySaveSilent()
         {
+            if (!IsCraftSaveAllowed())
+            {
+                return false;
+            }
+
             try
             {
                 Directory.CreateDirectory(SaveDirectory);
@@ -145,6 +156,12 @@ namespace KomayamaCraft
                 Debug.LogError($"[KomayamaCraft] Save failed: {exception.Message}");
                 return false;
             }
+        }
+
+        private static bool IsCraftSaveAllowed()
+        {
+            KomayamaQuestController quest = KomayamaQuestController.Instance;
+            return quest == null || quest.AreBuildAndSettingsUnlocked;
         }
 
         public bool TryLoad()
@@ -276,6 +293,7 @@ namespace KomayamaCraft
             FindFirstObjectByType<KomayamaShip>()?.CaptureSave(data.ship);
             FindFirstObjectByType<KCMouseFoxFollower>()?.CaptureSave(data.foxFollower);
             FindFirstObjectByType<KomayamaCraftCameraController>()?.CaptureSave(data.cameraView);
+            FindFirstObjectByType<KomayamaQuestController>()?.CaptureSave(data);
             return data;
         }
 
@@ -323,6 +341,7 @@ namespace KomayamaCraft
             FindFirstObjectByType<KomayamaShip>()?.ApplySave(data.ship);
             FindFirstObjectByType<KCMouseFoxFollower>()?.ApplySave(data.foxFollower);
             FindFirstObjectByType<KomayamaCraftCameraController>()?.ApplySave(data.cameraView);
+            FindFirstObjectByType<KomayamaQuestController>()?.ApplySave(data);
         }
 
         private void ApplyFacilities(KomayamaCraftSaveData data)

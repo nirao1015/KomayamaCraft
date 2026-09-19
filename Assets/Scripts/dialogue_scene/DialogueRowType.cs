@@ -16,6 +16,10 @@ namespace DialogueScene
         FxShakeStart,
         FxShakeStop,
         FxGame03EdFinale,
+        /// <summary>Craft オーバーレイ用: 暗幕 α（mode = 0〜1）。</summary>
+        Dim,
+        /// <summary>Craft オーバーレイ用: カメラ移動（text = x,y / mode = 秒 / audio_key = size）。</summary>
+        Camera,
         End
     }
 }

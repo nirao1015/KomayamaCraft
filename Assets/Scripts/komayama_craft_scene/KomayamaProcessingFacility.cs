@@ -152,6 +152,7 @@ namespace KomayamaCraft
 
             if (recipe == selected)
             {
+                RecipeSelected?.Invoke(this, selected);
                 return true;
             }
 
@@ -167,7 +168,32 @@ namespace KomayamaCraft
             hud?.ShowMessage($"レシピ: {RecipeName}");
             TryStartProcessing();
             NotifyStateChanged();
+            RecipeSelected?.Invoke(this, selected);
             return true;
+        }
+
+        /// <summary>レシピが選ばれたとき。</summary>
+        public static event System.Action<KomayamaProcessingFacility, RecipeDefinition>
+            RecipeSelected;
+
+        /// <summary>チュートリアル用。受理燃料を指定個数セットする。</summary>
+        public void ApplyTutorialFuelCharges(int charges)
+        {
+            if (definition == null || !definition.UsesFuel || charges <= 0)
+            {
+                return;
+            }
+
+            if (definition.AcceptedFuelItems == null ||
+                definition.AcceptedFuelItems.Count == 0 ||
+                definition.AcceptedFuelItems[0] == null)
+            {
+                return;
+            }
+
+            fuelItem = definition.AcceptedFuelItems[0];
+            fuelAmount = Mathf.Clamp(charges, 0, definition.FuelCapacity);
+            NotifyStateChanged();
         }
 
         public bool TryCycleRecipe(int delta, out string failureReason)
@@ -591,9 +617,14 @@ namespace KomayamaCraft
 
             seManager?.Play(KomayamaCraftSeCue.ProcessingComplete);
             hud?.ShowMessage($"{recipe.DisplayName}が完了しました");
+            ItemProduced?.Invoke(this, recipe);
             SetState(KomayamaFacilityState.WaitingForInput);
             TryStartProcessing();
         }
+
+        /// <summary>1回の生産が完了したとき（レシピ単位）。</summary>
+        public static event System.Action<KomayamaProcessingFacility, RecipeDefinition>
+            ItemProduced;
 
         private void AbortProcessingKeepFuel()
         {

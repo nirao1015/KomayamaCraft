@@ -9,7 +9,7 @@ namespace KomayamaCraft
     {
         [SerializeField] private KomayamaCraftHud hud;
         [SerializeField] private KomayamaHandInventory hand;
-        [SerializeField] private bool runOnNewGame = true;
+        [SerializeField] private bool runOnNewGame = false;
         [SerializeField] private TMPro.TMP_Text guideExtraText;
 
         private int step;

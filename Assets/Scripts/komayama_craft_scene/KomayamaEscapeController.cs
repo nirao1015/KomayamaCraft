@@ -19,6 +19,14 @@ namespace KomayamaCraft
 
         private void Update()
         {
+            if ((KomayamaCraftDialogueOverlay.Instance != null &&
+                 KomayamaCraftDialogueOverlay.Instance.IsDialogueActive) ||
+                (KomayamaCraftOpeningController.Instance != null &&
+                 KomayamaCraftOpeningController.Instance.IsOpeningActive))
+            {
+                return;
+            }
+
             Keyboard keyboard = Keyboard.current;
             if (keyboard == null || sequenceRunning)
             {

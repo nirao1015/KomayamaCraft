@@ -8,6 +8,15 @@ TextureImporter:
   - first:
       213: -2352284060781100194
     second: terrain_1D_1
+  - first:
+      213: -9064217296715226118
+    second: terrain_1D_2
+  - first:
+      213: -4631187935611682460
+    second: terrain_1D_3
+  - first:
+      213: -4857505856852707451
+    second: terrain_1D_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -50,7 +59,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
-  spriteExtrude: 0
+  spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -77,8 +86,8 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 0
+    textureFormat: -1
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -127,7 +136,117 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: terrain_1D_0
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 617
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76ff9afb578af7ca0800000000000000
+      internalID: -6016905353463464089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: terrain_1D_1
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 0
+        width: 1783
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5344521c120b5fd0800000000000000
+      internalID: -2352284060781100194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: terrain_1D_2
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 605
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af36656946e653280800000000000000
+      internalID: -9064217296715226118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: terrain_1D_3
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 569
+        width: 38
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4618ac11c17babfb0800000000000000
+      internalID: -4631187935611682460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: terrain_1D_4
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 0
+        width: 26
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5873aebc82ca69cb0800000000000000
+      internalID: -4857505856852707451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -144,6 +263,9 @@ TextureImporter:
     nameFileIdTable:
       terrain_1D_0: -6016905353463464089
       terrain_1D_1: -2352284060781100194
+      terrain_1D_2: -9064217296715226118
+      terrain_1D_3: -4631187935611682460
+      terrain_1D_4: -4857505856852707451
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

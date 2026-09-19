@@ -41,6 +41,11 @@ namespace KomayamaCraft
         /// </summary>
         private bool suppressFacilityDepositUntilRightRelease;
 
+        /// <summary>
+        /// 右クリック長押し中、納入ゴミ箱 SE を既に1回鳴らしたか。
+        /// </summary>
+        private bool trashDepositSePlayedThisHold;
+
         private bool RapidHoldRepeat =>
             debugManager != null && debugManager.RapidHoldDrop;
 
@@ -92,6 +97,17 @@ namespace KomayamaCraft
 
         private void Update()
         {
+            if ((KomayamaCraftDialogueOverlay.Instance != null &&
+                 KomayamaCraftDialogueOverlay.Instance.IsDialogueActive) ||
+                (KomayamaCraftOpeningController.Instance != null &&
+                 KomayamaCraftOpeningController.Instance.IsOpeningActive) ||
+                KomayamaShipRepairCinematic.IsPlaying)
+            {
+                foxFollower?.NotifyRightDropHolding(false);
+                foxFollower?.NotifyGatherHolding(false, GatherHoldRepeatSeconds);
+                return;
+            }
+
             HandleModeKeys();
             Mouse mouse = Mouse.current;
             if (mouse == null || targetCamera == null)
@@ -173,6 +189,7 @@ namespace KomayamaCraft
             if (mouse.rightButton.wasPressedThisFrame)
             {
                 suppressFacilityDepositUntilRightRelease = false;
+                trashDepositSePlayedThisHold = false;
                 HandleRight();
                 nextRightRepeatAt = Time.unscaledTime + RightHoldStartDelay;
             }
@@ -183,6 +200,7 @@ namespace KomayamaCraft
             else
             {
                 suppressFacilityDepositUntilRightRelease = false;
+                trashDepositSePlayedThisHold = false;
             }
 
             bool dropping =
@@ -284,6 +302,21 @@ namespace KomayamaCraft
                 IsPointerOverUi())
             {
                 return;
+            }
+
+            // 初回プレス時のみ NPC 会話（ホールドリピートでは再発火しない）
+            if (allowResourceGather)
+            {
+                KomayamaNpc npc = FindNpcAt(worldPosition);
+                if (npc != null)
+                {
+                    if (!npc.TryTalk())
+                    {
+                        Reject("会話を開始できません");
+                    }
+
+                    return;
+                }
             }
 
             ResolveLeftTargets(
@@ -456,6 +489,29 @@ namespace KomayamaCraft
             }
         }
 
+        private KomayamaNpc FindNpcAt(Vector2 worldPosition)
+        {
+            Collider2D[] hits = Physics2D.OverlapPointAll(
+                worldPosition,
+                interactableLayers);
+            for (int i = 0; i < hits.Length; i++)
+            {
+                Collider2D hit = hits[i];
+                if (hit == null)
+                {
+                    continue;
+                }
+
+                KomayamaNpc npc = hit.GetComponentInParent<KomayamaNpc>();
+                if (npc != null)
+                {
+                    return npc;
+                }
+            }
+
+            return null;
+        }
+
         private void HandleDragPickup()
         {
             if (!TryGetPointerWorldPosition(out Vector2 worldPosition) ||
@@ -477,6 +533,11 @@ namespace KomayamaCraft
             if (dropped.TryTakeOne(hand))
             {
                 seManager?.Play(KomayamaCraftSeCue.Pickup);
+                if (dropped.Item != null)
+                {
+                    GroundItemPickedUp?.Invoke(dropped.Item, 1);
+                }
+
                 return;
             }
 
@@ -484,9 +545,12 @@ namespace KomayamaCraft
             {
                 Reject(hand != null
                     ? hand.GetAddFailureReason(dropped.Item)
-                    : "???????");
+                    : "拾えない");
             }
         }
+
+        /// <summary>地面ドロップを1個拾ったとき。</summary>
+        public static event System.Action<ItemDefinition, int> GroundItemPickedUp;
 
         private bool TryGetDroppedNear(Vector2 worldPosition, out KomayamaDroppedItem dropped)
         {
@@ -558,10 +622,17 @@ namespace KomayamaCraft
             KomayamaDepositBin depositBin = FindUnderPointer<KomayamaDepositBin>(hits);
             if (depositBin != null)
             {
-                if (!depositBin.TryDepositOne(hand, out string binReason))
+                bool playSe = !depositBin.UsesTrashDepositSe ||
+                              !trashDepositSePlayedThisHold;
+                if (!depositBin.TryDepositOne(hand, out string binReason, playSe))
                 {
                     Reject(binReason);
                 }
+                else if (depositBin.UsesTrashDepositSe && playSe)
+                {
+                    trashDepositSePlayedThisHold = true;
+                }
+
                 return;
             }
 
@@ -655,6 +726,12 @@ namespace KomayamaCraft
 
         private bool TryGetPointerWorldPosition(out Vector2 worldPosition)
         {
+            if (KomayamaCraftAutoPlayInput.IsActive &&
+                KomayamaCraftAutoPlayInput.TryGetForcedWorldPointer(out worldPosition))
+            {
+                return true;
+            }
+
             worldPosition = default;
             Mouse mouse = Mouse.current;
             if (mouse == null)
@@ -676,8 +753,31 @@ namespace KomayamaCraft
             return true;
         }
 
+        /// <summary>オートプレイ用。指定ワールド位置で左クリック相当を1回実行する。</summary>
+        public void AutoPlayLeftClickAt(Vector2 worldPosition)
+        {
+            KomayamaCraftAutoPlayInput.SetForcedWorldPointer(worldPosition);
+            HandleLeft(true, false);
+            KomayamaCraftAutoPlayInput.ClearForcedWorldPointer();
+        }
+
+        /// <summary>オートプレイ用。指定ワールド位置で右クリック相当を1回実行する。</summary>
+        public void AutoPlayRightClickAt(Vector2 worldPosition)
+        {
+            KomayamaCraftAutoPlayInput.SetForcedWorldPointer(worldPosition);
+            suppressFacilityDepositUntilRightRelease = false;
+            HandleRight();
+            KomayamaCraftAutoPlayInput.ClearForcedWorldPointer();
+        }
+
         private bool IsPointerOverUi()
         {
+            if (KomayamaCraftAutoPlayInput.IsActive &&
+                KomayamaCraftAutoPlayInput.TryGetForcedWorldPointer(out _))
+            {
+                return false;
+            }
+
             if (eventSystem == null)
             {
                 return false;
@@ -737,6 +837,11 @@ namespace KomayamaCraft
             }
             else if (keyboard.bKey.wasPressedThisFrame)
             {
+                if (!IsBuildUnlocked())
+                {
+                    return;
+                }
+
                 buildController.SetMode(
                     buildController.Mode == KomayamaInputMode.Build
                         ? KomayamaInputMode.Field
@@ -744,6 +849,11 @@ namespace KomayamaCraft
             }
             else if (keyboard.xKey.wasPressedThisFrame)
             {
+                if (!IsBuildUnlocked())
+                {
+                    return;
+                }
+
                 buildController.SetMode(
                     buildController.Mode == KomayamaInputMode.Edit
                         ? KomayamaInputMode.Field
@@ -752,42 +862,83 @@ namespace KomayamaCraft
             else if (keyboard.digit1Key.wasPressedThisFrame ||
                      keyboard.numpad1Key.wasPressedThisFrame)
             {
+                if (!IsBuildUnlocked())
+                {
+                    return;
+                }
+
                 buildController.SelectBuildIndex(0);
             }
             else if (keyboard.digit2Key.wasPressedThisFrame ||
                      keyboard.numpad2Key.wasPressedThisFrame)
             {
+                if (!IsBuildUnlocked())
+                {
+                    return;
+                }
+
                 buildController.SelectBuildIndex(1);
             }
             else if (keyboard.digit3Key.wasPressedThisFrame ||
                      keyboard.numpad3Key.wasPressedThisFrame)
             {
+                if (!IsBuildUnlocked())
+                {
+                    return;
+                }
+
                 buildController.SelectBuildIndex(2);
             }
             else if (keyboard.digit4Key.wasPressedThisFrame ||
                      keyboard.numpad4Key.wasPressedThisFrame)
             {
+                if (!IsBuildUnlocked())
+                {
+                    return;
+                }
+
                 buildController.SelectBuildIndex(3);
             }
             else if (keyboard.digit5Key.wasPressedThisFrame ||
                      keyboard.numpad5Key.wasPressedThisFrame)
             {
+                if (!IsBuildUnlocked())
+                {
+                    return;
+                }
+
                 buildController.SelectBuildIndex(4);
             }
             else if (keyboard.digit6Key.wasPressedThisFrame ||
                      keyboard.numpad6Key.wasPressedThisFrame)
             {
+                if (!IsBuildUnlocked())
+                {
+                    return;
+                }
+
                 buildController.SelectBuildIndex(5);
             }
             else if (keyboard.digit7Key.wasPressedThisFrame ||
                      keyboard.numpad7Key.wasPressedThisFrame)
             {
+                if (!IsBuildUnlocked())
+                {
+                    return;
+                }
+
                 buildController.SelectBuildIndex(6);
             }
             else if (keyboard.rKey.wasPressedThisFrame)
             {
                 TryCycleFocusedRecipe();
             }
+        }
+
+        private static bool IsBuildUnlocked()
+        {
+            KomayamaQuestController quest = KomayamaQuestController.Instance;
+            return quest == null || quest.AreBuildAndSettingsUnlocked;
         }
 
         private void TryCycleFocusedRecipe()

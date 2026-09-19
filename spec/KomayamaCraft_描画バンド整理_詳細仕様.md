@@ -1,6 +1,6 @@
 # KomayamaCraft 描画バンド（Canvas / Sorting）整理 設計草案
 
-> **状態**：実装前の設計。レビュー後に実装する。  
+> **状態**：描画帯の分離は実装済み。`Layer_Objects` 既定アウトライン（§2.3）も実装済み。  
 > **動機**：HUD（`HudCanvas`）がワールドに埋もれる問題が再発している。game02 のように「帯同士が絶対に被らない」構造へ寄せる。
 
 ---
@@ -50,7 +50,7 @@ KomayamaCraft はフィールド本体が **Tilemap / SpriteRenderer** 中心な
 | W0 | `WorldBackground`（新規・任意） | `World/FieldBackground` | 遠い背景 | 未使用なら省略可 |
 | W1 | `WorldSea`（既存） | `World/WorldLayers/Layer_Sea` | 海 | 現状維持 |
 | W2 | `WorldContinent`（既存） | `…/Layer_Continent` | 地形 | 現状維持 |
-| W3 | `WorldObject`（既存） | `…/Layer_Objects` | 採集発生点・原生・非施設オブジェクト | **施設は載せない** |
+| W3 | `WorldObject`（既存） | `…/Layer_Objects` | 採集発生点・原生・納入ゴミ箱・宇宙船など（非施設） | **施設は載せない**。配下 Sprite の既定材は `SpriteOutline`（§2.3） |
 | W4 | `WorldFacility`（**新規**） | `World/Layer_Facilities` | 仮組・完成施設・保管 | 現状 `WorldObject` 共有をやめる |
 | W5 | `WorldEffect`（既存） | `…/Layer_Effects` | エフェクト | 現状維持 |
 | W6 | `WorldDrop`（**新規**） | `World/Layer_Drops`（新設） | 地面ドロップ | 現状 `WorldOverlay` 共有をやめる |
@@ -59,6 +59,20 @@ KomayamaCraft はフィールド本体が **Tilemap / SpriteRenderer** 中心な
 
 **エリア制御（NoDrop / NoBuild）**は画面固定 UI ではなくワールド整列の Tilemap なので、**Screen Canvas にはしない**。  
 表示するときは W7 `WorldOverlay`（デバッグ表示時のみ）。通常プレイ非表示は現状どおり。
+
+### 2.3 `Layer_Objects` の既定アウトライン（確定）
+
+絵ファイルを焼き直さず、**マテリアル／シェーダー**で外周アウトラインを付ける。
+
+| 項目 | 内容 |
+| --- | --- |
+| シェーダー | `KomayamaCraft/Sprite-Unlit-Outline` |
+| マテリアル | `Assets/Materials/KomayamaCraft/SpriteOutline.mat` |
+| 適用先 | `World/WorldLayers/Layer_Objects` 配下の全 `SpriteRenderer` |
+| 適用タイミング | `KomayamaWorldLayerDrawOrder` が編集中（Hierarchy 変更）・Play 中に強制。Inspector の `Layer Objects Outline Material` を参照 |
+| 他帯 | `Layer_Facilities` など Objects 以外は従来どおり URP `Sprite-Unlit-Default`（ランタイム `KC_WorldSpriteUnlit`） |
+| メッシュ | アウトラインが切れないよう、対象スプライトは **Full Rect** を推奨 |
+| 調整 | 厚み・色・Body Alpha は共通マテリアルの Inspector（Objects 全体で共有） |
 
 ### 2.2 画面 UI 帯（Screen Space - Camera・シーン直下 Canvas）
 
@@ -169,5 +183,6 @@ Main Camera / EventSystem / Managers / KCConfigValues / EndingOverlay …
 
 | 日付 | 内容 |
 | --- | --- |
+| 2026-09-19 | `Layer_Objects` 既定アウトライン（`SpriteOutline`）を §2.3 として追記。W3 備考を更新 |
 | 2026-09-16 | レビュー確定を反映。Hud=トーストのみ、開発テキストは Debug。実装着手 |
 | 2026-09-16 | 草案。Hud が Default で埋もれる原因、game02 相当の帯分離、ハイブリッド案を提示 |

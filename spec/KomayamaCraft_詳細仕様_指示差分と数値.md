@@ -14,7 +14,10 @@
   - 建設メニュー（menu建設）：`spec/KomayamaCraft_建設メニュー_詳細仕様.md`
   - 施設加工操作：`spec/KomayamaCraft_施設加工操作_詳細仕様.md`
   - 多言語対応：`spec/KomayamaCraft_多言語対応_詳細仕様.md`
-  - 自動化プレイテスト（設計草案）：`spec/KomayamaCraft_自動化プレイテスト_詳細仕様.md`
+  - 自動化プレイテスト：`spec/KomayamaCraft_自動化プレイテスト_詳細仕様.md`
+  - NPC インタラクトと初期納品：`spec/KomayamaCraft_NPCインタラクトと初期納品_詳細仕様.md`
+  - 宇宙船修理演出：`spec/KomayamaCraft_宇宙船修理演出_詳細仕様.md`
+  - ゲーム内会話オーバーレイ：`spec/KomayamaCraft_ゲーム内会話オーバーレイ_詳細仕様.md`
 - 値の書き方
   - **確定**：口頭または文書で明示された値。
   - **現行値**：シーンまたはデータの Inspector に入っている値。確定と違う場合は現行値を優先して実装を読む。
@@ -220,7 +223,7 @@
 | --- | --- | --- |
 | `WorldSea` | `World/WorldLayers/Layer_Sea` | 海 |
 | `WorldContinent` | `…/Layer_Continent` | 地形 |
-| `WorldObject` | `…/Layer_Objects` | 採集発生点など（施設以外） |
+| `WorldObject` | `…/Layer_Objects` | 採集発生点・納入ゴミ箱・宇宙船など（施設以外）。**Sprite の既定マテリアルは `SpriteOutline`（`KomayamaCraft/Sprite-Unlit-Outline`）**。`KomayamaWorldLayerDrawOrder` が配下追加時も自動適用 |
 | `WorldFacility` | `World/Layer_Facilities` | 仮組・完成施設・保管 |
 | `WorldEffect` | `…/Layer_Effects` | エフェクト |
 | `WorldDrop` | `World/Layer_Drops` | 地面ドロップ |
@@ -247,8 +250,8 @@
 | ホイール上 | ズームイン |
 | ホイール下 | ズームアウト |
 | 1ノッチ | 直交サイズ 0.6 |
-| ズーム下限 | 2.5 |
-| ズーム上限 | 8 |
+| ズーム下限 | 5（`KCConfigValues / ワールド設定`。カメラ演出もここを正本） |
+| ズーム上限 | 9（同上） |
 | 1倍 | 5.4 |
 | 空ドラッグ移動 | イベント中以外。何もない位置を左ドラッグすると、下の土地を引っ張るようにカメラが逆向きへ動く。強さは `KCConfigValues / ワールド設定` の引っ張り強さ（現行 1） |
 | 移動範囲 | 大陸の内側。現行クランプ (-55.5, -34.6) 〜 (40.5, 41.0)。1倍画面の半分を大陸端から引いた値 |
@@ -287,6 +290,17 @@
 
 加工レシピは「ほぼ1個ずつ」を基本とする。Tier 4 の入力・燃料は `KomayamaCraft_Tier4詳細.md` のとおり。加工完了 SE は `ProcessingComplete`（現行 `シャキーン2`）。
 
+#### チュートリアル初期レシピ（確定・2026-09-19）
+
+| 項目 | 内容 |
+| --- | --- |
+| 鱗鉄板（`recipe.iron_scale_rolling`） | 入力 **鉄鱗 ×2** → 出力 鱗鉄板 ×1 |
+| 鱗圧延作業台の初期対応レシピ | 上記のみ（他レシピは後続解放） |
+| 作業台建設費 | 鉄鱗 ×5（仮組へ右クリック投入） |
+| 現状把握 WASD | 各キー **0.1** 秒長押し（4キー合計 **0.4** 秒）。表示はキー画像（TMP Sprite） |
+
+NPC 納品・頭上マーカーは `spec/KomayamaCraft_NPCインタラクトと初期納品_詳細仕様.md`。
+
 完成施設のメニュー分岐・自動生産・排出・ワールド常時表示・完成品の地面排出は `spec/KomayamaCraft_施設加工操作_詳細仕様.md` が正本。内部出力スロット／`WaitingForOutput` は使わない。
 
 完成施設上の左クリック優先は **地面ドロップ拾い ＞ 施設メニュー**（同詳細仕様 §2.0）。
@@ -301,10 +315,16 @@
 | --- | --- |
 | 配置 | `World / WorldLayers / Layer_Objects` 直下。Layer は `NativeLife`（資源発生点と同じ） |
 | 構造 | 根 + 子 `見た目`（`SpriteRenderer` + `KCSpriteFrame`）。根に `BoxCollider2D` と `KomayamaDepositBin` |
-| 反応範囲 | 見た目枠の広さ＝コライダー。枠を変えれば右クリック反応範囲も変わる |
+| 見た目素材 | 閉：`Assets/Sprites/place/trash_close.png`／開：`Assets/Sprites/place/trash_open.png` |
+| ホバー | マウスカーソルが反応範囲上にあるあいだ `trash_open`。外すと `trash_close` |
+| 納入演出 | 納入成功時、見た目を開いたまま **ぶるぶる震え**（パラメータは game02 `TrashDropTarget` と同値） |
+| 震えパラメータ | `jumpUpPixels=16`／`shakeDurationSeconds=0.22`／`shakeAngleDegrees=10`／`shakeCount=3`。ジャンプ量は `jumpUpPixels / pixelsPerUnit` でワールドへ換算 |
+| 反応範囲 | 見た目枠の広さ＝コライダー。枠を変えれば右クリック・ホバー反応範囲も変わる |
 | 長押し | 右クリック連続ドロップと同じ間隔（アイテム設定）で連続納入できる |
 | 優先 | 右クリック時、加工・保管・地面より先。地面アイテムや上限で置けない場合でもゴミ箱へ入る |
-| 初期例 | シーンの `納入ゴミ箱`（仮見た目 `trash_close`） |
+| 実装メモ | ホバー／震えは `closedSprite`・`openSprite`・`spriteRenderer` が揃っているときだけ有効。`DeliveryNpc` など見た目なしの `KomayamaDepositBin` には付けない |
+| SE | `TrashDeposit`（`Assets/SE/ビープ音5.mp3`）。通常の右クリック `Drop` は鳴らさない。クリック／長押し連続でも**ホールド中は1回だけ** |
+| 初期例 | シーンの `納入ゴミ箱` |
 
 ### 7.2 カーソル追従狐（`FoxCursorFollower`）
 
