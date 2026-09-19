@@ -1,0 +1,2665 @@
+fileFormatVersion: 2
+guid: 9ba634ee8bf0978419b332337e5b1d48
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8281807469357543746
+    second: phase_lightning_frame_04_0
+  - first:
+      213: 7108242959664738543
+    second: phase_lightning_frame_04_1
+  - first:
+      213: 7862902898815133020
+    second: phase_lightning_frame_04_2
+  - first:
+      213: 5090080536350019126
+    second: phase_lightning_frame_04_3
+  - first:
+      213: -2694150598848979334
+    second: phase_lightning_frame_04_4
+  - first:
+      213: -439285158614205286
+    second: phase_lightning_frame_04_5
+  - first:
+      213: -8628410076316219512
+    second: phase_lightning_frame_04_6
+  - first:
+      213: 5187122574501910419
+    second: phase_lightning_frame_04_7
+  - first:
+      213: -913870714462655977
+    second: phase_lightning_frame_04_8
+  - first:
+      213: -2024991168118823220
+    second: phase_lightning_frame_04_9
+  - first:
+      213: -1377533602958632973
+    second: phase_lightning_frame_04_10
+  - first:
+      213: 4264671159359110014
+    second: phase_lightning_frame_04_11
+  - first:
+      213: 3470979480368826323
+    second: phase_lightning_frame_04_12
+  - first:
+      213: 7461058627879981366
+    second: phase_lightning_frame_04_13
+  - first:
+      213: -7392770149660236542
+    second: phase_lightning_frame_04_14
+  - first:
+      213: -2051481482593893062
+    second: phase_lightning_frame_04_15
+  - first:
+      213: 217924356906185686
+    second: phase_lightning_frame_04_16
+  - first:
+      213: -5346624123726840919
+    second: phase_lightning_frame_04_17
+  - first:
+      213: -6782046447425599769
+    second: phase_lightning_frame_04_18
+  - first:
+      213: 5478485412893561416
+    second: phase_lightning_frame_04_19
+  - first:
+      213: 3949756665923289002
+    second: phase_lightning_frame_04_20
+  - first:
+      213: 408901033287830761
+    second: phase_lightning_frame_04_21
+  - first:
+      213: -4131338416217527898
+    second: phase_lightning_frame_04_22
+  - first:
+      213: 961971647657651823
+    second: phase_lightning_frame_04_23
+  - first:
+      213: -1115543333871388025
+    second: phase_lightning_frame_04_24
+  - first:
+      213: 7660910195610469099
+    second: phase_lightning_frame_04_25
+  - first:
+      213: -6221253122698725576
+    second: phase_lightning_frame_04_26
+  - first:
+      213: 4163576929551522073
+    second: phase_lightning_frame_04_27
+  - first:
+      213: -8902475781481819604
+    second: phase_lightning_frame_04_28
+  - first:
+      213: -3476696607829133232
+    second: phase_lightning_frame_04_29
+  - first:
+      213: -3087677691165803792
+    second: phase_lightning_frame_04_30
+  - first:
+      213: -1752727107381609058
+    second: phase_lightning_frame_04_31
+  - first:
+      213: 6650728646338401337
+    second: phase_lightning_frame_04_32
+  - first:
+      213: -3260013406001802136
+    second: phase_lightning_frame_04_33
+  - first:
+      213: 1455271214853128663
+    second: phase_lightning_frame_04_34
+  - first:
+      213: -2961804082793081929
+    second: phase_lightning_frame_04_35
+  - first:
+      213: 6475010462346459241
+    second: phase_lightning_frame_04_36
+  - first:
+      213: -5678857979209220994
+    second: phase_lightning_frame_04_37
+  - first:
+      213: -2527538500767695327
+    second: phase_lightning_frame_04_38
+  - first:
+      213: 3338555907674191471
+    second: phase_lightning_frame_04_39
+  - first:
+      213: 7186999910399483884
+    second: phase_lightning_frame_04_40
+  - first:
+      213: 3048482161095834054
+    second: phase_lightning_frame_04_41
+  - first:
+      213: 503550726606089684
+    second: phase_lightning_frame_04_42
+  - first:
+      213: 9134312035614260891
+    second: phase_lightning_frame_04_43
+  - first:
+      213: 7197685969171691352
+    second: phase_lightning_frame_04_44
+  - first:
+      213: -8159798736961354258
+    second: phase_lightning_frame_04_45
+  - first:
+      213: 1461870837821912170
+    second: phase_lightning_frame_04_46
+  - first:
+      213: -134293945207268077
+    second: phase_lightning_frame_04_47
+  - first:
+      213: -2991011637218742111
+    second: phase_lightning_frame_04_48
+  - first:
+      213: 2356220099035476536
+    second: phase_lightning_frame_04_49
+  - first:
+      213: 6900651749067084831
+    second: phase_lightning_frame_04_50
+  - first:
+      213: -4149590534886498461
+    second: phase_lightning_frame_04_51
+  - first:
+      213: 3289877247668459815
+    second: phase_lightning_frame_04_52
+  - first:
+      213: -4639247715987129457
+    second: phase_lightning_frame_04_53
+  - first:
+      213: -5289429660045509742
+    second: phase_lightning_frame_04_54
+  - first:
+      213: 5434651798166707461
+    second: phase_lightning_frame_04_55
+  - first:
+      213: 202360559645618648
+    second: phase_lightning_frame_04_56
+  - first:
+      213: -5919464729462543013
+    second: phase_lightning_frame_04_57
+  - first:
+      213: -7252740919484227526
+    second: phase_lightning_frame_04_58
+  - first:
+      213: -8342130212623388153
+    second: phase_lightning_frame_04_59
+  - first:
+      213: -3684336086550047766
+    second: phase_lightning_frame_04_60
+  - first:
+      213: -3003380889291697799
+    second: phase_lightning_frame_04_61
+  - first:
+      213: -6505794418443284488
+    second: phase_lightning_frame_04_62
+  - first:
+      213: 2460216012677076413
+    second: phase_lightning_frame_04_63
+  - first:
+      213: 2369909699509630342
+    second: phase_lightning_frame_04_64
+  - first:
+      213: 1815233899883192547
+    second: phase_lightning_frame_04_65
+  - first:
+      213: 80817041687928721
+    second: phase_lightning_frame_04_66
+  - first:
+      213: -5626581335494849089
+    second: phase_lightning_frame_04_67
+  - first:
+      213: -5703422304667692949
+    second: phase_lightning_frame_04_68
+  - first:
+      213: 2775278452003904513
+    second: phase_lightning_frame_04_69
+  - first:
+      213: -7068215233474543821
+    second: phase_lightning_frame_04_70
+  - first:
+      213: -6031992377682576713
+    second: phase_lightning_frame_04_71
+  - first:
+      213: -3342992104856903748
+    second: phase_lightning_frame_04_72
+  - first:
+      213: 7613518573943802317
+    second: phase_lightning_frame_04_73
+  - first:
+      213: 1842168886021857347
+    second: phase_lightning_frame_04_74
+  - first:
+      213: -5199291649935019567
+    second: phase_lightning_frame_04_75
+  - first:
+      213: 4045506331062578605
+    second: phase_lightning_frame_04_76
+  - first:
+      213: 519211300946702675
+    second: phase_lightning_frame_04_77
+  - first:
+      213: 5123827803208200601
+    second: phase_lightning_frame_04_78
+  - first:
+      213: -2536705058039702179
+    second: phase_lightning_frame_04_79
+  - first:
+      213: 6475382645020761758
+    second: phase_lightning_frame_04_80
+  - first:
+      213: -3437149616282355342
+    second: phase_lightning_frame_04_81
+  - first:
+      213: -7021552094726610497
+    second: phase_lightning_frame_04_82
+  - first:
+      213: -3417141156453834216
+    second: phase_lightning_frame_04_83
+  - first:
+      213: -551324153367220127
+    second: phase_lightning_frame_04_84
+  - first:
+      213: 302200518084105238
+    second: phase_lightning_frame_04_85
+  - first:
+      213: 8919385273587723426
+    second: phase_lightning_frame_04_86
+  - first:
+      213: 3996087219139197829
+    second: phase_lightning_frame_04_87
+  - first:
+      213: 834769377741824298
+    second: phase_lightning_frame_04_88
+  - first:
+      213: 1809611815784780455
+    second: phase_lightning_frame_04_89
+  - first:
+      213: -7985604581055400588
+    second: phase_lightning_frame_04_90
+  - first:
+      213: 665161464757932491
+    second: phase_lightning_frame_04_91
+  - first:
+      213: 5156190901593046532
+    second: phase_lightning_frame_04_92
+  - first:
+      213: 432160120244719550
+    second: phase_lightning_frame_04_93
+  - first:
+      213: 6932318453288709602
+    second: phase_lightning_frame_04_94
+  - first:
+      213: -1931932655677732210
+    second: phase_lightning_frame_04_95
+  - first:
+      213: 6573345309293223949
+    second: phase_lightning_frame_04_96
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 987
+        width: 33
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 241bb35b304eee270800000000000000
+      internalID: 8281807469357543746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_1
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 980
+        width: 43
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe0fcfb8f4d85a260800000000000000
+      internalID: 7108242959664738543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_2
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 990
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c55e34be684ae1d60800000000000000
+      internalID: 7862902898815133020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_3
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 1015
+        width: 19
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63ec547874993a640800000000000000
+      internalID: 5090080536350019126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_4
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 1007
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7e5338fd447c9ad0800000000000000
+      internalID: -2694150598848979334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_5
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 987
+        width: 29
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9cf2b5c97857e9f0800000000000000
+      internalID: -439285158614205286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_6
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 1007
+        width: 43
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88745c830cab14880800000000000000
+      internalID: -8628410076316219512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_7
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 944
+        width: 125
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 397989bbf7c5cf740800000000000000
+      internalID: 5187122574501910419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_8
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 987
+        width: 34
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71a22d55d674153f0800000000000000
+      internalID: -913870714462655977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_9
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 971
+        width: 54
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc669fee249c5e3e0800000000000000
+      internalID: -2024991168118823220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_10
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 1010
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f79c719c7402ece0800000000000000
+      internalID: -1377533602958632973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_11
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 918
+        width: 34
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7bf37103d72f2b30800000000000000
+      internalID: 4264671159359110014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_12
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 997
+        width: 36
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d7cd0682756b2030800000000000000
+      internalID: 3470979480368826323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_13
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 997
+        width: 26
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 631562baa410b8760800000000000000
+      internalID: 7461058627879981366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_14
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 1010
+        width: 45
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 205e36ba7ba976990800000000000000
+      internalID: -7392770149660236542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_15
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 958
+        width: 20
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3503b6f57ca783e0800000000000000
+      internalID: -2051481482593893062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_16
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 1002
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d37c494c09360300800000000000000
+      internalID: 217924356906185686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_17
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 997
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ab3ab5efa9fcc5b0800000000000000
+      internalID: -5346624123726840919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_18
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 987
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e64ffa50b451e1a0800000000000000
+      internalID: -6782046447425599769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_19
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 997
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8421eaee47d770c40800000000000000
+      internalID: 5478485412893561416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_20
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 1000
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aafb69dc2ca50d630800000000000000
+      internalID: 3949756665923289002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_21
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 989
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ec4965c255bca500800000000000000
+      internalID: 408901033287830761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_22
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 997
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a9ed6669998aa6c0800000000000000
+      internalID: -4131338416217527898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_23
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 997
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6ea1a6ed1c995d00800000000000000
+      internalID: 961971647657651823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_24
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 1000
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78a7a0d8f3bc480f0800000000000000
+      internalID: -1115543333871388025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_25
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 985
+        width: 44
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be2c781db35015a60800000000000000
+      internalID: 7660910195610469099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_26
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1010
+        height: 994
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 837b0cb1f3ba9a9a0800000000000000
+      internalID: -6221253122698725576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_27
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 990
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9191ee8682ff7c930800000000000000
+      internalID: 4163576929551522073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_28
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 984
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c22124fa17d047480800000000000000
+      internalID: -8902475781481819604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_29
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 961
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 058f9820bda40cfc0800000000000000
+      internalID: -3476696607829133232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_30
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 977
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0faf925cf7d5625d0800000000000000
+      internalID: -3087677691165803792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_31
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 969
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9d32507bff0da7e0800000000000000
+      internalID: -1752727107381609058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_32
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 918
+        width: 50
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 934d38e77722c4c50800000000000000
+      internalID: 6650728646338401337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_33
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 951
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 864504c541b12c2d0800000000000000
+      internalID: -3260013406001802136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_34
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 944
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d10c25a579223410800000000000000
+      internalID: 1455271214853128663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_35
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 954
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b311d601ee85e6d0800000000000000
+      internalID: -2961804082793081929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_36
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 951
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 968391d95bbdbd950800000000000000
+      internalID: 6475010462346459241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_37
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 958
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7c775b71c4a031b0800000000000000
+      internalID: -5678857979209220994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_38
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 954
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12e3e9100216cecd0800000000000000
+      internalID: -2527538500767695327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_39
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 945
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f66b3bbd8eee45e20800000000000000
+      internalID: 3338555907674191471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_40
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 954
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cef1024175a5db360800000000000000
+      internalID: 7186999910399483884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_41
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 938
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c97b3cbf526e4a20800000000000000
+      internalID: 3048482161095834054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_42
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 943
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ddeeb9c7b8fcf600800000000000000
+      internalID: 503550726606089684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_43
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 925
+        width: 7
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9efc56966893ce70800000000000000
+      internalID: 9134312035614260891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_44
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 835
+        width: 100
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 857ba45014153e360800000000000000
+      internalID: 7197685969171691352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_45
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 928
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee5ccbcf74292ce80800000000000000
+      internalID: -8159798736961354258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_46
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 925
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a64b0eb18cb994410800000000000000
+      internalID: 1461870837821912170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_47
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 920
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31d5f6c4e54e22ef0800000000000000
+      internalID: -134293945207268077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_48
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 925
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a0748453cacd76d0800000000000000
+      internalID: -2991011637218742111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_49
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 922
+        width: 7
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83235af32b9f2b020800000000000000
+      internalID: 2356220099035476536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 892
+        width: 11
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1452dd543a04cf50800000000000000
+      internalID: 6900651749067084831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_51
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 886
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36f54ccd461b966c0800000000000000
+      internalID: -4149590534886498461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_52
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 793
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7291bed1dedf7ad20800000000000000
+      internalID: 3289877247668459815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_53
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 708
+        width: 24
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8b7b8738c41e9fb0800000000000000
+      internalID: -4639247715987129457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_54
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 693
+        width: 30
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29b7290bfbb2896b0800000000000000
+      internalID: -5289429660045509742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_55
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 678
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50d1aa33403cb6b40800000000000000
+      internalID: 5434651798166707461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_56
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 626
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d1f93a5bddeec200800000000000000
+      internalID: 202360559645618648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_57
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 631
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5d6ee3f036d9dda0800000000000000
+      internalID: -5919464729462543013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_58
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 570
+        width: 36
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a30e3367f86195b90800000000000000
+      internalID: -7252740919484227526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_59
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 574
+        width: 8
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 702778625ccca3c80800000000000000
+      internalID: -8342130212623388153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_60
+      rect:
+        serializedVersion: 2
+        x: 883
+        y: 494
+        width: 60
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae3180889db9edcc0800000000000000
+      internalID: -3684336086550047766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_61
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 548
+        width: 8
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97152986ef8d156d0800000000000000
+      internalID: -3003380889291697799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_62
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 535
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ff08f21276c6b5a0800000000000000
+      internalID: -6505794418443284488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_63
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 491
+        width: 40
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db55852cd61742220800000000000000
+      internalID: 2460216012677076413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_64
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 285
+        width: 142
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 685360db05c93e020800000000000000
+      internalID: 2369909699509630342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_65
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 458
+        width: 14
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e0e8ca4d91013910800000000000000
+      internalID: 1815233899883192547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_66
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 481
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19f5b95dbae1f1100800000000000000
+      internalID: 80817041687928721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_67
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 471
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbd8cf5161e5ae1b0800000000000000
+      internalID: -5626581335494849089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_68
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 425
+        width: 53
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b601e36c1af59d0b0800000000000000
+      internalID: -5703422304667692949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_69
+      rect:
+        serializedVersion: 2
+        x: 953
+        y: 465
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10c1d7c4c05c38620800000000000000
+      internalID: 2775278452003904513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_70
+      rect:
+        serializedVersion: 2
+        x: 966
+        y: 455
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33fbeb4b1b7a8ed90800000000000000
+      internalID: -7068215233474543821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_71
+      rect:
+        serializedVersion: 2
+        x: 976
+        y: 455
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7babd5034ee0a4ca0800000000000000
+      internalID: -6031992377682576713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_72
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 424
+        width: 33
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbf911f746e4b91d0800000000000000
+      internalID: -3342992104856903748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_73
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 415
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc942ca0ec6a8a960800000000000000
+      internalID: 7613518573943802317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_74
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 399
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3402c9377d2b09910800000000000000
+      internalID: 1842168886021857347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_75
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 371
+        width: 55
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d1f7f99ac768d7b0800000000000000
+      internalID: -5199291649935019567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_76
+      rect:
+        serializedVersion: 2
+        x: 962
+        y: 386
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dad2497f296842830800000000000000
+      internalID: 4045506331062578605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_77
+      rect:
+        serializedVersion: 2
+        x: 959
+        y: 353
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 351fb446deb943700800000000000000
+      internalID: 519211300946702675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_78
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 350
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 991be746d3e7b1740800000000000000
+      internalID: 5123827803208200601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_79
+      rect:
+        serializedVersion: 2
+        x: 982
+        y: 350
+        width: 27
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5d5b939030dbccd0800000000000000
+      internalID: -2536705058039702179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_80
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 100
+        width: 285
+        height: 239
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9e1135253e2dd950800000000000000
+      internalID: 6475382645020761758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_81
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 311
+        width: 25
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 279be9182aacc40d0800000000000000
+      internalID: -3437149616282355342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_82
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 286
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb1abe5529f6e8e90800000000000000
+      internalID: -7021552094726610497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_83
+      rect:
+        serializedVersion: 2
+        x: 943
+        y: 272
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 812a3361930e390d0800000000000000
+      internalID: -3417141156453834216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_84
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 103
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16034728a9d4958f0800000000000000
+      internalID: -551324153367220127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_85
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 95
+        width: 27
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 614975325c1a13400800000000000000
+      internalID: 302200518084105238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_86
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 107
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2aceb0f36a508cb70800000000000000
+      internalID: 8919385273587723426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_87
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 116
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58b35445724f47730800000000000000
+      internalID: 3996087219139197829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_88
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 121
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a21eca58352b59b00800000000000000
+      internalID: 834769377741824298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_89
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 28
+        width: 99
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a29335db580d1910800000000000000
+      internalID: 1809611815784780455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_90
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 90
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 475f57d61fe6d2190800000000000000
+      internalID: -7985604581055400588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_91
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 87
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc1dc29f3d02b3900800000000000000
+      internalID: 665161464757932491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_92
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 53
+        width: 10
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40efd8b6e487e8740800000000000000
+      internalID: 5156190901593046532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_93
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 61
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebfc645f6575ff500800000000000000
+      internalID: 432160120244719550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_94
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 54
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2eda82e77ea843060800000000000000
+      internalID: 6932318453288709602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_95
+      rect:
+        serializedVersion: 2
+        x: 943
+        y: 51
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8a0a584c756035e0800000000000000
+      internalID: -1931932655677732210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phase_lightning_frame_04_96
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 25
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0027625bb6393b50800000000000000
+      internalID: 6573345309293223949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      phase_lightning_frame_04_0: 8281807469357543746
+      phase_lightning_frame_04_1: 7108242959664738543
+      phase_lightning_frame_04_10: -1377533602958632973
+      phase_lightning_frame_04_11: 4264671159359110014
+      phase_lightning_frame_04_12: 3470979480368826323
+      phase_lightning_frame_04_13: 7461058627879981366
+      phase_lightning_frame_04_14: -7392770149660236542
+      phase_lightning_frame_04_15: -2051481482593893062
+      phase_lightning_frame_04_16: 217924356906185686
+      phase_lightning_frame_04_17: -5346624123726840919
+      phase_lightning_frame_04_18: -6782046447425599769
+      phase_lightning_frame_04_19: 5478485412893561416
+      phase_lightning_frame_04_2: 7862902898815133020
+      phase_lightning_frame_04_20: 3949756665923289002
+      phase_lightning_frame_04_21: 408901033287830761
+      phase_lightning_frame_04_22: -4131338416217527898
+      phase_lightning_frame_04_23: 961971647657651823
+      phase_lightning_frame_04_24: -1115543333871388025
+      phase_lightning_frame_04_25: 7660910195610469099
+      phase_lightning_frame_04_26: -6221253122698725576
+      phase_lightning_frame_04_27: 4163576929551522073
+      phase_lightning_frame_04_28: -8902475781481819604
+      phase_lightning_frame_04_29: -3476696607829133232
+      phase_lightning_frame_04_3: 5090080536350019126
+      phase_lightning_frame_04_30: -3087677691165803792
+      phase_lightning_frame_04_31: -1752727107381609058
+      phase_lightning_frame_04_32: 6650728646338401337
+      phase_lightning_frame_04_33: -3260013406001802136
+      phase_lightning_frame_04_34: 1455271214853128663
+      phase_lightning_frame_04_35: -2961804082793081929
+      phase_lightning_frame_04_36: 6475010462346459241
+      phase_lightning_frame_04_37: -5678857979209220994
+      phase_lightning_frame_04_38: -2527538500767695327
+      phase_lightning_frame_04_39: 3338555907674191471
+      phase_lightning_frame_04_4: -2694150598848979334
+      phase_lightning_frame_04_40: 7186999910399483884
+      phase_lightning_frame_04_41: 3048482161095834054
+      phase_lightning_frame_04_42: 503550726606089684
+      phase_lightning_frame_04_43: 9134312035614260891
+      phase_lightning_frame_04_44: 7197685969171691352
+      phase_lightning_frame_04_45: -8159798736961354258
+      phase_lightning_frame_04_46: 1461870837821912170
+      phase_lightning_frame_04_47: -134293945207268077
+      phase_lightning_frame_04_48: -2991011637218742111
+      phase_lightning_frame_04_49: 2356220099035476536
+      phase_lightning_frame_04_5: -439285158614205286
+      phase_lightning_frame_04_50: 6900651749067084831
+      phase_lightning_frame_04_51: -4149590534886498461
+      phase_lightning_frame_04_52: 3289877247668459815
+      phase_lightning_frame_04_53: -4639247715987129457
+      phase_lightning_frame_04_54: -5289429660045509742
+      phase_lightning_frame_04_55: 5434651798166707461
+      phase_lightning_frame_04_56: 202360559645618648
+      phase_lightning_frame_04_57: -5919464729462543013
+      phase_lightning_frame_04_58: -7252740919484227526
+      phase_lightning_frame_04_59: -8342130212623388153
+      phase_lightning_frame_04_6: -8628410076316219512
+      phase_lightning_frame_04_60: -3684336086550047766
+      phase_lightning_frame_04_61: -3003380889291697799
+      phase_lightning_frame_04_62: -6505794418443284488
+      phase_lightning_frame_04_63: 2460216012677076413
+      phase_lightning_frame_04_64: 2369909699509630342
+      phase_lightning_frame_04_65: 1815233899883192547
+      phase_lightning_frame_04_66: 80817041687928721
+      phase_lightning_frame_04_67: -5626581335494849089
+      phase_lightning_frame_04_68: -5703422304667692949
+      phase_lightning_frame_04_69: 2775278452003904513
+      phase_lightning_frame_04_7: 5187122574501910419
+      phase_lightning_frame_04_70: -7068215233474543821
+      phase_lightning_frame_04_71: -6031992377682576713
+      phase_lightning_frame_04_72: -3342992104856903748
+      phase_lightning_frame_04_73: 7613518573943802317
+      phase_lightning_frame_04_74: 1842168886021857347
+      phase_lightning_frame_04_75: -5199291649935019567
+      phase_lightning_frame_04_76: 4045506331062578605
+      phase_lightning_frame_04_77: 519211300946702675
+      phase_lightning_frame_04_78: 5123827803208200601
+      phase_lightning_frame_04_79: -2536705058039702179
+      phase_lightning_frame_04_8: -913870714462655977
+      phase_lightning_frame_04_80: 6475382645020761758
+      phase_lightning_frame_04_81: -3437149616282355342
+      phase_lightning_frame_04_82: -7021552094726610497
+      phase_lightning_frame_04_83: -3417141156453834216
+      phase_lightning_frame_04_84: -551324153367220127
+      phase_lightning_frame_04_85: 302200518084105238
+      phase_lightning_frame_04_86: 8919385273587723426
+      phase_lightning_frame_04_87: 3996087219139197829
+      phase_lightning_frame_04_88: 834769377741824298
+      phase_lightning_frame_04_89: 1809611815784780455
+      phase_lightning_frame_04_9: -2024991168118823220
+      phase_lightning_frame_04_90: -7985604581055400588
+      phase_lightning_frame_04_91: 665161464757932491
+      phase_lightning_frame_04_92: 5156190901593046532
+      phase_lightning_frame_04_93: 432160120244719550
+      phase_lightning_frame_04_94: 6932318453288709602
+      phase_lightning_frame_04_95: -1931932655677732210
+      phase_lightning_frame_04_96: 6573345309293223949
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

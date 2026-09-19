@@ -1,0 +1,2223 @@
+fileFormatVersion: 2
+guid: 38a2fdfa69291e34798b6fee18c7b05d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3017092616679173396
+    second: cloud_shadow_03_0
+  - first:
+      213: -6247262216723504681
+    second: cloud_shadow_03_1
+  - first:
+      213: 3918662420936511710
+    second: cloud_shadow_03_2
+  - first:
+      213: 7164637268437976792
+    second: cloud_shadow_03_3
+  - first:
+      213: -3623813186206967483
+    second: cloud_shadow_03_4
+  - first:
+      213: -9066224099306780779
+    second: cloud_shadow_03_5
+  - first:
+      213: -162843940183545537
+    second: cloud_shadow_03_6
+  - first:
+      213: 7122256237948786175
+    second: cloud_shadow_03_7
+  - first:
+      213: 3376073292444295585
+    second: cloud_shadow_03_8
+  - first:
+      213: -2337038571019344688
+    second: cloud_shadow_03_9
+  - first:
+      213: -8957654311971127628
+    second: cloud_shadow_03_10
+  - first:
+      213: -630213374676349800
+    second: cloud_shadow_03_11
+  - first:
+      213: -5193672201044936148
+    second: cloud_shadow_03_12
+  - first:
+      213: 6826970251939654416
+    second: cloud_shadow_03_13
+  - first:
+      213: -8102016447627271600
+    second: cloud_shadow_03_14
+  - first:
+      213: 7784363516066327171
+    second: cloud_shadow_03_15
+  - first:
+      213: -4443737065298092291
+    second: cloud_shadow_03_16
+  - first:
+      213: 3724261981726561332
+    second: cloud_shadow_03_17
+  - first:
+      213: 8593282122371947581
+    second: cloud_shadow_03_18
+  - first:
+      213: 6824286802631556276
+    second: cloud_shadow_03_19
+  - first:
+      213: 7459301920187026331
+    second: cloud_shadow_03_20
+  - first:
+      213: 1755586277745924602
+    second: cloud_shadow_03_21
+  - first:
+      213: -8607855506279609526
+    second: cloud_shadow_03_22
+  - first:
+      213: -1575473002924110846
+    second: cloud_shadow_03_23
+  - first:
+      213: -4059394765780451163
+    second: cloud_shadow_03_24
+  - first:
+      213: 7044675462383737385
+    second: cloud_shadow_03_25
+  - first:
+      213: 7150735573633729976
+    second: cloud_shadow_03_26
+  - first:
+      213: -4039782093249527734
+    second: cloud_shadow_03_27
+  - first:
+      213: -4704355722589648111
+    second: cloud_shadow_03_28
+  - first:
+      213: -6249853193338334571
+    second: cloud_shadow_03_29
+  - first:
+      213: 7336922463860487849
+    second: cloud_shadow_03_30
+  - first:
+      213: 3593488751592946776
+    second: cloud_shadow_03_31
+  - first:
+      213: 5603404940314209741
+    second: cloud_shadow_03_32
+  - first:
+      213: 849754330135496264
+    second: cloud_shadow_03_33
+  - first:
+      213: 846934827845037262
+    second: cloud_shadow_03_34
+  - first:
+      213: 2869222893698794265
+    second: cloud_shadow_03_35
+  - first:
+      213: 6501177774550919150
+    second: cloud_shadow_03_36
+  - first:
+      213: -6175591668503780256
+    second: cloud_shadow_03_37
+  - first:
+      213: -9218584325342820372
+    second: cloud_shadow_03_38
+  - first:
+      213: 8553393317357796203
+    second: cloud_shadow_03_39
+  - first:
+      213: -6867348174967379567
+    second: cloud_shadow_03_40
+  - first:
+      213: -6022581266569897688
+    second: cloud_shadow_03_41
+  - first:
+      213: 4016120198963881212
+    second: cloud_shadow_03_42
+  - first:
+      213: -6130466594047593832
+    second: cloud_shadow_03_43
+  - first:
+      213: 38909308847783668
+    second: cloud_shadow_03_44
+  - first:
+      213: -7336800570360903943
+    second: cloud_shadow_03_45
+  - first:
+      213: -9004677957461153233
+    second: cloud_shadow_03_46
+  - first:
+      213: -3545492322997719358
+    second: cloud_shadow_03_47
+  - first:
+      213: 5560423496048145083
+    second: cloud_shadow_03_48
+  - first:
+      213: 2264567605532223604
+    second: cloud_shadow_03_49
+  - first:
+      213: -3456533585335481616
+    second: cloud_shadow_03_50
+  - first:
+      213: -6706293489352533941
+    second: cloud_shadow_03_51
+  - first:
+      213: 1645525792120251004
+    second: cloud_shadow_03_52
+  - first:
+      213: -3308887131577355088
+    second: cloud_shadow_03_53
+  - first:
+      213: 11526432000809702
+    second: cloud_shadow_03_54
+  - first:
+      213: 8052533689707288023
+    second: cloud_shadow_03_55
+  - first:
+      213: -4079872146893261151
+    second: cloud_shadow_03_56
+  - first:
+      213: -6949394862192113969
+    second: cloud_shadow_03_57
+  - first:
+      213: -7900232809910119592
+    second: cloud_shadow_03_58
+  - first:
+      213: 3751915520095704597
+    second: cloud_shadow_03_59
+  - first:
+      213: 4920737219781795283
+    second: cloud_shadow_03_60
+  - first:
+      213: 7263210130756637694
+    second: cloud_shadow_03_61
+  - first:
+      213: 7652418870100168753
+    second: cloud_shadow_03_62
+  - first:
+      213: 1330993870716973501
+    second: cloud_shadow_03_63
+  - first:
+      213: -8152122356889698637
+    second: cloud_shadow_03_64
+  - first:
+      213: 4489509533609620124
+    second: cloud_shadow_03_65
+  - first:
+      213: -1165110907828468458
+    second: cloud_shadow_03_66
+  - first:
+      213: 5436881995680120049
+    second: cloud_shadow_03_67
+  - first:
+      213: -6370109745191381422
+    second: cloud_shadow_03_68
+  - first:
+      213: -1186663893088564067
+    second: cloud_shadow_03_69
+  - first:
+      213: 1292482037873793434
+    second: cloud_shadow_03_70
+  - first:
+      213: -6670353732396694558
+    second: cloud_shadow_03_71
+  - first:
+      213: -1093821515642787416
+    second: cloud_shadow_03_72
+  - first:
+      213: 837043714800023632
+    second: cloud_shadow_03_73
+  - first:
+      213: -7516038994178641901
+    second: cloud_shadow_03_74
+  - first:
+      213: -3075475383742751732
+    second: cloud_shadow_03_75
+  - first:
+      213: -3287212103259855121
+    second: cloud_shadow_03_76
+  - first:
+      213: -7045427658481447892
+    second: cloud_shadow_03_77
+  - first:
+      213: 5689499603887474728
+    second: cloud_shadow_03_78
+  - first:
+      213: -3925967466973811719
+    second: cloud_shadow_03_79
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: cloud_shadow_03_0
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 725
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce2526810422126d0800000000000000
+      internalID: -3017092616679173396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_1
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 714
+        width: 27
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d1e9710d144d49a0800000000000000
+      internalID: -6247262216723504681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_2
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 673
+        width: 123
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed0d79ab5b2e16630800000000000000
+      internalID: 3918662420936511710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_3
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 712
+        width: 35
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d645c1c2a7ed6360800000000000000
+      internalID: 7164637268437976792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_4
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 739
+        width: 39
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 549d1cf5b11a5bdc0800000000000000
+      internalID: -3623813186206967483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_5
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 742
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 597cbb2773d4e2280800000000000000
+      internalID: -9066224099306780779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_6
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 699
+        width: 37
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f39e8879c467dbdf0800000000000000
+      internalID: -162843940183545537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_7
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 704
+        width: 86
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff55f36205657d260800000000000000
+      internalID: 7122256237948786175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_8
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 657
+        width: 52
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a163d3b5c83ade20800000000000000
+      internalID: 3376073292444295585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_9
+      rect:
+        serializedVersion: 2
+        x: 745
+        y: 732
+        width: 59
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d461044dcb219fd0800000000000000
+      internalID: -2337038571019344688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_10
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 674
+        width: 61
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bef63aecd400b380800000000000000
+      internalID: -8957654311971127628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_11
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 724
+        width: 144
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89c47b556480147f0800000000000000
+      internalID: -630213374676349800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_12
+      rect:
+        serializedVersion: 2
+        x: 1051
+        y: 713
+        width: 24
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2a35e086ae5ce7b0800000000000000
+      internalID: -5193672201044936148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_13
+      rect:
+        serializedVersion: 2
+        x: 1103
+        y: 718
+        width: 19
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01ba507f5454ebe50800000000000000
+      internalID: 6826970251939654416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_14
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 683
+        width: 30
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 052edca97fadf8f80800000000000000
+      internalID: -8102016447627271600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_15
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 720
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38ae4a1ef5d970c60800000000000000
+      internalID: 7784363516066327171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_16
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 713
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfe9babdeaca452c0800000000000000
+      internalID: -4443737065298092291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_17
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 702
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 434dd475a8c3fa330800000000000000
+      internalID: 3724261981726561332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_18
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 672
+        width: 54
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3cd1b6af88714770800000000000000
+      internalID: 8593282122371947581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_19
+      rect:
+        serializedVersion: 2
+        x: 1038
+        y: 711
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bc7d3cb0bcb4be50800000000000000
+      internalID: 6824286802631556276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_20
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 711
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9b03294393c48760800000000000000
+      internalID: 7459301920187026331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_21
+      rect:
+        serializedVersion: 2
+        x: 1079
+        y: 711
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af998990b681d5810800000000000000
+      internalID: 1755586277745924602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_22
+      rect:
+        serializedVersion: 2
+        x: 1136
+        y: 711
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4b405ef501ca8880800000000000000
+      internalID: -8607855506279609526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_23
+      rect:
+        serializedVersion: 2
+        x: 1142
+        y: 688
+        width: 50
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20c8d7ba6abc22ae0800000000000000
+      internalID: -1575473002924110846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_24
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 695
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a08396d7f12aa7c0800000000000000
+      internalID: -4059394765780451163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_25
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 683
+        width: 38
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92a1b4d3207b3c160800000000000000
+      internalID: 7044675462383737385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_26
+      rect:
+        serializedVersion: 2
+        x: 1347
+        y: 631
+        width: 8
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b500353e148c3360800000000000000
+      internalID: 7150735573633729976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_27
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 0
+        width: 1499
+        height: 684
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a40c0e1079fcfe7c0800000000000000
+      internalID: -4039782093249527734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_28
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 641
+        width: 6
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11bc7f12565c6beb0800000000000000
+      internalID: -4704355722589648111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_29
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 645
+        width: 22
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5925ab042af0449a0800000000000000
+      internalID: -6249853193338334571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_30
+      rect:
+        serializedVersion: 2
+        x: 855
+        y: 661
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a6fcf2bb1cf1d560800000000000000
+      internalID: 7336922463860487849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_31
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 647
+        width: 37
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85c3f0ffaf2aed130800000000000000
+      internalID: 3593488751592946776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_32
+      rect:
+        serializedVersion: 2
+        x: 861
+        y: 678
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcde818ea1b43cd40800000000000000
+      internalID: 5603404940314209741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_33
+      rect:
+        serializedVersion: 2
+        x: 953
+        y: 566
+        width: 101
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8468312af0feacb00800000000000000
+      internalID: 849754330135496264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_34
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 676
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecc2c991dbae0cb00800000000000000
+      internalID: 846934827845037262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_35
+      rect:
+        serializedVersion: 2
+        x: 1070
+        y: 669
+        width: 67
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 913c550250781d720800000000000000
+      internalID: 2869222893698794265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_36
+      rect:
+        serializedVersion: 2
+        x: 1136
+        y: 674
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee7a5c1cdb2d83a50800000000000000
+      internalID: 6501177774550919150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_37
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 657
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06468f0e814eb4aa0800000000000000
+      internalID: -6175591668503780256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_38
+      rect:
+        serializedVersion: 2
+        x: 766
+        y: 661
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce705f3f562011080800000000000000
+      internalID: -9218584325342820372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_39
+      rect:
+        serializedVersion: 2
+        x: 1144
+        y: 662
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6bbf4187e1c3b670800000000000000
+      internalID: 8553393317357796203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_40
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 648
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 199642a383742b0a0800000000000000
+      internalID: -6867348174967379567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_41
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 647
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 829dd2f3f3e7b6ca0800000000000000
+      internalID: -6022581266569897688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_42
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 647
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf4638aea002cb730800000000000000
+      internalID: 4016120198963881212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_43
+      rect:
+        serializedVersion: 2
+        x: 1151
+        y: 655
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 892f4620d153ceaa0800000000000000
+      internalID: -6130466594047593832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_44
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 634
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fef35c6fcb3a8000800000000000000
+      internalID: 38909308847783668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_45
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 628
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f641c7d0c27e2a90800000000000000
+      internalID: -7336800570360903943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_46
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 640
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2aecb44b15f80380800000000000000
+      internalID: -9004677957461153233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_47
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 640
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cea8dd5481ebcec0800000000000000
+      internalID: -3545492322997719358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_48
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 626
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb27fa295b79a2d40800000000000000
+      internalID: 5560423496048145083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_49
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 550
+        width: 45
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 478ea913d3c5d6f10800000000000000
+      internalID: 2264567605532223604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_50
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 620
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fa0fd3840de700d0800000000000000
+      internalID: -3456533585335481616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_51
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 615
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4890a75a957ee2a0800000000000000
+      internalID: -6706293489352533941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_52
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 627
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7222145df416d610800000000000000
+      internalID: 1645525792120251004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_53
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 613
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b478706fa87412d0800000000000000
+      internalID: -3308887131577355088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_54
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 628
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ea9fe49a33f82000800000000000000
+      internalID: 11526432000809702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_55
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 616
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d55ed40ab850cf60800000000000000
+      internalID: 8052533689707288023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_56
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 605
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a6ba6306e16167c0800000000000000
+      internalID: -4079872146893261151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_57
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 473
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc64d1b313ace8f90800000000000000
+      internalID: -6949394862192113969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_58
+      rect:
+        serializedVersion: 2
+        x: 1499
+        y: 423
+        width: 23
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 853db6add1cbc5290800000000000000
+      internalID: -7900232809910119592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_59
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 374
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 516549a794b711430800000000000000
+      internalID: 3751915520095704597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_60
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 97
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3dd13222e68f94440800000000000000
+      internalID: 4920737219781795283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_61
+      rect:
+        serializedVersion: 2
+        x: 694
+        y: 111
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef394ccb12b1cc460800000000000000
+      internalID: 7263210130756637694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_62
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 103
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13011d80b6ad23a60800000000000000
+      internalID: 7652418870100168753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_63
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 85
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db1be4e9fd3a87210800000000000000
+      internalID: 1330993870716973501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_64
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 97
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3beb11088e7ddde80800000000000000
+      internalID: -8152122356889698637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_65
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 82
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c92f7866221fd4e30800000000000000
+      internalID: 4489509533609620124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_66
+      rect:
+        serializedVersion: 2
+        x: 662
+        y: 83
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61583f66dc1b4dfe0800000000000000
+      internalID: -1165110907828468458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_67
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 76
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fcfa368e5fa37b40800000000000000
+      internalID: 5436881995680120049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_68
+      rect:
+        serializedVersion: 2
+        x: 1215
+        y: 64
+        width: 25
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2561d91efe2d897a0800000000000000
+      internalID: -6370109745191381422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_69
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 61
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9c8ca8f97f188fe0800000000000000
+      internalID: -1186663893088564067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_70
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 54
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a995a0ac091dfe110800000000000000
+      internalID: 1292482037873793434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_71
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 56
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e34b461f942e63a0800000000000000
+      internalID: -6670353732396694558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_72
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 58
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a9ae687027f1d0f0800000000000000
+      internalID: -1093821515642787416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_73
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 53
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 058f022e2d6cd9b00800000000000000
+      internalID: 837043714800023632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_74
+      rect:
+        serializedVersion: 2
+        x: 1007
+        y: 60
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3107ff14b5aa1b790800000000000000
+      internalID: -7516038994178641901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_75
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 54
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0c1e8cde67b155d0800000000000000
+      internalID: -3075475383742751732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_76
+      rect:
+        serializedVersion: 2
+        x: 1254
+        y: 46
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe6e4db220a7162d0800000000000000
+      internalID: -3287212103259855121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_77
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 34
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2c40857fdc993e90800000000000000
+      internalID: -7045427658481447892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_78
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 13
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8284077deb925fe40800000000000000
+      internalID: 5689499603887474728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_shadow_03_79
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 20
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fb2943b3692489c0800000000000000
+      internalID: -3925967466973811719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      cloud_shadow_03_0: -3017092616679173396
+      cloud_shadow_03_1: -6247262216723504681
+      cloud_shadow_03_10: -8957654311971127628
+      cloud_shadow_03_11: -630213374676349800
+      cloud_shadow_03_12: -5193672201044936148
+      cloud_shadow_03_13: 6826970251939654416
+      cloud_shadow_03_14: -8102016447627271600
+      cloud_shadow_03_15: 7784363516066327171
+      cloud_shadow_03_16: -4443737065298092291
+      cloud_shadow_03_17: 3724261981726561332
+      cloud_shadow_03_18: 8593282122371947581
+      cloud_shadow_03_19: 6824286802631556276
+      cloud_shadow_03_2: 3918662420936511710
+      cloud_shadow_03_20: 7459301920187026331
+      cloud_shadow_03_21: 1755586277745924602
+      cloud_shadow_03_22: -8607855506279609526
+      cloud_shadow_03_23: -1575473002924110846
+      cloud_shadow_03_24: -4059394765780451163
+      cloud_shadow_03_25: 7044675462383737385
+      cloud_shadow_03_26: 7150735573633729976
+      cloud_shadow_03_27: -4039782093249527734
+      cloud_shadow_03_28: -4704355722589648111
+      cloud_shadow_03_29: -6249853193338334571
+      cloud_shadow_03_3: 7164637268437976792
+      cloud_shadow_03_30: 7336922463860487849
+      cloud_shadow_03_31: 3593488751592946776
+      cloud_shadow_03_32: 5603404940314209741
+      cloud_shadow_03_33: 849754330135496264
+      cloud_shadow_03_34: 846934827845037262
+      cloud_shadow_03_35: 2869222893698794265
+      cloud_shadow_03_36: 6501177774550919150
+      cloud_shadow_03_37: -6175591668503780256
+      cloud_shadow_03_38: -9218584325342820372
+      cloud_shadow_03_39: 8553393317357796203
+      cloud_shadow_03_4: -3623813186206967483
+      cloud_shadow_03_40: -6867348174967379567
+      cloud_shadow_03_41: -6022581266569897688
+      cloud_shadow_03_42: 4016120198963881212
+      cloud_shadow_03_43: -6130466594047593832
+      cloud_shadow_03_44: 38909308847783668
+      cloud_shadow_03_45: -7336800570360903943
+      cloud_shadow_03_46: -9004677957461153233
+      cloud_shadow_03_47: -3545492322997719358
+      cloud_shadow_03_48: 5560423496048145083
+      cloud_shadow_03_49: 2264567605532223604
+      cloud_shadow_03_5: -9066224099306780779
+      cloud_shadow_03_50: -3456533585335481616
+      cloud_shadow_03_51: -6706293489352533941
+      cloud_shadow_03_52: 1645525792120251004
+      cloud_shadow_03_53: -3308887131577355088
+      cloud_shadow_03_54: 11526432000809702
+      cloud_shadow_03_55: 8052533689707288023
+      cloud_shadow_03_56: -4079872146893261151
+      cloud_shadow_03_57: -6949394862192113969
+      cloud_shadow_03_58: -7900232809910119592
+      cloud_shadow_03_59: 3751915520095704597
+      cloud_shadow_03_6: -162843940183545537
+      cloud_shadow_03_60: 4920737219781795283
+      cloud_shadow_03_61: 7263210130756637694
+      cloud_shadow_03_62: 7652418870100168753
+      cloud_shadow_03_63: 1330993870716973501
+      cloud_shadow_03_64: -8152122356889698637
+      cloud_shadow_03_65: 4489509533609620124
+      cloud_shadow_03_66: -1165110907828468458
+      cloud_shadow_03_67: 5436881995680120049
+      cloud_shadow_03_68: -6370109745191381422
+      cloud_shadow_03_69: -1186663893088564067
+      cloud_shadow_03_7: 7122256237948786175
+      cloud_shadow_03_70: 1292482037873793434
+      cloud_shadow_03_71: -6670353732396694558
+      cloud_shadow_03_72: -1093821515642787416
+      cloud_shadow_03_73: 837043714800023632
+      cloud_shadow_03_74: -7516038994178641901
+      cloud_shadow_03_75: -3075475383742751732
+      cloud_shadow_03_76: -3287212103259855121
+      cloud_shadow_03_77: -7045427658481447892
+      cloud_shadow_03_78: 5689499603887474728
+      cloud_shadow_03_79: -3925967466973811719
+      cloud_shadow_03_8: 3376073292444295585
+      cloud_shadow_03_9: -2337038571019344688
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

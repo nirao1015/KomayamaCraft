@@ -1,0 +1,767 @@
+fileFormatVersion: 2
+guid: d149b8bdab1ab8f4d9102459a477c673
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7436231273519310820
+    second: fox_repair_complete_special_spritesheet_6x4_0
+  - first:
+      213: -5946121452329369383
+    second: fox_repair_complete_special_spritesheet_6x4_1
+  - first:
+      213: -1991389248409428981
+    second: fox_repair_complete_special_spritesheet_6x4_2
+  - first:
+      213: 2208516812906331447
+    second: fox_repair_complete_special_spritesheet_6x4_3
+  - first:
+      213: 4488605944086387795
+    second: fox_repair_complete_special_spritesheet_6x4_4
+  - first:
+      213: -3629988512245470048
+    second: fox_repair_complete_special_spritesheet_6x4_5
+  - first:
+      213: -4951315511942139838
+    second: fox_repair_complete_special_spritesheet_6x4_6
+  - first:
+      213: -7507196216114848982
+    second: fox_repair_complete_special_spritesheet_6x4_7
+  - first:
+      213: 86492230008805848
+    second: fox_repair_complete_special_spritesheet_6x4_8
+  - first:
+      213: 4858901300016781462
+    second: fox_repair_complete_special_spritesheet_6x4_9
+  - first:
+      213: -8565707220570853676
+    second: fox_repair_complete_special_spritesheet_6x4_10
+  - first:
+      213: -6284862490894931797
+    second: fox_repair_complete_special_spritesheet_6x4_11
+  - first:
+      213: -5525083013794842950
+    second: fox_repair_complete_special_spritesheet_6x4_12
+  - first:
+      213: -3808306553380082039
+    second: fox_repair_complete_special_spritesheet_6x4_13
+  - first:
+      213: -8401666384573498290
+    second: fox_repair_complete_special_spritesheet_6x4_14
+  - first:
+      213: 8834524470016316286
+    second: fox_repair_complete_special_spritesheet_6x4_15
+  - first:
+      213: 3674557714232484267
+    second: fox_repair_complete_special_spritesheet_6x4_16
+  - first:
+      213: 2544157260957269873
+    second: fox_repair_complete_special_spritesheet_6x4_17
+  - first:
+      213: 7569108935403997993
+    second: fox_repair_complete_special_spritesheet_6x4_18
+  - first:
+      213: 2069125197905956441
+    second: fox_repair_complete_special_spritesheet_6x4_19
+  - first:
+      213: -744979352238278145
+    second: fox_repair_complete_special_spritesheet_6x4_20
+  - first:
+      213: -8968970645565019756
+    second: fox_repair_complete_special_spritesheet_6x4_21
+  - first:
+      213: 4269434637077680447
+    second: fox_repair_complete_special_spritesheet_6x4_22
+  - first:
+      213: -5210812645717651955
+    second: fox_repair_complete_special_spritesheet_6x4_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_0
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 774
+        width: 141
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c181b3a3e033dc890800000000000000
+      internalID: -7436231273519310820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_1
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 774
+        width: 133
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d004920b022b7da0800000000000000
+      internalID: -5946121452329369383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_2
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 774
+        width: 171
+        height: 239
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0c1607870a2d54e0800000000000000
+      internalID: -1991389248409428981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_3
+      rect:
+        serializedVersion: 2
+        x: 845
+        y: 774
+        width: 143
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73d72c1175a36ae10800000000000000
+      internalID: 2208516812906331447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_4
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 774
+        width: 138
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35cd9f1135bba4e30800000000000000
+      internalID: 4488605944086387795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_5
+      rect:
+        serializedVersion: 2
+        x: 1358
+        y: 774
+        width: 147
+        height: 235
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ac2cdc3ea0bf9dc0800000000000000
+      internalID: -3629988512245470048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_6
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 518
+        width: 168
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 240becb66c4694bb0800000000000000
+      internalID: -4951315511942139838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_7
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 518
+        width: 165
+        height: 230
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2b5157f0d411d790800000000000000
+      internalID: -7507196216114848982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_8
+      rect:
+        serializedVersion: 2
+        x: 579
+        y: 518
+        width: 165
+        height: 218
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d991859938433100800000000000000
+      internalID: 86492230008805848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_9
+      rect:
+        serializedVersion: 2
+        x: 823
+        y: 518
+        width: 180
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6981f222df84e6340800000000000000
+      internalID: 4858901300016781462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_10
+      rect:
+        serializedVersion: 2
+        x: 1094
+        y: 518
+        width: 176
+        height: 195
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4de20eb7aae702980800000000000000
+      internalID: -8565707220570853676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_11
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 525
+        width: 188
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba8e708fcdea7c8a0800000000000000
+      internalID: -6284862490894931797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_12
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 275
+        width: 162
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab6b638a546f253b0800000000000000
+      internalID: -5525083013794842950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_13
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 285
+        width: 166
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98eecf1fd5d262bc0800000000000000
+      internalID: -3808306553380082039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_14
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 292
+        width: 175
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4cf72aefe8476b80800000000000000
+      internalID: -8401666384573498290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_15
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 289
+        width: 176
+        height: 214
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7391dab2398a9a70800000000000000
+      internalID: 8834524470016316286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_16
+      rect:
+        serializedVersion: 2
+        x: 1076
+        y: 277
+        width: 176
+        height: 222
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba1af7fb5c6aef230800000000000000
+      internalID: 3674557714232484267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_17
+      rect:
+        serializedVersion: 2
+        x: 1356
+        y: 268
+        width: 154
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17fb610ac89ae4320800000000000000
+      internalID: 2544157260957269873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_18
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 6
+        width: 211
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92b8df05970ea0960800000000000000
+      internalID: 7569108935403997993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_19
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 6
+        width: 180
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95e8ef0a76207bc10800000000000000
+      internalID: 2069125197905956441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_20
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 6
+        width: 177
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff936d8e93d49a5f0800000000000000
+      internalID: -744979352238278145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_21
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 6
+        width: 179
+        height: 230
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 499e03ea7b0d78380800000000000000
+      internalID: -8968970645565019756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_22
+      rect:
+        serializedVersion: 2
+        x: 1091
+        y: 6
+        width: 173
+        height: 222
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3193c69e24104b30800000000000000
+      internalID: 4269434637077680447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fox_repair_complete_special_spritesheet_6x4_23
+      rect:
+        serializedVersion: 2
+        x: 1348
+        y: 6
+        width: 171
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0ec2ecb1897fa7b0800000000000000
+      internalID: -5210812645717651955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      fox_repair_complete_special_spritesheet_6x4_0: -7436231273519310820
+      fox_repair_complete_special_spritesheet_6x4_1: -5946121452329369383
+      fox_repair_complete_special_spritesheet_6x4_10: -8565707220570853676
+      fox_repair_complete_special_spritesheet_6x4_11: -6284862490894931797
+      fox_repair_complete_special_spritesheet_6x4_12: -5525083013794842950
+      fox_repair_complete_special_spritesheet_6x4_13: -3808306553380082039
+      fox_repair_complete_special_spritesheet_6x4_14: -8401666384573498290
+      fox_repair_complete_special_spritesheet_6x4_15: 8834524470016316286
+      fox_repair_complete_special_spritesheet_6x4_16: 3674557714232484267
+      fox_repair_complete_special_spritesheet_6x4_17: 2544157260957269873
+      fox_repair_complete_special_spritesheet_6x4_18: 7569108935403997993
+      fox_repair_complete_special_spritesheet_6x4_19: 2069125197905956441
+      fox_repair_complete_special_spritesheet_6x4_2: -1991389248409428981
+      fox_repair_complete_special_spritesheet_6x4_20: -744979352238278145
+      fox_repair_complete_special_spritesheet_6x4_21: -8968970645565019756
+      fox_repair_complete_special_spritesheet_6x4_22: 4269434637077680447
+      fox_repair_complete_special_spritesheet_6x4_23: -5210812645717651955
+      fox_repair_complete_special_spritesheet_6x4_3: 2208516812906331447
+      fox_repair_complete_special_spritesheet_6x4_4: 4488605944086387795
+      fox_repair_complete_special_spritesheet_6x4_5: -3629988512245470048
+      fox_repair_complete_special_spritesheet_6x4_6: -4951315511942139838
+      fox_repair_complete_special_spritesheet_6x4_7: -7507196216114848982
+      fox_repair_complete_special_spritesheet_6x4_8: 86492230008805848
+      fox_repair_complete_special_spritesheet_6x4_9: 4858901300016781462
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

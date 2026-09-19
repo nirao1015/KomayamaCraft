@@ -1,0 +1,637 @@
+fileFormatVersion: 2
+guid: effed55cbdb72394a986ff1cd9ff8742
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1316569397866834936
+    second: spore_cloud_02_0
+  - first:
+      213: -5785896025363422712
+    second: spore_cloud_02_1
+  - first:
+      213: 2865019198340639323
+    second: spore_cloud_02_2
+  - first:
+      213: 731240791142118643
+    second: spore_cloud_02_3
+  - first:
+      213: -6428504317495126378
+    second: spore_cloud_02_4
+  - first:
+      213: -6357206187843928473
+    second: spore_cloud_02_5
+  - first:
+      213: 8182963025454592864
+    second: spore_cloud_02_6
+  - first:
+      213: -8987109880134745416
+    second: spore_cloud_02_7
+  - first:
+      213: 9028005995993178147
+    second: spore_cloud_02_8
+  - first:
+      213: 1864517287638192919
+    second: spore_cloud_02_9
+  - first:
+      213: 2220962972199728263
+    second: spore_cloud_02_10
+  - first:
+      213: 4769573331851934886
+    second: spore_cloud_02_11
+  - first:
+      213: -4995194432289201369
+    second: spore_cloud_02_12
+  - first:
+      213: -627608895719195790
+    second: spore_cloud_02_13
+  - first:
+      213: 8004084186210425535
+    second: spore_cloud_02_14
+  - first:
+      213: 2032070362179603683
+    second: spore_cloud_02_15
+  - first:
+      213: 1587188156763669103
+    second: spore_cloud_02_16
+  - first:
+      213: 9145313837268036060
+    second: spore_cloud_02_17
+  - first:
+      213: 7869916245962447058
+    second: spore_cloud_02_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spore_cloud_02_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1243
+        height: 1236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fba00254e4654210800000000000000
+      internalID: 1316569397866834936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1211
+        width: 108
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8026edc483e54bfa0800000000000000
+      internalID: -5785896025363422712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_2
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 1224
+        width: 47
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5aa4c708c792c720800000000000000
+      internalID: 2865019198340639323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_3
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 1211
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f43d4110a3e52a00800000000000000
+      internalID: 731240791142118643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_4
+      rect:
+        serializedVersion: 2
+        x: 1228
+        y: 1205
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69653a6026d59c6a0800000000000000
+      internalID: -6428504317495126378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_5
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 1197
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76eb5a177aaa6c7a0800000000000000
+      internalID: -6357206187843928473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_6
+      rect:
+        serializedVersion: 2
+        x: 697
+        y: 1194
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06370663489bf8170800000000000000
+      internalID: 8182963025454592864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_7
+      rect:
+        serializedVersion: 2
+        x: 1131
+        y: 1192
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b24a250e2f574380800000000000000
+      internalID: -8987109880134745416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_8
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 1181
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3202545fe9be94d70800000000000000
+      internalID: 9028005995993178147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_9
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 1084
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 713df3f289810e910800000000000000
+      internalID: 1864517287638192919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_10
+      rect:
+        serializedVersion: 2
+        x: 1168
+        y: 1078
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 784b2495e0272de10800000000000000
+      internalID: 2220962972199728263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_11
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 465
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6acf53fccade03240800000000000000
+      internalID: 4769573331851934886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_12
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 150
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 723a46721218daab0800000000000000
+      internalID: -4995194432289201369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_13
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 71
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27b38c8d8094a47f0800000000000000
+      internalID: -627608895719195790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_14
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 69
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbad46fe828341f60800000000000000
+      internalID: 8004084186210425535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_15
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 55
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ec80506a3d533c10800000000000000
+      internalID: 2032070362179603683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_16
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 19
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f620b932833d60610800000000000000
+      internalID: 1587188156763669103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_17
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 25
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd963d52b7eaaee70800000000000000
+      internalID: 9145313837268036060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spore_cloud_02_18
+      rect:
+        serializedVersion: 2
+        x: 1096
+        y: 0
+        width: 107
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d8daac012f873d60800000000000000
+      internalID: 7869916245962447058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      spore_cloud_02_0: 1316569397866834936
+      spore_cloud_02_1: -5785896025363422712
+      spore_cloud_02_10: 2220962972199728263
+      spore_cloud_02_11: 4769573331851934886
+      spore_cloud_02_12: -4995194432289201369
+      spore_cloud_02_13: -627608895719195790
+      spore_cloud_02_14: 8004084186210425535
+      spore_cloud_02_15: 2032070362179603683
+      spore_cloud_02_16: 1587188156763669103
+      spore_cloud_02_17: 9145313837268036060
+      spore_cloud_02_18: 7869916245962447058
+      spore_cloud_02_2: 2865019198340639323
+      spore_cloud_02_3: 731240791142118643
+      spore_cloud_02_4: -6428504317495126378
+      spore_cloud_02_5: -6357206187843928473
+      spore_cloud_02_6: 8182963025454592864
+      spore_cloud_02_7: -8987109880134745416
+      spore_cloud_02_8: 9028005995993178147
+      spore_cloud_02_9: 1864517287638192919
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
