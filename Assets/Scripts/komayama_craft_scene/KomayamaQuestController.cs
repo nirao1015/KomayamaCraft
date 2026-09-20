@@ -1239,6 +1239,12 @@ namespace KomayamaCraft
                 yield break;
             }
 
+            // 先行会話が終わるまで待つ（無視されると completed が来ず永久待ちになる）
+            while (dialogueOverlay.IsDialogueActive)
+            {
+                yield return null;
+            }
+
             bool done = false;
             dialogueOverlay.Play(
                 stageKey,
@@ -1246,6 +1252,16 @@ namespace KomayamaCraft
                 restoreCamera: false,
                 dimAlpha: 0f,
                 () => done = true);
+
+            // Play が何らかの理由で開始できなかった場合はハングしない
+            if (!dialogueOverlay.IsDialogueActive && !done)
+            {
+                Debug.LogWarning(
+                    "[Quest] Dialogue did not start: " + stageKey,
+                    this);
+                yield break;
+            }
+
             while (!done)
             {
                 yield return null;

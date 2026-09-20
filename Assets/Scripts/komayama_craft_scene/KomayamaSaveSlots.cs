@@ -7,16 +7,25 @@ namespace KomayamaCraft
 {
     public readonly struct KomayamaSaveSlotInfo
     {
-        public KomayamaSaveSlotInfo(int slot, bool hasData, DateTime? lastSavedAtLocal)
+        public KomayamaSaveSlotInfo(
+            int slot,
+            bool hasData,
+            DateTime? lastSavedAtLocal,
+            float? playSeconds,
+            string thumbnailPath)
         {
             Slot = slot;
             HasData = hasData;
             LastSavedAtLocal = lastSavedAtLocal;
+            PlaySeconds = playSeconds;
+            ThumbnailPath = thumbnailPath ?? string.Empty;
         }
 
         public int Slot { get; }
         public bool HasData { get; }
         public DateTime? LastSavedAtLocal { get; }
+        public float? PlaySeconds { get; }
+        public string ThumbnailPath { get; }
 
         public string FormatLabel(bool isLastPlayed)
         {
@@ -88,6 +97,11 @@ namespace KomayamaCraft
             return Path.Combine(SaveDirectory, $"komayamaCraftData_{ClampSlot(slot)}.tmp.json");
         }
 
+        public static string ThumbnailFilePath(int slot)
+        {
+            return Path.Combine(SaveDirectory, $"komayamaCraftThumb_{ClampSlot(slot)}.png");
+        }
+
         public static bool HasData(int slot)
         {
             MigrateLegacyIfNeeded();
@@ -110,11 +124,15 @@ namespace KomayamaCraft
         public static DateTime? GetLastSavedAtLocal(int slot)
         {
             MigrateLegacyIfNeeded();
-            string path = File.Exists(SaveFilePath(slot))
-                ? SaveFilePath(slot)
-                : File.Exists(BackupFilePath(slot))
-                    ? BackupFilePath(slot)
-                    : null;
+            if (TryReadSaveSummary(slot, out DateTime? savedAt, out _))
+            {
+                if (savedAt.HasValue)
+                {
+                    return savedAt;
+                }
+            }
+
+            string path = ResolveExistingSavePath(slot);
             if (path == null)
             {
                 return null;
@@ -126,7 +144,86 @@ namespace KomayamaCraft
         public static KomayamaSaveSlotInfo GetInfo(int slot)
         {
             slot = ClampSlot(slot);
-            return new KomayamaSaveSlotInfo(slot, HasData(slot), GetLastSavedAtLocal(slot));
+            bool has = HasData(slot);
+            DateTime? savedAt = null;
+            float? playSeconds = null;
+            if (has)
+            {
+                TryReadSaveSummary(slot, out savedAt, out playSeconds);
+                if (!savedAt.HasValue)
+                {
+                    string path = ResolveExistingSavePath(slot);
+                    if (path != null)
+                    {
+                        savedAt = File.GetLastWriteTime(path);
+                    }
+                }
+            }
+
+            return new KomayamaSaveSlotInfo(
+                slot,
+                has,
+                savedAt,
+                playSeconds,
+                ThumbnailFilePath(slot));
+        }
+
+        private static string ResolveExistingSavePath(int slot)
+        {
+            MigrateLegacyIfNeeded();
+            if (File.Exists(SaveFilePath(slot)))
+            {
+                return SaveFilePath(slot);
+            }
+
+            if (File.Exists(BackupFilePath(slot)))
+            {
+                return BackupFilePath(slot);
+            }
+
+            return null;
+        }
+
+        private static bool TryReadSaveSummary(int slot, out DateTime? savedAtLocal, out float? playSeconds)
+        {
+            savedAtLocal = null;
+            playSeconds = null;
+            string path = ResolveExistingSavePath(slot);
+            if (path == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                KomayamaCraftSaveData data =
+                    JsonUtility.FromJson<KomayamaCraftSaveData>(File.ReadAllText(path));
+                if (data == null)
+                {
+                    return false;
+                }
+
+                if (!string.IsNullOrEmpty(data.updatedAtUtc) &&
+                    DateTime.TryParse(
+                        data.updatedAtUtc,
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.RoundtripKind,
+                        out DateTime utc))
+                {
+                    savedAtLocal = utc.ToLocalTime();
+                }
+
+                if (data.gameplayElapsedSeconds > 0f)
+                {
+                    playSeconds = data.gameplayElapsedSeconds;
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public static int LastPlayedSlot
@@ -202,16 +299,25 @@ namespace KomayamaCraft
         public static void PrepareNewGame(int slot)
         {
             SetActiveSlot(slot);
-            string savePath = SaveFilePath(slot);
-            string backupPath = BackupFilePath(slot);
-            if (File.Exists(savePath))
-            {
-                File.Delete(savePath);
-            }
+            DeleteSlotData(slot);
+        }
 
-            if (File.Exists(backupPath))
+        /// <summary>スロットのセーブ／バックアップ／サムネを削除する。ActiveSlot は変えない。</summary>
+        public static void DeleteSlotData(int slot)
+        {
+            slot = ClampSlot(slot);
+            Directory.CreateDirectory(SaveDirectory);
+            TryDeleteFile(SaveFilePath(slot));
+            TryDeleteFile(BackupFilePath(slot));
+            TryDeleteFile(TempFilePath(slot));
+            TryDeleteFile(ThumbnailFilePath(slot));
+        }
+
+        private static void TryDeleteFile(string path)
+        {
+            if (File.Exists(path))
             {
-                File.Delete(backupPath);
+                File.Delete(path);
             }
         }
     }

@@ -165,6 +165,7 @@ namespace KomayamaCraft
             spawned.SetItemSettings(itemSettings);
             spawned.RestoreIdentity(instanceId, worldPosition);
             items.Add(spawned);
+            KomayamaWorldLayerDrawOrder.RequestApplyMaterialsInScene();
             return true;
         }
 
@@ -328,6 +329,7 @@ namespace KomayamaCraft
                 dropAnimationSeconds,
                 dropAnimationArcHeight);
             items.Add(spawned);
+            KomayamaWorldLayerDrawOrder.RequestApplyMaterialsInScene();
             return spawned;
         }
 

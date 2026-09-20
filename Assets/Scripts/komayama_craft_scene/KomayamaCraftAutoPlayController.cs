@@ -25,6 +25,7 @@ namespace KomayamaCraft
         [Header("設定")]
         [SerializeField, Min(0.05f)] private float dialogueAdvanceInterval = 0.35f;
         [SerializeField, Min(0.05f)] private float thinkInterval = 0.15f;
+        [SerializeField, Min(0.1f)] private float deliverClickCooldownSeconds = 0.45f;
         [SerializeField, Min(1f)] private float stallTimeoutSeconds = 120f;
         [SerializeField] private string workbenchDefinitionId =
             KomayamaQuestController.ScaleRollingWorkbenchId;
@@ -41,6 +42,7 @@ namespace KomayamaCraft
         private string statusMessage = "Idle";
         private string lastProgressKey = "";
         private float lastProgressAt;
+        private float nextDeliverClickAt;
 
         public bool IsRunning => running;
         public string StatusMessage => statusMessage;
@@ -170,16 +172,31 @@ namespace KomayamaCraft
                     yield break;
                 }
 
-                if (IsRainLeakCompleted())
+                if (IsRainLeakCompleted() && !KomayamaShipRepairCinematic.IsPlaying)
                 {
+                    if (!TryPostAssertSuccess(out string assertFail))
+                    {
+                        Fail("postcondition " + assertFail);
+                        yield break;
+                    }
+
+                    Debug.Log("[CraftAutoPlay] PostAssert OK");
                     StopTutorialAutoPlay("delivery complete");
                     yield break;
                 }
 
-                if (IsPresentationBlocking())
+                if (IsRainLeakCompleted() && KomayamaShipRepairCinematic.IsPlaying)
                 {
                     ClearWasdHolds();
-                    statusMessage = "Advance dialogue";
+                    statusMessage = "Wait ship repair cinematic";
+                    NoteProgress(statusMessage);
+                }
+                else if (IsPresentationBlocking())
+                {
+                    ClearWasdHolds();
+                    statusMessage = KomayamaShipRepairCinematic.IsPlaying
+                        ? "Wait ship repair cinematic"
+                        : "Advance dialogue";
                     NoteProgress(statusMessage);
                 }
                 else
@@ -254,6 +271,15 @@ namespace KomayamaCraft
                 return;
             }
 
+            if (ObjDone(KomayamaQuestController.LeakDeliverPlateObjectiveId))
+            {
+                // 納品目標完了後は会話／修理待ち。NPC へクリック連打しない
+                ClearWasdHolds();
+                statusMessage = "Wait rain leak complete";
+                NoteProgress(BuildProgressKey());
+                return;
+            }
+
             ActDeliverPlates();
         }
 
@@ -317,6 +343,21 @@ namespace KomayamaCraft
 
             statusMessage = "Place workbench";
             // 監視前置きの仮組が残っているとイベントが飛ばないので除去して置き直す
+            ForcePlaceWorkbenchProvisional();
+            NoteProgress(BuildProgressKey());
+        }
+
+        /// <summary>
+        /// 配置監視フラグに依らず仮組を置き直す（消失リカバリ）。
+        /// </summary>
+        private void ForcePlaceWorkbenchProvisional()
+        {
+            if (buildController == null)
+            {
+                Fail("build missing");
+                return;
+            }
+
             DestroyMatchingProvisionals();
             if (!buildController.TrySelectFacilityByDefinitionId(workbenchDefinitionId))
             {
@@ -339,12 +380,9 @@ namespace KomayamaCraft
             {
                 if (buildController.TryBuildAt(candidates[i], out _))
                 {
-                    NoteProgress(BuildProgressKey());
                     return;
                 }
             }
-
-            NoteProgress(BuildProgressKey());
         }
 
         private void ActConstructWorkbench()
@@ -360,7 +398,9 @@ namespace KomayamaCraft
                     return;
                 }
 
-                statusMessage = "Wait construction spawn";
+                // 目標だけ完了・ワールド上に台が無い（仮組消失など）→ 待機せず置き直す
+                statusMessage = "Recover missing workbench";
+                ForcePlaceWorkbenchProvisional();
                 NoteProgress(BuildProgressKey());
                 return;
             }
@@ -535,7 +575,15 @@ namespace KomayamaCraft
             }
 
             Focus(deliveryNpc.transform.position);
+            if (Time.unscaledTime < nextDeliverClickAt)
+            {
+                statusMessage = "Deliver plates (cooldown)";
+                NoteProgress(BuildProgressKey());
+                return;
+            }
+
             inputController.AutoPlayRightClickAt(deliveryNpc.transform.position);
+            nextDeliverClickAt = Time.unscaledTime + deliverClickCooldownSeconds;
             NoteProgress(BuildProgressKey());
         }
 
@@ -778,6 +826,54 @@ namespace KomayamaCraft
                    status == QuestSaveStatus.Completed;
         }
 
+        /// <summary>
+        /// 成功停止前の読み取りアサート（状態捏造なし）。
+        /// </summary>
+        private bool TryPostAssertSuccess(out string failureReason)
+        {
+            failureReason = null;
+
+            KomayamaShipVisual shipVisual =
+                FindFirstObjectByType<KomayamaShipVisual>();
+            if (shipVisual == null)
+            {
+                failureReason = "missing KomayamaShipVisual";
+                return false;
+            }
+
+            if (shipVisual.StageIndex != KomayamaShipVisual.StageAfterRainLeak)
+            {
+                failureReason =
+                    "ship stage expected " +
+                    KomayamaShipVisual.StageAfterRainLeak +
+                    " but was " +
+                    shipVisual.StageIndex;
+                return false;
+            }
+
+            KCMouseFoxFollower fox =
+                FindFirstObjectByType<KCMouseFoxFollower>();
+            if (fox == null)
+            {
+                failureReason = "missing KCMouseFoxFollower";
+                return false;
+            }
+
+            if (fox.DisplayMode == KCFoxDisplayMode.Off)
+            {
+                failureReason = "fox DisplayMode is Off";
+                return false;
+            }
+
+            if (fox.IsSuppressedForCinematic)
+            {
+                failureReason = "fox still suppressed for cinematic";
+                return false;
+            }
+
+            return true;
+        }
+
         private bool ObjDone(string objectiveId)
         {
             return questController.IsQuestObjectiveDone(
@@ -838,6 +934,12 @@ namespace KomayamaCraft
 
         private bool IsStalled()
         {
+            // 会話・OP・修理演出中は進行キーが変わらなくてよい
+            if (IsPresentationBlocking())
+            {
+                return false;
+            }
+
             return Time.unscaledTime - lastProgressAt > stallTimeoutSeconds;
         }
 

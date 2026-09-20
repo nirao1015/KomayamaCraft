@@ -1,7 +1,7 @@
 # KomayamaCraft 描画バンド（Canvas / Sorting）整理 設計草案
 
-> **状態**：描画帯の分離は実装済み。`Layer_Objects` 既定アウトライン（§2.3）も実装済み。  
-> **動機**：HUD（`HudCanvas`）がワールドに埋もれる問題が再発している。game02 のように「帯同士が絶対に被らない」構造へ寄せる。
+> **状態**：描画帯の分離は実装済み。`Layer_Objects` 既定アウトライン（§2.3）とマテリアル強制方針（§2.4）も実装済み。  
+> **動機**：HUD（`HudCanvas`）がワールドに埋もれる問題が再発している。game02 のように「帯同士が絶対に被らない」構造へ寄せる。加えて、材の一括上書きによる黒化を再発させない。
 
 ---
 
@@ -50,12 +50,12 @@ KomayamaCraft はフィールド本体が **Tilemap / SpriteRenderer** 中心な
 | W0 | `WorldBackground`（新規・任意） | `World/FieldBackground` | 遠い背景 | 未使用なら省略可 |
 | W1 | `WorldSea`（既存） | `World/WorldLayers/Layer_Sea` | 海 | 現状維持 |
 | W2 | `WorldContinent`（既存） | `…/Layer_Continent` | 地形 | 現状維持 |
-| W3 | `WorldObject`（既存） | `…/Layer_Objects` | 採集発生点・原生・納入ゴミ箱・宇宙船など（非施設） | **施設は載せない**。配下 Sprite の既定材は `SpriteOutline`（§2.3） |
+| W3 | `WorldObject`（既存） | `…/Layer_Objects` | 採集発生点・原生・納入ゴミ箱・宇宙船など（非施設） | **施設は載せない**。配下 Sprite の既定材は `SpriteOutline`（§2.3）。適用は不足時のみ（§2.4） |
 | W4 | `WorldFacility`（**新規**） | `World/Layer_Facilities` | 仮組・完成施設・保管 | 現状 `WorldObject` 共有をやめる |
 | W5 | `WorldEffect`（既存） | `…/Layer_Effects` | エフェクト | 現状維持 |
 | W6 | `WorldDrop`（**新規**） | `World/Layer_Drops`（新設） | 地面ドロップ | 現状 `WorldOverlay` 共有をやめる |
 | W7 | `WorldOverlay`（既存） | `World/Layer_WorldOverlay`（整理） | 施設ワールド HUD、建設プレビュー、禁止塗りデバッグ | 「ワールドに張り付く補助表示」専用 |
-| W8 | `WorldMouse`（既存） | `World/Layer_Mouse` | 手持ちアイコン・狐 | 現状維持 |
+| W8 | `WorldMouse`（既存） | `World/Layer_Mouse` | 手持ちアイコン・狐・修理喜びアクセサリ（`FoxRepairJoyAccessory`） | 狐本体と喜びは同帯・別オブジェクト。材は Preserve（§2.4） |
 
 **エリア制御（NoDrop / NoBuild）**は画面固定 UI ではなくワールド整列の Tilemap なので、**Screen Canvas にはしない**。  
 表示するときは W7 `WorldOverlay`（デバッグ表示時のみ）。通常プレイ非表示は現状どおり。
@@ -68,11 +68,105 @@ KomayamaCraft はフィールド本体が **Tilemap / SpriteRenderer** 中心な
 | --- | --- |
 | シェーダー | `KomayamaCraft/Sprite-Unlit-Outline` |
 | マテリアル | `Assets/Materials/KomayamaCraft/SpriteOutline.mat` |
-| 適用先 | `World/WorldLayers/Layer_Objects` 配下の全 `SpriteRenderer` |
-| 適用タイミング | `KomayamaWorldLayerDrawOrder` が編集中（Hierarchy 変更）・Play 中に強制。Inspector の `Layer Objects Outline Material` を参照 |
-| 他帯 | `Layer_Facilities` など Objects 以外は従来どおり URP `Sprite-Unlit-Default`（ランタイム `KC_WorldSpriteUnlit`） |
+| 適用先 | `World/WorldLayers/Layer_Objects` 配下の `SpriteRenderer`（Preserve 対象を除く） |
+| 適用タイミング | **不足時のみ**（§2.4）。毎フレーム全差し替えはしない |
+| 他帯 | `Layer_Facilities` など Objects 以外は、Lit など危険材のときだけ URP `Sprite-Unlit-Default` へ補完 |
 | メッシュ | アウトラインが切れないよう、対象スプライトは **Full Rect** を推奨 |
 | 調整 | 厚み・色・Body Alpha は共通マテリアルの Inspector（Objects 全体で共有） |
+
+### 2.4 マテリアル強制差し替え方針（確定・再発防止）
+
+#### 原則
+
+1. **Inspector／生成時に付けた専用材を、後から一括で潰さない。**
+2. **毎フレーム・全 Sprite の材を書き換える処理は置かない**（黒化・加算発光破壊の温床だった）。
+3. 自動補正は **「危険／未設定のときだけ穴埋め」** に限定する。
+4. どうしても自動適用が必要な箇所は **本節に列挙する**。新規の一括書き換えを足すときは、先に本節へ追記する。
+
+#### 黒く見える典型原因
+
+| 原因 | 内容 |
+| --- | --- |
+| Lit 材のまま | URP 2D でライティング未設定だと真っ黒 |
+| Outline の誤適用 | 加算グロー等の専用材を `SpriteOutline` に差し替えると黒枠・黒半透明になる |
+| LightMode 不足 | カスタムシェーダに `Universal2D` が無いと 2D Renderer で正しく出ない |
+
+#### `KomayamaWorldLayerDrawOrder`（唯一の帯横断・自動材補正）
+
+| 項目 | 内容 |
+| --- | --- |
+| スクリプト | `Assets/Scripts/komayama_craft_scene/KomayamaWorldLayerDrawOrder.cs` |
+| Sorting | 帯ルールどおり `sortingLayerName` を揃える（間欠補正可） |
+| 材・Objects | Preserve 以外へ `SpriteOutline`（不足時） |
+| 材・他帯 | Preserve 以外で Unlit でも Outline でもないものへ `Sprite-Unlit-Default`（不足時） |
+| Play 中 | **毎フレーム材全上書きしない**。既定は Sorting 間欠補正＋材は `repairMaterialsOnInterval`（穴埋め）または `RequestApplyMaterials` |
+| 編集中 | Hierarchy 変更時に Apply（`applyInEditMode`） |
+| スポーン直後 | `KomayamaWorldLayerDrawOrder.RequestApplyMaterialsInScene()`（ドロップ生成・施設生成など） |
+
+#### Preserve（強制対象外）
+
+次のいずれかなら **材を触らない**（Sorting だけ揃えてよい）。
+
+| 手段 | 例 |
+| --- | --- |
+| コンポーネント | `KomayamaPreserveSpriteMaterial`（推奨。新規演出はこれを付ける） |
+| オブジェクト名 | `CocoonOverlay` / `CocoonGlowInner` / `CocoonGlowOuter` / `CocoonWhiteFlashOverlay` / `ThumpOverlay` / `FoxRepairJoyAccessory` |
+| シェーダ名 | 名前に `Additive` または `WhiteFlash` を含むもの |
+
+#### 生成時に材を明示する箇所（一括ではない・対象限定）
+
+| 箇所 | 何をするか |
+| --- | --- |
+| `KomayamaShipRepairCinematic` | 繭＝Unlit、グロー＝Additive。オーバーレイ／喜びアクセサリに `KomayamaPreserveSpriteMaterial`。マウス狐は `SetSuppressedForCinematic`（材差し替えではない） |
+| `KomayamaBuildController` | 仮組コスト HUD 等に Unlit。施設生成後に `RequestApplyMaterialsInScene` |
+| `KomayamaNpc` | マーカーに Unlit（生成時のみ） |
+| `KomayamaDropArea` | ドロップ生成後に `RequestApplyMaterialsInScene` |
+
+これら以外で「帯配下をまとめて `sharedMaterial =`」する処理を増やさない。
+
+### 2.5 新規演出・専用 Sprite チェックリスト（フェーズ6・確定案）
+
+シナリオ演出や加算／特殊シェーダを足すたびに、実装前・PR前に次を確認する。
+
+#### A. 帯と親子
+
+| # | 確認 |
+| --- | --- |
+| A1 | 描画物の親は World 帯表（W1〜W8）のどれか。Screen UI と混ぜない |
+| A2 | Sorting Layer は親帯と一致（`KomayamaWorldLayerDrawOrder` に任せてよい） |
+| A3 | マウス追従と演出アクセサリを同居させる場合は **同帯・別オブジェクト**（喜びアクセサリ先例） |
+
+#### B. マテリアル／Preserve
+
+| # | 確認 |
+| --- | --- |
+| B1 | 既定の Objects アウトラインでよいか。専用見た目なら **Outline を当てない** |
+| B2 | Additive／独自 Unlit／フラッシュ等 → `KomayamaPreserveSpriteMaterial` を **必ず**付ける |
+| B3 | 実行時 `new` したオーバーレイにも Preserve を付ける（名前フォールバックだけに頼らない） |
+| B4 | シェーダに `Universal2D` LightMode がある（無いと黒／非表示） |
+| B5 | 「帯配下をまとめて `sharedMaterial =`」する新規処理を増やしていない |
+
+#### C. 一時非表示・セーブ
+
+| # | 確認 |
+| --- | --- |
+| C1 | マウス狐を隠すときは `SetSuppressedForCinematic`（`displayMode=Off` 禁止） |
+| C2 | 演出専用フラグはセーブしない（保存データ契約 §8.1／狐方針） |
+| C3 | スキップ／中断／`finally` で一時状態を必ず戻す |
+
+#### D. 見た目の受入（手通し）
+
+| # | 確認 |
+| --- | --- |
+| D1 | Play 中に黒枠・黒半透明にならない（Outline 誤適用の典型） |
+| D2 | フェードアウト後に色付き本体の端が残らない（繭先例：先に本体無効化） |
+| D3 | クエスト／演出を触ったら自動化 P0 を 1 回通す（常緑ゲート） |
+
+#### 名前フォールバック（互換・新規非推奨）
+
+`CocoonGlow*` 等の **名前リストは既存互換用**。新規オブジェクトは名前追加より **Preserve コンポーネント必須**とする。
+
+---
 
 ### 2.2 画面 UI 帯（Screen Space - Camera・シーン直下 Canvas）
 
@@ -125,9 +219,10 @@ Main Camera / EventSystem / Managers / KCConfigValues / EndingOverlay …
    （例：施設と採集物で `WorldObject` 共有しない／ドロップと施設 HUD で `WorldOverlay` 共有しない）
 3. **同一帯の中だけ** `sortingOrder` で前後を決める（帯をまたぐ order 勝負を禁止）。
 4. **World Space Canvas**（施設上 HUD）は必ず W7 `WorldOverlay`。生成コードの定数を正本にし、Default に落ちない。
-5. **`KomayamaWorldLayerDrawOrder`** が全帯を強制適用。`HudCanvas` / `SystemCanvas` / `DebugCanvas` もルールに入れる。
+5. **`KomayamaWorldLayerDrawOrder`** が Sorting Layer を揃える。マテリアルは **§2.4 の不足時のみ**（毎フレーム全差し替え禁止）。
 6. **`FixedAspectCanvasFitter`** は order だけでなく、**担当 Sorting Layer を設定／監視**する（または DrawOrder 側に一本化して Fitter からソート責任を外す）。
 7. 新規 UI を足すときは「どの帯か」を先に決め、帯なしのシーン直下バラ置きを禁止。
+8. **専用シェーダ／演出 Sprite には `KomayamaPreserveSpriteMaterial` を付ける**（Outline 誤適用で黒化しない）。新規は §2.5 チェックリストに従う。
 
 ---
 
@@ -183,6 +278,9 @@ Main Camera / EventSystem / Managers / KCConfigValues / EndingOverlay …
 
 | 日付 | 内容 |
 | --- | --- |
+| 2026-09-20 | §2.5 新規演出チェックリスト（Preserve／帯／セーブ／受入）を追加 |
+| 2026-09-20 | §2.4 に喜びアクセサリ（Layer_Mouse）・Preserve を追記。W8 備考更新 |
+| 2026-09-20 | §2.4 マテリアル強制差し替え方針。毎フレーム全上書き廃止・Preserve・RequestApply を確定。§2.3／§4 を整合 |
 | 2026-09-19 | `Layer_Objects` 既定アウトライン（`SpriteOutline`）を §2.3 として追記。W3 備考を更新 |
 | 2026-09-16 | レビュー確定を反映。Hud=トーストのみ、開発テキストは Debug。実装着手 |
 | 2026-09-16 | 草案。Hud が Default で埋もれる原因、game02 相当の帯分離、ハイブリッド案を提示 |

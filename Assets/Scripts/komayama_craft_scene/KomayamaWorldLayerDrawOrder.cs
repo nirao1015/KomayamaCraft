@@ -10,6 +10,8 @@ namespace KomayamaCraft
     /// <summary>
     /// World 配下の描画帯を Sorting Layer に揃える。
     /// 画面 UI Canvas（Hud / System / Debug）は <see cref="KomayamaScreenCanvasBands"/> 側。
+    /// マテリアルの一括差し替えは「不足時のみ・都度トリガ」。毎フレーム全上書きはしない。
+    /// 仕様：spec/KomayamaCraft_描画バンド整理_詳細仕様.md §2.3〜§2.4
     /// </summary>
     [ExecuteAlways]
     [DisallowMultipleComponent]
@@ -49,8 +51,17 @@ namespace KomayamaCraft
         [Tooltip("Layer_Objects 配下の SpriteRenderer に既定で付けるアウトライン材")]
         private Material layerObjectsOutlineMaterial;
 
+        [Header("適用タイミング")]
+        [SerializeField, Tooltip("Play 中、Sorting Layer のずれだけ定期補正する間隔（秒）。0 で毎フレーム。")]
+        private float sortingRepairIntervalSeconds = 0.25f;
+
+        [SerializeField, Tooltip("ON のときだけ Play 中にマテリアル補正も定期実行する。不足分（Lit→Unlit/Outline）の穴埋め用。既定 ON・Preserve 対象は触らない。")]
+        private bool repairMaterialsOnInterval = true;
+
         private static Material cachedUnlitSpriteMaterial;
         private static Material cachedOutlineSpriteMaterial;
+        private float sortingRepairElapsed;
+        private bool materialsDirty = true;
 
         private void OnEnable()
         {
@@ -61,7 +72,8 @@ namespace KomayamaCraft
                 EditorApplication.hierarchyChanged += OnEditorHierarchyChanged;
             }
 #endif
-            Apply();
+            materialsDirty = true;
+            Apply(applyMaterials: true);
         }
 
         private void OnDisable()
@@ -79,23 +91,63 @@ namespace KomayamaCraft
                 return;
             }
 
-            Apply();
+            materialsDirty = true;
+            Apply(applyMaterials: true);
         }
 #endif
 
         private void LateUpdate()
         {
-            // 編集中に毎フレーム Apply+SetDirty するとシーンの * が消えない
             if (!Application.isPlaying)
             {
                 return;
             }
 
-            Apply();
+            // 毎フレーム全 Sprite の材を潰さない。Sorting ずれだけ間欠補正。
+            float interval = Mathf.Max(0f, sortingRepairIntervalSeconds);
+            sortingRepairElapsed += Time.unscaledDeltaTime;
+            if (interval <= 0f || sortingRepairElapsed >= interval || materialsDirty)
+            {
+                sortingRepairElapsed = 0f;
+                bool doMaterials = materialsDirty || repairMaterialsOnInterval;
+                materialsDirty = false;
+                Apply(applyMaterials: doMaterials);
+            }
+        }
+
+        /// <summary>
+        /// ランタイムで Sprite を追加したあと呼ぶ。Sorting ＋不足マテリアル補正を一度だけ行う。
+        /// </summary>
+        public void RequestApplyMaterials()
+        {
+            materialsDirty = true;
+            if (isActiveAndEnabled && Application.isPlaying)
+            {
+                materialsDirty = false;
+                Apply(applyMaterials: true);
+            }
+        }
+
+        /// <summary>
+        /// シーン内の DrawOrder へ材補正を依頼（スポーン直後用）。
+        /// </summary>
+        public static void RequestApplyMaterialsInScene()
+        {
+            KomayamaWorldLayerDrawOrder drawOrder =
+                FindFirstObjectByType<KomayamaWorldLayerDrawOrder>();
+            if (drawOrder != null)
+            {
+                drawOrder.RequestApplyMaterials();
+            }
         }
 
         [ContextMenu("Apply Draw Order Now")]
         public void Apply()
+        {
+            Apply(applyMaterials: true);
+        }
+
+        public void Apply(bool applyMaterials)
         {
             if (!isActiveAndEnabled)
             {
@@ -114,11 +166,11 @@ namespace KomayamaCraft
 
             for (int i = 0; i < spriteRules.Length; i++)
             {
-                ApplySpriteRule(spriteRules[i]);
+                ApplySpriteRule(spriteRules[i], applyMaterials);
             }
         }
 
-        private void ApplySpriteRule(SpriteLayerRule rule)
+        private void ApplySpriteRule(SpriteLayerRule rule, bool applyMaterials)
         {
             if (rule == null || string.IsNullOrEmpty(rule.rootPath) || string.IsNullOrEmpty(rule.sortingLayerName))
             {
@@ -153,17 +205,20 @@ namespace KomayamaCraft
                     changed = true;
                 }
 
-                // Layer_Objects はアウトライン材を既定。他帯は Unlit（Lit だと真っ黒になるため）。
-                if (isLayerObjects)
+                if (applyMaterials && !ShouldPreserveSpriteMaterial(renderer))
                 {
-                    if (ApplyLayerObjectsOutlineMaterial(renderer))
+                    // Layer_Objects はアウトライン材を既定。他帯は Unlit（Lit だと真っ黒になるため）。
+                    if (isLayerObjects)
+                    {
+                        if (ApplyLayerObjectsOutlineMaterial(renderer))
+                        {
+                            changed = true;
+                        }
+                    }
+                    else if (ApplyUnlitSpriteMaterial(renderer))
                     {
                         changed = true;
                     }
-                }
-                else if (ApplyUnlitSpriteMaterial(renderer))
-                {
-                    changed = true;
                 }
 
                 if (changed)
@@ -181,6 +236,46 @@ namespace KomayamaCraft
             }
 
             return rootPath.IndexOf("Layer_Objects", StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        /// <summary>
+        /// 専用材・演出オーバーレイは Outline／Unlit 強制の対象外。
+        /// </summary>
+        private static bool ShouldPreserveSpriteMaterial(SpriteRenderer renderer)
+        {
+            if (renderer == null)
+            {
+                return true;
+            }
+
+            if (renderer.GetComponent<KomayamaPreserveSpriteMaterial>() != null)
+            {
+                return true;
+            }
+
+            string objectName = renderer.gameObject.name;
+            if (objectName == "CocoonOverlay" ||
+                objectName == "CocoonGlowInner" ||
+                objectName == "CocoonGlowOuter" ||
+                objectName == "CocoonWhiteFlashOverlay" ||
+                objectName == "ThumpOverlay" ||
+                objectName == "FoxJoyAccessory")
+            {
+                return true;
+            }
+
+            Material current = renderer.sharedMaterial;
+            if (current != null && current.shader != null)
+            {
+                string shaderName = current.shader.name;
+                if (shaderName.IndexOf("Additive", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    shaderName.IndexOf("WhiteFlash", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private bool ApplyLayerObjectsOutlineMaterial(SpriteRenderer renderer)
@@ -206,6 +301,7 @@ namespace KomayamaCraft
                 return false;
             }
 
+            // 既に意図した Unlit 系（加算・専用）は上で Preserve。ここは不足分のみ Outline。
             renderer.sharedMaterial = outline;
             return true;
         }
@@ -284,7 +380,7 @@ namespace KomayamaCraft
                 return false;
             }
 
-            // 既に Unlit 系／アウトライン用なら触らない
+            // 既に Unlit 系／アウトライン用なら触らない（再上書き禁止）
             Material current = renderer.sharedMaterial;
             if (current != null &&
                 current.shader != null)

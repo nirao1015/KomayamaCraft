@@ -82,10 +82,16 @@ namespace KomayamaCraft
         private float playElapsed;
         private bool draggingScreenFox;
         private Vector2 dragScreenOffset;
+        /// <summary>演出などで一時非表示。displayMode／セーブには影響しない。</summary>
+        private bool suppressedForCinematic;
 
         public KCFoxDisplayMode DisplayMode => displayMode;
 
+        /// <summary>演出用の一時非表示中か（セーブ対象外）。</summary>
+        public bool IsSuppressedForCinematic => suppressedForCinematic;
+
         public bool IsVisible =>
+            !suppressedForCinematic &&
             displayMode != KCFoxDisplayMode.Off &&
             spriteRenderer != null &&
             spriteRenderer.enabled;
@@ -142,7 +148,7 @@ namespace KomayamaCraft
 
         private void Update()
         {
-            if (displayMode == KCFoxDisplayMode.Off)
+            if (displayMode == KCFoxDisplayMode.Off || suppressedForCinematic)
             {
                 return;
             }
@@ -162,7 +168,7 @@ namespace KomayamaCraft
 
         private void LateUpdate()
         {
-            if (displayMode == KCFoxDisplayMode.Off)
+            if (displayMode == KCFoxDisplayMode.Off || suppressedForCinematic)
             {
                 return;
             }
@@ -182,6 +188,20 @@ namespace KomayamaCraft
             displayMode = mode;
             hasFollowPosition = false;
             draggingScreenFox = false;
+            ApplyVisibility();
+        }
+
+        /// <summary>
+        /// 船修理などの演出中だけ見た目を隠す。displayMode もセーブも変えない。
+        /// </summary>
+        public void SetSuppressedForCinematic(bool suppressed)
+        {
+            if (suppressedForCinematic == suppressed)
+            {
+                return;
+            }
+
+            suppressedForCinematic = suppressed;
             ApplyVisibility();
         }
 
@@ -364,7 +384,11 @@ namespace KomayamaCraft
                 return;
             }
 
-            displayMode = (KCFoxDisplayMode)Mathf.Clamp(dto.displayMode, 0, 2);
+            // Off は演出一時非表示の誤セーブだった経緯あり。恒久 Off 用途は無いので FollowMouse に戻す。
+            int mode = Mathf.Clamp(dto.displayMode, 0, 2);
+            displayMode = mode == (int)KCFoxDisplayMode.Off
+                ? KCFoxDisplayMode.FollowMouse
+                : (KCFoxDisplayMode)mode;
             screenViewportPosition = new Vector2(
                 Mathf.Clamp01(dto.screenViewportX),
                 Mathf.Clamp01(dto.screenViewportY));
@@ -378,6 +402,7 @@ namespace KomayamaCraft
 
             hasFollowPosition = false;
             draggingScreenFox = false;
+            suppressedForCinematic = false;
             ApplyVisibility();
             ApplyDisplaySize();
             if (displayMode == KCFoxDisplayMode.ScreenFixed)
@@ -783,7 +808,7 @@ namespace KomayamaCraft
                 return;
             }
 
-            bool show = displayMode != KCFoxDisplayMode.Off;
+            bool show = !suppressedForCinematic && displayMode != KCFoxDisplayMode.Off;
             spriteRenderer.enabled = show;
         }
 

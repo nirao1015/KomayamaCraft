@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace KomayamaCraft
@@ -50,15 +49,28 @@ namespace KomayamaCraft
         private float cocoonFrameSeconds = 0.3f;
         [SerializeField, Min(0.1f), InspectorName("繭の拡大倍率")]
         private float cocoonScale = 1.4f;
-        [SerializeField, Min(0f), InspectorName("閉じたあと静止秒")]
-        private float cocoonClosedHoldSeconds = 0.4f;
+        [SerializeField, Min(0f), InspectorName("光ったあと静止秒"), Tooltip(
+            "発光イン完了後、OPEN までの待ち。既定 0.4 秒。")]
+        private float cocoonGlowHoldBeforeOpenSeconds = 0.4f;
 
-        [Header("白飛び")]
-        [SerializeField, Min(0.05f), InspectorName("白飛びイン秒")]
-        [FormerlySerializedAs("whitenSeconds")]
-        private float whitenInSeconds = 1.4f;
-        [SerializeField, Min(0.05f), InspectorName("白飛び解除秒")]
-        private float whitenOutSeconds = 1.4f;
+        [Header("繭・白発光（加算グロー）")]
+        [SerializeField, Tooltip("Sprite-Unlit-Additive。未設定ならシェーダから生成。")]
+        private Material cocoonGlowMaterial;
+        [SerializeField, Min(0.05f), InspectorName("発光イン秒"), Tooltip(
+            "CLOSE 直後に光らせる秒数。既定 0.6 秒。")]
+        private float cocoonGlowInSeconds = 0.6f;
+        [SerializeField, Min(0.05f), InspectorName("発光アウト秒")]
+        private float cocoonGlowOutSeconds = 0.8f;
+        [SerializeField, Min(1f), InspectorName("グロー拡大（内側）")]
+        private float cocoonGlowScaleInner = 1.08f;
+        [SerializeField, Range(0f, 2f), InspectorName("グロー強度（内側）")]
+        private float cocoonGlowIntensityInner = 1.2f;
+        [SerializeField, InspectorName("外側グローを使う")]
+        private bool useCocoonGlowOuter;
+        [SerializeField, Min(1f), InspectorName("グロー拡大（外側）")]
+        private float cocoonGlowScaleOuter = 1.18f;
+        [SerializeField, Range(0f, 2f), InspectorName("グロー強度（外側）")]
+        private float cocoonGlowIntensityOuter = 0.45f;
         [SerializeField, Min(0f), InspectorName("解除後の静止秒")]
         private float afterClearHoldSeconds = 0.8f;
 
@@ -70,8 +82,6 @@ namespace KomayamaCraft
         [SerializeField] private KCMouseFoxFollower foxFollower;
         [SerializeField] private KomayamaCraftBgmManager bgmManager;
         [SerializeField] private KomayamaCraftSeManager seManager;
-        [SerializeField, Tooltip("繭の真っ白シルエット用。未設定ならシェーダから生成。")]
-        private Material cocoonWhiteFlashMaterial;
         [SerializeField, Tooltip("未設定なら無音。いまは鳴らさない想定。")]
         private bool playCelebrationAudio;
         [SerializeField] private Sprite[] foxJoyFrames = new Sprite[24];
@@ -111,11 +121,10 @@ namespace KomayamaCraft
         private Coroutine routine;
         private SpriteRenderer thumpRenderer;
         private SpriteRenderer cocoonRenderer;
-        private SpriteRenderer cocoonFlashRenderer;
+        private SpriteRenderer cocoonGlowInner;
+        private SpriteRenderer cocoonGlowOuter;
         private SpriteRenderer foxJoyRenderer;
         private Color baseColor = Color.white;
-        private KCFoxDisplayMode foxModeBeforeJoy = KCFoxDisplayMode.FollowMouse;
-        private bool foxModeCaptured;
 
         private void Awake()
         {
@@ -173,13 +182,7 @@ namespace KomayamaCraft
             skipHoldElapsed = 0f;
             baseColor = shipVisual.GetSpriteColor();
             EnsureOverlayRenderers();
-
-            KomayamaCraftAutoPlayController autoPlay =
-                FindFirstObjectByType<KomayamaCraftAutoPlayController>();
-            if (autoPlay != null && autoPlay.IsRunning)
-            {
-                ForceSkip();
-            }
+            // 自動プレイ中もスキップしない（仕様 §2.1.1）。AutoPlay は演出完了まで待機する。
 
             float zoomSize = ResolveCinematicOrthoSize();
             if (cameraController != null)
@@ -221,8 +224,8 @@ namespace KomayamaCraft
             }
             else
             {
-                RestoreFoxFollowerAfterJoy();
                 HideFoxJoyAccessory();
+                foxFollower?.SetSuppressedForCinematic(false);
             }
 
             if (cameraController != null)
@@ -238,8 +241,8 @@ namespace KomayamaCraft
                 cameraController.EndCinematicFramingAndRestore();
             }
 
-            RestoreFoxFollowerAfterJoy();
             HideFoxJoyAccessory();
+            foxFollower?.SetSuppressedForCinematic(false);
             CleanupOverlaysVisual();
             SetSkipIndicator(0f, false);
             playing = false;
@@ -275,74 +278,80 @@ namespace KomayamaCraft
                 yield break;
             }
 
-            // マウス狐を隠し、演出前の表示モードを覚える
+            // マウス狐は displayMode を変えず一時非表示（セーブに Off が残らない）
             if (foxFollower != null)
             {
-                foxModeBeforeJoy = foxFollower.DisplayMode;
-                foxModeCaptured = true;
-                foxFollower.SetDisplayMode(KCFoxDisplayMode.Off);
+                foxFollower.SetSuppressedForCinematic(true);
             }
 
-            // 音の仕組み（いまは playCelebrationAudio=false で無音）
-            if (playCelebrationAudio)
+            try
             {
-                if (bgmManager != null)
+                // 音の仕組み（いまは playCelebrationAudio=false で無音）
+                if (playCelebrationAudio)
                 {
-                    yield return bgmManager.FadeOutAndStopRoutine();
+                    if (bgmManager != null)
+                    {
+                        yield return bgmManager.FadeOutAndStopRoutine();
+                    }
+
+                    seManager?.Play(KomayamaCraftSeCue.ShipRepairCompleteJoy);
                 }
 
-                seManager?.Play(KomayamaCraftSeCue.ShipRepairCompleteJoy);
-            }
+                PlaceFoxJoyAccessory(0);
+                foxJoyRenderer.enabled = true;
+                foxJoyRenderer.sprite = foxJoyFrames[0];
+                ApplyFoxJoyScale(foxJoyFrames[0]);
 
-            PlaceFoxJoyAccessory(0);
-            foxJoyRenderer.enabled = true;
-            foxJoyRenderer.sprite = foxJoyFrames[0];
-            ApplyFoxJoyScale(foxJoyFrames[0]);
-
-            // 最初の画像で静止
-            yield return WaitUnscaled(foxJoyHoldFirstSeconds);
-            if (skipRequested)
-            {
-                yield break;
-            }
-
-            // 1 回再生（フレーム秒。ジャンプ枚目だけ位置を上げる）
-            int count = foxJoyFrames.Length;
-            for (int i = 0; i < count; i++)
-            {
+                // 最初の画像で静止
+                yield return WaitUnscaled(foxJoyHoldFirstSeconds);
                 if (skipRequested)
                 {
                     yield break;
                 }
 
-                Sprite frame = foxJoyFrames[i];
-                if (frame != null)
+                // 1 回再生（フレーム秒。ジャンプ枚目だけ位置を上げる）
+                int count = foxJoyFrames.Length;
+                for (int i = 0; i < count; i++)
                 {
-                    foxJoyRenderer.sprite = frame;
-                    ApplyFoxJoyScale(frame);
+                    if (skipRequested)
+                    {
+                        yield break;
+                    }
+
+                    Sprite frame = foxJoyFrames[i];
+                    if (frame != null)
+                    {
+                        foxJoyRenderer.sprite = frame;
+                        ApplyFoxJoyScale(frame);
+                    }
+
+                    PlaceFoxJoyAccessory(i);
+                    yield return WaitUnscaled(ResolveFoxJoyFrameSeconds(i));
                 }
 
-                PlaceFoxJoyAccessory(i);
-                yield return WaitUnscaled(ResolveFoxJoyFrameSeconds(i));
+                // 最終フレームで静止（ジャンプ上げは戻す）
+                int last = count - 1;
+                if (last >= 0 && foxJoyFrames[last] != null)
+                {
+                    foxJoyRenderer.sprite = foxJoyFrames[last];
+                    ApplyFoxJoyScale(foxJoyFrames[last]);
+                }
+
+                PlaceFoxJoyAccessory(last);
+                yield return WaitUnscaled(foxJoyHoldLastSeconds);
+
+                if (playCelebrationAudio && bgmManager != null)
+                {
+                    yield return bgmManager.ResumeGameplayRoutine();
+                }
             }
-
-            // 最終フレームで静止（ジャンプ上げは戻す）
-            int last = count - 1;
-            if (last >= 0 && foxJoyFrames[last] != null)
+            finally
             {
-                foxJoyRenderer.sprite = foxJoyFrames[last];
-                ApplyFoxJoyScale(foxJoyFrames[last]);
-            }
-
-            PlaceFoxJoyAccessory(last);
-            yield return WaitUnscaled(foxJoyHoldLastSeconds);
-
-            HideFoxJoyAccessory();
-            RestoreFoxFollowerAfterJoy();
-
-            if (playCelebrationAudio && bgmManager != null)
-            {
-                yield return bgmManager.ResumeGameplayRoutine();
+                HideFoxJoyAccessory();
+                if (foxFollower != null)
+                {
+                    foxFollower.SetSuppressedForCinematic(false);
+                }
             }
         }
 
@@ -435,17 +444,6 @@ namespace KomayamaCraft
             foxJoyRenderer.sprite = null;
         }
 
-        private void RestoreFoxFollowerAfterJoy()
-        {
-            if (!foxModeCaptured || foxFollower == null)
-            {
-                return;
-            }
-
-            foxFollower.SetDisplayMode(foxModeBeforeJoy);
-            foxModeCaptured = false;
-        }
-
         private void EnsureFoxJoyRenderer()
         {
             if (foxJoyRenderer != null)
@@ -476,6 +474,11 @@ namespace KomayamaCraft
             if (foxJoyRenderer == null)
             {
                 foxJoyRenderer = go.AddComponent<SpriteRenderer>();
+            }
+
+            if (go.GetComponent<KomayamaPreserveSpriteMaterial>() == null)
+            {
+                go.AddComponent<KomayamaPreserveSpriteMaterial>();
             }
 
             ApplyFoxJoyDrawStyle();
@@ -515,7 +518,7 @@ namespace KomayamaCraft
         }
 
         private static Material sharedSpriteUnlit;
-        private static Material sharedWhiteFlash;
+        private static Material sharedAdditiveUnlit;
 
         private static Material ResolveSpriteUnlitMaterial()
         {
@@ -535,6 +538,40 @@ namespace KomayamaCraft
                 name = "Sprite-Unlit-Default (ShipRepairJoy)"
             };
             return sharedSpriteUnlit;
+        }
+
+        private Material ResolveCocoonGlowMaterial()
+        {
+            if (cocoonGlowMaterial != null)
+            {
+                return cocoonGlowMaterial;
+            }
+
+            if (sharedAdditiveUnlit != null)
+            {
+                return sharedAdditiveUnlit;
+            }
+
+#if UNITY_EDITOR
+            sharedAdditiveUnlit = UnityEditor.AssetDatabase.LoadAssetAtPath<Material>(
+                "Assets/Materials/KomayamaCraft/SpriteAdditiveUnlit.mat");
+            if (sharedAdditiveUnlit != null)
+            {
+                cocoonGlowMaterial = sharedAdditiveUnlit;
+                return sharedAdditiveUnlit;
+            }
+#endif
+            Shader shader = Shader.Find("KomayamaCraft/Sprite-Unlit-Additive");
+            if (shader == null)
+            {
+                return null;
+            }
+
+            sharedAdditiveUnlit = new Material(shader)
+            {
+                name = "Sprite-Unlit-Additive (Runtime)"
+            };
+            return sharedAdditiveUnlit;
         }
 
         private IEnumerator PlayThumps()
@@ -598,6 +635,8 @@ namespace KomayamaCraft
 
         private IEnumerator PlayCocoonThenWhiten()
         {
+            EnsureCocoonGlowRenderers();
+
             if (cocoonRenderer != null)
             {
                 cocoonRenderer.enabled = true;
@@ -605,16 +644,12 @@ namespace KomayamaCraft
                 cocoonRenderer.transform.localScale = Vector3.one * Mathf.Max(0.1f, cocoonScale);
             }
 
-            // 白飛びシェーダは使わない
-            if (cocoonFlashRenderer != null)
-            {
-                cocoonFlashRenderer.enabled = false;
-            }
+            SetCocoonGlowVisible(false, 0f);
 
             int frameCount = cocoonFrames != null ? cocoonFrames.Length : 0;
             float frameDur = Mathf.Max(0.05f, cocoonFrameSeconds);
 
-            // CLOSE：繭を閉じる
+            // 1) CLOSE
             if (frameCount > 0 && cocoonRenderer != null)
             {
                 yield return PlayCocoonFrames(0, frameCount - 1, frameDur);
@@ -624,20 +659,32 @@ namespace KomayamaCraft
                 }
             }
 
+            // 2) ship_2 差し替え → 0.6 秒かけて発光
             FinishToShip2();
-
-            // 閉じ切ったあと静止してから OPEN
-            yield return WaitUnscaled(cocoonClosedHoldSeconds);
+            EnsureCocoonGlowRenderers();
+            SyncCocoonGlowFromCocoon();
+            yield return FadeCocoonGlow(0f, 1f, cocoonGlowInSeconds);
             if (skipRequested)
             {
                 yield break;
             }
 
-            // OPEN：繭を逆再生して開く
+            // 3) 光ったまま 0.4 秒静止してから OPEN
+            yield return WaitUnscaled(cocoonGlowHoldBeforeOpenSeconds);
+            if (skipRequested)
+            {
+                yield break;
+            }
+
+            // 4) 光ったまま OPEN（グローも同コマ追従）
+            // 色付き繭は隠し、白い加算レイヤだけ見せる
+            if (cocoonRenderer != null)
+            {
+                cocoonRenderer.color = new Color(1f, 1f, 1f, 0f);
+            }
+
             if (frameCount > 1 && cocoonRenderer != null)
             {
-                cocoonRenderer.enabled = true;
-                cocoonRenderer.color = Color.white;
                 yield return PlayCocoonFrames(frameCount - 2, 0, frameDur);
                 if (skipRequested)
                 {
@@ -645,6 +692,20 @@ namespace KomayamaCraft
                 }
             }
 
+            // 5) 発光アウトの前に色付き繭を完全に消す（α戻しで端が残らないように）
+            if (cocoonRenderer != null)
+            {
+                cocoonRenderer.enabled = false;
+                cocoonRenderer.color = Color.white;
+            }
+
+            yield return FadeCocoonGlow(1f, 0f, cocoonGlowOutSeconds);
+            if (skipRequested)
+            {
+                yield break;
+            }
+
+            SetCocoonGlowVisible(false, 0f);
             if (cocoonRenderer != null)
             {
                 cocoonRenderer.enabled = false;
@@ -654,9 +715,19 @@ namespace KomayamaCraft
 
             shipVisual.SetSpriteColor(Color.white);
 
-            float hold = Mathf.Max(0f, afterClearHoldSeconds);
-            float holdElapsed = 0f;
-            while (holdElapsed < hold)
+            // 6) 解除後静止
+            yield return WaitUnscaled(afterClearHoldSeconds);
+        }
+
+        private IEnumerator FadeCocoonGlow(float from01, float to01, float seconds)
+        {
+            EnsureCocoonGlowRenderers();
+            SyncCocoonGlowFromCocoon();
+            SetCocoonGlowVisible(true, from01);
+
+            float dur = Mathf.Max(0.05f, seconds);
+            float elapsed = 0f;
+            while (elapsed < dur)
             {
                 if (skipRequested)
                 {
@@ -664,62 +735,86 @@ namespace KomayamaCraft
                 }
 
                 UpdateSkipHold();
-                holdElapsed += Time.unscaledDeltaTime;
+                elapsed += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(elapsed / dur);
+                float w = Mathf.Lerp(from01, to01, t);
+                ApplyCocoonGlowWeight(w);
                 yield return null;
+            }
+
+            ApplyCocoonGlowWeight(to01);
+        }
+
+        private void ApplyCocoonGlowWeight(float weight01)
+        {
+            float w = Mathf.Clamp01(weight01);
+            if (cocoonGlowInner != null)
+            {
+                // 加算なので α=強度。白固定（テクスチャ色はシェーダ側で捨てる）
+                Color c = Color.white;
+                c.a = Mathf.Clamp01(cocoonGlowIntensityInner) * w;
+                cocoonGlowInner.color = c;
+            }
+
+            if (cocoonGlowOuter != null)
+            {
+                Color c = Color.white;
+                c.a = useCocoonGlowOuter
+                    ? Mathf.Clamp01(cocoonGlowIntensityOuter) * w
+                    : 0f;
+                cocoonGlowOuter.color = c;
+            }
+
+            // 発光イン時だけ色付き繭を徐々に消す。アウト時は戻さない（端が残るのを防ぐ）
+            if (cocoonRenderer != null && cocoonRenderer.enabled)
+            {
+                Color body = cocoonRenderer.color;
+                body.r = 1f;
+                body.g = 1f;
+                body.b = 1f;
+                body.a = Mathf.Min(body.a, 1f - w);
+                cocoonRenderer.color = body;
             }
         }
 
-        /// <summary>
-        /// 白フラッシュ側だけコマ送り（OPEN 用）。
-        /// </summary>
-        private IEnumerator PlayCocoonFlashFrames(int fromIndex, int toIndex, float frameDur)
+        private void SetCocoonGlowVisible(bool visible, float weight01)
         {
-            if (cocoonFlashRenderer == null ||
-                cocoonFrames == null ||
-                cocoonFrames.Length == 0)
+            if (cocoonGlowInner != null)
             {
-                yield break;
+                cocoonGlowInner.enabled = visible;
             }
 
-            int step = toIndex >= fromIndex ? 1 : -1;
-            for (int i = fromIndex; ; i += step)
+            if (cocoonGlowOuter != null)
             {
-                if (skipRequested)
-                {
-                    yield break;
-                }
+                cocoonGlowOuter.enabled = visible && useCocoonGlowOuter;
+            }
 
-                if (i >= 0 && i < cocoonFrames.Length && cocoonFrames[i] != null)
-                {
-                    cocoonFlashRenderer.sprite = cocoonFrames[i];
-                    if (cocoonRenderer != null)
-                    {
-                        cocoonFlashRenderer.transform.localPosition =
-                            cocoonRenderer.transform.localPosition;
-                        cocoonFlashRenderer.transform.localScale =
-                            cocoonRenderer.transform.localScale;
-                        cocoonFlashRenderer.transform.localRotation =
-                            cocoonRenderer.transform.localRotation;
-                    }
-                }
+            ApplyCocoonGlowWeight(weight01);
+        }
 
-                float frameElapsed = 0f;
-                while (frameElapsed < frameDur)
-                {
-                    if (skipRequested)
-                    {
-                        yield break;
-                    }
+        private void SyncCocoonGlowFromCocoon()
+        {
+            if (cocoonRenderer == null)
+            {
+                return;
+            }
 
-                    UpdateSkipHold();
-                    frameElapsed += Time.unscaledDeltaTime;
-                    yield return null;
-                }
+            Sprite sprite = cocoonRenderer.sprite;
+            Vector3 baseScale = Vector3.one * Mathf.Max(0.1f, cocoonScale);
+            if (cocoonGlowInner != null)
+            {
+                cocoonGlowInner.sprite = sprite;
+                cocoonGlowInner.transform.localPosition = cocoonRenderer.transform.localPosition;
+                cocoonGlowInner.transform.localRotation = cocoonRenderer.transform.localRotation;
+                cocoonGlowInner.transform.localScale = baseScale * Mathf.Max(1f, cocoonGlowScaleInner);
+            }
 
-                if (i == toIndex)
-                {
-                    yield break;
-                }
+            if (cocoonGlowOuter != null)
+            {
+                cocoonGlowOuter.sprite = sprite;
+                cocoonGlowOuter.transform.localPosition = cocoonRenderer.transform.localPosition;
+                cocoonGlowOuter.transform.localRotation = cocoonRenderer.transform.localRotation;
+                cocoonGlowOuter.transform.localScale = baseScale * Mathf.Max(1f, cocoonGlowScaleOuter);
             }
         }
 
@@ -744,6 +839,7 @@ namespace KomayamaCraft
                 if (i >= 0 && i < cocoonFrames.Length && cocoonFrames[i] != null)
                 {
                     cocoonRenderer.sprite = cocoonFrames[i];
+                    SyncCocoonGlowFromCocoon();
                 }
 
                 float frameElapsed = 0f;
@@ -764,77 +860,6 @@ namespace KomayamaCraft
                     yield break;
                 }
             }
-        }
-
-        /// <summary>
-        /// 閉じた繭の形状を真っ白シルエットへ飛ばす（RGB 無視・α 形状のみ）。
-        /// </summary>
-        private IEnumerator WhitenCocoon(float seconds)
-        {
-            EnsureCocoonFlashRenderer();
-            SyncCocoonFlashSprite();
-            if (cocoonFlashRenderer != null)
-            {
-                cocoonFlashRenderer.enabled = true;
-                cocoonFlashRenderer.color = new Color(1f, 1f, 1f, 0f);
-            }
-
-            float dur = Mathf.Max(0.05f, seconds);
-            float elapsed = 0f;
-            while (elapsed < dur)
-            {
-                if (skipRequested)
-                {
-                    yield break;
-                }
-
-                UpdateSkipHold();
-                elapsed += Time.unscaledDeltaTime;
-                float t = Mathf.Clamp01(elapsed / dur);
-                if (cocoonFlashRenderer != null)
-                {
-                    Color f = Color.white;
-                    f.a = t;
-                    cocoonFlashRenderer.color = f;
-                }
-
-                // 色付き繭は白に埋もれさせる（黒く残らないよう α も下げる）
-                if (cocoonRenderer != null)
-                {
-                    Color c = Color.white;
-                    c.a = 1f - t;
-                    cocoonRenderer.color = c;
-                }
-
-                shipVisual.SetSpriteColor(Color.Lerp(baseColor, Color.white, t));
-                yield return null;
-            }
-
-            if (cocoonFlashRenderer != null)
-            {
-                cocoonFlashRenderer.color = Color.white;
-            }
-
-            if (cocoonRenderer != null)
-            {
-                cocoonRenderer.enabled = false;
-                cocoonRenderer.color = Color.white;
-            }
-
-            shipVisual.SetSpriteColor(Color.white);
-        }
-
-        private void SyncCocoonFlashSprite()
-        {
-            if (cocoonFlashRenderer == null || cocoonRenderer == null)
-            {
-                return;
-            }
-
-            cocoonFlashRenderer.sprite = cocoonRenderer.sprite;
-            cocoonFlashRenderer.transform.localPosition = cocoonRenderer.transform.localPosition;
-            cocoonFlashRenderer.transform.localScale = cocoonRenderer.transform.localScale;
-            cocoonFlashRenderer.transform.localRotation = cocoonRenderer.transform.localRotation;
         }
 
         private void FinishToShip2()
@@ -863,11 +888,15 @@ namespace KomayamaCraft
                 cocoonRenderer.transform.localScale = Vector3.one;
             }
 
-            if (cocoonFlashRenderer != null)
+            SetCocoonGlowVisible(false, 0f);
+            if (cocoonGlowInner != null)
             {
-                cocoonFlashRenderer.enabled = false;
-                cocoonFlashRenderer.color = new Color(1f, 1f, 1f, 0f);
-                cocoonFlashRenderer.transform.localScale = Vector3.one;
+                cocoonGlowInner.transform.localScale = Vector3.one;
+            }
+
+            if (cocoonGlowOuter != null)
+            {
+                cocoonGlowOuter.transform.localScale = Vector3.one;
             }
 
             HideFoxJoyAccessory();
@@ -957,7 +986,7 @@ namespace KomayamaCraft
                 cocoonRenderer = CreateOverlay("CocoonOverlay", baseSr.sortingOrder + 2);
             }
 
-            EnsureCocoonFlashRenderer();
+            EnsureCocoonGlowRenderers();
 
             thumpRenderer.transform.localPosition = Vector3.zero;
             cocoonRenderer.transform.localPosition = Vector3.zero;
@@ -975,7 +1004,7 @@ namespace KomayamaCraft
             }
         }
 
-        private void EnsureCocoonFlashRenderer()
+        private void EnsureCocoonGlowRenderers()
         {
             SpriteRenderer baseSr = shipVisual != null ? shipVisual.SpriteRenderer : null;
             if (baseSr == null)
@@ -983,62 +1012,49 @@ namespace KomayamaCraft
                 return;
             }
 
-            if (cocoonFlashRenderer == null)
+            // 旧・白塗りオーバーレイが残っていれば無効化
+            Transform parent = baseSr.transform;
+            Transform legacyFlash = parent.Find("CocoonWhiteFlashOverlay");
+            if (legacyFlash != null)
             {
-                cocoonFlashRenderer = CreateOverlay(
-                    "CocoonWhiteFlashOverlay",
+                SpriteRenderer legacySr = legacyFlash.GetComponent<SpriteRenderer>();
+                if (legacySr != null)
+                {
+                    legacySr.enabled = false;
+                }
+            }
+
+            if (cocoonGlowInner == null)
+            {
+                cocoonGlowInner = CreateOverlay(
+                    "CocoonGlowInner",
                     baseSr.sortingOrder + 3);
             }
 
-            cocoonFlashRenderer.transform.localPosition = Vector3.zero;
-            Material flashMat = ResolveWhiteFlashMaterialInstance();
-            if (flashMat == null)
+            if (cocoonGlowOuter == null)
             {
-                flashMat = ResolveSpriteUnlitMaterial();
+                cocoonGlowOuter = CreateOverlay(
+                    "CocoonGlowOuter",
+                    baseSr.sortingOrder + 4);
             }
 
-            cocoonFlashRenderer.sharedMaterial = flashMat != null
-                ? flashMat
-                : baseSr.sharedMaterial;
-
-            if (cocoonRenderer != null)
+            Material glowMat = ResolveCocoonGlowMaterial();
+            // αブレンド Unlit へ落とすと暗い繭が黒半透明に見えるので、加算材以外は付けない
+            if (glowMat == null)
             {
-                cocoonFlashRenderer.transform.localScale = cocoonRenderer.transform.localScale;
-            }
-        }
-
-        private Material ResolveWhiteFlashMaterialInstance()
-        {
-            if (cocoonWhiteFlashMaterial != null)
-            {
-                return cocoonWhiteFlashMaterial;
+                cocoonGlowInner.enabled = false;
+                cocoonGlowOuter.enabled = false;
+                return;
             }
 
-            if (sharedWhiteFlash != null)
-            {
-                return sharedWhiteFlash;
-            }
-
-#if UNITY_EDITOR
-            sharedWhiteFlash = UnityEditor.AssetDatabase.LoadAssetAtPath<Material>(
-                "Assets/Materials/KomayamaCraft/SpriteWhiteFlash.mat");
-            if (sharedWhiteFlash != null)
-            {
-                cocoonWhiteFlashMaterial = sharedWhiteFlash;
-                return sharedWhiteFlash;
-            }
-#endif
-            Shader shader = Shader.Find("KomayamaCraft/Sprite-WhiteFlash");
-            if (shader == null)
-            {
-                return null;
-            }
-
-            sharedWhiteFlash = new Material(shader)
-            {
-                name = "SpriteWhiteFlash (Runtime)"
-            };
-            return sharedWhiteFlash;
+            cocoonGlowInner.sharedMaterial = glowMat;
+            cocoonGlowOuter.sharedMaterial = glowMat;
+            cocoonGlowInner.transform.localPosition = Vector3.zero;
+            cocoonGlowOuter.transform.localPosition = Vector3.zero;
+            cocoonGlowInner.color = new Color(1f, 1f, 1f, 0f);
+            cocoonGlowOuter.color = new Color(1f, 1f, 1f, 0f);
+            cocoonGlowInner.enabled = false;
+            cocoonGlowOuter.enabled = false;
         }
 
         private SpriteRenderer CreateOverlay(string name, int sortingOrder)
@@ -1062,6 +1078,12 @@ namespace KomayamaCraft
             if (sr == null)
             {
                 sr = go.AddComponent<SpriteRenderer>();
+            }
+
+            // DrawOrder の Outline／Unlit 強制から守る
+            if (go.GetComponent<KomayamaPreserveSpriteMaterial>() == null)
+            {
+                go.AddComponent<KomayamaPreserveSpriteMaterial>();
             }
 
             sr.sortingLayerID = shipVisual.SpriteRenderer.sortingLayerID;

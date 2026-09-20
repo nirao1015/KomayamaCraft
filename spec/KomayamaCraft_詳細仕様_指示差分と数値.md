@@ -223,7 +223,7 @@
 | --- | --- | --- |
 | `WorldSea` | `World/WorldLayers/Layer_Sea` | 海 |
 | `WorldContinent` | `…/Layer_Continent` | 地形 |
-| `WorldObject` | `…/Layer_Objects` | 採集発生点・納入ゴミ箱・宇宙船など（施設以外）。**Sprite の既定マテリアルは `SpriteOutline`（`KomayamaCraft/Sprite-Unlit-Outline`）**。`KomayamaWorldLayerDrawOrder` が配下追加時も自動適用 |
+| `WorldObject` | `…/Layer_Objects` | 採集発生点・納入ゴミ箱・宇宙船など（施設以外）。**Sprite の既定マテリアルは `SpriteOutline`**。適用は不足時のみ（毎フレーム全上書きしない）。詳細・Preserve 一覧は `spec/KomayamaCraft_描画バンド整理_詳細仕様.md` §2.3〜§2.4 |
 | `WorldFacility` | `World/Layer_Facilities` | 仮組・完成施設・保管 |
 | `WorldEffect` | `…/Layer_Effects` | エフェクト |
 | `WorldDrop` | `World/Layer_Drops` | 地面ドロップ |
@@ -326,6 +326,8 @@ NPC 納品・頭上マーカーは `spec/KomayamaCraft_NPCインタラクトと�
 | SE | `TrashDeposit`（`Assets/SE/ビープ音5.mp3`）。通常の右クリック `Drop` は鳴らさない。クリック／長押し連続でも**ホールド中は1回だけ** |
 | 初期例 | シーンの `納入ゴミ箱` |
 
+NPC 納品口（見た目なし `DepositBin`）も同様に、成功／失敗 SE は**右クリック押下あたり1回**（長押し連打でビープし続けない）。
+
 ### 7.2 カーソル追従狐（`FoxCursorFollower`）
 
 `World / Layer_Mouse / FoxCursorFollower`（`KCMouseFoxFollower`）。Sorting は `WorldMouse`。手持ちアイコンとは別オブジェクト。マウスの**左側少し離れた位置**を追い、揺れアニメを再生する。
@@ -338,7 +340,17 @@ NPC 納品・頭上マーカーは `spec/KomayamaCraft_NPCインタラクトと�
 | --- | --- |
 | マウス追従 | カーソル位置＋オフセットを目標に追従する。WASD／マップドラッグでカメラが動いても、常にマウス相対 |
 | 画面配置 | **ディスプレイ（画面）に対して定位置**。カメラが動いても狐の画面上の位置は変わらない。ワールド座標に置かない |
-| OFF | 表示しない。入力・アニメ評価もしない |
+| OFF | 表示しない。入力・アニメ評価もしない（**ユーザー／Inspector 用**。演出の一時隠しには使わない） |
+
+**演出中の一時非表示（確定）**
+
+| 項目 | 内容 |
+| --- | --- |
+| API | `SetSuppressedForCinematic(bool)` |
+| 用途 | 宇宙船修理の喜びモーションなど、追従狐を隠して別スプライトを出すとき |
+| 制約 | `displayMode` は変更しない。セーブ値にも出さない |
+| 禁止 | 演出のために `SetDisplayMode(Off)` すること（セーブに Off が残り次回から狐が消える） |
+| 詳細 | `spec/KomayamaCraft_宇宙船修理演出_詳細仕様.md` §2.4 |
 
 **モード切替**
 
@@ -368,10 +380,16 @@ NPC 納品・頭上マーカーは `spec/KomayamaCraft_NPCインタラクトと�
 
 次をセーブ／ロードする。
 
-- 表示モード（マウス追従／画面配置／OFF）
+- 表示モード（マウス追従／画面配置）。**演出用の一時非表示フラグは保存しない**
 - 画面配置モードの位置
 - 画面配置モードの大きさ
 
+**ロード時の互換**
+
+| セーブ値 | 扱い |
+| --- | --- |
+| マウス追従／画面配置 | そのまま適用 |
+| OFF | 旧不具合（演出が `displayMode=Off` のままセーブ）の可能性があるため、**FollowMouse に戻す**。恒久 OFF をセーブする用途は現状なし |
 #### 7.2.3 アニメーション定義
 
 各アニメは次を持つ。
@@ -473,10 +491,11 @@ NPC 納品・頭上マーカーは `spec/KomayamaCraft_NPCインタラクトと�
 | 手動セーブ | F5 |
 | 読込 | F9 とタイトル「続きから」 |
 | スロット数 | 3 |
-| 新規開始 | 空きスロットはそのまま開始。使用中は上書き確認 |
-| 続きから | 使用中スロットだけ選べる。前回遊んだスロットを初期選択 |
-| スロット表示 | 空き／使用中と、最終セーブ日時 |
-| タイトル | 既存 `title_scene` に新規開始／続きから |
+| 新規開始 | 空きスロットはそのまま開始。使用中は上書き確認。見出し「はじめから」 |
+| 続きから | セーブが1つでもあるときだけボタン表示。使用中スロットだけ選べる。前回遊んだスロットを初期選択。見出し「続きから」 |
+| スロット UI | `SlotCanvas`（Config と同様の開閉）配下の `SlotPanel`。名前／スクショ／セーブ時刻・プレイ時間。選択中もタイトルボタンは消さない |
+| クラフト遷移 | タイトル `LoadCanvas`＋`LoadSceneAsync`。専用ロードシーンは作らない。ロード中は timeScale=0、完了後にゲーム時間再開 |
+| タイトル | 既存 `title_scene`。詳細は `KomayamaCraft_タイトル画面_詳細仕様.md`（SlotCanvas、LoadCanvas、HoverOverlay、駒山・工具・星） |
 | 案内 | 段階案内＋スキップ（T） |
 | Ghost案内 | すでに稼働していれば、そのステップは飛ばしてよい |
 | Tier 3 危険領域 | 位相安定芯を一度作るまで、採集も建設もできない |

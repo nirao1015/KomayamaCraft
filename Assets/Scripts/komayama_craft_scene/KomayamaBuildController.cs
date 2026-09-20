@@ -429,6 +429,7 @@ namespace KomayamaCraft
             }
 
             BindCreatedFacility(created, definition, instanceId);
+            KomayamaWorldLayerDrawOrder.RequestApplyMaterialsInScene();
             return created;
         }
 

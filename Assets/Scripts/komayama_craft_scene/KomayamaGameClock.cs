@@ -105,6 +105,13 @@ namespace KomayamaCraft
 
         public void ApplyToUnity()
         {
+            if (KomayamaCraftLoadGate.HoldGameTime)
+            {
+                Time.timeScale = 0f;
+                ownsTimeScale = true;
+                return;
+            }
+
             Time.timeScale = EffectiveTimeScale;
             ownsTimeScale = true;
         }

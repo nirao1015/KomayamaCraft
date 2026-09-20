@@ -42,9 +42,10 @@ namespace KomayamaCraft
         private bool suppressFacilityDepositUntilRightRelease;
 
         /// <summary>
-        /// 右クリック長押し中、納入ゴミ箱 SE を既に1回鳴らしたか。
+        /// 右クリック長押し中、納入 SE／失敗 SE を既に1回鳴らしたか。
+        /// 納入ゴミ箱・NPC 納品口の両方で使う。
         /// </summary>
-        private bool trashDepositSePlayedThisHold;
+        private bool depositSePlayedThisHold;
 
         private bool RapidHoldRepeat =>
             debugManager != null && debugManager.RapidHoldDrop;
@@ -189,7 +190,7 @@ namespace KomayamaCraft
             if (mouse.rightButton.wasPressedThisFrame)
             {
                 suppressFacilityDepositUntilRightRelease = false;
-                trashDepositSePlayedThisHold = false;
+                depositSePlayedThisHold = false;
                 HandleRight();
                 nextRightRepeatAt = Time.unscaledTime + RightHoldStartDelay;
             }
@@ -200,7 +201,7 @@ namespace KomayamaCraft
             else
             {
                 suppressFacilityDepositUntilRightRelease = false;
-                trashDepositSePlayedThisHold = false;
+                depositSePlayedThisHold = false;
             }
 
             bool dropping =
@@ -622,15 +623,19 @@ namespace KomayamaCraft
             KomayamaDepositBin depositBin = FindUnderPointer<KomayamaDepositBin>(hits);
             if (depositBin != null)
             {
-                bool playSe = !depositBin.UsesTrashDepositSe ||
-                              !trashDepositSePlayedThisHold;
+                // 長押し連続納入でも SE は押下あたり1回（ゴミ箱・NPC 納品口とも）
+                bool playSe = !depositSePlayedThisHold;
                 if (!depositBin.TryDepositOne(hand, out string binReason, playSe))
                 {
-                    Reject(binReason);
+                    if (playSe)
+                    {
+                        Reject(binReason);
+                        depositSePlayedThisHold = true;
+                    }
                 }
-                else if (depositBin.UsesTrashDepositSe && playSe)
+                else if (playSe)
                 {
-                    trashDepositSePlayedThisHold = true;
+                    depositSePlayedThisHold = true;
                 }
 
                 return;
@@ -766,6 +771,7 @@ namespace KomayamaCraft
         {
             KomayamaCraftAutoPlayInput.SetForcedWorldPointer(worldPosition);
             suppressFacilityDepositUntilRightRelease = false;
+            depositSePlayedThisHold = false;
             HandleRight();
             KomayamaCraftAutoPlayInput.ClearForcedWorldPointer();
         }

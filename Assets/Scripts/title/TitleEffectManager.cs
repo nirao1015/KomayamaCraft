@@ -12,7 +12,7 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
         None,
         High,
         Mid,
-        Low
+        ClickReact
     }
 
     [Header("Global Spotlight Overlay")]
@@ -63,6 +63,7 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
     [Header("Unit Big K References")]
     [SerializeField] private RectTransform unitBigKObject;
     [SerializeField] private RectTransform unitBigKImage;
+    [SerializeField] private Image unitBigKFaceImage;
     [SerializeField] private Image unitBigKShadowImage;
 
     [Header("Unit Big K Ground Shadow")]
@@ -70,6 +71,40 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
     [SerializeField] private Vector2 unitBigKShadowOffset = new Vector2(0f, -86f);
     [SerializeField] private Vector2 unitBigKShadowSize = new Vector2(188f, 52f);
     [SerializeField] private Color unitBigKShadowColor = new Color(1f, 1f, 1f, 0.22f);
+
+    [Header("Unit Big K Swim (Lissajous)")]
+    [SerializeField] private bool enableUnitBigKSwim = true;
+    [SerializeField, Min(0f)] private float swimAmplitudeX = 48f;
+    [SerializeField, Min(0f)] private float swimAmplitudeY = 32f;
+    [SerializeField, Min(0.1f)] private float swimPeriodXSeconds = 17f;
+    [SerializeField, Min(0.1f)] private float swimPeriodYSeconds = 11f;
+    [SerializeField] private float swimPhaseXDegrees = 0f;
+    [SerializeField] private float swimPhaseYDegrees = 35f;
+    [SerializeField, Tooltip("時計回りを正。画像（unit-big-k-Image）のローカルZ回転。")]
+    private float swimSpinDegreesPerSecond = 6f;
+
+    [Header("Unit Big K Blink")]
+    [SerializeField] private bool enableUnitBigKBlink = true;
+    [SerializeField] private Sprite unitBigKEyesOpenSprite;
+    [SerializeField] private Sprite unitBigKEyesClosedSprite;
+    [SerializeField, Min(0.5f)] private float blinkIntervalMinSeconds = 3.2f;
+    [SerializeField, Min(0.5f)] private float blinkIntervalMaxSeconds = 7.5f;
+    [SerializeField, Min(0.02f)] private float blinkClosedSeconds = 0.1f;
+    [SerializeField, Range(0f, 1f)] private float blinkDoubleChance = 0.22f;
+    [SerializeField, Min(0.02f)] private float blinkDoubleGapSeconds = 0.08f;
+
+    [Header("Unit Big K Click React")]
+    [SerializeField] private bool enableUnitBigKClickReact = true;
+    [SerializeField, Range(0f, 1f), Tooltip("クリック時に回転演出を選ぶ確率。残りは耳尻尾ピコピコ。")]
+    private float clickReactSpinChance = 0.3f;
+    [SerializeField, Min(0f)] private float clickReactShakePixels = 20f;
+    [SerializeField, Min(0.05f)] private float clickReactShakeSeconds = 0.22f;
+    [SerializeField, Min(0.05f)] private float clickReactSpinSeconds = 1.2f;
+    [SerializeField, Min(0f)] private float clickReactCooldownSeconds = 3f;
+    [SerializeField] private Sprite unitBigKTailDownEarsTightSprite;
+    [SerializeField] private Sprite unitBigKTailUpEarsOpenSprite;
+    [SerializeField, Min(1)] private int clickReactEarRepeatCount = 3;
+    [SerializeField, Min(0.02f)] private float clickReactEarFrameSeconds = 0.12f;
 
     [Header("Unit Big K High Priority (OnClick Jump)")]
     [SerializeField] private float highJumpHeight = 30f;
@@ -82,12 +117,6 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
     [SerializeField] private float midLookForwardAngleOffsetZ = 0f;
     [SerializeField] private bool midInvertLookWhenFlippedY = true;
     [SerializeField] private float midTurnDurationSeconds = 0.2f;
-
-    [Header("Unit Big K Low Priority (Periodic Bounce)")]
-    [SerializeField] private float lowPeriodSeconds = 6f;
-    [SerializeField] private float lowRandomPlusSeconds = 2f;
-    [SerializeField] private float lowBounceAmplitude = 5f;
-    [SerializeField] private float lowBounceDurationSeconds = 2f;
 
     private RectTransform canvasRect;
     private Image dimTop;
@@ -102,13 +131,20 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
     private static Sprite unitBigKShadowSprite;
     private UnitBigKEffectMode activeUnitBigKEffectMode;
     private Coroutine unitBigKEffectCoroutine;
-    private float nextLowEffectTime;
-    private bool lowEffectScheduled;
+    private Coroutine unitBigKBlinkCoroutine;
     private bool clickListenersRegistered;
     private Button hoveredGameButton;
+    private Vector2 unitBigKObjectBaseAnchoredPosition;
     private Vector2 unitBigKImageBaseAnchoredPosition;
+    private Vector3 unitBigKImageBaseLocalEuler;
     private Quaternion unitBigKObjectBaseRotation;
     private Vector3 unitBigKObjectBaseEuler;
+    private float unitBigKSwimElapsed;
+    private float unitBigKSpinDegrees;
+    private bool unitBigKSwimPaused;
+    private float unitBigKClickNextAllowedUnscaledTime;
+    private Button unitBigKClickButton;
+    private bool unitBigKClickListenerRegistered;
 
     protected override void Awake()
     {
@@ -117,7 +153,8 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
         EnsureUnitBigKRuntime();
         CacheUnitBigKBasePose();
         RegisterButtonClickListeners();
-        ResetLowEffectTimer();
+        RegisterUnitBigKClickListener();
+        RestartUnitBigKBlinkLoop();
         SetSpotlightVisible(false);
     }
 
@@ -128,14 +165,18 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
         EnsureUnitBigKRuntime();
         CacheUnitBigKBasePose();
         RegisterButtonClickListeners();
-        ResetLowEffectTimer();
+        RegisterUnitBigKClickListener();
+        RestartUnitBigKBlinkLoop();
         SetSpotlightVisible(false);
     }
 
     private void OnDisable()
     {
         UnregisterButtonClickListeners();
+        UnregisterUnitBigKClickListener();
+        StopUnitBigKBlinkLoop();
         StopUnitBigKEffect(true);
+        unitBigKSwimPaused = false;
         hoveredGameButton = null;
     }
 
@@ -143,7 +184,7 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
     {
         base.Update();
         UpdateButtonSpotlight();
-        UpdateUnitBigKEffects();
+        UpdateUnitBigKSwim();
     }
 
     private void UpdateButtonSpotlight()
@@ -481,7 +522,12 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
     {
         if (unitBigKObject == null)
         {
-            Transform found = transform.root != null ? transform.root.Find("TitleCanvas/unit-big-k-Object") : null;
+            Transform found = transform.root != null ? transform.root.Find("Canvas/unit-big-k-Object") : null;
+            if (found == null && transform.root != null)
+            {
+                found = transform.root.Find("TitleCanvas/unit-big-k-Object");
+            }
+
             if (found != null)
             {
                 unitBigKObject = found as RectTransform;
@@ -490,10 +536,52 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
 
         if (unitBigKImage == null)
         {
-            Transform found = transform.root != null ? transform.root.Find("TitleCanvas/unit-big-k-Object/unit-big-k-Image") : null;
+            Transform found = null;
+            if (unitBigKObject != null)
+            {
+                found = unitBigKObject.Find("unit-big-k-Image");
+            }
+
+            if (found == null && transform.root != null)
+            {
+                found = transform.root.Find("Canvas/unit-big-k-Object/unit-big-k-Image");
+            }
+
             if (found != null)
             {
                 unitBigKImage = found as RectTransform;
+            }
+        }
+
+        if (unitBigKFaceImage == null && unitBigKImage != null)
+        {
+            unitBigKFaceImage = unitBigKImage.GetComponent<Image>();
+        }
+
+        if (unitBigKFaceImage != null)
+        {
+            if (unitBigKEyesOpenSprite == null && unitBigKFaceImage.sprite != null)
+            {
+                unitBigKEyesOpenSprite = unitBigKFaceImage.sprite;
+            }
+
+            if (unitBigKEyesOpenSprite != null &&
+                unitBigKFaceImage.sprite != unitBigKEyesClosedSprite)
+            {
+                unitBigKFaceImage.sprite = unitBigKEyesOpenSprite;
+            }
+
+            if (enableUnitBigKClickReact)
+            {
+                unitBigKFaceImage.raycastTarget = true;
+                unitBigKClickButton = unitBigKFaceImage.GetComponent<Button>();
+                if (unitBigKClickButton == null)
+                {
+                    unitBigKClickButton = unitBigKFaceImage.gameObject.AddComponent<Button>();
+                }
+
+                unitBigKClickButton.transition = Selectable.Transition.None;
+                unitBigKClickButton.targetGraphic = unitBigKFaceImage;
             }
         }
 
@@ -541,17 +629,21 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
 
     private void CacheUnitBigKBasePose()
     {
-        if (unitBigKImage != null)
-        {
-            unitBigKImageBaseAnchoredPosition = unitBigKImage.anchoredPosition;
-        }
-
         if (unitBigKObject != null)
         {
+            unitBigKObjectBaseAnchoredPosition = unitBigKObject.anchoredPosition;
             unitBigKObjectBaseRotation = unitBigKObject.localRotation;
             unitBigKObjectBaseEuler = unitBigKObject.localEulerAngles;
         }
 
+        if (unitBigKImage != null)
+        {
+            unitBigKImageBaseAnchoredPosition = unitBigKImage.anchoredPosition;
+            unitBigKImageBaseLocalEuler = unitBigKImage.localEulerAngles;
+        }
+
+        unitBigKSwimElapsed = 0f;
+        unitBigKSpinDegrees = 0f;
         RefreshUnitBigKShadowLayout();
     }
 
@@ -624,51 +716,306 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
         TriggerMidLookEffect(hoveredGameButton);
     }
 
-    private void UpdateUnitBigKEffects()
+    private void UpdateUnitBigKSwim()
     {
-        if (!lowEffectScheduled)
-        {
-            ResetLowEffectTimer();
-        }
-
-        if (hoveredGameButton != null)
+        if (!enableUnitBigKSwim || unitBigKSwimPaused)
         {
             return;
         }
 
-        if (activeUnitBigKEffectMode == UnitBigKEffectMode.High || activeUnitBigKEffectMode == UnitBigKEffectMode.Mid)
+        float dt = Time.unscaledDeltaTime;
+        unitBigKSwimElapsed += dt;
+
+        if (unitBigKObject != null)
+        {
+            float periodX = Mathf.Max(0.1f, swimPeriodXSeconds);
+            float periodY = Mathf.Max(0.1f, swimPeriodYSeconds);
+            float phaseX = swimPhaseXDegrees * Mathf.Deg2Rad;
+            float phaseY = swimPhaseYDegrees * Mathf.Deg2Rad;
+            float x = Mathf.Sin((Mathf.PI * 2f * unitBigKSwimElapsed / periodX) + phaseX) * swimAmplitudeX;
+            float y = Mathf.Sin((Mathf.PI * 2f * unitBigKSwimElapsed / periodY) + phaseY) * swimAmplitudeY;
+            unitBigKObject.anchoredPosition = unitBigKObjectBaseAnchoredPosition + new Vector2(x, y);
+        }
+
+        if (unitBigKImage != null)
+        {
+            // Unity の +Z は反時計回りなので、時計回りはマイナス。
+            unitBigKSpinDegrees -= swimSpinDegreesPerSecond * dt;
+            ApplyUnitBigKImageSpin();
+        }
+    }
+
+    private void ApplyUnitBigKImageSpin()
+    {
+        if (unitBigKImage == null)
         {
             return;
         }
 
-        if (Time.unscaledTime < nextLowEffectTime)
+        Vector3 euler = unitBigKImageBaseLocalEuler;
+        euler.z += unitBigKSpinDegrees;
+        unitBigKImage.localEulerAngles = euler;
+    }
+
+    private void RegisterUnitBigKClickListener()
+    {
+        if (unitBigKClickListenerRegistered || !enableUnitBigKClickReact)
         {
             return;
         }
 
-        if (activeUnitBigKEffectMode != UnitBigKEffectMode.None)
+        EnsureUnitBigKRuntime();
+        if (unitBigKClickButton == null)
         {
-            ResetLowEffectTimer();
             return;
         }
 
-        StartUnitBigKEffect(UnitBigKEffectMode.Low, CoPlayLowBounceEffect());
+        unitBigKClickButton.onClick.AddListener(OnClickUnitBigKImage);
+        unitBigKClickListenerRegistered = true;
+    }
+
+    private void UnregisterUnitBigKClickListener()
+    {
+        if (!unitBigKClickListenerRegistered)
+        {
+            return;
+        }
+
+        if (unitBigKClickButton != null)
+        {
+            unitBigKClickButton.onClick.RemoveListener(OnClickUnitBigKImage);
+        }
+
+        unitBigKClickListenerRegistered = false;
+    }
+
+    private void OnClickUnitBigKImage()
+    {
+        if (!enableUnitBigKClickReact)
+        {
+            return;
+        }
+
+        if (activeUnitBigKEffectMode == UnitBigKEffectMode.ClickReact)
+        {
+            return;
+        }
+
+        if (Time.unscaledTime < unitBigKClickNextAllowedUnscaledTime)
+        {
+            return;
+        }
+
+        bool playSpin = Random.value < Mathf.Clamp01(clickReactSpinChance);
+        if (playSpin)
+        {
+            StartUnitBigKEffect(UnitBigKEffectMode.ClickReact, CoPlayUnitBigKClickSpinEffect());
+        }
+        else
+        {
+            StartUnitBigKEffect(UnitBigKEffectMode.ClickReact, CoPlayUnitBigKClickEarTailEffect());
+        }
+    }
+
+    private System.Collections.IEnumerator CoPlayUnitBigKClickSpinEffect()
+    {
+        if (unitBigKImage == null)
+        {
+            FinishUnitBigKClickReact();
+            yield break;
+        }
+
+        unitBigKSwimPaused = true;
+
+        Vector2 imageBase = unitBigKImageBaseAnchoredPosition;
+        float shakeAmp = Mathf.Abs(clickReactShakePixels);
+        float shakeDur = Mathf.Max(0.05f, clickReactShakeSeconds);
+        float shakeElapsed = 0f;
+        while (shakeElapsed < shakeDur)
+        {
+            shakeElapsed += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(shakeElapsed / shakeDur);
+            float wave = Mathf.Sin(t * Mathf.PI * 2f) * (1f - t);
+            unitBigKImage.anchoredPosition = imageBase + new Vector2(0f, wave * shakeAmp);
+            yield return null;
+        }
+
+        unitBigKImage.anchoredPosition = imageBase;
+
+        float spinSign = swimSpinDegreesPerSecond >= 0f ? 1f : -1f;
+        float reverseDelta = 360f * spinSign;
+        float spinStart = unitBigKSpinDegrees;
+        float spinDur = Mathf.Max(0.05f, clickReactSpinSeconds);
+        float spinElapsed = 0f;
+        while (spinElapsed < spinDur)
+        {
+            spinElapsed += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(spinElapsed / spinDur);
+            float eased = 1f - Mathf.Pow(1f - t, 3f);
+            unitBigKSpinDegrees = spinStart + reverseDelta * eased;
+            ApplyUnitBigKImageSpin();
+            yield return null;
+        }
+
+        unitBigKSpinDegrees = spinStart + reverseDelta;
+        ApplyUnitBigKImageSpin();
+
+        unitBigKSwimPaused = false;
+        FinishUnitBigKClickReact();
+    }
+
+    private System.Collections.IEnumerator CoPlayUnitBigKClickEarTailEffect()
+    {
+        if (unitBigKFaceImage == null ||
+            unitBigKTailDownEarsTightSprite == null ||
+            unitBigKTailUpEarsOpenSprite == null)
+        {
+            // 素材未設定時は回転側へフォールバック
+            yield return CoPlayUnitBigKClickSpinEffect();
+            yield break;
+        }
+
+        // 遊泳は継続。瞬きとスプライトが競合しないよう一時停止。
+        StopUnitBigKBlinkLoop();
+
+        int repeats = Mathf.Max(1, clickReactEarRepeatCount);
+        float frameDur = Mathf.Max(0.02f, clickReactEarFrameSeconds);
+        for (int i = 0; i < repeats; i++)
+        {
+            unitBigKFaceImage.sprite = unitBigKTailDownEarsTightSprite;
+            float elapsed = 0f;
+            while (elapsed < frameDur)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                yield return null;
+            }
+
+            unitBigKFaceImage.sprite = unitBigKTailUpEarsOpenSprite;
+            elapsed = 0f;
+            while (elapsed < frameDur)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                yield return null;
+            }
+        }
+
+        ApplyUnitBigKEyesOpen();
+        RestartUnitBigKBlinkLoop();
+        FinishUnitBigKClickReact();
+    }
+
+    private void FinishUnitBigKClickReact()
+    {
+        unitBigKSwimPaused = false;
+        unitBigKClickNextAllowedUnscaledTime =
+            Time.unscaledTime + Mathf.Max(0f, clickReactCooldownSeconds);
+        activeUnitBigKEffectMode = UnitBigKEffectMode.None;
+        unitBigKEffectCoroutine = null;
+    }
+
+    private void RestartUnitBigKBlinkLoop()
+    {
+        StopUnitBigKBlinkLoop();
+        if (!enableUnitBigKBlink || !isActiveAndEnabled)
+        {
+            return;
+        }
+
+        unitBigKBlinkCoroutine = StartCoroutine(CoUnitBigKBlinkLoop());
+    }
+
+    private void StopUnitBigKBlinkLoop()
+    {
+        if (unitBigKBlinkCoroutine != null)
+        {
+            StopCoroutine(unitBigKBlinkCoroutine);
+            unitBigKBlinkCoroutine = null;
+        }
+
+        ApplyUnitBigKEyesOpen();
+    }
+
+    private System.Collections.IEnumerator CoUnitBigKBlinkLoop()
+    {
+        while (enableUnitBigKBlink)
+        {
+            float min = Mathf.Max(0.5f, blinkIntervalMinSeconds);
+            float max = Mathf.Max(min, blinkIntervalMaxSeconds);
+            float wait = Random.Range(min, max);
+            float elapsed = 0f;
+            while (elapsed < wait)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                yield return null;
+            }
+
+            yield return CoPlayUnitBigKBlinkOnce();
+            if (Random.value < blinkDoubleChance)
+            {
+                float gap = Mathf.Max(0.02f, blinkDoubleGapSeconds);
+                float gapElapsed = 0f;
+                while (gapElapsed < gap)
+                {
+                    gapElapsed += Time.unscaledDeltaTime;
+                    yield return null;
+                }
+
+                yield return CoPlayUnitBigKBlinkOnce();
+            }
+        }
+
+        unitBigKBlinkCoroutine = null;
+    }
+
+    private System.Collections.IEnumerator CoPlayUnitBigKBlinkOnce()
+    {
+        if (unitBigKFaceImage == null ||
+            unitBigKEyesClosedSprite == null ||
+            unitBigKEyesOpenSprite == null)
+        {
+            yield break;
+        }
+
+        unitBigKFaceImage.sprite = unitBigKEyesClosedSprite;
+        float closed = Mathf.Max(0.02f, blinkClosedSeconds);
+        float elapsed = 0f;
+        while (elapsed < closed)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        ApplyUnitBigKEyesOpen();
+    }
+
+    private void ApplyUnitBigKEyesOpen()
+    {
+        if (unitBigKFaceImage != null && unitBigKEyesOpenSprite != null)
+        {
+            unitBigKFaceImage.sprite = unitBigKEyesOpenSprite;
+        }
     }
 
     private void TriggerHighJumpEffect()
     {
-        ResetLowEffectTimer();
+        if (activeUnitBigKEffectMode == UnitBigKEffectMode.ClickReact || unitBigKSwimPaused)
+        {
+            return;
+        }
+
         StartUnitBigKEffect(UnitBigKEffectMode.High, CoPlayHighJumpEffect());
     }
 
     private void TriggerMidLookEffect(Button targetButton)
     {
-        if (targetButton == null || activeUnitBigKEffectMode == UnitBigKEffectMode.High)
+        if (targetButton == null ||
+            activeUnitBigKEffectMode == UnitBigKEffectMode.High ||
+            activeUnitBigKEffectMode == UnitBigKEffectMode.ClickReact ||
+            unitBigKSwimPaused)
         {
             return;
         }
 
-        ResetLowEffectTimer();
         StartUnitBigKEffect(UnitBigKEffectMode.Mid, CoPlayMidLookEffect(targetButton));
     }
 
@@ -687,7 +1034,27 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
             unitBigKEffectCoroutine = null;
         }
 
+        bool wasClickReact = activeUnitBigKEffectMode == UnitBigKEffectMode.ClickReact;
         activeUnitBigKEffectMode = UnitBigKEffectMode.None;
+        if (wasClickReact || resetPose)
+        {
+            unitBigKSwimPaused = false;
+            if (wasClickReact)
+            {
+                ApplyUnitBigKEyesOpen();
+                if (isActiveAndEnabled)
+                {
+                    RestartUnitBigKBlinkLoop();
+                }
+            }
+
+            if (unitBigKImage != null && wasClickReact && !resetPose)
+            {
+                unitBigKImage.anchoredPosition = unitBigKImageBaseAnchoredPosition;
+                ApplyUnitBigKImageSpin();
+            }
+        }
+
         if (resetPose)
         {
             ApplyUnitBigKBasePose();
@@ -696,23 +1063,20 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
 
     private void ApplyUnitBigKBasePose()
     {
+        if (unitBigKObject != null)
+        {
+            unitBigKObject.anchoredPosition = unitBigKObjectBaseAnchoredPosition;
+            unitBigKObject.localRotation = Quaternion.Euler(unitBigKObjectBaseEuler.x, midBaseRotationY, midBaseRotationZ);
+        }
+
         if (unitBigKImage != null)
         {
             unitBigKImage.anchoredPosition = unitBigKImageBaseAnchoredPosition;
+            unitBigKImage.localEulerAngles = unitBigKImageBaseLocalEuler;
         }
 
-        if (unitBigKObject != null)
-        {
-            unitBigKObject.localRotation = Quaternion.Euler(unitBigKObjectBaseEuler.x, midBaseRotationY, midBaseRotationZ);
-        }
-    }
-
-    private void ResetLowEffectTimer()
-    {
-        float period = Mathf.Max(0.1f, lowPeriodSeconds);
-        float randomPlus = Mathf.Max(0f, lowRandomPlusSeconds);
-        nextLowEffectTime = Time.unscaledTime + period + Random.Range(0f, randomPlus);
-        lowEffectScheduled = true;
+        unitBigKSpinDegrees = 0f;
+        ApplyUnitBigKEyesOpen();
     }
 
     private System.Collections.IEnumerator CoPlayHighJumpEffect()
@@ -752,6 +1116,31 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
         unitBigKEffectCoroutine = null;
     }
 
+    private float CalculateLookRotationZ(RectTransform targetRect)
+    {
+        if (canvasRect == null || unitBigKObject == null || targetRect == null)
+        {
+            return midBaseRotationZ;
+        }
+
+        Vector2 unitLocal = canvasRect.InverseTransformPoint(unitBigKObject.position);
+        Vector2 targetLocal = canvasRect.InverseTransformPoint(targetRect.position);
+        Vector2 direction = targetLocal - unitLocal;
+        if (direction.sqrMagnitude <= 0.0001f)
+        {
+            return midBaseRotationZ;
+        }
+
+        float desiredZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + midLookForwardAngleOffsetZ;
+        float limitedDelta = Mathf.Clamp(Mathf.DeltaAngle(midBaseRotationZ, desiredZ), -Mathf.Abs(midTurnAngle), Mathf.Abs(midTurnAngle));
+        if (midInvertLookWhenFlippedY)
+        {
+            limitedDelta = -limitedDelta;
+        }
+
+        return midBaseRotationZ + limitedDelta;
+    }
+
     private System.Collections.IEnumerator CoPlayMidLookEffect(Button targetButton)
     {
         if (unitBigKObject == null || targetButton == null)
@@ -783,58 +1172,6 @@ public sealed class TitleEffectManager : HoverOverlayEffectManagerBase
         unitBigKObject.localRotation = endRot;
         activeUnitBigKEffectMode = UnitBigKEffectMode.None;
         unitBigKEffectCoroutine = null;
-    }
-
-    private float CalculateLookRotationZ(RectTransform targetRect)
-    {
-        if (canvasRect == null || unitBigKObject == null || targetRect == null)
-        {
-            return midBaseRotationZ;
-        }
-
-        Vector2 unitLocal = canvasRect.InverseTransformPoint(unitBigKObject.position);
-        Vector2 targetLocal = canvasRect.InverseTransformPoint(targetRect.position);
-        Vector2 direction = targetLocal - unitLocal;
-        if (direction.sqrMagnitude <= 0.0001f)
-        {
-            return midBaseRotationZ;
-        }
-
-        float desiredZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + midLookForwardAngleOffsetZ;
-        float limitedDelta = Mathf.Clamp(Mathf.DeltaAngle(midBaseRotationZ, desiredZ), -Mathf.Abs(midTurnAngle), Mathf.Abs(midTurnAngle));
-        if (midInvertLookWhenFlippedY)
-        {
-            limitedDelta = -limitedDelta;
-        }
-
-        return midBaseRotationZ + limitedDelta;
-    }
-
-    private System.Collections.IEnumerator CoPlayLowBounceEffect()
-    {
-        if (unitBigKImage == null)
-        {
-            activeUnitBigKEffectMode = UnitBigKEffectMode.None;
-            ResetLowEffectTimer();
-            yield break;
-        }
-
-        Vector2 basePos = unitBigKImageBaseAnchoredPosition;
-        float elapsed = 0f;
-        float duration = Mathf.Max(0.1f, lowBounceDurationSeconds);
-        while (elapsed < duration)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            float t = Mathf.Clamp01(elapsed / duration);
-            float y = Mathf.Sin(t * Mathf.PI * 2f) * lowBounceAmplitude;
-            unitBigKImage.anchoredPosition = basePos + new Vector2(0f, y);
-            yield return null;
-        }
-
-        unitBigKImage.anchoredPosition = basePos;
-        activeUnitBigKEffectMode = UnitBigKEffectMode.None;
-        unitBigKEffectCoroutine = null;
-        ResetLowEffectTimer();
     }
 
     private static float EaseOutCubic(float t)

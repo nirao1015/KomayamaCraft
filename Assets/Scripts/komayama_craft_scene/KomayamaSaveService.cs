@@ -149,6 +149,7 @@ namespace KomayamaCraft
 
                 File.Move(TempFilePath, SaveFilePath);
                 KomayamaSaveSlots.RememberLastPlayedSlot(KomayamaSaveSlots.ActiveSlot);
+                TryCaptureSlotThumbnail(KomayamaSaveSlots.ActiveSlot);
                 return true;
             }
             catch (Exception exception)
@@ -162,6 +163,48 @@ namespace KomayamaCraft
         {
             KomayamaQuestController quest = KomayamaQuestController.Instance;
             return quest == null || quest.AreBuildAndSettingsUnlocked;
+        }
+
+        private static void TryCaptureSlotThumbnail(int slot)
+        {
+            Camera cam = Camera.main;
+            if (cam == null)
+            {
+                return;
+            }
+
+            try
+            {
+                Directory.CreateDirectory(SaveDirectory);
+                int w = Mathf.Clamp(cam.pixelWidth / 2, 160, 640);
+                int h = Mathf.Clamp(cam.pixelHeight / 2, 90, 360);
+                if (w < 16 || h < 16)
+                {
+                    return;
+                }
+
+                RenderTexture rt = RenderTexture.GetTemporary(w, h, 24, RenderTextureFormat.ARGB32);
+                RenderTexture previous = cam.targetTexture;
+                cam.targetTexture = rt;
+                cam.Render();
+                cam.targetTexture = previous;
+
+                RenderTexture prevActive = RenderTexture.active;
+                RenderTexture.active = rt;
+                Texture2D tex = new Texture2D(w, h, TextureFormat.RGB24, false);
+                tex.ReadPixels(new Rect(0, 0, w, h), 0, 0);
+                tex.Apply(false, false);
+                RenderTexture.active = prevActive;
+                RenderTexture.ReleaseTemporary(rt);
+
+                byte[] png = tex.EncodeToPNG();
+                UnityEngine.Object.Destroy(tex);
+                File.WriteAllBytes(KomayamaSaveSlots.ThumbnailFilePath(slot), png);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning($"[KomayamaCraft] Slot thumbnail capture failed: {exception.Message}");
+            }
         }
 
         public bool TryLoad()

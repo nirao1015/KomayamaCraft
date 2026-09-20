@@ -7,21 +7,33 @@ using UnityEngine.UI;
 [DisallowMultipleComponent]
 public sealed class KomayamaTitleEntry : MonoBehaviour
 {
+    private enum ConfirmMode
+    {
+        None,
+        Overwrite,
+        Delete
+    }
+
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button continueButton;
+    [SerializeField, Tooltip("設定の ConfigCanvas と同様。スロット UI 全体の Canvas。未設定時は slotPanel のみ開閉。")]
+    private GameObject slotCanvas;
     [SerializeField] private GameObject slotPanel;
     [SerializeField] private TMP_Text slotPanelTitle;
     [SerializeField] private Button[] slotButtons;
     [SerializeField] private TMP_Text[] slotLabels;
+    [SerializeField] private KomayamaTitleSlotCard[] slotCards;
     [SerializeField] private Button slotBackButton;
     [SerializeField] private GameObject confirmPanel;
     [SerializeField] private TMP_Text confirmText;
     [SerializeField] private Button confirmYesButton;
     [SerializeField] private Button confirmNoButton;
+    [SerializeField] private TMP_Text confirmYesLabel;
     [SerializeField] private string craftSceneName = "komayama_craft_scene";
 
     private bool selectingNewGame;
-    private int pendingOverwriteSlot;
+    private int pendingSlot;
+    private ConfirmMode confirmMode;
 
     private void Awake()
     {
@@ -42,27 +54,110 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
 
         if (confirmYesButton != null)
         {
-            confirmYesButton.onClick.AddListener(ConfirmOverwrite);
+            confirmYesButton.onClick.AddListener(ConfirmYes);
         }
 
         if (confirmNoButton != null)
         {
-            confirmNoButton.onClick.AddListener(CancelOverwrite);
+            confirmNoButton.onClick.AddListener(CancelConfirm);
         }
 
-        if (slotButtons != null)
+        if (confirmYesLabel == null && confirmYesButton != null)
         {
-            for (int i = 0; i < slotButtons.Length; i++)
+            confirmYesLabel = confirmYesButton.GetComponentInChildren<TMP_Text>(true);
+        }
+
+        WireSlotButtons();
+        ShowMainButtons();
+    }
+
+    private void OnDestroy()
+    {
+        UnwireSlotCards();
+    }
+
+    private void WireSlotButtons()
+    {
+        UnwireSlotCards();
+
+        if (slotCards != null)
+        {
+            for (int i = 0; i < slotCards.Length; i++)
             {
-                int slot = i + 1;
-                if (slotButtons[i] != null)
+                KomayamaTitleSlotCard card = slotCards[i];
+                if (card == null)
                 {
-                    slotButtons[i].onClick.AddListener(() => SelectSlot(slot));
+                    continue;
                 }
+
+                int slot = card.SlotNumber > 0 ? card.SlotNumber : i + 1;
+                Button cardButton = card.SelectButton;
+                if (cardButton != null)
+                {
+                    cardButton.onClick.RemoveAllListeners();
+                    cardButton.onClick.AddListener(() => SelectSlot(slot));
+                }
+
+                card.WireDeleteClick();
+                card.DeleteRequested += OnSlotDeleteRequested;
             }
         }
 
-        ShowMainButtons();
+        if (slotButtons == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < slotButtons.Length; i++)
+        {
+            if (slotButtons[i] == null)
+            {
+                continue;
+            }
+
+            if (HasCardForSlot(i + 1))
+            {
+                continue;
+            }
+
+            int slot = i + 1;
+            slotButtons[i].onClick.RemoveAllListeners();
+            slotButtons[i].onClick.AddListener(() => SelectSlot(slot));
+        }
+    }
+
+    private void UnwireSlotCards()
+    {
+        if (slotCards == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < slotCards.Length; i++)
+        {
+            if (slotCards[i] != null)
+            {
+                slotCards[i].DeleteRequested -= OnSlotDeleteRequested;
+            }
+        }
+    }
+
+    private bool HasCardForSlot(int slot)
+    {
+        if (slotCards == null)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < slotCards.Length; i++)
+        {
+            if (slotCards[i] != null && slotCards[i].SlotNumber == slot)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void OnEnable()
@@ -73,18 +168,18 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
     public void OpenNewGameSlots()
     {
         selectingNewGame = true;
-        ShowSlotPanel("新規開始するスロット");
+        ShowSlotPanel("はじめから");
     }
 
     public void OpenContinueSlots()
     {
         selectingNewGame = false;
-        ShowSlotPanel("続きから始めるスロット");
+        ShowSlotPanel("続きから");
     }
 
     public void CloseSlotPanel()
     {
-        CancelOverwrite();
+        CancelConfirm();
         ShowMainButtons();
     }
 
@@ -105,17 +200,11 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
         {
             if (info.HasData)
             {
-                pendingOverwriteSlot = slot;
-                if (confirmText != null)
-                {
-                    confirmText.text = $"スロット{slot}のデータを上書きしますか？";
-                }
-
-                if (confirmPanel != null)
-                {
-                    confirmPanel.SetActive(true);
-                }
-
+                ShowConfirm(
+                    ConfirmMode.Overwrite,
+                    slot,
+                    $"スロット{slot}のデータを上書きしますか？",
+                    "上書きする");
                 return;
             }
 
@@ -129,22 +218,71 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
         }
 
         KomayamaBootRequest.RequestContinue(slot);
-        SceneManager.LoadScene(craftSceneName);
+        KomayamaCraftSceneLoader.LoadCraftScene(craftSceneName);
     }
 
-    private void ConfirmOverwrite()
+    private void OnSlotDeleteRequested(int slot)
     {
-        int slot = pendingOverwriteSlot;
-        CancelOverwrite();
-        if (slot >= 1)
+        if (!KomayamaSaveSlots.HasData(slot))
         {
-            BeginNewGame(slot);
+            return;
+        }
+
+        ShowConfirm(
+            ConfirmMode.Delete,
+            slot,
+            $"スロット{slot}のセーブデータを削除しますか？",
+            "削除する");
+    }
+
+    private void ShowConfirm(ConfirmMode mode, int slot, string message, string yesLabel)
+    {
+        confirmMode = mode;
+        pendingSlot = slot;
+        if (confirmText != null)
+        {
+            confirmText.text = message;
+        }
+
+        if (confirmYesLabel != null)
+        {
+            confirmYesLabel.text = yesLabel;
+        }
+
+        if (confirmPanel != null)
+        {
+            confirmPanel.SetActive(true);
         }
     }
 
-    private void CancelOverwrite()
+    private void ConfirmYes()
     {
-        pendingOverwriteSlot = 0;
+        int slot = pendingSlot;
+        ConfirmMode mode = confirmMode;
+        CancelConfirm();
+        if (slot < 1)
+        {
+            return;
+        }
+
+        if (mode == ConfirmMode.Overwrite)
+        {
+            BeginNewGame(slot);
+            return;
+        }
+
+        if (mode == ConfirmMode.Delete)
+        {
+            KomayamaSaveSlots.DeleteSlotData(slot);
+            RefreshSlotButtons();
+            RefreshContinueAvailability();
+        }
+    }
+
+    private void CancelConfirm()
+    {
+        pendingSlot = 0;
+        confirmMode = ConfirmMode.None;
         if (confirmPanel != null)
         {
             confirmPanel.SetActive(false);
@@ -154,15 +292,12 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
     private void BeginNewGame(int slot)
     {
         KomayamaBootRequest.RequestNewGame(slot);
-        SceneManager.LoadScene(craftSceneName);
+        KomayamaCraftSceneLoader.LoadCraftScene(craftSceneName);
     }
 
     private void ShowMainButtons()
     {
-        if (slotPanel != null)
-        {
-            slotPanel.SetActive(false);
-        }
+        SetSlotCanvasVisible(false);
 
         if (confirmPanel != null)
         {
@@ -174,26 +309,11 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
             newGameButton.gameObject.SetActive(true);
         }
 
-        if (continueButton != null)
-        {
-            continueButton.gameObject.SetActive(true);
-        }
-
         RefreshContinueAvailability();
     }
 
     private void ShowSlotPanel(string title)
     {
-        if (newGameButton != null)
-        {
-            newGameButton.gameObject.SetActive(false);
-        }
-
-        if (continueButton != null)
-        {
-            continueButton.gameObject.SetActive(false);
-        }
-
         if (confirmPanel != null)
         {
             confirmPanel.SetActive(false);
@@ -204,29 +324,71 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
             slotPanelTitle.text = title;
         }
 
-        if (slotPanel != null)
+        SetSlotCanvasVisible(true);
+        RefreshSlotButtons();
+    }
+
+    private void SetSlotCanvasVisible(bool visible)
+    {
+        if (slotCanvas != null)
         {
-            slotPanel.SetActive(true);
+            slotCanvas.SetActive(visible);
+            if (visible && slotPanel != null && !slotPanel.activeSelf)
+            {
+                slotPanel.SetActive(true);
+            }
+
+            return;
         }
 
-        RefreshSlotButtons();
+        if (slotPanel != null)
+        {
+            slotPanel.SetActive(visible);
+        }
     }
 
     private void RefreshContinueAvailability()
     {
-        if (continueButton != null)
+        if (continueButton == null)
         {
-            continueButton.interactable = KomayamaSaveSlots.HasAnySave();
+            return;
         }
+
+        // 全スロット未使用なら出さない（灰ボタンより親切）
+        bool hasSave = KomayamaSaveSlots.HasAnySave();
+        continueButton.gameObject.SetActive(hasSave);
+        continueButton.interactable = hasSave;
     }
 
     private void RefreshSlotButtons()
     {
         int lastSlot = KomayamaSaveSlots.LastPlayedSlot;
+        if (slotCards != null)
+        {
+            for (int i = 0; i < slotCards.Length; i++)
+            {
+                KomayamaTitleSlotCard card = slotCards[i];
+                if (card == null)
+                {
+                    continue;
+                }
+
+                int slot = card.SlotNumber > 0 ? card.SlotNumber : i + 1;
+                KomayamaSaveSlotInfo info = KomayamaSaveSlots.GetInfo(slot);
+                bool selectable = selectingNewGame || info.HasData;
+                card.Apply(info, slot == lastSlot, selectable);
+            }
+        }
+
         int count = slotButtons != null ? slotButtons.Length : 0;
         for (int i = 0; i < count; i++)
         {
             int slot = i + 1;
+            if (HasCardForSlot(slot))
+            {
+                continue;
+            }
+
             KomayamaSaveSlotInfo info = KomayamaSaveSlots.GetInfo(slot);
             bool isLast = slot == lastSlot;
             if (slotLabels != null && i < slotLabels.Length && slotLabels[i] != null)

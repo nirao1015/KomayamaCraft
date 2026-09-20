@@ -53,6 +53,7 @@ instance IDを必要とする対象は次のとおり。
 - 設備：`facility.`
 - 資源発生点：`resource_node.`
 - 解放項目：`unlock.`
+- クエスト：`quest.`（セーブ `questProgress.questId`。移行は保存データ契約 §11.1）
 
 有効な定義IDの例：
 
@@ -63,12 +64,14 @@ recipe.iron_scale_plate
 facility.scale_press
 resource_node.iron_scale_creature
 unlock.tier_02
+quest.main_rain_leak
+quest.main_refuel_bench
 ```
 
 形式判定は次の正規表現と同等とする。
 
 ```text
-^(item|recipe|facility|resource_node|unlock)\.[a-z][a-z0-9_]*$
+^(item|recipe|facility|resource_node|unlock|quest)\.[a-z][a-z0-9_]*$
 ```
 
 規則は次のとおり。
