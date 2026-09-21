@@ -102,7 +102,9 @@ namespace KomayamaCraft
                  KomayamaCraftDialogueOverlay.Instance.IsDialogueActive) ||
                 (KomayamaCraftOpeningController.Instance != null &&
                  KomayamaCraftOpeningController.Instance.IsOpeningActive) ||
-                KomayamaShipRepairCinematic.IsPlaying)
+                KomayamaShipRepairCinematic.IsPlaying ||
+                (KomayamaCraftMainMenuController.Instance != null &&
+                 KomayamaCraftMainMenuController.Instance.IsOpen))
             {
                 foxFollower?.NotifyRightDropHolding(false);
                 foxFollower?.NotifyGatherHolding(false, GatherHoldRepeatSeconds);

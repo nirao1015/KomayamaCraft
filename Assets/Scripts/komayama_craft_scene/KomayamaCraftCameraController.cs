@@ -148,7 +148,9 @@ namespace KomayamaCraft
         private void Update()
         {
             movedThisFrame = false;
-            if (!dialogueFramingActive && !cinematicFramingActive)
+            bool mainMenuOpen = KomayamaCraftMainMenuController.Instance != null &&
+                                KomayamaCraftMainMenuController.Instance.IsOpen;
+            if (!dialogueFramingActive && !cinematicFramingActive && !mainMenuOpen)
             {
                 ApplyZoom();
                 ApplyMove();

@@ -4,9 +4,9 @@
 
 - 要素設計書の「クエストログが画面左上にあること」（`spec/要素設計書/KomayamaCcraft_要素設計書.md` §4）を、HUD 表示として具体化する。
 - クエスト台帳（全件の発生・報酬・解放）は別文書。本書は**受注中クエストの常時表示欄**に限る。
-- シーン上の仮置き（`MenuRoot / クエスト`）は意図確認用。実装時に本書の階層・素材へ差し替える。
+- 実装オブジェクトは `SystemCanvas / QuestLog`（`KomayamaQuestLogView`）。
 - 値の書き方：**確定**／**提案**／**現行値**。
-- **本書は表示仕様の確定稿**（2026-09-13）。数値の見た目微調整（余白・fontSize の最終値）は Inspector で詰めてよい。
+- **本書は表示仕様の確定稿**。余白・fontSize 等の見た目微調整は Inspector で詰めてよい（位置・アンカーはコードが上書きしない）。
 
 ---
 
@@ -16,8 +16,8 @@
 
 | 要素 | 現行 | 読み取れる意図 |
 | --- | --- | --- |
-| 親 | `MenuRoot / クエスト`（`Layer_System` / `SystemCanvas` 配下） | フィールド操作中も常時出す HUD。WASD・ズームで動かない画面固定 UI |
-| 位置 | 子が左上寄り（anchor 左上、画面左上付近） | 「画面左上の受注中クエスト表示欄」 |
+| 親 | `SystemCanvas / QuestLog`（`Layer_System`） | フィールド操作中も常時出す HUD。WASD・ズームで動かない画面固定 UI |
+| 位置 | `QuestLog` Anchored Position（左上アンカー）。基準 (0,0)＝左上ぴったり | 「画面左上の受注中クエスト表示欄」。位置は Inspector が正 |
 | `ribbon` | 仮パネル画像 `game03_ui_panel_0`、約 400×500 | メッセージボード型の背景。縦長を想定した叩き台 |
 | `Text (TMP)` | タイトル行＋内容行（例：`魚の納入（1/20）`）、fontSize 36、左上揃え | タイトルと進捗つき本文を同じ欄に載せる。進捗は動的更新の見本 |
 
@@ -25,15 +25,14 @@
 
 1. 画面**左上**に、**受注中**クエストの表示欄がある。
 2. 文言の長さに応じてボードの**縦サイズが可変**。上限を超えれば**スクロール**。
-3. ボード**右上**に最小化ボタン。押すと最小化／再表示をトグル。最小化時は**ボタンだけ**残す。
+3. ボード**右上**に最小化ボタン。押すと最小化／再表示をトグル。最小化時は**閉じた帯＋開くボタン**。
 4. 受注 **0 件**のとき：ログは**非表示**（ボタンも出さない）。
-5. 受注が**1件**のとき：タイトル＋内容を常に表示（±は出さない）。
+5. 受注が**1件**のとき：タイトル＋内容を常に表示（±は出さない）。タイトルが長い場合は**折返し**し、行高・ボード高に含める。
 6. 受注が**2件以上**のとき：各タイトル横に ±。**詳細オープンは常に最大1件**。他はタイトルのみ。
 7. タイトルは**大きめ**、内容は**小さめ**の文字サイズ。
 8. 内容は動的（例：必要納品数と現在の納品済み数）。
 9. **最小化状態**と**どのクエスト詳細が開いているか**をセーブする。
 10. 素材はユーザーが作成する（本書 §6）。
-
 ---
 
 ## 2. 画面上の役割
@@ -43,7 +42,7 @@
 | 名称 | クエストログ（UI 上の表示名は不要。オブジェクト名は `QuestLog` 推奨） | 提案 |
 | 役割 | いま追う受注中クエストの進捗を、フィールドを見ながら確認する | 確定 |
 | 出さないもの | クエスト受注・一覧・履歴のフル画面、未受注の一覧 | 確定（本書スコープ外） |
-| 表示レイヤー | `Layer_System`（`MenuRoot` 配下）。描画順は既存の SystemCanvas 規則に従う | 確定 |
+| 表示レイヤー | `Layer_System`（`SystemCanvas` 配下）。描画順は既存の SystemCanvas 規則に従う | 確定 |
 | 入力 | 最小化ボタン・±・（必要なら）スクロールだけ。ボード外は透過でフィールド操作を妨げない | 確定 |
 | イベント中（会話・OP・修理演出） | クエストログ・建設／設定メニューは**非表示**。開けている施設／建設メニューも閉じる | 確定 |
 
@@ -55,11 +54,11 @@
 
 | 状態 | 見た目 | 操作 |
 | --- | --- | --- |
-| 展開 | ボード全体＋クエスト行（§4）。高さは内容に追従し、上限超はスクロール | 右上ボタンで最小化へ |
-| 最小化 | **最小化ボタンだけ**（ボード・タイトル・本文は出さない） | 同じ位置のボタンで展開へ |
+| 展開 | ボード全体＋クエスト行（§4）。高さは内容に追従し、上限超はスクロール | MinimizeButton（閉じる絵）で最小化へ |
+| 最小化 | **閉じた帯**（`UI_クエストパネル枠-閉じた`）＋ MinimizeButton（開く絵） | 同じボタンで展開へ |
 | 受注 0 件 | `QuestLog` ごと非表示（最小化ボタンも出さない） | — |
 
-- トグルは同一コントロールでよい（展開時＝「しまう」、最小化時＝「開く」）。見た目差分は素材切替または ColorTint で区別してよい。
+- トグルは同一 `MinimizeButton`。展開中＝`UI_クエストパネル-閉じる`、最小化中＝`UI_クエストパネル-開く`。
 - 受注が 0→1 件になったとき：ログを表示する。セーブに最小化フラグがあればそれに従い、なければ**展開**で開始する。
 - 受注が 1→0 件になったとき：非表示。最小化フラグは保持してよい（再受注時に復元）。
 
@@ -140,45 +139,73 @@
 
 | 項目 | 内容 | 区分 |
 | --- | --- | --- |
-| 基準角 | 画面左上（Canvas 基準、16:9 内） | 確定 |
-| マージン | 左・上に余白。数値は見た目調整 | 提案（調整可） |
+| 基準角 | 画面左上（Canvas 基準、16:9 内）。`QuestLog` の Anchor／Pivot は左上 | 確定 |
+| 位置 | **`QuestLog` の Anchored Position（Inspector）が正**。コードは位置・アンカー・pivot を変更しない | 確定 |
+| マージン | 左・上のオフセットは Inspector で調整（基準は (0,0)＝左上ぴったり） | 確定 |
 | 幅 | **親 `QuestLog` の RectTransform Width（px）**。Inspector で指定 | 確定 |
-| 高さ | **親 `QuestLog` の RectTransform Height（px）**。Inspector で指定。中身がこれを超えたらスクロール | 確定 |
-| 最大高さの数値 | （廃止）画面半分比率は使わない。親の Height が上限そのもの | 確定 |
+| 高さ（最大） | `KomayamaQuestLogView.maxBoardHeight`。内容がこれを超えればスクロール | 確定 |
+| 高さ（最小） | `minBoardHeight`。内容が短くてもこれ未満にはしない | 確定 |
 
 ### 5.2 高さの決まり方
 
-1. **最小化中**：ボードは出さない。最小化ボタンのみ（**位置・サイズは Inspector の RectTransform を正**。コードで上書きしない）。
-2. **展開中**：ボードは親 `QuestLog` の **Width×Height（px）と同一**。中身が短い場合もパネルサイズは縮めない。
-3. **内容がパネル高さ以上**：`QuestList` を ScrollRect で縦スクロール。
+1. **最小化中**：`Board` を隠し、`MinimizedBar`（`UI_クエストパネル枠-閉じた`）を表示。MinimizeButton は開く絵。帯の高さはスプライト縦横比を維持。
+2. **展開中**：ボード高さ＝`clamp(内容高さ＋枠 Top/Bottom 高さ, minBoardHeight, maxBoardHeight)`。短ければ縮む。MinimizeButton は閉じる絵。
+3. **内容が最大高さ以上**：ボードは最大のまま、`ScrollView` で縦スクロール。
+4. **枠**：`FrameTop`／`FrameMiddle`／`FrameBottom`（`UI_クエストパネル枠` の Multiple Sprite 3分割）。
+   - Top／Bottom：幅＝ボード幅。**高さはスプライト縦横比を維持**（歪ませない）。
+   - Middle：Top／Bottom の内側を縦に伸縮（左右 0）。
+5. **背景（`Background`）**：枠の**下に敷く**。左右・上下の inset は枠高とは別（§5.4）。丸枠の透明部分に隙間が出ないよう、上下は枠高ではなく専用 padding。
+6. **文字領域（`ScrollView`）**：枠 Top／Bottom 高さぶん上下 inset。左右は `contentPaddingLeft/Right`。
 
-内容は TMP の preferred height に追従させる。
+内容高さは TMP／Layout の preferred height に追従させる。**タイトル折返し分も行高に含める**（§5.5）。
 
-**操作**
-- パネル全体：`QuestLog` の RectTransform **Width / Height（px）**
-- テキスト開始・終端：`Board/ScrollView` の Left / Right（および必要なら `Content` の LayoutGroup Padding）。コードは上書きしない
-- 折返し確認：`KomayamaQuestLogView` の **Use Sample Quests For Layout Preview** を ON にし、`Sample Quests` の title/body を編集して Play
+**操作（Inspector）**
+- 位置：`QuestLog` の Anchored Position
+- 幅：`QuestLog` の Width（px）
+- 最大／最小高さ：`maxBoardHeight` / `minBoardHeight`
+- Background 余白：`backgroundPaddingLeft/Right/Top/Bottom`
+- 文字左右余白：`contentPaddingLeft/Right`
+- 折返し確認：`Use Sample Quests For Layout Preview` を ON
 
-### 5.3 推奨 UI 階層（実装時）
+### 5.3 推奨 UI 階層（現行）
 
 ```
-QuestLog                              … ルート（MenuRoot 直下）
-├─ MinimizeButton                     … 常に左上付近。最小化時もこれだけ残る
-└─ Board                              … 展開時のみ active。可変サイズ
-   ├─ Background                      … 背景（9-slice）
-   ├─ Frame                           … 枠（9-slice）
-   └─ ScrollView                      … 最大高さでクリップ
-      └─ QuestList                    … VerticalLayoutGroup + ContentSizeFitter
-         └─ QuestRow (prefab) × N
-            ├─ TitleRow
-            │  ├─ TitleText
-            │  └─ ExpandToggle (±)
-            └─ BodyText               … 選択中のみ active
+QuestLog                              … ルート。位置・幅は Inspector が正。高さは内容追従
+├─ MinimizedBar                       … 最小化時のみ active（閉じた帯）
+├─ Board                              … 展開時のみ active
+│  ├─ Background                      … 内側塗り（枠の下。§5.4 の inset）
+│  ├─ FrameMiddle                     … 枠・中央（縦伸縮）
+│  ├─ FrameBottom                     … 枠・下（アスペクト固定高）
+│  ├─ FrameTop                        … 枠・上（アスペクト固定高）
+│  └─ ScrollView                      … 文字領域（枠高＋左右 padding）
+│     └─ Viewport / Content
+│        └─ QuestRow × N
+└─ MinimizeButton                     … 展開／最小化トグル（開く／閉じる絵）
 ```
 
-- 仮の `ribbon` ＋単一 TMP は、上記に置き換える。
-- 最小化時は `Board` を非表示にし、`MinimizeButton` のみ表示する。
-- レイアウトは Unity UI の LayoutGroup / ScrollRect で保証する（手計算の絶対座標に依存しない）。
+- 最小化時は `Board` を非表示、`MinimizedBar` ＋ MinimizeButton（開く）を表示する。
+- Hierarchy の兄弟順は描画都合でユーザーが調整する（コードで並べ替えない）。
+
+### 5.4 Background / ScrollView の inset（確定）
+
+| 対象 | Left | Right | Top | Bottom | 備考 |
+| --- | --- | --- | --- | --- | --- |
+| `Background` | `backgroundPaddingLeft`（既定 **10**） | `backgroundPaddingRight`（既定 **10**） | `backgroundPaddingTop`（既定 **5**） | `backgroundPaddingBottom`（既定 **5**） | 上下 5 は丸枠に合わせて内側を開ける。枠 Top/Bottom 高さには連動しない |
+| `ScrollView` | `contentPaddingLeft`（既定 **12**） | `contentPaddingRight`（既定 **12**） | ＝ FrameTop 高さ | ＝ FrameBottom 高さ | 文字が枠に食い込まないようにする |
+
+- Background と ScrollView のエリアは**一致させない**（以前の「同エリア」は廃止）。
+- Top/Bottom スプライト切り出しを広げても、Background は専用 padding で隙間／はみ出しを調整する。
+
+### 5.5 タイトル折返しと行高（確定）
+
+| 項目 | 内容 |
+| --- | --- |
+| タイトル | ワードラップ ON。長いタイトルは複数行になる |
+| `TitleRow` | **固定高さにしない**。折返し後の TMP preferredHeight に合わせて伸びる |
+| ± ボタン | タイトル行内・上寄せ。行が伸びてもボタン自体のサイズは維持 |
+| ボード高さ | 折返し後の行高を内容高さに含めてから `min〜max` で clamp |
+
+- サンプル確認：`Use Sample Quests For Layout Preview` ON で長いタイトル行を置き、下端が切れないこと／必要ならスクロールすることを見る。
 
 ---
 
@@ -186,25 +213,38 @@ QuestLog                              … ルート（MenuRoot 直下）
 
 ユーザー作成前提。
 
-### 6.1 ボード：フレームと背景は分ける（推奨）
+### 6.1 ボード：フレーム3分割＋内側背景
 
 | 素材 | 役割 | 推奨仕様 | 優先 |
 | --- | --- | --- | --- |
-| `quest_board_bg` | 文字の下地（塗り） | **9-slice** | 必須 |
-| `quest_board_frame` | 外枠・装飾 | **9-slice**。中央は透明または薄い | 必須（推奨） |
+| `UI_クエストパネル内側` | 文字の下地（塗り）。`Background` に使用 | 枠の下に敷く。inset は §5.4 | 必須 |
+| `UI_クエストパネル枠_Top` | 外枠・上 | 幅ストレッチ・**高さはアスペクト維持** | 必須 |
+| `UI_クエストパネル枠_Middle` | 外枠・中央（左右の縦辺） | **縦のみ伸縮** | 必須 |
+| `UI_クエストパネル枠_Bottom` | 外枠・下 | 幅ストレッチ・**高さはアスペクト維持** | 必須 |
+| `UI_クエストパネル枠-閉じた` | 最小化時の帯 | 幅ストレッチ・高さはアスペクト維持 | 必須 |
+| `UI_クエストパネル-閉じる` | 展開中の MinimizeButton | 小ボタン | 必須 |
+| `UI_クエストパネル-開く` | 最小化中の MinimizeButton | 小ボタン | 必須 |
 
-**分ける理由**：縦可変・スクロール時に塗りと枠を別制御できる。後から片方だけ差し替えられる。
+**分ける理由**：縦可変時に中央だけ伸ばし、上下の装飾を歪ませない。
+
+#### スプライト切り出し（`UI_クエストパネル枠.png` Multiple）
+
+| スライス | 方針 | 区分 |
+| --- | --- | --- |
+| `_Top` / `_Bottom` | 角の丸み・ハイライトが切れないよう、**やや広め**に取る（角だけ切ると Middle とのつなぎがずれる） | 確定 |
+| `_Middle` | Top／Bottom の内側の残り。縦に伸ばす帯 | 確定 |
+
+- 切り出しを広げたあと Background 上下に隙間が出る場合は、枠高に連動させず §5.4 の `backgroundPaddingTop/Bottom`（既定 5）で調整する。
 
 ### 6.2 ボタン類
 
 | 素材 | 役割 | 推奨仕様 | 優先 |
 | --- | --- | --- | --- |
-| `quest_btn_minimize` | 展開→最小化 | 正方形。押下差分は任意 | 必須 |
-| `quest_btn_restore` | 最小化→展開 | 別絵、または minimize と同一絵のトグル | どちらか一方で可 |
-| `quest_btn_plus` | 詳細を開く | タイトル横に収まる小サイズ | 必須（2件以上用） |
-| `quest_btn_minus` | 詳細を閉じる | 同上 | 必須（2件以上用） |
+| `UI_クエストパネル-閉じる` | 展開→最小化 | 正方形。押下差分は任意 | 必須 |
+| `UI_クエストパネル-開く` | 最小化→展開 | 別絵 | 必須 |
+| ±（＋／− 文字 or 絵） | 詳細開閉 | タイトル横に収まる小サイズ | 必須（2件以上用） |
 
-最小化時はボタンだけの見た目になるため、**単体で「クエストログを開く」と分かる絵**にしておくとよい（件数バッジは不要・確定）。
+最小化時は **閉じた帯＋開くボタン**（帯だけで意味が分かること）。件数バッジは不要・確定。
 
 ### 6.3 任意・後回し
 
@@ -213,7 +253,6 @@ QuestLog                              … ルート（MenuRoot 直下）
 | 行区切り線・点 | 複数クエストの視覚分離 | 任意 |
 | 進捗バー | 数値テキストの代替／併用 | 任意（第一弾はテキスト） |
 | 完了キラ演出 | クエスト達成時 | 後回し |
-| 最小化中専用の帯・件数アイコン | — | **不要**（ボタンのみと確定） |
 
 ### 6.4 テキスト・フォント
 
@@ -222,19 +261,20 @@ QuestLog                              … ルート（MenuRoot 直下）
 
 ### 6.5 仮素材からの移行
 
-| 現行 | 移行先 |
+| 現行（旧） | 移行先 |
 | --- | --- |
-| `game03_ui_panel_0` | `quest_board_bg` ＋ `quest_board_frame` |
+| `game03_ui_panel_0` | `UI_クエストパネル内側` ＋ `UI_クエストパネル枠`（Top/Middle/Bottom） |
 | 単一 TMP | `TitleText` ＋ `BodyText` |
-| （なし） | 最小化・± ボタン |
+| （なし） | MinimizeButton（開く／閉じる）・MinimizedBar・± |
 
 ### 6.6 素材サイズ目安（提案）
 
 | 素材 | 目安 | 備考 |
 | --- | --- | --- |
-| bg / frame | 基準 400×200 程度＋9-slice ボーダー | 実表示幅は Canvas 400 前後 |
-| 最小化／再表示ボタン | 48〜64 px | 最小化時の唯一のヒット対象 |
-| ± | 32〜40 px | タイトル行の高さに収める |
+| 枠シート | 実アセット `UI_クエストパネル枠.png`（Multiple） | Top/Bottom は角を広めに切る |
+| 内側 | `UI_クエストパネル内側` | Background。inset は §5.4 |
+| 最小化／開くボタン | 48〜64 px 前後 | Inspector 配置を尊重 |
+| ± | 32〜40 px | タイトル行の高さに収める（行が折返しで伸びてもボタンサイズは維持） |
 
 ---
 
@@ -270,20 +310,22 @@ QuestLogUiSave
 
 | 項目 | 扱い |
 | --- | --- |
-| 左・上マージン、幅 400、最大高さ 540 | 提案値。Inspector で調整可 |
+| 左・上オフセット、幅、最大高さ | Inspector。位置はコードが上書きしない |
+| Background 上下／左右 inset | 既定 上5・下5・左10・右10。見た目で微調整可 |
 | タイトル／本文の最終 fontSize・色 | 提案レンジ。見た目で確定 |
 | 同時に受注できる最大件数 | ゲーム進行・台帳側。ログ表示はスクロールで吸収 |
-| 最小化／再表示を別スプライトにするか | 素材都合。挙動は同一トグル |
 
 ---
 
 ## 9. 受け入れ条件
 
 - [ ] 左上に受注中クエスト欄が出る（SystemCanvas 固定、ズーム・移動でずれない）。
+- [ ] `QuestLog` の Anchored Position を動かしても、再生開始でコードが位置を上書きしない。
 - [ ] 受注 0 件では完全非表示。
-- [ ] 文言増減でボード縦が伸び縮みする（9-slice 破綻なし）。
+- [ ] 文言増減・タイトル折返しでボード縦が伸び縮みする（Top/Bottom 歪みなし、Middle のみ伸縮）。
 - [ ] 最大高さを超えれば縦スクロールできる。
-- [ ] 右上（展開時）／左上付近（最小化時）のボタンで最小化⇔展開できる。最小化時は**ボタンのみ**。
+- [ ] Background は左右 10・上下 5（既定）で枠の下に敷かれ、丸枠まわりに隙間が出ない。
+- [ ] 展開⇔最小化：閉じる／開くボタン絵＋最小化時は閉じた帯。
 - [ ] 1件時：タイトル＋内容。± なし。
 - [ ] 2件以上：各タイトルに ±。詳細は最大1件。他はタイトルのみ。
 - [ ] タイトル＞本文の文字サイズ差がある。
@@ -295,9 +337,11 @@ QuestLogUiSave
 
 ## 10. 実装メモ
 
-- スクリプト配置：`Assets/Scripts/komayama_craft_scene/`（例：`KomayamaQuestLogView`）。
+- スクリプト配置：`Assets/Scripts/komayama_craft_scene/`（`KomayamaQuestLogView` / `KomayamaQuestLogRow`）。
 - 参照は Inspector アタッチ。実行時 `Find` / `AddComponent` で足さない。
-- Prefab：`QuestRow` を1行分として持つ。
+- Prefab：`QuestRow` を1行分として持つ。`TitleRow` の preferredHeight 固定は避ける（折返し追従）。
+- `rootRect` のサイズ変更時は **位置・アンカー・pivot を必ず保持**する（`PreserveRootPlacement`）。
+- `ExecuteAlways` でエディタ中にレイアウトを回し続けない（位置調整の邪魔になる）。
 - `KomayamaWorldLayerDrawOrder` の `Layer_System` 規則に乗せる。
 - セーブ版の上げと DTO 追記は実装時に `KomayamaCraftSaveData` 側へ行う。
 
@@ -307,6 +351,9 @@ QuestLogUiSave
 
 | 日付 | 内容 |
 | --- | --- |
+| 2026-09-22 | 位置は QuestLog Anchored Position が正（コード上書き禁止）。Background は枠下敷き・左右10/上下5。ScrollView は枠高＋左右12。タイトル折返しを行高に含める。Top/Bottom 切り出しは角を広めに |
+| 2026-09-22 | 最小化時は閉じた帯＋開くボタン画像。展開時は閉じるボタン画像 |
+| 2026-09-22 | 枠を Top/Middle/Bottom 3分割。高さは内容追従（min〜max）、超過時スクロール |
 | 2026-09-19 | §4.4 チュートリアル表示例（雨漏りタイトル／マウス採集行・チェック位置、現状把握キー画像）を追記 |
 | 2026-09-19 | 親 QuestLog の Width/Height（px）を正とし、子ボードが追従。画面半分比率の最大高さは廃止。MinimizeButton は Inspector 配置を尊重（コード上書きしない） |
 | 2026-09-13 | 初版。仮置き解析、素材選定、未確定の明示 |

@@ -215,7 +215,9 @@ namespace KomayamaCraft
 
                 if (data.gameplayElapsedSeconds > 0f)
                 {
-                    playSeconds = data.gameplayElapsedSeconds;
+                    playSeconds = Mathf.Min(
+                        data.gameplayElapsedSeconds,
+                        KomayamaSaveService.MaxGameplayElapsedSeconds);
                 }
 
                 return true;

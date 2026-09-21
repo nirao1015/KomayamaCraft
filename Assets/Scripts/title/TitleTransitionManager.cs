@@ -102,6 +102,24 @@ public sealed class TitleTransitionManager : MonoBehaviour
         Log("Awake end");
     }
 
+    private void OnEnable()
+    {
+        // Config EXIT はプレハブ共有のため永続リスナーを使わずコード配線する
+        if (configExitButton != null)
+        {
+            configExitButton.onClick.RemoveListener(OnClickConfigExitButton);
+            configExitButton.onClick.AddListener(OnClickConfigExitButton);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (configExitButton != null)
+        {
+            configExitButton.onClick.RemoveListener(OnClickConfigExitButton);
+        }
+    }
+
     public void OnClickGame01Button()
     {
         if (isTransitioning)

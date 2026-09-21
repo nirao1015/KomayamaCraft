@@ -41,13 +41,24 @@ namespace KomayamaCraft
             if (titleText != null)
             {
                 titleText.richText = true;
+                titleText.enableWordWrapping = true;
                 titleText.text = title ?? string.Empty;
+                titleText.ForceMeshUpdate();
             }
 
             if (bodyText != null)
             {
                 bodyText.richText = true;
+                bodyText.enableWordWrapping = true;
                 bodyText.text = body ?? string.Empty;
+                bodyText.ForceMeshUpdate();
+            }
+
+            // 折返し後の preferredHeight を LayoutGroup に反映する
+            var self = transform as RectTransform;
+            if (self != null)
+            {
+                LayoutRebuilder.ForceRebuildLayoutImmediate(self);
             }
         }
 

@@ -53,7 +53,9 @@ public sealed class TitleConfigPanelController : MonoBehaviour
     [SerializeField] private Button keyResetToDefaultButton;
 
     [Header("SE")]
-    [SerializeField, Tooltip("タブ押下時の SE。未設定時は鳴らさない。")]
+    [SerializeField, Tooltip("ConfigCanvas プレハブ共用。未設定時は titleSeManager を使う。")]
+    private ConfigSePlayer configSePlayer;
+    [SerializeField, Tooltip("タイトル専用フォールバック。プレハブに ConfigSePlayer があるときは不要。")]
     private TitleSeManager titleSeManager;
 
     private bool suppressUiCallbacks;
@@ -61,6 +63,11 @@ public sealed class TitleConfigPanelController : MonoBehaviour
 
     private void Awake()
     {
+        if (configSePlayer == null)
+        {
+            configSePlayer = GetComponent<ConfigSePlayer>();
+        }
+
         WireUi();
         ShowGeneralTab();
         RefreshGeneralFromSettings();
@@ -213,6 +220,11 @@ public sealed class TitleConfigPanelController : MonoBehaviour
 
     private void PlayTabSwitchSe()
     {
+        if (ConfigSePlayer.TryPlay(configSePlayer, TitleSeCue.ConfigTabSwitch))
+        {
+            return;
+        }
+
         TitleSeManager.TryPlay(titleSeManager, TitleSeCue.ConfigTabSwitch);
     }
 

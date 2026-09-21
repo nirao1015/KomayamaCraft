@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,7 +21,12 @@ namespace KomayamaCraft
         [SerializeField] private bool autosaveOnQuit = true;
         [SerializeField, Min(10f)] private float autosaveSeconds = 120f;
 
+        /// <summary>累積プレイ時間の上限（9999時間）。</summary>
+        public const float MaxGameplayElapsedSeconds = 9999f * 3600f;
+
         private float nextAutosaveAt;
+        private float persistedPlaySeconds;
+        private float sessionAnchorRealtime;
 
         public bool DidLoadExistingSave { get; private set; }
 
@@ -38,6 +44,7 @@ namespace KomayamaCraft
         private void Start()
         {
             nextAutosaveAt = Time.unscaledTime + autosaveSeconds;
+            BeginPlaySession(0f);
             KomayamaSaveSlots.MigrateLegacyIfNeeded();
             bool startNew = KomayamaBootRequest.StartNewGame;
             bool continueFromTitle = KomayamaBootRequest.ContinueFromTitle;
@@ -56,6 +63,7 @@ namespace KomayamaCraft
             {
                 KomayamaSaveSlots.PrepareNewGame(selectedSlot);
                 DidLoadExistingSave = false;
+                BeginPlaySession(0f);
                 hud?.ShowMessage($"新規ゲームを開始した（スロット{KomayamaSaveSlots.ActiveSlot}）");
                 return;
             }
@@ -173,6 +181,7 @@ namespace KomayamaCraft
                 return;
             }
 
+            List<Canvas> disabledUiCanvases = null;
             try
             {
                 Directory.CreateDirectory(SaveDirectory);
@@ -182,6 +191,9 @@ namespace KomayamaCraft
                 {
                     return;
                 }
+
+                // Screen Space - Camera の UI（メインメニュー等）は cam.Render に写るため一時オフ
+                disabledUiCanvases = DisableScreenSpaceCameraCanvases(cam);
 
                 RenderTexture rt = RenderTexture.GetTemporary(w, h, 24, RenderTextureFormat.ARGB32);
                 RenderTexture previous = cam.targetTexture;
@@ -204,6 +216,58 @@ namespace KomayamaCraft
             catch (Exception exception)
             {
                 Debug.LogWarning($"[KomayamaCraft] Slot thumbnail capture failed: {exception.Message}");
+            }
+            finally
+            {
+                RestoreCanvases(disabledUiCanvases);
+            }
+        }
+
+        /// <summary>
+        /// メインカメラに載る Screen Space - Camera Canvas を一時無効化し、ゲーム面だけのサムネにする。
+        /// </summary>
+        private static List<Canvas> DisableScreenSpaceCameraCanvases(Camera cam)
+        {
+            List<Canvas> disabled = new List<Canvas>(8);
+            Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            for (int i = 0; i < canvases.Length; i++)
+            {
+                Canvas canvas = canvases[i];
+                if (canvas == null || !canvas.enabled)
+                {
+                    continue;
+                }
+
+                if (canvas.renderMode != RenderMode.ScreenSpaceCamera)
+                {
+                    continue;
+                }
+
+                if (canvas.worldCamera != cam)
+                {
+                    continue;
+                }
+
+                canvas.enabled = false;
+                disabled.Add(canvas);
+            }
+
+            return disabled;
+        }
+
+        private static void RestoreCanvases(List<Canvas> disabled)
+        {
+            if (disabled == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < disabled.Count; i++)
+            {
+                if (disabled[i] != null)
+                {
+                    disabled[i].enabled = true;
+                }
             }
         }
 
@@ -256,7 +320,7 @@ namespace KomayamaCraft
         {
             var data = new KomayamaCraftSaveData();
             data.EnsureCollections();
-            data.gameplayElapsedSeconds = Time.time;
+            data.gameplayElapsedSeconds = ResolveCurrentPlaySeconds();
             if (hand != null)
             {
                 data.handInventory.capacity = hand.Capacity;
@@ -385,6 +449,29 @@ namespace KomayamaCraft
             FindFirstObjectByType<KCMouseFoxFollower>()?.ApplySave(data.foxFollower);
             FindFirstObjectByType<KomayamaCraftCameraController>()?.ApplySave(data.cameraView);
             FindFirstObjectByType<KomayamaQuestController>()?.ApplySave(data);
+            BeginPlaySession(data.gameplayElapsedSeconds);
+        }
+
+        private void BeginPlaySession(float persistedSeconds)
+        {
+            persistedPlaySeconds = ClampPlaySeconds(persistedSeconds);
+            sessionAnchorRealtime = Time.realtimeSinceStartup;
+        }
+
+        private float ResolveCurrentPlaySeconds()
+        {
+            float elapsed = persistedPlaySeconds + Mathf.Max(0f, Time.realtimeSinceStartup - sessionAnchorRealtime);
+            return ClampPlaySeconds(elapsed);
+        }
+
+        private static float ClampPlaySeconds(float seconds)
+        {
+            if (seconds <= 0f)
+            {
+                return 0f;
+            }
+
+            return Mathf.Min(seconds, MaxGameplayElapsedSeconds);
         }
 
         private void ApplyFacilities(KomayamaCraftSaveData data)

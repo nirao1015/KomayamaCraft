@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: db780f6e2828c7d4090b5795c69f6c6f
+guid: 97ba07836195e7d4bb3528faf32cad5e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5586621892591958513
-    second: "ribbon_\u30B9\u30C6\u30FC\u30BF\u30B9_0"
+      213: 6867276070950505358
+    second: common_label_bk_0
   - first:
-      213: 8879425496266230177
-    second: "ribbon_\u30B9\u30C6\u30FC\u30BF\u30B9_1"
+      213: 5697922483937146183
+    second: common_label_bk_1
+  - first:
+      213: -8100078091470394711
+    second: common_label_bk_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,9 +52,9 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -129,45 +132,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "ribbon_\u30B9\u30C6\u30FC\u30BF\u30B9_0"
+      name: common_label_bk_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 201
-        width: 1254
-        height: 815
+        x: 165
+        y: 157
+        width: 1842
+        height: 378
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f06c2a5ecf45872b0800000000000000
-      internalID: -5586621892591958513
+      spriteID: e8b8b8fb3377d4f50800000000000000
+      internalID: 6867276070950505358
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "ribbon_\u30B9\u30C6\u30FC\u30BF\u30B9_1"
+      name: common_label_bk_1
       rect:
         serializedVersion: 2
-        x: 505
-        y: 251
-        width: 11
-        height: 10
+        x: 1391
+        y: 562
+        width: 8
+        height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a9ce72917e0a3b70800000000000000
-      internalID: 8879425496266230177
+      spriteID: 745f8cc6f46131f40800000000000000
+      internalID: 5697922483937146183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: common_label_bk_2
+      rect:
+        serializedVersion: 2
+        x: 1659
+        y: 0
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aaabf054edb69f80800000000000000
+      internalID: -8100078091470394711
       vertices: []
       indices: 
       edges: []
@@ -176,7 +201,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 2a92a6836a7f1be40bab89a627cbff5e
     internalID: 0
     vertices: []
     indices: 
@@ -186,8 +211,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "ribbon_\u30B9\u30C6\u30FC\u30BF\u30B9_0": -5586621892591958513
-      "ribbon_\u30B9\u30C6\u30FC\u30BF\u30B9_1": 8879425496266230177
+      common_label_bk_0: 6867276070950505358
+      common_label_bk_1: 5697922483937146183
+      common_label_bk_2: -8100078091470394711
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -5,7 +5,7 @@
 - 要素設計書 §7「設計図・建設・配置変更」および基本仕様の建設フローを、`menu建設` 起点の UI／入力として具体化する。
 - 個別設備の建設費・レシピ・見た目はサプライチェーン資料・設備定義が正本。本書は**操作・配置・仮組・階層**を定める。
 - 値の書き方：**確定**／**提案**／**現行値**。
-- **本書は確定稿**（2026-09-14 更新）。スライド時間・色味等の見た目数値は Inspector 調整可（共通設定参照）。
+- **本書は確定稿**（2026-09-21 更新）。スライド時間・色味等の見た目数値は Inspector 調整可（共通設定参照）。
 
 ---
 
@@ -14,6 +14,7 @@
 | 項目 | 内容 | 区分 |
 | --- | --- | --- |
 | 入口 | `MenuObject / menu建設`（右端メニューバーの建設アイコン） | 確定 |
+| メニューバー見た目 | `MenuObject / ImageMenuSlide` が**共通背景**。各 `menu*` 下の個別 `ribbon` は**非表示のまま使わない**（見た目は背景に一律まかせる） | 確定 |
 | パネル | 画面右端からスライドインする建設リスト | 確定 |
 | 役割 | アンロック済み施設の選択→配置、仮組への納品完了、編集（解体・移動） | 確定 |
 | 表示名の例 | データ上 `ScaleRollingWorkbench`。表示名は **鱗圧延作業台** | 確定 |
@@ -31,12 +32,51 @@
 | `menu建設` 押下（閉じている） | 建設パネルが右端から**スライドイン**して開く | 確定 |
 | `menu建設` 押下（開いている） | パネルが**スライドアウト**して閉じる（トグル） | 確定 |
 | 開いている状態でスキル／設定など他メニューを押す | **建設をキャンセル**（パネル閉じ＋配置／編集モード解除）し、そのメニュー画面を表示 | 確定 |
+| スライド連動 | `BuildMenuPanel` は `MenuObject` 配下。`KomayamaBuildMenuSlide` は `MenuObject` の X だけを動かす（`slideTravel`）。相対位置は固定 | 確定 |
 
 - 他メニューとの並列表示はしない（排他）。
 
 ---
 
+## 2.1 MenuObject 見た目（確定）
+
+| 項目 | 内容 | 区分 |
+| --- | --- | --- |
+| 背景 | `ImageMenuSlide`（`menu_slide` 等）。メニューバー全体の帯 | 確定 |
+| アイコン | `menu建設`／`menuスキル`／`menu図鑑`／`menuステータス`／`menu設定` の各 `menu` 子 | 確定 |
+| 旧リボン | 各 `menu*` 配下の `ribbon` は**表示しない**（非アクティブ保持可。新規見た目では使わない） | 確定 |
+| 表示タイミング | **メニュー解禁後**（建設・設定解禁と同じ。`KomayamaQuestController.ApplyMenuVisibility`）。現状把握（WASD）中は **非表示** | 確定 |
+| 制御 | `menuSlideBackground` に `ImageMenuSlide` をアタッチ。解禁時は建設／設定ボタンと一緒に表示 | 確定 |
+| `menu設定` | メインメニューを開く（詳細は `KomayamaCraft_メインメニュー_詳細仕様.md`） | 確定 |
+
+### 2.2 メニューアイコン ホバーガイド（確定）
+
+| 項目 | 内容 | 区分 |
+| --- | --- | --- |
+| 共通 UI | `SystemCanvas / MenuHoverGuide`（`KomayamaMenuHoverGuidePresenter`）。遅延・パディング・背景はここが正本 | 確定 |
+| ヒット | 各 `menu*` 直下の `HoverGuideHit`（プレハブ `Assets/Prefabs/KomayamaCraft/MenuHoverGuideHit.prefab`） | 確定 |
+| 対象 | `menu建設`／`menuスキル`／`menu図鑑`／`menuステータス`／`menu設定` | 確定 |
+| 見た目 | 半透明黒背景の上に **タイトル** と **ガイド本文**（TMP）。マウス右下＋画面内クランプ | 確定 |
+| インスタンス制御 | タイトル／ガイド文言、フォント、各フォントサイズ（Hit の Inspector）。Presenter 参照は空で可（Instance） | 確定 |
+| グローバル | ホバーから表示までの秒数（Presenter） | 確定 |
+| 背景サイズ | 文字量・フォントサイズから自動。左右パディング多め・上下ほぼなし | 確定 |
+| 複製 | プレハブを `menu*` 配下へ置き、文言だけ変える。メニュー：`KomayamaCraft/Craft/Setup Menu Hover Guides` | 確定 |
+| 解禁表示 | メニュー解禁時、名前が `menu` で始まる子＋背景＋`BuildMenuPanel` を表示（ホバー用） | 確定 |
+
+---
+
 ## 3. 建設パネルの内容
+
+### 3.0 パネル見た目（確定）
+
+| 項目 | 内容 | 区分 |
+| --- | --- | --- |
+| ルート | `SystemCanvas/MenuRoot/MenuObject/BuildMenuPanel` | 確定 |
+| 親 | `MenuObject`（`ImageMenuSlide`・各 `menu*` と同階層）。Hierarchy は `ImageMenuSlide` の次（アイコンより手前／下） | 確定 |
+| パネル自体の背景 | **なし**（`Image` を付けない。コンテナのみ） | 確定 |
+| 見出し `Title` | **なし**（子オブジェクトを置かない） | 確定 |
+| 見た目の主体 | 子の施設リスト・編集ボタン等 | 確定 |
+| 開閉移動 | パネル単体では動かさない。親 `MenuObject` の `slideTravel` に追従。閉じ時は画面外に置く（位置で隠す）。`ApplyMenuVisibility` では解禁後も **Active のまま**（whitelist に含める） | 確定 |
 
 ### 3.1 施設リスト
 
@@ -295,6 +335,11 @@
 
 | 日付 | 内容 |
 | --- | --- |
+| 2026-09-22 | ホバーガイドをプレハブ化し menu建設／スキル／図鑑／ステータス／設定へ横展開 |
+| 2026-09-22 | `BuildMenuPanel` を `MenuObject` 配下へ。スライドは `slideTravel` のみ。`ApplyMenuVisibility` whitelist に含めて Active 維持 |
+| 2026-09-21 | `BuildMenuPanel`：パネル自体の背景 Image なし。子 `Title` なし |
+| 2026-09-21 | ImageMenuSlide はメニュー解禁時のみ表示（WASD 現状把握中は非表示）。`menuSlideBackground` 参照 |
+| 2026-09-21 | MenuObject：`ImageMenuSlide` を共通背景。各 menu 下の ribbon 非表示。スライドは MenuObject 全体 |
 | 2026-09-15 | 完成後の加工操作は施設加工操作詳細仕様へ委譲する旨を §5.2 に追記 |
 | 2026-09-14 | ここまでの実装確定を仕様へ同期。blockSize 0.5、占有 10×8、Layer_Facilities、完成直後の投入停止、見た目を占有矩形に合わせる、カメラセーブ、受け入れ更新 |
 | 2026-09-14 | 初版および途中改訂（開閉・納品・NoBuild 緑・段階スコープ等） |

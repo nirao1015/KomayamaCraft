@@ -12,6 +12,8 @@
   - Unityレイヤー：`spec/Unity_初期プロジェクト設定.md`
   - クエストログ表示：`spec/KomayamaCraft_クエストログ表示_詳細仕様.md`
   - 建設メニュー（menu建設）：`spec/KomayamaCraft_建設メニュー_詳細仕様.md`
+  - メインメニュー（menu設定）：`spec/KomayamaCraft_メインメニュー_詳細仕様.md`（設定 UI はタイトルと共通プレハブ。設定 SE は `ConfigSePlayer`／クラフト独自なし。メインメニュー開閉・セーブ導線 SE のみ `KomayamaCraftSeManager`）
+  - タイトル画面：`spec/KomayamaCraft_タイトル画面_詳細仕様.md`（§4 ConfigCanvas 共通プレハブ／§10 SE）
   - 施設加工操作：`spec/KomayamaCraft_施設加工操作_詳細仕様.md`
   - 多言語対応：`spec/KomayamaCraft_多言語対応_詳細仕様.md`
   - 自動化プレイテスト：`spec/KomayamaCraft_自動化プレイテスト_詳細仕様.md`
@@ -493,7 +495,7 @@ NPC 納品口（見た目なし `DepositBin`）も同様に、成功／失敗 SE
 | スロット数 | 3 |
 | 新規開始 | 空きスロットはそのまま開始。使用中は初期化確認（ConfirmPanel）。見出し「はじめから」。入口で ConfigToggle SE。確定後は TransitionStart＋フェード→LoadCanvas |
 | 続きから | セーブが1つでもあるときだけボタン表示。使用中スロットだけ選べる。前回遊んだスロットに「前回のプレイ」を付記。見出し「続きから」。入口で ConfigToggle SE |
-| スロット UI | `SlotCanvas`（Config と同様の開閉）配下の `SlotPanel`。名前／スクショ／セーブ時刻・プレイ時間。選択中もタイトルボタンは消さない |
+| スロット UI | `SlotCanvas` 配下の `SlotPanel`。名前／スクショ／セーブ時刻・プレイ時間（`gameplayElapsedSeconds`＝**秒**保存、表示は `時:分:秒`・時は最低2桁〜最大9999）。選択中もタイトルボタンは消さない |
 | クラフト遷移 | タイトル `LoadCanvas`＋`LoadSceneAsync`。専用ロードシーンは作らない。ロード中は timeScale=0、完了後にゲーム時間再開 |
 | タイトル | 既存 `title_scene`。詳細は `KomayamaCraft_タイトル画面_詳細仕様.md`（SlotCanvas、LoadCanvas、HoverOverlay、駒山・工具・星） |
 | 案内 | 段階案内＋スキップ（T） |

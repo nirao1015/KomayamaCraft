@@ -143,7 +143,7 @@ namespace KomayamaCraft
                 }
                 else
                 {
-                    playTimeText.text = "プレイ --:--";
+                    playTimeText.text = "プレイ --:--:--";
                 }
             }
 
@@ -342,23 +342,29 @@ namespace KomayamaCraft
             }
         }
 
+        /// <summary>
+        /// プレイ時間表示。時:分:秒。時は最低2桁（03）、100以上はそのまま（124）、最大9999時間。
+        /// </summary>
         private static string FormatPlayTime(float seconds)
         {
+            const int MaxHours = 9999;
             if (seconds < 0f)
             {
                 seconds = 0f;
             }
 
             int total = Mathf.FloorToInt(seconds);
+            int maxTotal = MaxHours * 3600;
+            if (total > maxTotal)
+            {
+                total = maxTotal;
+            }
+
             int h = total / 3600;
             int m = (total % 3600) / 60;
             int s = total % 60;
-            if (h > 0)
-            {
-                return $"{h}:{m:00}:{s:00}";
-            }
-
-            return $"{m:00}:{s:00}";
+            string hoursText = h < 100 ? h.ToString("00") : h.ToString();
+            return $"{hoursText}:{m:00}:{s:00}";
         }
     }
 }

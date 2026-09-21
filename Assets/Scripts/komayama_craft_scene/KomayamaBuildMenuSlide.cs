@@ -1,35 +1,39 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace KomayamaCraft
 {
     /// <summary>
-    /// menu建設 用。右端建設パネルとメニューリボン列を一緒にスライド開閉する。
+    /// menu建設 用。MenuObject（ImageMenuSlide＋各 menu*＋BuildMenuPanel）を左右にスライド開閉する。
+    /// BuildMenuPanel は MenuObject 配下に置き、相対位置は固定。移動量は slideTravel のみ。
     /// Item_0 で鱗圧延作業台の配置モードへ入る（本段階）。
     /// </summary>
     [DisallowMultipleComponent]
     public sealed class KomayamaBuildMenuSlide : MonoBehaviour
     {
         [SerializeField] private Button openButton;
-        [SerializeField] private RectTransform panel;
-        [Tooltip("リボン列（MenuObject）。パネルと同じ距離だけ左右に追従する。")]
-        [SerializeField] private RectTransform ribbonRoot;
+        [Tooltip("MenuObject（ImageMenuSlide＋menu*＋BuildMenuPanel）。この Rect の X だけを動かす。")]
+        [FormerlySerializedAs("ribbonRoot")]
+        [SerializeField] private RectTransform slideRoot;
         [SerializeField] private KomayamaBuildController buildController;
         [SerializeField] private Button firstFacilityButton;
         [SerializeField] private int firstFacilityBuildIndex;
-        [SerializeField] private float closedAnchoredX = 520f;
-        [SerializeField] private float openAnchoredX = 0f;
+        [Tooltip("閉じ(0)→開きで slideRoot が左へ動く量（px）。")]
+        [FormerlySerializedAs("closedAnchoredX")]
+        [SerializeField] private float slideTravel = 420f;
         [SerializeField] private float slideSeconds = 0.28f;
         [SerializeField] private bool startClosed = true;
 
         private bool isOpen;
         private bool animating;
         private Coroutine running;
-        private float ribbonClosedX;
-        private float ribbonOpenX;
 
         public bool IsOpen => isOpen;
+
+        private float ClosedX => 0f;
+        private float OpenX => -Mathf.Max(0f, slideTravel);
 
         private void Awake()
         {
@@ -43,9 +47,7 @@ namespace KomayamaCraft
                 firstFacilityButton.onClick.AddListener(BeginFirstFacilityBuild);
             }
 
-            CacheRibbonPositions();
-
-            if (panel == null)
+            if (slideRoot == null)
             {
                 return;
             }
@@ -54,7 +56,6 @@ namespace KomayamaCraft
             {
                 ApplySlide(0f);
                 isOpen = false;
-                panel.gameObject.SetActive(true);
             }
             else
             {
@@ -78,7 +79,7 @@ namespace KomayamaCraft
 
         public void Toggle()
         {
-            if (animating || panel == null)
+            if (animating || slideRoot == null)
             {
                 return;
             }
@@ -103,7 +104,7 @@ namespace KomayamaCraft
 
         public void Open()
         {
-            if (panel == null || isOpen)
+            if (slideRoot == null || isOpen)
             {
                 return;
             }
@@ -113,7 +114,7 @@ namespace KomayamaCraft
 
         public void Close()
         {
-            if (panel == null || !isOpen)
+            if (slideRoot == null || !isOpen)
             {
                 return;
             }
@@ -147,20 +148,6 @@ namespace KomayamaCraft
             }
         }
 
-        private void CacheRibbonPositions()
-        {
-            if (ribbonRoot == null)
-            {
-                ribbonClosedX = 0f;
-                ribbonOpenX = 0f;
-                return;
-            }
-
-            ribbonClosedX = ribbonRoot.anchoredPosition.x;
-            float panelTravel = closedAnchoredX - openAnchoredX;
-            ribbonOpenX = ribbonClosedX - panelTravel;
-        }
-
         private void RestartSlide(bool open)
         {
             if (running != null)
@@ -174,13 +161,13 @@ namespace KomayamaCraft
         private IEnumerator SlideRoutine(bool open)
         {
             animating = true;
-            panel.gameObject.SetActive(true);
 
             float from = isOpen ? 1f : 0f;
             float to = open ? 1f : 0f;
-            if (Mathf.Abs(closedAnchoredX - openAnchoredX) > 0.01f)
+            float travel = Mathf.Abs(OpenX - ClosedX);
+            if (travel > 0.01f)
             {
-                from = Mathf.InverseLerp(closedAnchoredX, openAnchoredX, panel.anchoredPosition.x);
+                from = Mathf.InverseLerp(ClosedX, OpenX, slideRoot.anchoredPosition.x);
             }
 
             float duration = Mathf.Max(0.01f, slideSeconds);
@@ -203,13 +190,7 @@ namespace KomayamaCraft
 
         private void ApplySlide(float open01)
         {
-            float panelX = Mathf.Lerp(closedAnchoredX, openAnchoredX, open01);
-            SetAnchoredX(panel, panelX);
-
-            if (ribbonRoot != null)
-            {
-                SetAnchoredX(ribbonRoot, Mathf.Lerp(ribbonClosedX, ribbonOpenX, open01));
-            }
+            SetAnchoredX(slideRoot, Mathf.Lerp(ClosedX, OpenX, open01));
         }
 
         private static void SetAnchoredX(RectTransform target, float x)

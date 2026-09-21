@@ -88,6 +88,10 @@ namespace KomayamaCraft
         [SerializeField] private GameObject menuObjectRoot;
         [SerializeField] private GameObject menuBuildButton;
         [SerializeField] private GameObject menuSettingsButton;
+        [SerializeField, Tooltip("MenuObject の共通背景（ImageMenuSlide）。メニュー解禁時のみ表示。")]
+        private GameObject menuSlideBackground;
+        [SerializeField, Tooltip("MenuObject 配下の建設パネル。解禁後は Active のまま（位置で画面外へ隠す）。")]
+        private GameObject buildMenuPanel;
 
         [Header("現状把握")]
         [SerializeField] private string situationStartStageKey = "craft_quest_situation_start";
@@ -1195,9 +1199,7 @@ namespace KomayamaCraft
                 for (int i = 0; i < menuObjectRoot.transform.childCount; i++)
                 {
                     Transform child = menuObjectRoot.transform.GetChild(i);
-                    bool show = showUnlockedMenus &&
-                        (child.gameObject == menuBuildButton ||
-                         child.gameObject == menuSettingsButton);
+                    bool show = showUnlockedMenus && IsUnlockedMenuObjectChild(child.gameObject);
                     child.gameObject.SetActive(show);
                 }
 
@@ -1213,6 +1215,35 @@ namespace KomayamaCraft
             {
                 menuSettingsButton.SetActive(showUnlockedMenus);
             }
+
+            if (menuSlideBackground != null)
+            {
+                menuSlideBackground.SetActive(showUnlockedMenus);
+            }
+
+            if (buildMenuPanel != null)
+            {
+                buildMenuPanel.SetActive(showUnlockedMenus);
+            }
+        }
+
+        private bool IsUnlockedMenuObjectChild(GameObject child)
+        {
+            if (child == null)
+            {
+                return false;
+            }
+
+            if (child == menuBuildButton ||
+                child == menuSettingsButton ||
+                child == menuSlideBackground ||
+                child == buildMenuPanel)
+            {
+                return true;
+            }
+
+            // menuスキル／図鑑／ステータス等（ホバーガイド横展開用）。名前が menu で始まる子。
+            return child.name.StartsWith("menu");
         }
 
         private static bool IsBlockingPresentation()

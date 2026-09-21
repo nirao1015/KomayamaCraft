@@ -48,7 +48,7 @@
 | `TitleSceneController` | `KomayamaTitleEntry`（はじめから／続きから／スロット・確認・SE） |
 | `LoadCanvas` | `KomayamaCraftSceneLoader` |
 | `TitleTransitionManager` | 設定・Credits 開閉、End、クラフト遷移演出（SE＋フェード） |
-| `ConfigCanvas` | `TitleConfigPanelController`（タブ・一般・キー表示） |
+| `ConfigCanvas` | `TitleConfigPanelController`／`ConfigVolumeUi`／`ConfigSePlayer`（共通プレハブ） |
 | `TitleSeManager` | `TitleSeManager` |
 | `TtitleEffectManager`（表記現行） | `TitleEffectManager`（遊泳・瞬き・スポット・HoverOverlay） |
 | `TitleStarTwinkle` | `TitleBackgroundStarTwinkle` |
@@ -78,6 +78,18 @@
 | `SlotNOj2` / `SlotNButton` | 選択ホバー。**SlotPanel3 の下**。Rect／色はシーン調整を尊重。プレイ中 α=0、ホバーで設定色α | 確定 |
 | `SlotPanel3` | スロット透過用（`save_slot-front`）。raycast ON。透過は **alphaHitTestMinimumThreshold** で下へ貫通 | 確定 |
 | `SlotNOj3` | 名前／セーブ時刻／プレイ時間／削除ボタン | 確定 |
+
+#### プレイ時間（スロット表示・保存）
+
+| 項目 | 内容 | 区分 |
+| --- | --- | --- |
+| 保存フィールド | `KomayamaCraftSaveData.gameplayElapsedSeconds` | 確定 |
+| 保存単位 | **秒**（`float`）。マイクロ秒単位の保存はしない | 確定 |
+| 小数秒 | JSON 上は小数を持ち得るが、**UI 表示は秒切り捨て** | 確定 |
+| 表示形式 | `プレイ 時:分:秒`（例: `プレイ 03:12:05`） | 確定 |
+| 時の桁 | 最低2桁ゼロ埋め（`03`）。100以上はそのまま（`124`）。最大4桁 `9999` | 確定 |
+| 上限 | 9999 時間（`9999:59:59`）。それ以上は記録しない | 確定 |
+| 未取得 | `プレイ --:--:--` | 確定 |
 | `SlotBackButton` / `SlotNDeleteButton` | `HoverOverlay` + `TitleEffectManager` バインド | 確定 |
 | カード制御 | 各スロットに `KomayamaTitleSlotCard`（表示・ホバー・削除要求） | 確定 |
 
@@ -177,13 +189,13 @@
 | 動作 | `TitleTransitionManager.OnClickConfigOpenButton`（Button onClick 永続＋`configOpenButton` 参照） | 確定 |
 | 開閉 SE | **`ConfigToggle`** | 確定 |
 | 旧 | `_ConfigButton`（非アクティブ）。配線は新 `ConfigButton` 側 | 確定 |
-| 閉じる | `EXITButton` → Config 非表示（同様に `ConfigToggle`） | 確定 |
+| 閉じる | `EXITButton` → Config 非表示（同様に `ConfigToggle`）。**EXIT はコード配線**（`TitleTransitionManager.OnEnable`）。プレハブ共有のため永続 onClick は使わない | 確定 |
 
 ### 4.2 構成（シーン現行 → 仕様）
 
 | オブジェクト | 役割 | 区分 |
 | --- | --- | --- |
-| `ConfigCanvas` | 設定 UI ルート（通常非表示。開閉は `TitleTransitionManager`） | 確定 |
+| `ConfigCanvas` | 設定 UI ルート（通常非表示。開閉は `TitleTransitionManager`）。**共通プレハブ** `Assets/Prefabs/KomayamaCraft/ConfigCanvas.prefab`（クラフトの `CraftConfigCanvas` と共有） | 確定 |
 | `ConfigFieldImage` | パネル背景。**raycastTarget OFF**（タブクリックを奪わない） | 確定 |
 | `ConfigFieldTabGeneral` / `Volume` / `Key` | タブ。子に装飾 `Image`／`ImageFilter`（raycast OFF）と **`ImageSelected`** | 確定 |
 | `ImageSelected` | 選択中タブのみ active。初期は非表示 | 確定 |
@@ -199,7 +211,7 @@
 | 既定 | 開いたとき **一般タブ選択**。`PanelGeneral` ＋ General の `ImageSelected` のみ表示 | 確定 |
 | 切替 | タブ押下で対応パネルのみ表示（一般／音量／キー）＋選択中の `ImageSelected` のみ active | 確定 |
 | 再押下 | 選択中タブは **押しても何もしない**（SE も鳴らさない）。子 `ImageSelected` の raycast だけでは親 Button にバブルするため、**`currentTab` 判定で無視** | 確定 |
-| タブ SE | 未選択タブ押下時 **`ConfigTabSwitch`** | 確定 |
+| タブ SE | 未選択タブ押下時 **`ConfigTabSwitch`**。再生はプレハブ `ConfigSePlayer`（タイトル `TitleSeManager` と同クリップを同期） | 確定 |
 | 装飾 raycast | タブ子の `Image`／`ImageFilter` は raycast OFF（親 Button へクリックを通す） | 確定 |
 | Hierarchy 順 | タブと背景の兄弟順は **ユーザー調整のまま**。コードで並べ替えない | 確定 |
 | 選択見た目の範囲 | **`ImageSelected` の表示切替まで**。追加の色変更・アニメはしない | 確定 |
@@ -212,8 +224,8 @@
 | 項目 | マスター／BGM／SE（各 ± と数値表示） | 確定 |
 | 範囲 | 0〜20（既存） | 確定 |
 | 永続化 | `SoundSettingsManager` → `playerData.json`（`master` / `bgm` / `se`） | 確定 |
-| SE | ± 押下で `ConfigVolumeUp`／`ConfigVolumeDown` | 確定 |
-| 現行実装 | `TitleSceneController` が ± ボタンを配線済み | 現行 |
+| SE | ± 押下で `ConfigVolumeUp`／`ConfigVolumeDown`。再生はプレハブ `ConfigSePlayer` | 確定 |
+| 現行実装 | プレハブ上の `ConfigVolumeUi`＋`ConfigSePlayer`。タイトルだけ `titleBgmManager` をインスタンス上書きして BGM 即時反映。`TitleSceneController` は音量配線しない | 確定 |
 
 ### 4.5 PanelGeneral（一般）
 
@@ -260,12 +272,13 @@
 
 | 項目 | 現状 |
 | --- | --- |
-| タブ | `TitleConfigPanelController`。`ImageSelected` 表示＋`currentTab` で再押下無視 |
-| 音量 | 動作済み（`TitleSceneController` + `SoundSettingsManager`） |
+| タブ | `TitleConfigPanelController`。`ImageSelected` 表示＋`currentTab` で再押下無視。タブ SE は `ConfigSePlayer` |
+| 音量 | `ConfigVolumeUi`＋`ConfigSePlayer`＋`SoundSettingsManager`。タイトルは `TitleBgmManager` で即時反映 |
 | フォーカス時オーディオ | `playAudioWhenInactive`（既定 false）で制御 |
 | フォーカス時ポーズ | `KomayamaCraftInactiveFocusController` が `pauseWhenInactive` を見て Push/Pop |
 | 言語 | Dropdown で ID 保存のみ（文言未反映） |
 | 終了 | `EndButton` → Quit。タイトルにスロット／進行セーブは無い（設定の軽い永続化と Steam 終了のみ） |
+| クラフト共有 | 同一プレハブを `CraftConfigCanvas` でも使用。設定 SE のクラフト独自設定は無い（`KomayamaCraft_メインメニュー_詳細仕様.md` §4.3） |
 
 ---
 
@@ -397,13 +410,14 @@
 | 配置 | シーン直下 `TitleSeManager` | 確定 |
 | 再生 | `TitleSeCue` ごとクリップ／AudioSource／基準音量。未設定クリップは鳴らさない | 確定 |
 | 呼び出し | `TitleSeManager.TryPlay`（破棄済み参照でも例外にしない。C# の `?.` は使わない）。長さ付き overload で終了待ちに使用 | 確定 |
+| 設定パネル内 | タブ／音量±は **プレハブ `ConfigSePlayer`** が再生（クリップは本マネージャの同項目から同期）。開閉 `ConfigToggle` のみ本マネージャ＋`TitleTransitionManager` | 確定 |
 
 | Cue | タイミング | 区分 |
 | --- | --- | --- |
 | `TransitionStart` | クラフト／旧 Game 遷移のフェード前 | 確定 |
 | `ConfigToggle` | Config／Credits 開閉、**はじめから／続きから**押下、**SlotBack** | 確定 |
-| `ConfigVolumeUp` / `ConfigVolumeDown` | 音量 ± | 確定 |
-| `ConfigTabSwitch` | 設定タブ押下（未選択→選択へ切替時） | 確定 |
+| `ConfigVolumeUp` / `ConfigVolumeDown` | 音量 ±（実再生は `ConfigSePlayer`。本マネージャはクリップ元／フォールバック） | 確定 |
+| `ConfigTabSwitch` | 設定タブ押下（実再生は `ConfigSePlayer`） | 確定 |
 | `SlotDelete` | スロット削除ボタン押下（確認オープン時） | 確定 |
 | `ConfirmOpen` | **スロット選択**で確認が開くときのみ（はじめから・使用中）。即遷移時は鳴らさない | 確定 |
 | `ConfirmYes` | 初期化確認の YES。**項目は残す**が、直後の `TransitionStart` と重なるため **通常は null（意図的）** | 確定 |
@@ -417,6 +431,10 @@
 
 | 日付 | 内容 |
 | --- | --- |
+| 2026-09-21 | プレイ時間：保存は秒（float）。表示は時:分:秒（時は最低2桁・最大9999）。マイクロ秒保存なしを明記 |
+| 2026-09-21 | スロットプレイ時間を `時:分:秒` 表示（時は最低2桁・最大9999時間）。累積記録も同上限 |
+| 2026-09-21 | 設定パネル SE を `ConfigSePlayer` に統一。クラフト独自設定 SE なし。§4／§10／実装差分を更新 |
+| 2026-09-21 | ConfigCanvas を共通プレハブ化。音量は `ConfigVolumeUi`。EXIT はコード配線。クラフトと共有 |
 | 2026-09-21 | タブ見た目は ImageSelected のみ（色・アニメ追加なし）。Config／Slot の Esc 閉じは対象外 |
 | 2026-09-21 | ConfirmYes は項目維持・通常 null（遷移 SE と重複回避）。前回のプレイ表記。SlotBack=ConfigToggle。AppQuit 再生完了後終了 |
 | 2026-09-21 | §2/§5/§9/§10：入口 ConfigToggle、Confirm・削除・タブ SE、EndButton Quit、ImageSelected／再押下、Hover に Confirm、TryPlay。§3 手順に SE＋フェードを明記 |

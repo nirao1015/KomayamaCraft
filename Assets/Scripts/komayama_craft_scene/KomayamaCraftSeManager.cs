@@ -20,7 +20,17 @@ namespace KomayamaCraft
         /// <summary>納入ゴミ箱への捨て成功。通常の Drop は鳴らさない。</summary>
         TrashDeposit = 6,
         /// <summary>宇宙船修理完了の喜びモーション開始時（クリップ未設定なら無音）。</summary>
-        ShipRepairCompleteJoy = 7
+        ShipRepairCompleteJoy = 7,
+        /// <summary>メインメニュー開閉（menu設定／バツ／Esc）。</summary>
+        MainMenuToggle = 8,
+        /// <summary>メインメニュー「設定」押下。</summary>
+        MainMenuSettings = 9,
+        /// <summary>メインメニュー「セーブしてタイトル」押下。</summary>
+        MainMenuSaveTitle = 10,
+        /// <summary>メインメニュー「セーブしてデスクトップ」押下〜終了待ち。</summary>
+        MainMenuSaveQuit = 11,
+        /// <summary>タイトルへ戻る遷移開始（フェード前）。</summary>
+        TransitionToTitle = 12
     }
 
     [Serializable]
@@ -51,6 +61,14 @@ namespace KomayamaCraft
 
         public bool Play(KomayamaCraftSeCue cue)
         {
+            float unused;
+            return Play(cue, out unused);
+        }
+
+        /// <summary>再生に成功したらクリップ長（秒）を返す。未設定時は false。</summary>
+        public bool Play(KomayamaCraftSeCue cue, out float playedClipLengthSeconds)
+        {
+            playedClipLengthSeconds = 0f;
             if (playbackSource == null)
             {
                 playbackSource = GetComponent<AudioSource>();
@@ -75,10 +93,31 @@ namespace KomayamaCraft
                 playbackSource.PlayOneShot(
                     entries[i].clip,
                     Mathf.Clamp01(settingsGain * entryGain));
+                playedClipLengthSeconds = Mathf.Max(0f, entries[i].clip.length);
                 return true;
             }
 
             return false;
+        }
+
+        public static bool TryPlay(KomayamaCraftSeManager manager, KomayamaCraftSeCue cue)
+        {
+            float unused;
+            return TryPlay(manager, cue, out unused);
+        }
+
+        public static bool TryPlay(
+            KomayamaCraftSeManager manager,
+            KomayamaCraftSeCue cue,
+            out float playedClipLengthSeconds)
+        {
+            playedClipLengthSeconds = 0f;
+            if (manager == null)
+            {
+                return false;
+            }
+
+            return manager.Play(cue, out playedClipLengthSeconds);
         }
 
 #if UNITY_EDITOR
@@ -118,6 +157,16 @@ namespace KomayamaCraft
                     return "納入ゴミ箱へ捨てたとき。クリック／長押し連続でもホールド中は1回だけ";
                 case KomayamaCraftSeCue.ShipRepairCompleteJoy:
                     return "宇宙船修理完了の喜びモーション開始時";
+                case KomayamaCraftSeCue.MainMenuToggle:
+                    return "メインメニュー開閉（menu設定／バツ／Esc）";
+                case KomayamaCraftSeCue.MainMenuSettings:
+                    return "メインメニュー「設定」押下";
+                case KomayamaCraftSeCue.MainMenuSaveTitle:
+                    return "メインメニュー「セーブしてタイトル」";
+                case KomayamaCraftSeCue.MainMenuSaveQuit:
+                    return "メインメニュー「セーブしてデスクトップ」〜終了待ち";
+                case KomayamaCraftSeCue.TransitionToTitle:
+                    return "タイトルへ戻る遷移開始（フェード前）";
                 default:
                     return string.Empty;
             }
