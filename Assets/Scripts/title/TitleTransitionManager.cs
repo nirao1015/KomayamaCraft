@@ -29,6 +29,8 @@ public sealed class TitleTransitionManager : MonoBehaviour
     private Button creditsExitButton;
     [SerializeField, Tooltip("CreditsPanel 内の KomayamaButton。押下時に komayamaUrl をブラウザで開きます。")]
     private Button creditsKomayamaButton;
+    [SerializeField, Tooltip("EndButton。押下時にアプリケーションを終了します。")]
+    private Button endButton;
 
     [Header("参照: 管理オブジェクト")]
     [SerializeField, Tooltip("開閉対象の ConfigCanvas。")]
@@ -55,10 +57,6 @@ public sealed class TitleTransitionManager : MonoBehaviour
     private Graphic game02HoverOverlay;
     [SerializeField, Tooltip("Game03Button 子の HoverOverlay。未解放時 #545454。")]
     private Graphic game03HoverOverlay;
-    [SerializeField, Tooltip("ConfigCanvas 内「全ゲーム解放」チェック（Button）。")]
-    private Button unlockAllGamesButton;
-    [SerializeField, Tooltip("ON 表示用。ImageCheckmark または Checkmark を Inspector で指定（実行時に上書きしない）。")]
-    private GameObject unlockAllGamesCheckmark;
 
     [Header("遷移演出設定")]
     [SerializeField, Tooltip("遷移前の待機秒数。")]
@@ -93,59 +91,15 @@ public sealed class TitleTransitionManager : MonoBehaviour
     private Color game03HoverOverlayDefaultColor = Color.white;
     private bool hoverOverlayDefaultColorsCaptured;
 
-    public static bool IsDebugUnlockAllEnabled()
-    {
-        SoundSettingsManager settings = SoundSettingsManager.Instance;
-        return settings != null && settings.GetDebugUnlockAllGames();
-    }
-
     private void Awake()
     {
         Log("Awake begin");
-        EnsureDebugUnlockRow();
-        ResolveUnlockAllGamesButtonIfNeeded();
-        ApplyDebugUnlockCheckmarkVisual();
         RefreshTitleGameButtonsInteractable();
         EnsureConfigCanvasVisuals();
         SetConfigCanvasVisible(false);
         SetCreditsCanvasVisible(false);
         TryClearIncomingFade();
         Log("Awake end");
-    }
-
-    public void RegisterDebugUnlockControls(Button button, GameObject checkmark)
-    {
-        if (unlockAllGamesButton != null && unlockAllGamesButton != button)
-        {
-            unlockAllGamesButton.onClick.RemoveListener(OnClickDebugUnlockAllButton);
-        }
-
-        unlockAllGamesButton = button;
-        if (checkmark != null)
-        {
-            unlockAllGamesCheckmark = checkmark;
-        }
-
-        if (unlockAllGamesButton != null)
-        {
-            unlockAllGamesButton.onClick.RemoveListener(OnClickDebugUnlockAllButton);
-            unlockAllGamesButton.onClick.AddListener(OnClickDebugUnlockAllButton);
-        }
-
-        ApplyDebugUnlockCheckmarkVisual();
-    }
-
-    public void OnClickDebugUnlockAllButton()
-    {
-        SoundSettingsManager settings = SoundSettingsManager.Instance;
-        if (settings == null)
-        {
-            return;
-        }
-
-        settings.SetDebugUnlockAllGames(!settings.GetDebugUnlockAllGames());
-        ApplyDebugUnlockCheckmarkVisual();
-        RefreshTitleGameButtonsInteractable();
     }
 
     public void OnClickGame01Button()
@@ -188,14 +142,14 @@ public sealed class TitleTransitionManager : MonoBehaviour
             return;
         }
 
-        titleSeManager?.PlayByCue(TitleSeCue.ConfigToggle);
+        TitleSeManager.TryPlay(titleSeManager, TitleSeCue.ConfigToggle);
         SetCreditsCanvasVisible(false);
         SetConfigCanvasVisible(true);
     }
 
     public void OnClickConfigExitButton()
     {
-        titleSeManager?.PlayByCue(TitleSeCue.ConfigToggle);
+        TitleSeManager.TryPlay(titleSeManager, TitleSeCue.ConfigToggle);
         SetConfigCanvasVisible(false);
     }
 
@@ -206,14 +160,14 @@ public sealed class TitleTransitionManager : MonoBehaviour
             return;
         }
 
-        titleSeManager?.PlayByCue(TitleSeCue.ConfigToggle);
+        TitleSeManager.TryPlay(titleSeManager, TitleSeCue.ConfigToggle);
         SetConfigCanvasVisible(false);
         SetCreditsCanvasVisible(true);
     }
 
     public void OnClickCreditsExitButton()
     {
-        titleSeManager?.PlayByCue(TitleSeCue.ConfigToggle);
+        TitleSeManager.TryPlay(titleSeManager, TitleSeCue.ConfigToggle);
         SetCreditsCanvasVisible(false);
     }
 
@@ -228,11 +182,66 @@ public sealed class TitleTransitionManager : MonoBehaviour
         Application.OpenURL(komayamaUrl.Trim());
     }
 
+    public void OnClickEndButton()
+    {
+        if (isTransitioning)
+        {
+            return;
+        }
+
+        // タイトルにはスロット／ゲーム進行セーブが無い。SE 再生後に Quit。
+        StartCoroutine(CoQuitAfterSe());
+    }
+
+    /// <summary>
+    /// はじめから／続きからのクラフト遷移。SE＋フェードのあと LoadCanvas 経由でロードする。
+    /// </summary>
+    public void BeginCraftSceneTransition(string sceneName)
+    {
+        if (isTransitioning)
+        {
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(sceneName))
+        {
+            Debug.LogError("[TitleTransitionManager] craft sceneName is empty");
+            return;
+        }
+
+        StartCoroutine(TransitionToCraftScene(sceneName.Trim()));
+    }
+
+    public bool IsTransitioning => isTransitioning;
+
+    private IEnumerator CoQuitAfterSe()
+    {
+        isTransitioning = true;
+        SetButtonsInteractable(false);
+
+        float seLength;
+        if (TitleSeManager.TryPlay(titleSeManager, TitleSeCue.AppQuit, out seLength) && seLength > 0f)
+        {
+            yield return new WaitForSecondsRealtime(seLength);
+        }
+
+        QuitApplication();
+    }
+
+    private static void QuitApplication()
+    {
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
     private IEnumerator TransitionFromGame01Button()
     {
         isTransitioning = true;
         SetButtonsInteractable(false);
-        titleSeManager?.PlayByCue(TitleSeCue.TransitionStart);
+        TitleSeManager.TryPlay(titleSeManager, TitleSeCue.TransitionStart);
         float transitionBegin = Time.realtimeSinceStartup;
         Log($"TransitionFromGame01 begin: target={game01SceneName}");
 
@@ -262,7 +271,7 @@ public sealed class TitleTransitionManager : MonoBehaviour
     {
         isTransitioning = true;
         SetButtonsInteractable(false);
-        titleSeManager?.PlayByCue(TitleSeCue.TransitionStart);
+        TitleSeManager.TryPlay(titleSeManager, TitleSeCue.TransitionStart);
         float transitionBegin = Time.realtimeSinceStartup;
         Log($"TransitionToScene begin: destination={destinationSceneName}");
 
@@ -288,6 +297,28 @@ public sealed class TitleTransitionManager : MonoBehaviour
 
         Log($"TransitionToScene LoadScene: {nextScene}, totalElapsed={Time.realtimeSinceStartup - transitionBegin:0.###}s");
         SceneManager.LoadScene(nextScene);
+    }
+
+    private IEnumerator TransitionToCraftScene(string sceneName)
+    {
+        isTransitioning = true;
+        SetButtonsInteractable(false);
+        TitleSeManager.TryPlay(titleSeManager, TitleSeCue.TransitionStart);
+        float transitionBegin = Time.realtimeSinceStartup;
+        Log($"TransitionToCraft begin: target={sceneName}");
+
+        float wait = Mathf.Max(0f, transitionWaitSeconds);
+        if (wait > 0f)
+        {
+            Log($"TransitionToCraft wait start: {wait:0.###}s");
+            yield return new WaitForSeconds(wait);
+            Log($"TransitionToCraft wait end: elapsed={Time.realtimeSinceStartup - transitionBegin:0.###}s");
+        }
+
+        yield return StartCoroutine(CoRunFadeOut());
+
+        Log($"TransitionToCraft LoadCraftScene: {sceneName}, totalElapsed={Time.realtimeSinceStartup - transitionBegin:0.###}s");
+        KomayamaCraftSceneLoader.LoadCraftScene(sceneName);
     }
 
     private IEnumerator CoRunFadeOut()
@@ -324,10 +355,6 @@ public sealed class TitleTransitionManager : MonoBehaviour
 
         EnsureConfigCanvasVisuals();
         configCanvas.SetActive(visible);
-        if (visible)
-        {
-            ApplyDebugUnlockCheckmarkVisual();
-        }
 
         if (!isTransitioning)
         {
@@ -379,6 +406,7 @@ public sealed class TitleTransitionManager : MonoBehaviour
         SetTitleGameButtonsBlocked(!interactable);
         if (configOpenButton != null) configOpenButton.interactable = interactable;
         if (creditsOpenButton != null) creditsOpenButton.interactable = interactable;
+        if (endButton != null) endButton.interactable = interactable;
         if (configExitButton != null && !interactable) configExitButton.interactable = true;
         if (creditsExitButton != null && !interactable) creditsExitButton.interactable = true;
         if (creditsKomayamaButton != null && !interactable) creditsKomayamaButton.interactable = true;
@@ -396,7 +424,6 @@ public sealed class TitleTransitionManager : MonoBehaviour
 
     private void RefreshTitleGameButtonsInteractable()
     {
-        bool debugUnlockAll = IsDebugUnlockAllEnabled();
         SoundSettingsManager progress = SoundSettingsManager.Instance;
 
         if (game01Button != null)
@@ -406,17 +433,15 @@ public sealed class TitleTransitionManager : MonoBehaviour
 
         if (game02Button != null)
         {
-            game02Button.interactable = debugUnlockAll
-                || (progress != null && progress.IsGame02UnlockedOnTitle());
+            game02Button.interactable = progress != null && progress.IsGame02UnlockedOnTitle();
         }
 
         if (game03Button != null)
         {
-            game03Button.interactable = debugUnlockAll
-                || (progress != null && progress.IsGame03UnlockedOnTitle());
+            game03Button.interactable = progress != null && progress.IsGame03UnlockedOnTitle();
         }
 
-        RefreshLockedHoverOverlayColors(debugUnlockAll, progress);
+        RefreshLockedHoverOverlayColors(progress);
     }
 
     private void SetTitleGameButtonsBlocked(bool blocked)
@@ -430,55 +455,6 @@ public sealed class TitleTransitionManager : MonoBehaviour
         }
 
         RefreshTitleGameButtonsInteractable();
-    }
-
-    private void EnsureDebugUnlockRow()
-    {
-        if (configCanvas == null)
-        {
-            return;
-        }
-
-        Transform configPanel = configCanvas.transform.Find("ConfigPanel");
-        if (configPanel == null)
-        {
-            return;
-        }
-
-        TitleDebugUnlockRowFactory.EnsureRow(configPanel, this);
-    }
-
-    private void ResolveUnlockAllGamesButtonIfNeeded()
-    {
-        if (unlockAllGamesButton != null)
-        {
-            return;
-        }
-
-        if (configCanvas == null)
-        {
-            return;
-        }
-
-        Transform row = configCanvas.transform.Find("ConfigPanel/DebugUnlockRow");
-        if (row == null)
-        {
-            return;
-        }
-
-        unlockAllGamesButton = row.GetComponent<Button>();
-        if (unlockAllGamesCheckmark == null)
-        {
-            unlockAllGamesCheckmark = TitleDebugUnlockRowFactory.ResolveCheckmarkFromRow(row);
-        }
-    }
-
-    private void ApplyDebugUnlockCheckmarkVisual()
-    {
-        if (unlockAllGamesCheckmark != null)
-        {
-            unlockAllGamesCheckmark.SetActive(IsDebugUnlockAllEnabled());
-        }
     }
 
     private void CaptureHoverOverlayDefaultColorsIfNeeded()
@@ -501,12 +477,12 @@ public sealed class TitleTransitionManager : MonoBehaviour
         hoverOverlayDefaultColorsCaptured = true;
     }
 
-    private void RefreshLockedHoverOverlayColors(bool debugUnlockAll, SoundSettingsManager progress)
+    private void RefreshLockedHoverOverlayColors(SoundSettingsManager progress)
     {
         CaptureHoverOverlayDefaultColorsIfNeeded();
 
-        bool game02Unlocked = debugUnlockAll || (progress != null && progress.IsGame02UnlockedOnTitle());
-        bool game03Unlocked = debugUnlockAll || (progress != null && progress.IsGame03UnlockedOnTitle());
+        bool game02Unlocked = progress != null && progress.IsGame02UnlockedOnTitle();
+        bool game03Unlocked = progress != null && progress.IsGame03UnlockedOnTitle();
 
         ApplyHoverOverlayColor(game02HoverOverlay, game02Unlocked, game02HoverOverlayDefaultColor);
         ApplyHoverOverlayColor(game03HoverOverlay, game03Unlocked, game03HoverOverlayDefaultColor);

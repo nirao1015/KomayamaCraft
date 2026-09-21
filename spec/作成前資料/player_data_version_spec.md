@@ -36,7 +36,11 @@
 | `buildVersion` | string | **最後に `title_scene` で遊んだとき**のビルド Version 文字列（例: `β_1.0`, `Demo0.1`）。 |
 | `master` / `bgm` / `se` | int | 音量 0–20 |
 | `game01Cleared` 等 | bool | 各ゲームクリア済み |
-| `debugUnlockAllGames` | bool | タイトル Config「全ゲーム解放」 |
+| `languageId` | string | 設定の言語 ID（`ja` / `en`）。文言反映は後日。**全体セーブ**（スロット非依存）。変更瞬間に保存 |
+| `pauseWhenInactive` | bool | 非アクティブ時にクラフトをポーズ（既定 false）。全体セーブ・変更瞬間保存 |
+| `playAudioWhenInactive` | bool | 非アクティブ時も音を出す（既定 false＝ミュート）。全体セーブ・変更瞬間保存 |
+
+音量（`master` / `bgm` / `se`）および上記一般設定は、いずれも **セーブスロットとは別の `playerData.json`（全体）** に書き、**値を変えた瞬間に保存**する。
 
 同様に **`saveData/game02Data.json`**（`Game02SaveData`）と **`saveData/game03Data.json`**（`Game03MetaSaveData`）も、**各ファイルの `TrySave` 時**に `buildVersion` へ現在の `Application.version` を書き込む（`GameBuildVersion.GetCurrentApplicationVersion()`）。
 

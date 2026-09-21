@@ -22,15 +22,41 @@ public sealed class TitleDebugManager : MonoBehaviour
         "セーブ書き込み・Steam 実績判定を追記する（Steam Auto-Cloud 対象外）。")]
     private bool steamLogFileMode;
 
+    [Header("開発・デバッグ（本番マスターが ON のときは必ず無効）")]
+    [SerializeField, Tooltip(
+        "ON のとき、kougu / 駒山などクリック可能範囲にマウスがあるとデバッグ用カーソルへ変える。" +
+        " 本番リリース用マスターが ON のときはこの値に関わらず無効。")]
+    private bool debugClickableHoverCursor;
+
+    [SerializeField, Tooltip("未設定時は枠＋十字のフォールバックテクスチャを使う。")]
+    private Texture2D debugClickableHoverCursorTexture;
+
+    [SerializeField]
+    private Vector2 debugClickableHoverCursorHotspot = new Vector2(8f, 8f);
+
     public bool MasterProductionReleaseBuild => masterProductionReleaseBuild;
 
     public bool SteamLogFileMode => steamLogFileMode;
+
+    public bool DebugClickableHoverCursor => debugClickableHoverCursor;
+
+    public Texture2D DebugClickableHoverCursorTexture => debugClickableHoverCursorTexture;
+
+    public Vector2 DebugClickableHoverCursorHotspot => debugClickableHoverCursorHotspot;
 
     public static bool IsSteamLogFileModeActive =>
         Instance != null && Instance.steamLogFileMode;
 
     public static bool IsMasterProductionReleaseActive =>
         Instance != null && Instance.masterProductionReleaseBuild;
+
+    /// <summary>
+    /// クリック範囲ホバーカーソル。本番マスター ON では必ず false。
+    /// </summary>
+    public static bool IsDebugClickableHoverCursorActive =>
+        Instance != null
+        && !Instance.masterProductionReleaseBuild
+        && Instance.debugClickableHoverCursor;
 
     /// <summary>
     /// シーン個別の本番フラグとマスターを合成した実効値。

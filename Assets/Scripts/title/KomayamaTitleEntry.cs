@@ -30,6 +30,10 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
     [SerializeField] private Button confirmNoButton;
     [SerializeField] private TMP_Text confirmYesLabel;
     [SerializeField] private string craftSceneName = "komayama_craft_scene";
+    [SerializeField, Tooltip("SE＋フェード遷移。未設定時は演出なしで LoadCanvas のみ。")]
+    private TitleTransitionManager titleTransitionManager;
+    [SerializeField, Tooltip("スロット削除・確認 Yes/No の SE。未設定時は鳴らさない。")]
+    private TitleSeManager titleSeManager;
 
     private bool selectingNewGame;
     private int pendingSlot;
@@ -59,7 +63,7 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
 
         if (confirmNoButton != null)
         {
-            confirmNoButton.onClick.AddListener(CancelConfirm);
+            confirmNoButton.onClick.AddListener(OnClickConfirmNo);
         }
 
         if (confirmYesLabel == null && confirmYesButton != null)
@@ -167,18 +171,21 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
 
     public void OpenNewGameSlots()
     {
+        TitleSeManager.TryPlay(titleSeManager, TitleSeCue.ConfigToggle);
         selectingNewGame = true;
         ShowSlotPanel("はじめから");
     }
 
     public void OpenContinueSlots()
     {
+        TitleSeManager.TryPlay(titleSeManager, TitleSeCue.ConfigToggle);
         selectingNewGame = false;
         ShowSlotPanel("続きから");
     }
 
     public void CloseSlotPanel()
     {
+        TitleSeManager.TryPlay(titleSeManager, TitleSeCue.ConfigToggle);
         CancelConfirm();
         ShowMainButtons();
     }
@@ -195,16 +202,22 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
 
     private void SelectSlot(int slot)
     {
+        if (IsTransitionBlocked())
+        {
+            return;
+        }
+
         KomayamaSaveSlotInfo info = KomayamaSaveSlots.GetInfo(slot);
         if (selectingNewGame)
         {
             if (info.HasData)
             {
+                TitleSeManager.TryPlay(titleSeManager, TitleSeCue.ConfirmOpen);
                 ShowConfirm(
                     ConfirmMode.Overwrite,
                     slot,
-                    $"スロット{slot}のデータを上書きしますか？",
-                    "上書きする");
+                    $"スロット{slot}にはセーブデータがあります。\n初期化してこのスロットで始めますか？",
+                    "はじめる");
                 return;
             }
 
@@ -218,7 +231,7 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
         }
 
         KomayamaBootRequest.RequestContinue(slot);
-        KomayamaCraftSceneLoader.LoadCraftScene(craftSceneName);
+        StartCraftSceneTransition();
     }
 
     private void OnSlotDeleteRequested(int slot)
@@ -228,6 +241,7 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
             return;
         }
 
+        TitleSeManager.TryPlay(titleSeManager, TitleSeCue.SlotDelete);
         ShowConfirm(
             ConfirmMode.Delete,
             slot,
@@ -257,8 +271,16 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
 
     private void ConfirmYes()
     {
-        int slot = pendingSlot;
+        if (IsTransitionBlocked())
+        {
+            return;
+        }
+
         ConfirmMode mode = confirmMode;
+        TitleSeManager.TryPlay(titleSeManager, 
+            mode == ConfirmMode.Delete ? TitleSeCue.ConfirmDeleteYes : TitleSeCue.ConfirmYes);
+
+        int slot = pendingSlot;
         CancelConfirm();
         if (slot < 1)
         {
@@ -279,6 +301,12 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
         }
     }
 
+    private void OnClickConfirmNo()
+    {
+        TitleSeManager.TryPlay(titleSeManager, TitleSeCue.ConfirmCancel);
+        CancelConfirm();
+    }
+
     private void CancelConfirm()
     {
         pendingSlot = 0;
@@ -292,7 +320,23 @@ public sealed class KomayamaTitleEntry : MonoBehaviour
     private void BeginNewGame(int slot)
     {
         KomayamaBootRequest.RequestNewGame(slot);
+        StartCraftSceneTransition();
+    }
+
+    private void StartCraftSceneTransition()
+    {
+        if (titleTransitionManager != null)
+        {
+            titleTransitionManager.BeginCraftSceneTransition(craftSceneName);
+            return;
+        }
+
         KomayamaCraftSceneLoader.LoadCraftScene(craftSceneName);
+    }
+
+    private bool IsTransitionBlocked()
+    {
+        return titleTransitionManager != null && titleTransitionManager.IsTransitioning;
     }
 
     private void ShowMainButtons()

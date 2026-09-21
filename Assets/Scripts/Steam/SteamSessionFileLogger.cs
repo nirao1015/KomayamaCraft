@@ -118,12 +118,11 @@ public static class SteamSessionFileLogger
         int se,
         bool game01Cleared,
         bool game02Cleared,
-        bool game03Cleared,
-        bool debugUnlockAllGames)
+        bool game03Cleared)
     {
         return
             $"version={version} updatedAtUtc={updatedAtUtc} buildVersion={buildVersion} master={master} bgm={bgm} se={se} " +
-            $"cleared01={game01Cleared} cleared02={game02Cleared} cleared03={game03Cleared} debugUnlockAll={debugUnlockAllGames}";
+            $"cleared01={game01Cleared} cleared02={game02Cleared} cleared03={game03Cleared}";
     }
 
     private static void WriteLineCore(string category, string message)

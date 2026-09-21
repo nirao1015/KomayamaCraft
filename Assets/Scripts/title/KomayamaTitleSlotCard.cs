@@ -107,7 +107,7 @@ namespace KomayamaCraft
             CacheHoverColorIfNeeded();
             WireSelectHoverHandlers();
 
-            string lastMark = isLastPlayed && info.HasData ? " 前回" : string.Empty;
+            string lastMark = isLastPlayed && info.HasData ? " 前回のプレイ" : string.Empty;
             if (nameText != null)
             {
                 nameText.text = $"スロット{info.Slot}{lastMark}";

@@ -109,7 +109,7 @@ public class TitleSceneController : MonoBehaviour
 
     private void PlayConfigVolumeButtonSe(bool isIncrease)
     {
-        titleSeManager?.PlayByCue(isIncrease ? TitleSeCue.ConfigVolumeUp : TitleSeCue.ConfigVolumeDown);
+        TitleSeManager.TryPlay(titleSeManager, isIncrease ? TitleSeCue.ConfigVolumeUp : TitleSeCue.ConfigVolumeDown);
     }
 
     private void ChangeVolume(SoundVolumeTarget target, int delta)

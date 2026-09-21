@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 8828153}
   - component: {fileID: 8828154}
   - component: {fileID: 8828155}
+  - component: {fileID: 8828156}
   m_Layer: 0
   m_Name: KomayamaCraftDebugManager
   m_TagString: Untagged
@@ -246,6 +247,19 @@ MonoBehaviour:
   shipVisual: {fileID: 2000109483}
   plateSpawnCount: 3
   plateSpawnRadius: 1.2
+--- !u!114 &8828156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8828150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 557310d5318095f4aa55cce0009a2aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KomayamaCraft.KomayamaCraftInactiveFocusController
+  gameClock: {fileID: 8828153}
 --- !u!1 &13633619
 GameObject:
   m_ObjectHideFlags: 0

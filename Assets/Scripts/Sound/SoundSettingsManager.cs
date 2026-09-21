@@ -23,7 +23,9 @@ public class SoundSettingsManager : MonoBehaviour
         public bool game01Cleared;
         public bool game02Cleared;
         public bool game03Cleared;
-        public bool debugUnlockAllGames;
+        public string languageId;
+        public bool pauseWhenInactive;
+        public bool playAudioWhenInactive;
     }
 
     [Header("Volume (0-20)")]
@@ -37,10 +39,15 @@ public class SoundSettingsManager : MonoBehaviour
     private bool game01Cleared;
     private bool game02Cleared;
     private bool game03Cleared;
-    private bool debugUnlockAllGames;
+    private string languageId = "ja";
+    private bool pauseWhenInactive;
+    private bool playAudioWhenInactive;
     private string recordedBuildVersion = string.Empty;
     private bool applicationHasFocus = true;
     private bool applicationPausedForPlatform;
+
+    /// <summary>全体設定（言語・非アクティブ挙動など）が変わったとき。</summary>
+    public static event System.Action SettingsChanged;
 
     private static SoundSettingsManager instance;
 
@@ -91,10 +98,82 @@ public class SoundSettingsManager : MonoBehaviour
 
         applicationHasFocus = hasFocus;
         RefreshApplicationAudioOutput();
+        SettingsChanged?.Invoke();
     }
 
+    /// <summary>
+    /// 音声出力してよいか。既定はフォーカス中のみ。
+    /// <see cref="playAudioWhenInactive"/> が true なら非アクティブでも可。
+    /// </summary>
     public bool IsApplicationAudioOutputAllowed =>
+        playAudioWhenInactive || (applicationHasFocus && !applicationPausedForPlatform);
+
+    /// <summary>ウィンドウがフォーカスを持ち、かつプラットフォーム一時停止中でない。</summary>
+    public bool IsApplicationActive =>
         applicationHasFocus && !applicationPausedForPlatform;
+
+    public string GetLanguageId()
+    {
+        return string.IsNullOrEmpty(languageId) ? "ja" : languageId;
+    }
+
+    public void SetLanguageId(string id)
+    {
+        string normalized = NormalizeLanguageId(id);
+        if (string.Equals(languageId, normalized, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        languageId = normalized;
+        SavePersistedVolumes();
+        SettingsChanged?.Invoke();
+    }
+
+    public bool GetPauseWhenInactive()
+    {
+        return pauseWhenInactive;
+    }
+
+    public void SetPauseWhenInactive(bool enabled)
+    {
+        if (pauseWhenInactive == enabled)
+        {
+            return;
+        }
+
+        pauseWhenInactive = enabled;
+        SavePersistedVolumes();
+        SettingsChanged?.Invoke();
+    }
+
+    public bool GetPlayAudioWhenInactive()
+    {
+        return playAudioWhenInactive;
+    }
+
+    public void SetPlayAudioWhenInactive(bool enabled)
+    {
+        if (playAudioWhenInactive == enabled)
+        {
+            return;
+        }
+
+        playAudioWhenInactive = enabled;
+        SavePersistedVolumes();
+        RefreshApplicationAudioOutput();
+        SettingsChanged?.Invoke();
+    }
+
+    private static string NormalizeLanguageId(string id)
+    {
+        if (string.Equals(id, "en", StringComparison.OrdinalIgnoreCase))
+        {
+            return "en";
+        }
+
+        return "ja";
+    }
 
     private void OnApplicationQuit()
     {
@@ -113,6 +192,7 @@ public class SoundSettingsManager : MonoBehaviour
 
         applicationPausedForPlatform = pause;
         RefreshApplicationAudioOutput();
+        SettingsChanged?.Invoke();
 
         if (pause)
         {
@@ -176,22 +256,6 @@ public class SoundSettingsManager : MonoBehaviour
         }
 
         return To01(masterVolume) * To01(bgmVolume) * Mathf.Max(0f, bgmBaseMultiplier);
-    }
-
-    public bool GetDebugUnlockAllGames()
-    {
-        return debugUnlockAllGames;
-    }
-
-    public void SetDebugUnlockAllGames(bool enabled)
-    {
-        if (debugUnlockAllGames == enabled)
-        {
-            return;
-        }
-
-        debugUnlockAllGames = enabled;
-        SavePersistedVolumes();
     }
 
     /// <summary>最後に <c>title_scene</c> で遊んだときのビルド Version。未記録なら空文字。</summary>
@@ -351,8 +415,7 @@ public class SoundSettingsManager : MonoBehaviour
                     dto.se,
                     dto.game01Cleared,
                     dto.game02Cleared,
-                    dto.game03Cleared,
-                    dto.debugUnlockAllGames));
+                    dto.game03Cleared));
         }
         catch (IOException)
         {
@@ -401,7 +464,9 @@ public class SoundSettingsManager : MonoBehaviour
         game01Cleared = data.game01Cleared;
         game02Cleared = data.game02Cleared;
         game03Cleared = data.game03Cleared;
-        debugUnlockAllGames = data.debugUnlockAllGames;
+        languageId = NormalizeLanguageId(data.languageId);
+        pauseWhenInactive = data.pauseWhenInactive;
+        playAudioWhenInactive = data.playAudioWhenInactive;
         recordedBuildVersion = data.buildVersion ?? string.Empty;
     }
 
@@ -418,7 +483,9 @@ public class SoundSettingsManager : MonoBehaviour
             game01Cleared = game01Cleared,
             game02Cleared = game02Cleared,
             game03Cleared = game03Cleared,
-            debugUnlockAllGames = debugUnlockAllGames
+            languageId = GetLanguageId(),
+            pauseWhenInactive = pauseWhenInactive,
+            playAudioWhenInactive = playAudioWhenInactive
         };
     }
 }
