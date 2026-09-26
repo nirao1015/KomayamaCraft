@@ -47,12 +47,12 @@ KomayamaCraft はフィールド本体が **Tilemap / SpriteRenderer** 中心な
 
 | 順 | Sorting Layer（案） | ヒエラルキー親（案） | 載せるもの | 備考 |
 | --- | --- | --- | --- | --- |
-| W0 | `WorldBackground`（新規・任意） | `World/FieldBackground` | 遠い背景 | 未使用なら省略可 |
+| W0 | `WorldBackground`（任意） | （削除済み: `World/FieldBackground`） | 遠い背景 | **未使用。再導入するなら本行を復活** |
 | W1 | `WorldSea`（既存） | `World/WorldLayers/Layer_Sea` | 海 | 現状維持 |
-| W2 | `WorldContinent`（既存） | `…/Layer_Continent` | 地形 | 現状維持 |
-| W3 | `WorldObject`（既存） | `…/Layer_Objects` | 採集発生点・原生・納入ゴミ箱・宇宙船など（非施設） | **施設は載せない**。配下 Sprite の既定材は `SpriteOutline`（§2.3）。適用は不足時のみ（§2.4） |
+| W2 | `WorldContinent`（既存） | `…/Layer_Continent` | 地形（`Region_*`）＋バイオーム／TMP。地表は `OJ`＋`KCContinentOverlaySprite`。環境小物は `Amb_*`＋`KCContinentAmbientSprite`（指示差分 §5.2） | 現状維持 |
+| W3 | `WorldObject`（既存） | `…/Layer_Objects` | 採集発生点（鉄鱗獣・熱嚢草・磁角獣・星紋結晶・位相断層・軌道繭）・納入ゴミ箱・蓄電クラゲ・宇宙船など | **施設は載せない**。配下 Sprite の既定材は `SpriteOutline`（§2.3） |
 | W4 | `WorldFacility`（**新規**） | `World/Layer_Facilities` | 仮組・完成施設・保管 | 現状 `WorldObject` 共有をやめる |
-| W5 | `WorldEffect`（既存） | `…/Layer_Effects` | エフェクト | 現状維持 |
+| W5 | `WorldEffect`（既存） | `…/Layer_Effects` | 地図アンビエント（雲影・胞子雲・間欠泉・砂漠砂嵐・海上風筋・**西海岸白波**等）。駆動は `KomayamaMapAmbienceController` | 大陸 `Amb_*` とは別。詳細は地図演出コントローラー仕様 |
 | W6 | `WorldDrop`（**新規**） | `World/Layer_Drops`（新設） | 地面ドロップ | 現状 `WorldOverlay` 共有をやめる |
 | W7 | `WorldOverlay`（既存） | `World/Layer_WorldOverlay`（整理） | 施設ワールド HUD、建設プレビュー、禁止塗りデバッグ | 「ワールドに張り付く補助表示」専用 |
 | W8 | `WorldMouse`（既存） | `World/Layer_Mouse` | 手持ちアイコン・狐・修理喜びアクセサリ（`FoxRepairJoyAccessory`） | 狐本体と喜びは同帯・別オブジェクト。材は Preserve（§2.4） |
@@ -121,6 +121,7 @@ KomayamaCraft はフィールド本体が **Tilemap / SpriteRenderer** 中心な
 | `KomayamaBuildController` | 仮組コスト HUD 等に Unlit。施設生成後に `RequestApplyMaterialsInScene` |
 | `KomayamaNpc` | マーカーに Unlit（生成時のみ） |
 | `KomayamaDropArea` | ドロップ生成後に `RequestApplyMaterialsInScene` |
+| 蓄電クラゲ（`見た目`） | **クリック採集（ResourceNode）とは別系統**。Preserve＋`SpriteUnlitDefault`＋専用 `KomayamaVoltJellyVisual`（`KCSpriteFrame` は使わない）。指示差分 §7.1.1 |
 
 これら以外で「帯配下をまとめて `sharedMaterial =`」する処理を増やさない。
 
@@ -278,6 +279,7 @@ Main Camera / EventSystem / Managers / KCConfigValues / EndingOverlay …
 
 | 日付 | 内容 |
 | --- | --- |
+| 2026-09-26 | FieldBackground 削除済みを反映。W2/W3 にバイオーム OJ・採集発生点を追記 |
 | 2026-09-20 | §2.5 新規演出チェックリスト（Preserve／帯／セーブ／受入）を追加 |
 | 2026-09-20 | §2.4 に喜びアクセサリ（Layer_Mouse）・Preserve を追記。W8 備考更新 |
 | 2026-09-20 | §2.4 マテリアル強制差し替え方針。毎フレーム全上書き廃止・Preserve・RequestApply を確定。§2.3／§4 を整合 |

@@ -1,7 +1,73 @@
 fileFormatVersion: 2
 guid: 33154a429610a334b9683277d75337ce
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 4631719671580799956
+    second: geyser_frame_05_0
+  - first:
+      213: -803958279561699555
+    second: geyser_frame_05_1
+  - first:
+      213: -3253927264235498099
+    second: geyser_frame_05_2
+  - first:
+      213: 4653213539327377106
+    second: geyser_frame_05_3
+  - first:
+      213: 6061836092202838087
+    second: geyser_frame_05_4
+  - first:
+      213: 7037486222542094300
+    second: geyser_frame_05_5
+  - first:
+      213: -327175441731790864
+    second: geyser_frame_05_6
+  - first:
+      213: 7253933000919866404
+    second: geyser_frame_05_7
+  - first:
+      213: 2148145265347603946
+    second: geyser_frame_05_8
+  - first:
+      213: 5705676154150273541
+    second: geyser_frame_05_9
+  - first:
+      213: 6624449768272620220
+    second: geyser_frame_05_10
+  - first:
+      213: 220094193983380928
+    second: geyser_frame_05_11
+  - first:
+      213: -7215281860790425238
+    second: geyser_frame_05_12
+  - first:
+      213: 6832286107267850796
+    second: geyser_frame_05_13
+  - first:
+      213: -7104509689076479873
+    second: geyser_frame_05_14
+  - first:
+      213: 2928431781414973054
+    second: geyser_frame_05_15
+  - first:
+      213: -850716192545582314
+    second: geyser_frame_05_16
+  - first:
+      213: 4801610291149091148
+    second: geyser_frame_05_17
+  - first:
+      213: -7582958900352861166
+    second: geyser_frame_05_18
+  - first:
+      213: 1105780409961926844
+    second: geyser_frame_05_19
+  - first:
+      213: -2104821241989185138
+    second: geyser_frame_05_20
+  - first:
+      213: 6919907391790016977
+    second: geyser_frame_05_21
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -43,12 +109,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
-  alignment: 0
+  spriteMeshType: 0
+  alignment: 7
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -66,15 +132,551 @@ TextureImporter:
   applyGammaDecoding: 0
   swizzle: 50462976
   cookieLightType: 0
-  platformSettings: []
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: geyser_frame_05_0
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 1575
+        width: 150
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d333cb508c274040800000000000000
+      internalID: 4631719671580799956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_1
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 1684
+        width: 178
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1f9d7c4434c7d4f0800000000000000
+      internalID: -803958279561699555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_2
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 1681
+        width: 336
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d85d84aa46ab7d2d0800000000000000
+      internalID: -3253927264235498099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_3
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 1628
+        width: 16
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2de75ab6f09839040800000000000000
+      internalID: 4653213539327377106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_4
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 1575
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74864621fc7ff1450800000000000000
+      internalID: 6061836092202838087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_5
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 1563
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdfb356ee6c2aa160800000000000000
+      internalID: 7037486222542094300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_6
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 1565
+        width: 37
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f758505ba3a57bf0800000000000000
+      internalID: -327175441731790864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 876
+        height: 1552
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42cdf40a1a52ba460800000000000000
+      internalID: 7253933000919866404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 1420
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aed2bfaccbebfcd10800000000000000
+      internalID: 2148145265347603946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_9
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 1454
+        width: 63
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5024b837b32ae2f40800000000000000
+      internalID: 5705676154150273541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1373
+        width: 31
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbaee4667f5ceeb50800000000000000
+      internalID: 6624449768272620220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_11
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 1144
+        width: 80
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cd5189d08eed0300800000000000000
+      internalID: 220094193983380928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_12
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 1210
+        width: 58
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a696445306b2edb90800000000000000
+      internalID: -7215281860790425238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_13
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 1089
+        width: 43
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c22698bf30821de50800000000000000
+      internalID: 6832286107267850796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_14
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 1047
+        width: 38
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f78864f3416b76d90800000000000000
+      internalID: -7104509689076479873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_15
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 1063
+        width: 104
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7e24309031e3a820800000000000000
+      internalID: 2928431781414973054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_16
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 902
+        width: 105
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 613d5a25126a134f0800000000000000
+      internalID: -850716192545582314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_17
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 585
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c413dc9ae1fb2a240800000000000000
+      internalID: 4801610291149091148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_18
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 531
+        width: 7
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21cb41e6e0be3c690800000000000000
+      internalID: -7582958900352861166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_19
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 21
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb0dd579c65885f00800000000000000
+      internalID: 1105780409961926844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_20
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 31
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e81c9837b3c2ac2e0800000000000000
+      internalID: -2104821241989185138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: geyser_frame_05_21
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 16
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d96e3e0c13780060800000000000000
+      internalID: 6919907391790016977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -83,7 +685,29 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      geyser_frame_05_0: 4631719671580799956
+      geyser_frame_05_1: -803958279561699555
+      geyser_frame_05_10: 6624449768272620220
+      geyser_frame_05_11: 220094193983380928
+      geyser_frame_05_12: -7215281860790425238
+      geyser_frame_05_13: 6832286107267850796
+      geyser_frame_05_14: -7104509689076479873
+      geyser_frame_05_15: 2928431781414973054
+      geyser_frame_05_16: -850716192545582314
+      geyser_frame_05_17: 4801610291149091148
+      geyser_frame_05_18: -7582958900352861166
+      geyser_frame_05_19: 1105780409961926844
+      geyser_frame_05_2: -3253927264235498099
+      geyser_frame_05_20: -2104821241989185138
+      geyser_frame_05_21: 6919907391790016977
+      geyser_frame_05_3: 4653213539327377106
+      geyser_frame_05_4: 6061836092202838087
+      geyser_frame_05_5: 7037486222542094300
+      geyser_frame_05_6: -327175441731790864
+      geyser_frame_05_7: 7253933000919866404
+      geyser_frame_05_8: 2148145265347603946
+      geyser_frame_05_9: 5705676154150273541
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

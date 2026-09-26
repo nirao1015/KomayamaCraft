@@ -15,4 +15,7 @@ MonoBehaviour:
   resourceNodes:
   - {fileID: 11400000, guid: 6dcf7d38b9e0f1b2e8f90a1b2c3d4ec3, type: 2}
   - {fileID: 11400000, guid: 1c5cbc99668aa9c48a4e1c79cca9288d, type: 2}
-  - {fileID: 11400000, guid: d8fe9c83869b9b648bc7d1d4203ebd33, type: 2}
+  - {fileID: 11400000, guid: 0c7e6f3703323ed40b4f2df240b7b397, type: 2}
+  - {fileID: 11400000, guid: eda93cf43f79b104c9f53121c80ae541, type: 2}
+  - {fileID: 11400000, guid: 26fcc06a6e80ffe48b905e4b97730417, type: 2}
+  - {fileID: 11400000, guid: ca18e0356f2c6664eb2ad1144ae574cb, type: 2}

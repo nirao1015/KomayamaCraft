@@ -20,7 +20,7 @@ MonoBehaviour:
   capabilities: 4
   supportedRecipes: []
   constructionCost:
-  - item: {fileID: 11400000, guid: 81e94dfa5199bac01b173bf31f508798, type: 2}
+  - item: {fileID: 11400000, guid: e28f7e461ffd90f4dba8257c970b7e63, type: 2}
     amount: 2
   inputCapacity: 0
   outputCapacity: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: ChargeCell
   m_EditorClassIdentifier: Assembly-CSharp::ItemDefinition
   definitionId: item.charge_cell
-  displayName: "\u84C4\u96FB\u30BB\u30EB"
+  displayName: "\u84C4\u96FB\u80DE"
   description: "\u30AF\u30E9\u30B2\u7247\u3092\u56FA\u3081\u305F\u88DC\u52A9\u96FB\u6E90\u3002"
   icon: {fileID: 0}
   category: 2
-  maxStack: 8
+  maxStack: 99
   traitIds:
   - prototype

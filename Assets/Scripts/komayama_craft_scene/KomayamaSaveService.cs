@@ -65,6 +65,7 @@ namespace KomayamaCraft
                 DidLoadExistingSave = false;
                 BeginPlaySession(0f);
                 hud?.ShowMessage($"新規ゲームを開始した（スロット{KomayamaSaveSlots.ActiveSlot}）");
+                KomayamaCraftBootReady.NotifySaveReady();
                 return;
             }
 
@@ -83,6 +84,8 @@ namespace KomayamaCraft
                     hud?.ShowMessage($"バックアップからロードしました（スロット{KomayamaSaveSlots.ActiveSlot}）");
                 }
             }
+
+            KomayamaCraftBootReady.NotifySaveReady();
         }
 
         private void Update()

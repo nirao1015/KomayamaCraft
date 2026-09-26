@@ -209,6 +209,12 @@ namespace KomayamaCraft
                 buildMenuSlide.Close();
             }
 
+            if (KomayamaCraftPlaceholderMenuController.Instance != null &&
+                KomayamaCraftPlaceholderMenuController.Instance.IsOpen)
+            {
+                KomayamaCraftPlaceholderMenuController.Instance.CloseAll();
+            }
+
             KomayamaCraftSeManager.TryPlay(seManager, KomayamaCraftSeCue.MainMenuToggle);
             HoldPause();
             SetMenuBarInteractable(false);

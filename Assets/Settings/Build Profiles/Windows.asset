@@ -36,7 +36,7 @@ MonoBehaviour:
     - line: '|   useOnDemandResources: 0'
     - line: '|   accelerometerFrequency: 60'
     - line: '|   companyName: ChiveGames'
-    - line: '|   productName: "\u99D2\u5C71\u30AD\u30EA\u306F\u5168\u90E8\u3084\u308A\u306B\u3044\u304F"'
+    - line: '|   productName: "\u5B87\u5B99\u8239\u306F\u73FE\u5730\u8ABF\u6539\u4FEE\uFF01"'
     - line: '|   defaultCursor: {instanceID: 0}'
     - line: '|   cursorHotspot: {x: 0, y: 0}'
     - line: '|   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b:
@@ -167,7 +167,7 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: Ver_1.0.2'
+    - line: '|   bundleVersion: Ver_0.0.0'
     - line: '|   preloadedAssets:'
     - line: '|   - {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100,
         type: 3}'
@@ -322,7 +322,7 @@ MonoBehaviour:
     - line: '|   - m_BuildTarget: '
     - line: '|     m_Icons:'
     - line: '|     - serializedVersion: 2'
-    - line: '|       m_Icon: {fileID: 2800000, guid: 8ba47aa47d7f0a4489f491af15c3d63a,
+    - line: '|       m_Icon: {fileID: 2800000, guid: a1b3158b0deccf64eacc760aa250ed65,
         type: 3}'
     - line: '|       m_Width: 128'
     - line: '|       m_Height: 128'

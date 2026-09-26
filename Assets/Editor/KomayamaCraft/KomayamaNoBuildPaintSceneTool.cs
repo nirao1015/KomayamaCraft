@@ -18,6 +18,8 @@ public static class KomayamaNoBuildPaintSceneTool
     private static bool rectangleDrag;
     private static bool rectangleErase;
     private static Vector3Int rectangleStart;
+    private static Tool previousTool;
+    private static bool previousToolsHidden;
 
     [MenuItem(MenuPath, false, 21)]
     public static void TogglePaintMode()
@@ -42,7 +44,9 @@ public static class KomayamaNoBuildPaintSceneTool
                 "NoBuildPaint is missing. Run KomayamaCraft > M2をシーンへ接続 first.");
         }
 
-        Selection.activeGameObject = tilemap.gameObject;
+        // 数万セルの Tilemap を Selection すると Inspector 再描画で極端に重くなる
+        // （ドロップ禁止塗りと同じく選択しない）
+        Selection.activeGameObject = null;
         brushSize = 7;
         SetEnabled(true);
         Debug.Log(
@@ -68,11 +72,17 @@ public static class KomayamaNoBuildPaintSceneTool
         rectangleDrag = false;
         if (enabled)
         {
+            previousTool = Tools.current;
+            previousToolsHidden = Tools.hidden;
+            Tools.current = Tool.View;
+            Tools.hidden = true;
             SceneView.duringSceneGui += OnSceneGui;
         }
         else
         {
             SceneView.duringSceneGui -= OnSceneGui;
+            Tools.hidden = previousToolsHidden;
+            Tools.current = previousTool;
             Debug.Log("[KomayamaCraftM2] 建設不可塗りを終了しました。");
         }
 
@@ -95,7 +105,13 @@ public static class KomayamaNoBuildPaintSceneTool
         }
 
         int controlId = GUIUtility.GetControlID(FocusType.Passive);
-        HandleUtility.AddDefaultControl(controlId);
+        if (current.type == EventType.Layout)
+        {
+            HandleUtility.AddDefaultControl(controlId);
+        }
+
+        Tools.current = Tool.View;
+        Tools.hidden = true;
         DrawHud();
         if (tilemap == null || !TryGetCell(tilemap, current.mousePosition, out Vector3Int cell))
         {
@@ -199,6 +215,11 @@ public static class KomayamaNoBuildPaintSceneTool
         if (!pressed || (!paint && !erase))
         {
             return;
+        }
+
+        if (current.type == EventType.MouseDown)
+        {
+            Undo.IncrementCurrentGroup();
         }
 
         Undo.RecordObject(tilemap, paint ? "Paint no-build cells" : "Erase no-build cells");

@@ -1,13 +1,21 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace KomayamaCraft
 {
     [DisallowMultipleComponent]
     public sealed class KomayamaCraftCameraController : MonoBehaviour
     {
-        public const int UnlockStageCount = 4;
+        /// <summary>
+        /// 進行用の開放段階数（要素0=初期〜9）。デバッグ「地域開放」の 1〜10 に対応。
+        /// デバッグ 0 は全開放（<see cref="seaOrFullBounds"/>）で別枠。
+        /// </summary>
+        public const int UnlockStageCount = 10;
+
+        /// <summary>デバッグ「地域開放（カメラ）」の最大値（0=全開放 … 10）。</summary>
+        public const int MaxCameraAreaDebugCode = 10;
 
         [Serializable]
         public struct BoundsRect
@@ -30,19 +38,23 @@ namespace KomayamaCraft
         [SerializeField] private KCWorldSettings worldSettings;
         [SerializeField] private KCMouseFoxFollower foxFollower;
         [SerializeField] private KomayamaQuestLogView questLogView;
-        [SerializeField, Min(0f)] private float moveSpeed = 6f;
+        [SerializeField, Min(0f), InspectorName("フォールバック横速度")]
+        [FormerlySerializedAs("moveSpeed")]
+        private float moveSpeedX = 24f;
+        [SerializeField, Min(0f), InspectorName("フォールバック縦速度")]
+        private float moveSpeedY = 24f;
 
         [Header("カメラ移動範囲（段階開放・中心Clamp）")]
-        [SerializeField, InspectorName("海・全域（デバッグ0）")]
-        [Tooltip("デバッグで 0 を選んだときの範囲。大陸全体に相当。")]
+        [SerializeField, InspectorName("海・全域（デバッグ0＝全開放）")]
+        [Tooltip("デバッグで 0 を選んだときの範囲。全開放時のカメラ中心 Clamp。")]
         private BoundsRect seaOrFullBounds = new BoundsRect
         {
             minimum = new Vector2(-55.5f, -34.6f),
             maximum = new Vector2(40.5f, 41f)
         };
 
-        [SerializeField, InspectorName("段階範囲（0=初期〜3=3段階開放）")]
-        [Tooltip("要素0=初期、1=1段階開放後、2=2段階、3=3段階。広くなる一方。クエスト連動は後続。")]
+        [SerializeField, InspectorName("段階範囲（0=初期〜9／デバッグ1〜10）")]
+        [Tooltip("要素0=ゲーム開始時の初期、以降は広がる一方。デバッグコード N(1〜10) は要素 N-1。未設定分は全開放範囲で埋める。クエスト連動は後続。")]
         private BoundsRect[] unlockStageBounds =
         {
             new BoundsRect
@@ -68,7 +80,7 @@ namespace KomayamaCraft
         };
 
         [SerializeField, Range(0, UnlockStageCount - 1), InspectorName("進行上の開放段階")]
-        [Tooltip("0=初期。クエスト連動までは通常 0 のまま。デバッグ上書きが優先される場合あり。")]
+        [Tooltip("0=初期（デバッグ1相当）。クエスト連動までは通常 0 のまま。デバッグ上書きが優先される場合あり。")]
         private int unlockStage;
 
         [SerializeField] private bool enableEdgeScroll;
@@ -451,7 +463,7 @@ namespace KomayamaCraft
         }
 
         /// <summary>
-        /// デバッグ用。null で解除。0=海・全域、1=初期、2=1段階、3=2段階、4=3段階。
+        /// デバッグ用。null で解除。0=全開放、1=初期、2〜10=段階開放。
         /// </summary>
         public void SetDebugAreaOverride(int? areaCode)
         {
@@ -461,7 +473,7 @@ namespace KomayamaCraft
             }
             else
             {
-                debugAreaOverride = Mathf.Clamp(areaCode.Value, 0, UnlockStageCount);
+                debugAreaOverride = Mathf.Clamp(areaCode.Value, 0, MaxCameraAreaDebugCode);
             }
 
             ClampToActiveBounds();
@@ -545,13 +557,19 @@ namespace KomayamaCraft
                 direction += ReadEdgeDirection();
             }
 
-            if (direction.sqrMagnitude <= 0f)
+            if (direction.sqrMagnitude <= 0.0000001f)
             {
                 return;
             }
 
-            float speed = worldSettings != null ? worldSettings.WasdMoveSpeed : moveSpeed;
-            PanByWorldDelta(direction.normalized * speed * Time.unscaledDeltaTime);
+            // 斜めは単位方向に軸別速度を掛ける（両軸フル速度の合成にはしない）。
+            // ユークリッド速さ ≈ √((ux·sx)²+(uy·sy)²)。直交時は各軸速度そのまま。
+            Vector2 unit = direction.normalized;
+            float speedX = worldSettings != null ? worldSettings.WasdMoveSpeedX : moveSpeedX;
+            float speedY = worldSettings != null ? worldSettings.WasdMoveSpeedY : moveSpeedY;
+            Vector2 delta = new Vector2(unit.x * speedX, unit.y * speedY) *
+                            Time.unscaledDeltaTime;
+            PanByWorldDelta(delta);
         }
 
         public void PanByWorldDelta(Vector2 worldDelta)

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PhaseShard
   m_EditorClassIdentifier: Assembly-CSharp::ResourceNodeDefinition
   definitionId: resource_node.phase_shard
-  displayName: "\u4F4D\u76F8\u7247"
+  displayName: "\u4F4D\u76F8\u65AD\u5C64"
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 6bbc2ece9fc00a54cb2ddcf53c60638e, type: 3}
   prefab: {fileID: 6053600198614693166, guid: 2c830ed8d63afc54f8cce445f38bfccf, type: 3}
   kind: 2
   yields:

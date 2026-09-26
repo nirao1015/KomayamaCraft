@@ -26,6 +26,8 @@ public class SoundSettingsManager : MonoBehaviour
         public string languageId;
         public bool pauseWhenInactive;
         public bool playAudioWhenInactive;
+        /// <summary>unlimited / 60 / 30。空・未記入は既定 60。</summary>
+        public string frameRateMode;
     }
 
     [Header("Volume (0-20)")]
@@ -42,6 +44,7 @@ public class SoundSettingsManager : MonoBehaviour
     private string languageId = "ja";
     private bool pauseWhenInactive;
     private bool playAudioWhenInactive;
+    private GameFrameRateMode frameRateMode = GameFrameRate.DefaultMode;
     private string recordedBuildVersion = string.Empty;
     private bool applicationHasFocus = true;
     private bool applicationPausedForPlatform;
@@ -87,6 +90,7 @@ public class SoundSettingsManager : MonoBehaviour
         LoadPersistedVolumesIfAny();
         applicationHasFocus = Application.isFocused;
         RefreshApplicationAudioOutput();
+        GameFrameRate.Apply(frameRateMode);
     }
 
     private void OnApplicationFocus(bool hasFocus)
@@ -162,6 +166,28 @@ public class SoundSettingsManager : MonoBehaviour
         playAudioWhenInactive = enabled;
         SavePersistedVolumes();
         RefreshApplicationAudioOutput();
+        SettingsChanged?.Invoke();
+    }
+
+    public GameFrameRateMode GetFrameRateMode()
+    {
+        return frameRateMode;
+    }
+
+    /// <summary>
+    /// 無制限 / 60 / 30。変更時は即保存・即反映。オプション UI から呼ぶ想定。
+    /// </summary>
+    public void SetFrameRateMode(GameFrameRateMode mode)
+    {
+        if (frameRateMode == mode)
+        {
+            GameFrameRate.Apply(frameRateMode);
+            return;
+        }
+
+        frameRateMode = mode;
+        GameFrameRate.Apply(frameRateMode);
+        SavePersistedVolumes();
         SettingsChanged?.Invoke();
     }
 
@@ -467,6 +493,7 @@ public class SoundSettingsManager : MonoBehaviour
         languageId = NormalizeLanguageId(data.languageId);
         pauseWhenInactive = data.pauseWhenInactive;
         playAudioWhenInactive = data.playAudioWhenInactive;
+        frameRateMode = GameFrameRate.FromPersistId(data.frameRateMode);
         recordedBuildVersion = data.buildVersion ?? string.Empty;
     }
 
@@ -485,7 +512,8 @@ public class SoundSettingsManager : MonoBehaviour
             game03Cleared = game03Cleared,
             languageId = GetLanguageId(),
             pauseWhenInactive = pauseWhenInactive,
-            playAudioWhenInactive = playAudioWhenInactive
+            playAudioWhenInactive = playAudioWhenInactive,
+            frameRateMode = GameFrameRate.ToPersistId(frameRateMode)
         };
     }
 }

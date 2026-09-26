@@ -65,9 +65,9 @@ namespace KomayamaCraft
         private int initialGameSpeedStepIndex = 1;
 
         [Header("カメラ移動範囲（デバッグ）")]
-        [SerializeField, Range(0, 4), InspectorName("地域開放（カメラ）")]
+        [SerializeField, Range(0, KomayamaCraftCameraController.MaxCameraAreaDebugCode), InspectorName("地域開放（カメラ）")]
         [Tooltip(
-            "0=海・全域 / 1=初期 / 2=1段階開放 / 3=2段階開放 / 4=3段階開放。\n" +
+            "0=全開放 / 1=初期（ゲーム開始） / 2〜10=段階開放。\n" +
             "本番リリース用が ON のときは無効（進行段階のみ）。クエスト連動は未実装。")]
         private int cameraAreaUnlockDebug = 1;
 
@@ -273,7 +273,10 @@ namespace KomayamaCraft
 
         private void OnValidate()
         {
-            cameraAreaUnlockDebug = Mathf.Clamp(cameraAreaUnlockDebug, 0, 4);
+            cameraAreaUnlockDebug = Mathf.Clamp(
+                cameraAreaUnlockDebug,
+                0,
+                KomayamaCraftCameraController.MaxCameraAreaDebugCode);
             initialGameSpeedStepIndex = Mathf.Clamp(
                 initialGameSpeedStepIndex,
                 0,

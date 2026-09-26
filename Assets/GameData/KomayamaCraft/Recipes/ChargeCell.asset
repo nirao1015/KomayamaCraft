@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: ChargeCell
   m_EditorClassIdentifier: Assembly-CSharp::RecipeDefinition
   definitionId: recipe.charge_cell
-  displayName: "\u84C4\u96FB\u30BB\u30EB\u56FA\u5316"
+  displayName: "\u84C4\u96FB\u80DE"
   inputs:
-  - item: {fileID: 11400000, guid: 7429556abfbd6824cabc5aa46b599843, type: 2}
+  - item: {fileID: 11400000, guid: 34f687ed6a034c0488960a70c85d5f29, type: 2}
+    amount: 4
+  - item: {fileID: 11400000, guid: b068fdbc462730344805a4b9e98fe105, type: 2}
     amount: 1
-  requiredFacilityId: facility.symbiotic_assembly_vat
+  - item: {fileID: 11400000, guid: a43ade1e512fdb545a2c91fcc0f38077, type: 2}
+    amount: 1
+  requiredFacilityId: facility.symbio_vat
   requiredUnlockId: 
-  processingSeconds: 1.5
-  usesFuel: 0
+  processingSeconds: 4
+  usesFuel: 1
   outputMode: 0
   outputs:
   - item: {fileID: 11400000, guid: fed0752b89672fd4a901551c5fe5ef91, type: 2}

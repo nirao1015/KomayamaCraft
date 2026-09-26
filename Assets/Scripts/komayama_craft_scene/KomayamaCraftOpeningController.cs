@@ -90,12 +90,23 @@ namespace KomayamaCraft
 
         private void Start()
         {
+            StartCoroutine(CoStartAfterLoadGate());
+        }
+
+        private IEnumerator CoStartAfterLoadGate()
+        {
+            // タイトル経由ロード中は Hold が立つ。直 Play 時は最初から false。
+            while (KomayamaCraftLoadGate.HoldGameTime)
+            {
+                yield return null;
+            }
+
             if (!ShouldPlayOpening())
             {
                 questController?.NotifyOpeningPhaseEnded(
                     playedOpening: false,
                     isNewGameSession: sessionIsNewGame);
-                return;
+                yield break;
             }
 
             StartCoroutine(RunOpening());

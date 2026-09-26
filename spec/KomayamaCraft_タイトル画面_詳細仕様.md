@@ -47,6 +47,8 @@
 | --- | --- |
 | `TitleSceneController` | `KomayamaTitleEntry`（はじめから／続きから／スロット・確認・SE） |
 | `LoadCanvas` | `KomayamaCraftSceneLoader` |
+| `LoadCanvas/LoadAnimController` | `KomayamaCraftLoadAnimController`（ロード中ループ演出） |
+| `TitleDebugManager` | 本番マスター／Steam ログ／デバッグ用フラグ（§8.3・§3.6） |
 | `TitleTransitionManager` | 設定・Credits 開閉、End、クラフト遷移演出（SE＋フェード） |
 | `ConfigCanvas` | `TitleConfigPanelController`／`ConfigVolumeUi`／`ConfigSePlayer`（共通プレハブ） |
 | `TitleSeManager` | `TitleSeManager` |
@@ -144,32 +146,74 @@
 | 置き場所 | **タイトルシーンの `LoadCanvas`**（専用ロードシーンは作らない） | 確定 |
 | 理由 | 入口がタイトル→クラフト中心のため、シーン追加の得が小さい。共通化したくなったら先にプレハブ化を検討 | 確定 |
 | 非同期 | `SceneManager.LoadSceneAsync` | 確定 |
-| 表示期間 | 遷移開始で表示 → ゲームシーンがロード完了するまで表示継続 → 非表示して破棄 | 確定 |
-| ゲーム時間 | ロード中は止め、完了後に進める（`KomayamaCraftLoadGate` + `KomayamaGameClock`） | 確定 |
+| 表示期間 | 遷移開始で表示 → シーンロード＋Boot Ready 完了 → **暗転入場**終了まで表示継続 → 破棄 | 確定 |
+| ゲーム時間 | ロード開始〜入場フェード完了まで止め、完了後に進める（`KomayamaCraftLoadGate` + `KomayamaGameClock`） | 確定 |
+| ロード中演出 | `LoadAnimController` によるループ（§3.5）。デバッグプレビューは §3.6。矢印追従など複雑な制御はしない | 確定 |
 
-### 3.2 処理手順
+### 3.2 Boot Ready（確定）
+
+入場フェードに進む前に次が揃うこと（`KomayamaCraftBootReady`）。
+
+| 系 | 完了条件 | 区分 |
+| --- | --- | --- |
+| Save | セーブ適用、または新規開始のブート消費完了（`KomayamaSaveService`） | 確定 |
+| QuestLog | クエストログ再表示（`RefreshQuestLog` 相当）完了 | 確定 |
+| Ambience | 環境エフェクトコントローラの初期起動完了（雲の出現自体は待たない） | 確定 |
+| OP／導入会話 | **ゲート解放後**に開始（Ready／暗転中は開始しない） | 確定 |
+
+揃わない場合は上限タイムアウト後に警告ログを出して入場へ進む（エディタ直 Play のフリーズ防止）。
+
+### 3.3 処理手順
 
 1. スロット確定後、先に **§2 の遷移演出**（TransitionStart SE＋フェード）。
 2. フェード完了後、`KomayamaCraftSceneLoader.LoadCraftScene(craftSceneName)`（同期 `LoadScene` は使わない）。
-3. `KomayamaCraftLoadGate.BeginHold()` で `timeScale = 0`。
-4. `LoadCanvas` を表示。シーン跨ぎのため `Screen Space - Overlay` に切り替え、`DontDestroyOnLoad`。
+3. `KomayamaCraftBootReady.ResetForLoad()` のあと `KomayamaCraftLoadGate.BeginHold()` で `timeScale = 0`。
+4. `LoadCanvas` を表示し、`KomayamaCraftLoadAnimController.Play()` でロード演出を開始。シーン跨ぎのため `Screen Space - Overlay` に切り替え、`DontDestroyOnLoad`（ロード見た目と入場用黒 Fade Overlay を分離）。
 5. `LoadSceneAsync`（`allowSceneActivation` は progress≥0.9 のあと true）。
-6. シーン完了後、Awake／Start（セーブ適用など）待ちで **数フレーム**待機（現行既定 2）。
-7. `KomayamaCraftLoadGate.ReleaseHold()` → `KomayamaGameClock.ApplyToUnity()` でゲーム時間再開。
-8. `LoadCanvas` を非表示にして破棄。
+6. クラフト側が §3.2 の Ready を通知するまで待機（上限タイムアウトあり）。
+7. **黒へ暗転**（既存 `Fade`。本プロジェクトでは `FadeIn`＝画面を黒くする）。
+8. ロード見た目（`CanvasBG` 等）を非表示／破棄。黒 Fade Overlay は残す。
+9. **黒からフェードイン**（`FadeOut`）。
+10. `KomayamaCraftLoadGate.ReleaseHold()` → `KomayamaGameClock.ApplyToUnity()` でゲーム時間・入力開始。OP 等はここから。
+11. Fade Overlay／`LoadCanvas` ルートを破棄。
 
-### 3.3 実装・配置
+### 3.4 実装・配置
 
 | 項目 | 内容 | 区分 |
 | --- | --- | --- |
 | スクリプト | `Assets/Scripts/title/KomayamaCraftSceneLoader.cs` | 確定 |
-| 演出 | `TitleTransitionManager.BeginCraftSceneTransition` | 確定 |
+| Ready | `Assets/Scripts/komayama_craft_scene/KomayamaCraftBootReady.cs` | 確定 |
+| ロード演出 | `Assets/Scripts/title/KomayamaCraftLoadAnimController.cs`（`LoadCanvas/LoadAnimController`） | 確定 |
+| 演出シェーダー | `UI/KomayamaLoadGradientSweep`（`Assets/Shaders/title/UIKomayamaLoadGradientSweep.shader`） | 確定 |
+| 遷移演出 | `TitleTransitionManager.BeginCraftSceneTransition` | 確定 |
 | 時間ゲート | `Assets/Scripts/komayama_craft_scene/KomayamaCraftLoadGate.cs` | 確定 |
 | GameClock | `HoldGameTime` 中は `ApplyToUnity` でも `timeScale=0` を維持 | 確定 |
-| 初期状態 | タイトル起動時 `LoadCanvas` は **非アクティブ** | 確定 |
+| 初期状態 | タイトル起動時 `LoadCanvas` は **非アクティブ**（§3.6 デバッグプレビュー時を除く） | 確定 |
+| Fade 配線 | `LoadCanvas` 配下の `EntryFade` 等を Inspector でアタッチ。実行時 `AddComponent` しない | 確定 |
 | フォールバック | `titleTransitionManager` 未設定時は演出なしでローダ直呼び。ローダ未配置時のみ同期 `LoadScene`（警告ログ） | 確定 |
 
-### 3.4 非スコープ（いまやらない）
+### 3.5 ロード中ループ演出（確定）
+
+見た目は `LoadCanvas/CanvasBG` 配下。制御は `LoadAnimController`。時間は **`unscaled`**（ロード中 `timeScale=0` でも動く）。
+
+| 対象 | 挙動 | 区分 |
+| --- | --- | --- |
+| `ImageString` | 左→右のグラデーション表示を **2秒ループ**（シェーダー `_Progress`） | 確定 |
+| `Image (1)` / `Image (2)` / `Image (3)` | **2秒ごと**に1枚だけ表示を切り替え（同時に複数は出さない） | 確定 |
+| 開始 | 本番は `KomayamaCraftSceneLoader.BeginLoad` 時に `Play()` | 確定 |
+| 禁止 | 矢印追従など複雑な制御。単純ループのみ | 確定 |
+
+### 3.6 デバッグ：ロードアニメプレビュー（確定）
+
+| 項目 | 内容 | 区分 |
+| --- | --- | --- |
+| 切替 | `TitleDebugManager.debugPreviewLoadAnimation`（Inspector） | 確定 |
+| 本番 | **`masterProductionReleaseBuild` が ON なら必ず無効** | 確定 |
+| 挙動 | タイトル起動時点で `LoadCanvas` を表示し、ロードアニメだけ再生する。**シーン遷移はしない** | 確定 |
+| EntryFade | プレビュー中は非表示（入場暗転は掛けない） | 確定 |
+| 実装 | `KomayamaCraftSceneLoader.BeginDebugPreviewLoadAnimation`（`IsDebugPreviewLoadAnimationActive`） | 確定 |
+
+### 3.7 非スコープ（いまやらない）
 
 | 項目 | 内容 | 区分 |
 | --- | --- | --- |
@@ -234,12 +278,13 @@
 | 使用言語 | TMP Dropdown。表示は **日本語 / English** のみ切替。選択した **言語 ID を保存**。**ゲーム内の実際の表記はまだ変えない**（辞書解決・即時文言反映は後日） | 確定 |
 | 言語 ID | 公式 `ja` / `en`（多言語詳細仕様と一致） | 確定 |
 | 言語既定 | 未保存時は `ja` | 確定 |
+| フレームレート | TMP Dropdown。**FPS無制限 / 60FPS / 30FPS**。既定 **60FPS**。変更瞬間に `SetFrameRateMode`（即保存・即反映） | 確定 |
 | 非アクティブの定義 | **ウィンドウのフォーカス喪失／最小化**のみ（Config 開閉は含めない） | 確定 |
 | 非アクティブ時にポーズ | チェック。対象は **`komayama_craft_scene` のゲーム中**（放置稼ぎを許すかはプレイヤー判断）。**既定 OFF**＝非アクティブでもゲーム時間が進む | 確定 |
 | 非アクティブ時に音を鳴らす | チェック。**既定 OFF**＝今どおりフォーカス喪失でミュート | 確定 |
 | セレクト見た目 | 当面 TMP Dropdown。後から素材で差し替え可 | 確定 |
 | チェック行の操作 | チェックボックス本体に加え、**行の当たり判定（文言含む）クリックでも切替**。見た目は `Assets/Sprites/menu/menu_sq.png` / `menu_chk.png` | 確定 |
-| 現行ヒエラルキー | `PanelGeneral` に言語 Dropdown・非アクティブ系 Toggle＋`HitArea` | 現行 |
+| 現行ヒエラルキー | `PanelGeneral` に言語・FPS Dropdown・非アクティブ系 Toggle＋`HitArea`（`FrameRateRow`） | 現行 |
 
 ### 4.5b PanelKey（キー・表示のみ）
 
@@ -267,6 +312,9 @@
 | `languageId` | string | `"ja"` | 選択言語 ID（表示切替用。文言本体は未反映） | 確定 |
 | `pauseWhenInactive` | bool | `false` | 非アクティブ時にクラフトをポーズ | 確定 |
 | `playAudioWhenInactive` | bool | `false` | 非アクティブ時も音を出す（false ならミュート） | 確定 |
+| `frameRateMode` | string | `"60"` | フレームレート上限。`unlimited` / `60` / `30`。空・未記入は `"60"`。一般タブ Dropdown から変更 | 確定 |
+
+API: `SoundSettingsManager.GetFrameRateMode` / `SetFrameRateMode`（`GameFrameRateMode`）。変更瞬間に `playerData.json` 保存＋`GameFrameRate.Apply`（VSync オフ＋`targetFrameRate`）。
 
 ### 4.7 既存との差分（実装メモ）
 
@@ -277,6 +325,7 @@
 | フォーカス時オーディオ | `playAudioWhenInactive`（既定 false）で制御 |
 | フォーカス時ポーズ | `KomayamaCraftInactiveFocusController` が `pauseWhenInactive` を見て Push/Pop |
 | 言語 | Dropdown で ID 保存のみ（文言未反映） |
+| FPS | 一般タブ Dropdown（`frameRateMode`）。API＋UI 実装済 |
 | 終了 | `EndButton` → Quit。タイトルにスロット／進行セーブは無い（設定の軽い永続化と Steam 終了のみ） |
 | クラフト共有 | 同一プレハブを `CraftConfigCanvas` でも使用。設定 SE のクラフト独自設定は無い（`KomayamaCraft_メインメニュー_詳細仕様.md` §4.3） |
 
@@ -387,6 +436,10 @@
 | 本番 | **`masterProductionReleaseBuild` が ON なら必ず無効**（フラグ ON でも無効） | 確定 |
 | 実装 | `TitleClickableHoverCursorDebug` | 確定 |
 
+### 8.4 デバッグ：ロードアニメプレビュー
+
+§3.6 を正とする（`TitleDebugManager.debugPreviewLoadAnimation`）。
+
 ---
 
 ## 9. 終了（EndButton）
@@ -431,8 +484,12 @@
 
 | 日付 | 内容 |
 | --- | --- |
+| 2026-09-26 | §3.5〜3.6：LoadAnimController（ImageString 左→右2秒、Image1〜3切替2秒）。TitleDebug ロードアニメプレビュー（遷移なし） |
+| 2026-09-26 | §3：Boot Ready（Save／QuestLog／Ambience）完了後に暗転→ロード破棄→黒からフェードイン→LoadGate 解放。OP はゲート後。ロード中は単純アニメ可 |
 | 2026-09-21 | プレイ時間：保存は秒（float）。表示は時:分:秒（時は最低2桁・最大9999）。マイクロ秒保存なしを明記 |
 | 2026-09-21 | スロットプレイ時間を `時:分:秒` 表示（時は最低2桁・最大9999時間）。累積記録も同上限 |
+| 2026-09-26 | §4.5〜4.7：FPS 三択 UI（一般タブ Dropdown）。API＋セーブは既存 |
+| 2026-09-26 | §4.6 `frameRateMode`（unlimited/60/30）API 先行。オプション UI は後続 |
 | 2026-09-21 | 設定パネル SE を `ConfigSePlayer` に統一。クラフト独自設定 SE なし。§4／§10／実装差分を更新 |
 | 2026-09-21 | ConfigCanvas を共通プレハブ化。音量は `ConfigVolumeUi`。EXIT はコード配線。クラフトと共有 |
 | 2026-09-21 | タブ見た目は ImageSelected のみ（色・アニメ追加なし）。Config／Slot の Esc 閉じは対象外 |

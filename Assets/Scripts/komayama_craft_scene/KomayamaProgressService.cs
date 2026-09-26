@@ -129,6 +129,21 @@ namespace KomayamaCraft
                    unlockedBlueprints.Contains(definition.DefinitionId);
         }
 
+        public bool CanUseRecipe(RecipeDefinition recipe)
+        {
+            if (recipe == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(recipe.RequiredUnlockId))
+            {
+                return true;
+            }
+
+            return completedUnlocks.Contains(recipe.RequiredUnlockId);
+        }
+
         public void CaptureSave(KomayamaCraftSaveData data)
         {
             data.currentTier = currentTier;

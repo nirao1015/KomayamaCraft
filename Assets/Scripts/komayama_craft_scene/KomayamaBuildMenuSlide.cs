@@ -8,7 +8,7 @@ namespace KomayamaCraft
     /// <summary>
     /// menu建設 用。MenuObject（ImageMenuSlide＋各 menu*＋BuildMenuPanel）を左右にスライド開閉する。
     /// BuildMenuPanel は MenuObject 配下に置き、相対位置は固定。移動量は slideTravel のみ。
-    /// Item_0 で鱗圧延作業台の配置モードへ入る（本段階）。
+    /// Item_0 で基礎加工台の配置モードへ入る（本段階）。
     /// </summary>
     [DisallowMultipleComponent]
     public sealed class KomayamaBuildMenuSlide : MonoBehaviour
@@ -107,6 +107,12 @@ namespace KomayamaCraft
             if (slideRoot == null || isOpen)
             {
                 return;
+            }
+
+            if (KomayamaCraftPlaceholderMenuController.Instance != null &&
+                KomayamaCraftPlaceholderMenuController.Instance.IsOpen)
+            {
+                KomayamaCraftPlaceholderMenuController.Instance.CloseAll();
             }
 
             RestartSlide(true);

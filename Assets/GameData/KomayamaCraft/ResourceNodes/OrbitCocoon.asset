@@ -15,7 +15,7 @@ MonoBehaviour:
   definitionId: resource_node.orbit_cocoon
   displayName: "\u8ECC\u9053\u7E6D"
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 438ae0e8c8b74ef49828123bb2b0ba74, type: 3}
   prefab: {fileID: 5941526239748334098, guid: a0ef06fb4fb2bc8488030a1ba9abbfae, type: 3}
   kind: 0
   yields:

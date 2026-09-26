@@ -24,9 +24,9 @@ namespace KomayamaCraft
         public const string LeakDeliverPlateObjectiveId = "leak_deliver_plate";
         public const string FuelRefillQuestId = "main_refuel_bench";
         public const string IronScaleItemId = "item.iron_scale";
-        public const string IronScalePlateItemId = "item.iron_scale_plate";
-        public const string ScaleRollingWorkbenchId = "facility.scale_rolling_workbench";
-        public const string IronScaleRollingRecipeId = "recipe.iron_scale_rolling";
+        public const string IronScalePlateItemId = "item.scale_plate";
+        public const string ScaleRollingWorkbenchId = "facility.prep_bench";
+        public const string IronScaleRollingRecipeId = "recipe.scale_plate";
         public const int TutorialWorkbenchFuelCharges = 3;
 
         public static KomayamaQuestController Instance { get; private set; }
@@ -199,6 +199,7 @@ namespace KomayamaCraft
             yield return null;
             saveApplied = true;
             RefreshQuestLog();
+            KomayamaCraftBootReady.NotifyQuestLogReady();
 
             if (TryApplyQuestDebugBootstrap())
             {
@@ -1498,7 +1499,7 @@ namespace KomayamaCraft
             if (!IsObjectiveDone(quest, LeakPlaceBenchObjectiveId))
             {
                 int placed = GetCounter(quest, LeakPlaceBenchObjectiveId);
-                string placeLabel = "鉄鱗圧延台を作ろう　" + placed + "/1";
+                string placeLabel = "基礎加工台を作ろう　" + placed + "/1";
                 return FormatObjectiveLine(quest, LeakPlaceBenchObjectiveId, placeLabel);
             }
 
@@ -1510,7 +1511,7 @@ namespace KomayamaCraft
                 string pickupLabel =
                     "左クリックで鉄鱗を拾う　" + picked + "/" + leakPickupRequired;
                 string depositLabel =
-                    "右クリックで鉄鱗圧延加工台に投入　" +
+                    "右クリックで基礎加工台に投入　" +
                     deposited + "/" + leakDepositRequired;
                 return FormatObjectiveLine(quest, LeakPickupIronScaleObjectiveId, pickupLabel) +
                        "\n" +

@@ -80,6 +80,12 @@ public static class KomayamaGameDataValidationMenu
         for (int i = 0; i < guids.Length; i++)
         {
             string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+            // ProductionDataImporter と同様、退避／ソース CSV 由来は検証対象外
+            if (path.Contains("/_Obsolete/") || path.Contains("/Source/"))
+            {
+                continue;
+            }
+
             T asset = AssetDatabase.LoadAssetAtPath<T>(path);
             if (asset != null)
             {

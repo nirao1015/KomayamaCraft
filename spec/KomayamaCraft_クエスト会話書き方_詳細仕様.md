@@ -130,9 +130,9 @@ KomayamaCraft では `sceneName = komayama_craft_scene`。
 | 例 | ID |
 | --- | --- |
 | 鉄鱗 | `item.iron_scale` |
-| 鱗鉄板 | `item.iron_scale_plate` |
-| 鱗圧延作業台 | `facility.scale_rolling_workbench` |
-| 鱗鉄板レシピ | `recipe.iron_scale_rolling` |
+| 鱗鉄板 | `item.scale_plate` |
+| 基礎加工台 | `facility.prep_bench` |
+| 鱗鉄板レシピ | `recipe.scale_plate` |
 
 ---
 

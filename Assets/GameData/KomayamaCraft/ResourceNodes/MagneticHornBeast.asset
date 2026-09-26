@@ -15,11 +15,11 @@ MonoBehaviour:
   definitionId: resource_node.magnetic_horn_beast
   displayName: "\u78C1\u89D2\u7363"
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: da9f3837ae3ecfe45b19dd645138e8ac, type: 3}
   prefab: {fileID: 2340105980708305690, guid: 3ce4f023a2e9fe047b308d1f7c85a545, type: 3}
   kind: 0
   yields:
-  - item: {fileID: 11400000, guid: 2e7ca7a0f08f8e24f8acafd819711df9, type: 2}
+  - item: {fileID: 11400000, guid: fb5d7405e2ccdd5439801afa860bbb0c, type: 2}
     amount: 1
   gatheringSeconds: 0
   reharvestMode: 3

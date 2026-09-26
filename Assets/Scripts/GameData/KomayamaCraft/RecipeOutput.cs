@@ -49,9 +49,9 @@ public struct RecipeOutput
             errors.Add($"{ownerName}: Output amount must be greater than zero.");
         }
 
-        if (outputMode == RecipeOutputMode.WeightedSingle && weight <= 0)
+        if (outputMode == RecipeOutputMode.WeightedSingle && weight < 0)
         {
-            errors.Add($"{ownerName}: Weighted output weight must be greater than zero.");
+            errors.Add($"{ownerName}: Weighted output weight must not be negative.");
         }
     }
 }

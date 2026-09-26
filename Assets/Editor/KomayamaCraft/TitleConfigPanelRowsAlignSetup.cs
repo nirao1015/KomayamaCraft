@@ -53,6 +53,14 @@ public static class TitleConfigPanelRowsAlignSetup
             controlWidth: 280f,
             controlHeight: 48f);
 
+        AlignRowRoot(panel.Find("FrameRateRow") as RectTransform, keepY: true);
+        AlignLabeledControl(
+            panel.Find("FrameRateRow"),
+            "FrameRateLabelText",
+            "FrameRateDropdown",
+            controlWidth: 280f,
+            controlHeight: 48f);
+
         AlignRowRoot(panel.Find("PauseWhenInactiveRow") as RectTransform, keepY: true);
         AlignLabeledControl(
             panel.Find("PauseWhenInactiveRow"),

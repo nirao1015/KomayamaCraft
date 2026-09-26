@@ -12,10 +12,28 @@ namespace KomayamaCraft
     [DisallowMultipleComponent]
     public sealed class KomayamaFacilityWorldOverlay : MonoBehaviour
     {
+        public const int MaxIngredientDisplay = 6;
+
         private const string SortingLayer = "WorldOverlay";
         private const int SortBase = 40;
 
         [SerializeField] private TMP_FontAsset font;
+        [Tooltip("使用素材 1〜6 個用レイアウト。位置はコードで動かさない。")]
+        [SerializeField] private RectTransform[] ingredientLayouts = new RectTransform[MaxIngredientDisplay];
+
+        [Header("燃料インジケーター")]
+        [Tooltip("枠スプライト。未設定時は白四角。")]
+        [SerializeField] private Sprite fuelFrameSprite;
+        [Tooltip("残量バー。Fill Amount だけ実行時に更新する。")]
+        [SerializeField] private Sprite fuelBarSprite;
+        [Tooltip("ピクト。残量0で消灯。位置・大きさは Hierarchy で調整。")]
+        [SerializeField] private Sprite fuelPictSprite;
+        [Tooltip("背景。位置・大きさは Hierarchy で調整。")]
+        [SerializeField] private Sprite fuelBackgroundSprite;
+        [Tooltip("初回生成時の高さのみ。既存 Fuel 子の Rect はコードで上書きしない。")]
+        [SerializeField, Min(1f)] private float fuelMeterHeight = 96f;
+        [Tooltip("ON: 毎フレーム足跡右へ自動配置。OFF: Fuel の位置は Inspector／プレハブのまま（推奨）。")]
+        [SerializeField] private bool autoPlaceFuelByFootprint;
 
         private Transform overlayRoot;
         private Transform materialsRoot;
@@ -24,10 +42,13 @@ namespace KomayamaCraft
         private Image progressFill;
         private Image productIcon;
         private TextMeshProUGUI productCountText;
+        private Image fuelBackground;
         private Image fuelFill;
+        private Image fuelFrame;
+        private Image fuelPict;
         private GameObject fuelObject;
 
-        private readonly List<MaterialSlotView> materialSlots = new();
+        private MaterialSlotView[][] ingredientSlotsByCount;
         private Sprite whiteSprite;
         private Texture2D whiteTexture;
         private Sprite circleSprite;
@@ -40,6 +61,7 @@ namespace KomayamaCraft
         private RecipeDefinition lastRecipe;
         private int lastMaterialSignature = int.MinValue;
         private int lastPlannedOutput = int.MinValue;
+        private int lastActiveLayoutCount = -1;
 
         private sealed class MaterialSlotView
         {
@@ -67,11 +89,16 @@ namespace KomayamaCraft
 
             if (overlayRoot == null)
             {
-                materialSlots.Clear();
+                ingredientSlotsByCount = null;
+                lastActiveLayoutCount = -1;
+                lastMaterialSignature = int.MinValue;
                 progressFill = null;
                 productIcon = null;
                 productCountText = null;
+                fuelBackground = null;
                 fuelFill = null;
+                fuelFrame = null;
+                fuelPict = null;
                 fuelObject = null;
                 materialsRoot = null;
                 productionRoot = null;
@@ -101,6 +128,13 @@ namespace KomayamaCraft
                 Transform found = overlayRoot.Find("Fuel");
                 fuelRoot = found;
                 fuelObject = found != null ? found.gameObject : null;
+            }
+
+            BindFuelImages();
+            // 子が無いときだけ初期生成。既にある見た目・位置は触らない。
+            if (fuelRoot != null && fuelRoot.Find("FuelBk") == null)
+            {
+                BuildFuelMeterVisuals();
             }
 
             if (materialsRoot == null || productionRoot == null)
@@ -158,14 +192,9 @@ namespace KomayamaCraft
                 fuelObject.SetActive(usesFuel);
             }
 
-            if (usesFuel && fuelFill != null)
+            if (usesFuel)
             {
-                int fuel = facility.FuelAmount;
-                int cap = Mathf.Max(1, facility.FuelCapacity);
-                fuelFill.fillAmount = Mathf.Clamp01(fuel / (float)cap);
-                fuelFill.color = fuelFill.fillAmount > 0.25f
-                    ? new Color(1f, 0.85f, 0.15f, 1f)
-                    : new Color(1f, 0.3f, 0.2f, 1f);
+                RefreshFuelMeter(facility);
             }
 
             if (!hasRecipe)
@@ -187,11 +216,13 @@ namespace KomayamaCraft
                 return;
             }
 
-            int needed = recipe != null ? recipe.Inputs.Count : 0;
-            int signature = needed;
+            EnsureIngredientLayouts();
+
+            // 燃料は使用素材一覧に含めない。最大6種・固定レイアウト切替。
+            var inputs = new List<ItemAmount>(MaxIngredientDisplay);
             if (recipe != null)
             {
-                for (int i = 0; i < recipe.Inputs.Count; i++)
+                for (int i = 0; i < recipe.Inputs.Count && inputs.Count < MaxIngredientDisplay; i++)
                 {
                     ItemAmount req = recipe.Inputs[i];
                     if (req.Item == null)
@@ -199,45 +230,51 @@ namespace KomayamaCraft
                         continue;
                     }
 
-                    signature = signature * 31 + facility.GetInputAmount(req.Item);
-                    signature = signature * 31 + req.Amount;
-                    signature = signature * 31 + req.Item.GetInstanceID();
+                    inputs.Add(req);
                 }
             }
 
-            bool rebuild = materialSlots.Count != needed || signature != lastMaterialSignature;
+            int count = inputs.Count;
+            int signature = count;
+            for (int i = 0; i < inputs.Count; i++)
+            {
+                ItemAmount req = inputs[i];
+                signature = signature * 31 + facility.GetInputAmount(req.Item);
+                signature = signature * 31 + req.Amount;
+                signature = signature * 31 + req.Item.GetInstanceID();
+            }
+
+            if (signature == lastMaterialSignature && count == lastActiveLayoutCount)
+            {
+                // 在庫変化が無いときはスキップ。signature に have を含めているのでここに来るのは同一内容。
+                return;
+            }
+
+            // 在庫だけ変わった場合も Count 更新が必要なので signature 不一致で続行。
             lastMaterialSignature = signature;
-            if (rebuild)
-            {
-                for (int i = materialsRoot.childCount - 1; i >= 0; i--)
-                {
-                    DestroyImmediate(materialsRoot.GetChild(i).gameObject);
-                }
+            lastActiveLayoutCount = count;
 
-                materialSlots.Clear();
-                EnsureMaterialSlotCount(needed);
-                LayoutMaterialSlots(needed);
+            SetIngredientLayoutActive(count);
+            if (count <= 0 ||
+                ingredientSlotsByCount == null ||
+                ingredientSlotsByCount[count - 1] == null)
+            {
+                return;
             }
 
-            for (int i = 0; i < materialSlots.Count; i++)
+            MaterialSlotView[] slots = ingredientSlotsByCount[count - 1];
+            for (int i = 0; i < slots.Length; i++)
             {
-                MaterialSlotView slot = materialSlots[i];
+                MaterialSlotView slot = slots[i];
                 if (slot == null || slot.Root == null)
                 {
                     continue;
                 }
 
-                bool show = recipe != null && i < recipe.Inputs.Count && recipe.Inputs[i].Item != null;
-                slot.Root.SetActive(show);
-                if (!show)
-                {
-                    continue;
-                }
-
-                ItemAmount req = recipe.Inputs[i];
+                ItemAmount req = inputs[i];
                 int have = facility.GetInputAmount(req.Item);
                 int need = Mathf.Max(1, req.Amount);
-                if (rebuild && slot.Icon != null)
+                if (slot.Icon != null)
                 {
                     if (req.Item.Icon != null)
                     {
@@ -258,6 +295,141 @@ namespace KomayamaCraft
                         ? new Color(0.75f, 1f, 0.75f, 1f)
                         : Color.white;
                 }
+            }
+        }
+
+        private void EnsureIngredientLayouts()
+        {
+            if (materialsRoot == null)
+            {
+                return;
+            }
+
+            if (ingredientLayouts == null || ingredientLayouts.Length != MaxIngredientDisplay)
+            {
+                ingredientLayouts = new RectTransform[MaxIngredientDisplay];
+            }
+
+            if (ingredientSlotsByCount == null ||
+                ingredientSlotsByCount.Length != MaxIngredientDisplay)
+            {
+                ingredientSlotsByCount = new MaterialSlotView[MaxIngredientDisplay][];
+            }
+
+            EnsureSprites();
+
+            for (int count = 1; count <= MaxIngredientDisplay; count++)
+            {
+                int layoutIndex = count - 1;
+                if (ingredientLayouts[layoutIndex] == null)
+                {
+                    Transform found = materialsRoot.Find($"Layout_{count}");
+                    if (found != null)
+                    {
+                        ingredientLayouts[layoutIndex] = found as RectTransform;
+                    }
+                    else
+                    {
+                        ingredientLayouts[layoutIndex] = CreateDefaultIngredientLayout(count);
+                    }
+                }
+
+                if (ingredientSlotsByCount[layoutIndex] == null)
+                {
+                    ingredientSlotsByCount[layoutIndex] =
+                        CacheWorldIngredientSlots(ingredientLayouts[layoutIndex], count);
+                }
+
+                if (ingredientLayouts[layoutIndex] != null)
+                {
+                    ingredientLayouts[layoutIndex].gameObject.SetActive(false);
+                }
+            }
+        }
+
+        private RectTransform CreateDefaultIngredientLayout(int count)
+        {
+            GameObject layoutGo = CreateChild(materialsRoot, $"Layout_{count}");
+            RectTransform layout = layoutGo.GetComponent<RectTransform>();
+            layout.anchorMin = new Vector2(0.5f, 0.5f);
+            layout.anchorMax = new Vector2(0.5f, 0.5f);
+            layout.pivot = new Vector2(0.5f, 0.5f);
+            layout.sizeDelta = new Vector2(360f, 60f);
+            layout.anchoredPosition = Vector2.zero;
+
+            // 初期配置のみ。以降は位置をコードで動かさない。
+            const float spacing = 58f;
+            float startX = -0.5f * (count - 1) * spacing;
+            for (int i = 0; i < count; i++)
+            {
+                GameObject slotGo = CreateChild(layout, $"Slot_{i}");
+                RectTransform slotRt = slotGo.GetComponent<RectTransform>();
+                slotRt.anchoredPosition = new Vector2(startX + i * spacing, 0f);
+                slotRt.sizeDelta = new Vector2(52f, 52f);
+
+                Image frame = CreateUiImage(slotGo.transform, "Frame", whiteSprite);
+                SetRect(frame.rectTransform, Vector2.zero, new Vector2(52f, 52f));
+                frame.color = new Color(0.12f, 0.18f, 0.28f, 0.92f);
+
+                Image icon = CreateUiImage(slotGo.transform, "Icon", whiteSprite);
+                SetRect(icon.rectTransform, Vector2.zero, new Vector2(40f, 40f));
+                icon.preserveAspect = true;
+
+                TextMeshProUGUI countText = CreateTmp(slotGo.transform, "Count", 16f);
+                SetRect(countText.rectTransform, new Vector2(0f, -8f), new Vector2(52f, 24f));
+                countText.alignment = TextAlignmentOptions.Center;
+                countText.fontStyle = FontStyles.Bold;
+                countText.outlineWidth = 0.22f;
+                countText.outlineColor = new Color32(0, 0, 0, 230);
+            }
+
+            return layout;
+        }
+
+        private static MaterialSlotView[] CacheWorldIngredientSlots(RectTransform layout, int count)
+        {
+            var slots = new MaterialSlotView[count];
+            if (layout == null)
+            {
+                return slots;
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                Transform slotTf = layout.Find($"Slot_{i}");
+                if (slotTf == null)
+                {
+                    continue;
+                }
+
+                Transform iconTf = slotTf.Find("Icon");
+                Transform countTf = slotTf.Find("Count");
+                slots[i] = new MaterialSlotView
+                {
+                    Root = slotTf.gameObject,
+                    Icon = iconTf != null ? iconTf.GetComponent<Image>() : null,
+                    Count = countTf != null ? countTf.GetComponent<TextMeshProUGUI>() : null
+                };
+            }
+
+            return slots;
+        }
+
+        private void SetIngredientLayoutActive(int count)
+        {
+            if (ingredientLayouts == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < ingredientLayouts.Length; i++)
+            {
+                if (ingredientLayouts[i] == null)
+                {
+                    continue;
+                }
+
+                ingredientLayouts[i].gameObject.SetActive(count > 0 && i == count - 1);
             }
         }
 
@@ -369,18 +541,23 @@ namespace KomayamaCraft
                 return;
             }
 
-            materialSlots.Clear();
+            ingredientSlotsByCount = null;
+            lastActiveLayoutCount = -1;
+            lastMaterialSignature = int.MinValue;
             progressFill = null;
             productIcon = null;
             productCountText = null;
+            fuelBackground = null;
             fuelFill = null;
+            fuelFrame = null;
+            fuelPict = null;
             fuelObject = null;
             materialsRoot = null;
             productionRoot = null;
             fuelRoot = null;
             lastRecipe = null;
 
-            // 旧 SpriteRenderer 版のみ除去。FacilityWorldHud は下で作り直す。
+            // 旧 SpriteRenderer 版のみ除去。
             for (int i = transform.childCount - 1; i >= 0; i--)
             {
                 Transform child = transform.GetChild(i);
@@ -390,10 +567,23 @@ namespace KomayamaCraft
                 }
             }
 
+            // プレハブに置いた FacilityWorldHud は再利用（燃料の位置・見た目を後から触れるため）。
             Transform existingHud = transform.Find("FacilityWorldHud");
             if (existingHud != null)
             {
-                DestroyImmediate(existingHud.gameObject);
+                overlayRoot = existingHud;
+                materialsRoot = existingHud.Find("Materials");
+                productionRoot = existingHud.Find("Production");
+                fuelRoot = existingHud.Find("Fuel");
+                fuelObject = fuelRoot != null ? fuelRoot.gameObject : null;
+                BindFuelImages();
+                if (fuelRoot != null && fuelRoot.Find("FuelBk") == null)
+                {
+                    BuildFuelMeterVisuals();
+                }
+
+                ApplyFuelSpritesToExisting();
+                return;
             }
 
             GameObject rootGo = new GameObject("FacilityWorldHud");
@@ -415,6 +605,10 @@ namespace KomayamaCraft
             materialsRoot = CreateChild(rootGo.transform, "Materials").transform;
             productionRoot = CreateChild(rootGo.transform, "Production").transform;
             fuelRoot = CreateChild(rootGo.transform, "Fuel").transform;
+            // 初回のみ既定位置。以降は autoPlaceFuelByFootprint が OFF なら触らない。
+            float rightWu = cachedHalfW > 0.01f ? cachedHalfW + 0.55f : 1.05f;
+            fuelRoot.GetComponent<RectTransform>().anchoredPosition =
+                new Vector2(rightWu * 100f, 0f);
 
             // 中央：円形リング残り時間＋成果アイコン＋予定個数
             Image progressBack = CreateUiImage(productionRoot, "ProgressBack", ringSprite);
@@ -442,78 +636,211 @@ namespace KomayamaCraft
             productCountText.outlineWidth = 0.2f;
             productCountText.outlineColor = new Color32(0, 0, 0, 220);
 
-            // 右：燃料メーター
+            // 右：燃料メーター（背景・バー・枠・ピクト）
             fuelObject = fuelRoot.gameObject;
-            Image fuelFrame = CreateUiImage(fuelRoot, "FuelFrame", whiteSprite);
-            SetRect(fuelFrame.rectTransform, Vector2.zero, new Vector2(22f, 70f));
-            fuelFrame.color = new Color(0.12f, 0.12f, 0.12f, 0.95f);
+            BuildFuelMeterVisuals();
+        }
 
-            fuelFill = CreateUiImage(fuelRoot, "FuelFill", whiteSprite);
-            SetRect(fuelFill.rectTransform, Vector2.zero, new Vector2(16f, 62f));
+        private void BindFuelImages()
+        {
+            if (fuelRoot == null)
+            {
+                return;
+            }
+
+            if (fuelBackground == null)
+            {
+                Transform t = fuelRoot.Find("FuelBk");
+                if (t != null)
+                {
+                    fuelBackground = t.GetComponent<Image>();
+                }
+            }
+
+            if (fuelFill == null)
+            {
+                Transform t = fuelRoot.Find("FuelFill");
+                if (t != null)
+                {
+                    fuelFill = t.GetComponent<Image>();
+                }
+            }
+
+            if (fuelFrame == null)
+            {
+                Transform t = fuelRoot.Find("FuelFrame");
+                if (t != null)
+                {
+                    fuelFrame = t.GetComponent<Image>();
+                }
+            }
+
+            if (fuelPict == null)
+            {
+                Transform t = fuelRoot.Find("FuelPict");
+                if (t != null)
+                {
+                    fuelPict = t.GetComponent<Image>();
+                }
+            }
+        }
+
+        private void BuildFuelMeterVisuals()
+        {
+            if (fuelRoot == null)
+            {
+                return;
+            }
+
+            // 既に本構成がある場合は位置・サイズを保持（後からユーザーが調整する想定）。
+            if (fuelRoot.Find("FuelBk") != null)
+            {
+                BindFuelImages();
+                ApplyFuelSpritesToExisting();
+                return;
+            }
+
+            fuelBackground = null;
+            fuelFill = null;
+            fuelFrame = null;
+            fuelPict = null;
+
+            Vector2 frameSize = ResolveFuelMeterSize();
+            Vector2 barSize = ResolveFuelBarSize(frameSize);
+            Vector2 pictSize = ResolveFuelPictSize(frameSize);
+
+            Sprite bkSprite = fuelBackgroundSprite != null ? fuelBackgroundSprite : whiteSprite;
+            Sprite barSprite = fuelBarSprite != null ? fuelBarSprite : whiteSprite;
+            Sprite frameSprite = fuelFrameSprite != null ? fuelFrameSprite : whiteSprite;
+            Sprite pictSprite = fuelPictSprite != null ? fuelPictSprite : whiteSprite;
+
+            fuelBackground = CreateUiImage(fuelRoot, "FuelBk", bkSprite);
+            SetRect(fuelBackground.rectTransform, Vector2.zero, frameSize);
+            fuelBackground.preserveAspect = true;
+            fuelBackground.color = Color.white;
+            fuelBackground.raycastTarget = false;
+
+            fuelFill = CreateUiImage(fuelRoot, "FuelFill", barSprite);
+            SetRect(fuelFill.rectTransform, Vector2.zero, barSize);
+            fuelFill.preserveAspect = true;
             fuelFill.type = Image.Type.Filled;
             fuelFill.fillMethod = Image.FillMethod.Vertical;
             fuelFill.fillOrigin = (int)Image.OriginVertical.Bottom;
             fuelFill.fillAmount = 0f;
-            fuelFill.color = new Color(1f, 0.85f, 0.15f, 1f);
+            fuelFill.color = Color.white;
+            fuelFill.raycastTarget = false;
 
-            Image bolt = CreateUiImage(fuelRoot, "Bolt", whiteSprite);
-            SetRect(bolt.rectTransform, Vector2.zero, new Vector2(10f, 16f));
-            bolt.color = new Color(1f, 1f, 0.4f, 1f);
+            fuelFrame = CreateUiImage(fuelRoot, "FuelFrame", frameSprite);
+            SetRect(fuelFrame.rectTransform, Vector2.zero, frameSize);
+            fuelFrame.preserveAspect = true;
+            fuelFrame.color = Color.white;
+            fuelFrame.raycastTarget = false;
+
+            fuelPict = CreateUiImage(fuelRoot, "FuelPict", pictSprite);
+            SetRect(fuelPict.rectTransform, new Vector2(0f, frameSize.y * 0.28f), pictSize);
+            fuelPict.preserveAspect = true;
+            fuelPict.color = Color.white;
+            fuelPict.enabled = false;
+            fuelPict.raycastTarget = false;
         }
 
-        private void EnsureMaterialSlotCount(int count)
+        private void ApplyFuelSpritesToExisting()
         {
-            if (materialsRoot == null)
+            if (fuelBackground != null && fuelBackgroundSprite != null)
             {
-                return;
+                fuelBackground.sprite = fuelBackgroundSprite;
             }
 
-            while (materialSlots.Count < count)
+            if (fuelFill != null && fuelBarSprite != null)
             {
-                int index = materialSlots.Count;
-                GameObject slotGo = CreateChild(materialsRoot, $"Mat_{index}");
-                Image frame = CreateUiImage(slotGo.transform, "Frame", whiteSprite);
-                SetRect(frame.rectTransform, Vector2.zero, new Vector2(52f, 52f));
-                frame.color = new Color(0.12f, 0.18f, 0.28f, 0.92f);
+                fuelFill.sprite = fuelBarSprite;
+                fuelFill.type = Image.Type.Filled;
+                fuelFill.fillMethod = Image.FillMethod.Vertical;
+                fuelFill.fillOrigin = (int)Image.OriginVertical.Bottom;
+            }
 
-                Image icon = CreateUiImage(slotGo.transform, "Icon", whiteSprite);
-                SetRect(icon.rectTransform, Vector2.zero, new Vector2(40f, 40f));
-                icon.preserveAspect = true;
+            if (fuelFrame != null && fuelFrameSprite != null)
+            {
+                fuelFrame.sprite = fuelFrameSprite;
+            }
 
-                TextMeshProUGUI countText = CreateTmp(slotGo.transform, "Count", 16f);
-                SetRect(countText.rectTransform, new Vector2(0f, -8f), new Vector2(52f, 24f));
-                countText.alignment = TextAlignmentOptions.Center;
-                countText.fontStyle = FontStyles.Bold;
-                countText.outlineWidth = 0.22f;
-                countText.outlineColor = new Color32(0, 0, 0, 230);
-
-                materialSlots.Add(new MaterialSlotView
-                {
-                    Root = slotGo,
-                    Icon = icon,
-                    Count = countText
-                });
+            if (fuelPict != null && fuelPictSprite != null)
+            {
+                fuelPict.sprite = fuelPictSprite;
             }
         }
 
-        private void LayoutMaterialSlots(int count)
+        private Vector2 ResolveFuelMeterSize()
         {
-            if (count <= 0)
+            float height = Mathf.Max(1f, fuelMeterHeight);
+            Sprite refSprite = fuelFrameSprite != null
+                ? fuelFrameSprite
+                : fuelBackgroundSprite;
+            if (refSprite != null && refSprite.rect.height > 0.01f)
             {
-                return;
+                float aspect = refSprite.rect.width / refSprite.rect.height;
+                return new Vector2(height * aspect, height);
             }
 
-            const float spacing = 58f;
-            float startX = -0.5f * (count - 1) * spacing;
-            for (int i = 0; i < count; i++)
-            {
-                if (i >= materialSlots.Count || materialSlots[i].Root == null)
-                {
-                    continue;
-                }
+            return new Vector2(height * 0.56f, height);
+        }
 
-                RectTransform rt = materialSlots[i].Root.GetComponent<RectTransform>();
-                rt.anchoredPosition = new Vector2(startX + i * spacing, 0f);
+        private Vector2 ResolveFuelBarSize(Vector2 frameSize)
+        {
+            if (fuelBarSprite == null || fuelBarSprite.rect.height < 0.01f)
+            {
+                return new Vector2(frameSize.x * 0.72f, frameSize.y * 0.88f);
+            }
+
+            float barAspect = fuelBarSprite.rect.width / fuelBarSprite.rect.height;
+            // 枠内に収まるよう高さ基準で合わせる
+            float barHeight = frameSize.y * 0.9f;
+            float barWidth = barHeight * barAspect;
+            if (barWidth > frameSize.x * 0.9f)
+            {
+                barWidth = frameSize.x * 0.9f;
+                barHeight = barWidth / barAspect;
+            }
+
+            return new Vector2(barWidth, barHeight);
+        }
+
+        private Vector2 ResolveFuelPictSize(Vector2 frameSize)
+        {
+            float side = frameSize.x * 0.55f;
+            return new Vector2(side, side);
+        }
+
+        private void RefreshFuelMeter(KomayamaProcessingFacility facility)
+        {
+            BindFuelImages();
+            int fuel = Mathf.Max(0, facility.FuelAmount);
+            int cap = Mathf.Max(1, facility.FuelCapacity);
+            float ratio = Mathf.Clamp01(fuel / (float)cap);
+
+            if (fuelFill != null)
+            {
+                // 使用のたび（残量／容量）の割合でバーを減らす
+                fuelFill.fillAmount = ratio;
+                fuelFill.color = Color.white;
+            }
+
+            if (fuelPict != null)
+            {
+                // 空のとき消灯
+                bool lit = fuel > 0;
+                fuelPict.enabled = lit;
+                fuelPict.color = lit ? Color.white : new Color(1f, 1f, 1f, 0f);
+            }
+
+            if (fuelBackground != null)
+            {
+                fuelBackground.color = Color.white;
+            }
+
+            if (fuelFrame != null)
+            {
+                fuelFrame.color = Color.white;
             }
         }
 
@@ -543,7 +870,7 @@ namespace KomayamaCraft
                 productionRoot.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             }
 
-            if (fuelRoot != null)
+            if (fuelRoot != null && autoPlaceFuelByFootprint)
             {
                 float rightWu = cachedHalfW + 0.55f;
                 fuelRoot.GetComponent<RectTransform>().anchoredPosition =

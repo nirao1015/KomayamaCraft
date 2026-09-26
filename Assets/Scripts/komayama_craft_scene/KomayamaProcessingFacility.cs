@@ -150,6 +150,13 @@ namespace KomayamaCraft
                 return false;
             }
 
+            KomayamaProgressService progress = KomayamaProgressService.Instance;
+            if (progress != null && !progress.CanUseRecipe(selected))
+            {
+                failureReason = "未解放のレシピです";
+                return false;
+            }
+
             if (recipe == selected)
             {
                 RecipeSelected?.Invoke(this, selected);
@@ -226,7 +233,7 @@ namespace KomayamaCraft
             return TrySelectRecipe(definition.SupportedRecipes[next], out failureReason);
         }
 
-        /// <summary>メニュー「排出」。停止中は素材＋燃料、生産中は素材のみ（進行破棄・燃料残留）。</summary>
+        /// <summary>メニュー「排出」。停止中は素材＋燃料、生産中は素材のみ（進行破棄・燃料残留）。排出後はレシピ未選択。</summary>
         public void EjectContents()
         {
             bool processing = state == KomayamaFacilityState.Processing;
@@ -242,16 +249,8 @@ namespace KomayamaCraft
             }
 
             progressSeconds = 0f;
-            if (recipe == null)
-            {
-                state = KomayamaFacilityState.Idle;
-            }
-            else
-            {
-                state = KomayamaFacilityState.WaitingForInput;
-                TryStartProcessing();
-            }
-
+            recipe = null;
+            state = KomayamaFacilityState.Idle;
             NotifyStateChanged();
         }
 

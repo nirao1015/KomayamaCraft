@@ -11,6 +11,8 @@
   - 永続ID：`spec/データ基盤_永続ID規約.md`
   - Unityレイヤー：`spec/Unity_初期プロジェクト設定.md`
   - クエストログ表示：`spec/KomayamaCraft_クエストログ表示_詳細仕様.md`
+  - 経験値・レベル・SP：`spec/KomayamaCraft_経験値レベル_詳細仕様.md`
+  - 生産レシピ・施設データ：`spec/KomayamaCraft_生産レシピデータ_詳細仕様.md`
   - 建設メニュー（menu建設）：`spec/KomayamaCraft_建設メニュー_詳細仕様.md`
   - メインメニュー（menu設定）：`spec/KomayamaCraft_メインメニュー_詳細仕様.md`（設定 UI はタイトルと共通プレハブ。設定 SE は `ConfigSePlayer`／クラフト独自なし。メインメニュー開閉・セーブ導線 SE のみ `KomayamaCraftSeManager`）
   - タイトル画面：`spec/KomayamaCraft_タイトル画面_詳細仕様.md`（§4 ConfigCanvas 共通プレハブ／§10 SE）
@@ -20,6 +22,8 @@
   - NPC インタラクトと初期納品：`spec/KomayamaCraft_NPCインタラクトと初期納品_詳細仕様.md`
   - 宇宙船修理演出：`spec/KomayamaCraft_宇宙船修理演出_詳細仕様.md`
   - ゲーム内会話オーバーレイ：`spec/KomayamaCraft_ゲーム内会話オーバーレイ_詳細仕様.md`
+  - 地図演出（アンビエント）：`spec/KomayamaCraft_地図演出コントローラー_詳細仕様.md`（**§8 パフォーマンス保留**：「重い」と言われたらここ）
+  - **作業引継（2026-09-26）**：`spec/KomayamaCraft_作業引継_2026-09-26.md`（新チャット入口）
 - 値の書き方
   - **確定**：口頭または文書で明示された値。
   - **現行値**：シーンまたはデータの Inspector に入っている値。確定と違う場合は現行値を優先して実装を読む。
@@ -181,6 +185,8 @@
 - ドロップ禁止は `World / DropRestrictionGrid / NoDropPaint`。`WorldLayers` の下には置かない。
 - `NoDropPaint` のセルは **0.5 × 0.5**。Scene View は半透明。プレイ中はデバッグ表示がオンのときだけ同じ表示。
 - 建設不可塗りは別。ドロップ禁止と共有しない。セル辺長は建設側も **0.5**（`KCBuildSettings.blockSize`／`BuildRestrictionGrid`）。詳細は建設メニュー仕様。
+- **塗り作業方針（2026-09-26）**：`Layer_Sea` 外接＋外周 **10 マス**まで両グリッド全面塗り済み。許可範囲はユーザーが Scene で消す。
+- **Play 開始**：`KomayamaRestrictionGridBoot`（`World`）が両 RestrictionGrid と直下 Paint を強制アクティブ（編集中 Disable 対策）。
 
 ---
 
@@ -224,13 +230,32 @@
 | Sorting Layer | ヒエラルキー親 | 載せるもの |
 | --- | --- | --- |
 | `WorldSea` | `World/WorldLayers/Layer_Sea` | 海 |
-| `WorldContinent` | `…/Layer_Continent` | 地形 |
-| `WorldObject` | `…/Layer_Objects` | 採集発生点・納入ゴミ箱・宇宙船など（施設以外）。**Sprite の既定マテリアルは `SpriteOutline`**。適用は不足時のみ（毎フレーム全上書きしない）。詳細・Preserve 一覧は `spec/KomayamaCraft_描画バンド整理_詳細仕様.md` §2.3〜§2.4 |
+| `WorldContinent` | `…/Layer_Continent` | 地形（`Region_*` 地域マス）＋バイオーム／TMP オーバーレイフォルダ |
+| `WorldObject` | `…/Layer_Objects` | 採集発生点・納入ゴミ箱・蓄電クラゲ・宇宙船など（施設以外）。**Sprite の既定マテリアルは `SpriteOutline`**。適用は不足時のみ（毎フレーム全上書きしない）。詳細・Preserve 一覧は `spec/KomayamaCraft_描画バンド整理_詳細仕様.md` §2.3〜§2.4 |
 | `WorldFacility` | `World/Layer_Facilities` | 仮組・完成施設・保管 |
 | `WorldEffect` | `…/Layer_Effects` | エフェクト |
 | `WorldDrop` | `World/Layer_Drops` | 地面ドロップ |
 | `WorldOverlay` | 制限グリッド・建設プレビュー・施設ワールド HUD | ワールドに張り付く補助表示 |
 | `WorldMouse` | `World/Layer_Mouse` | 手持ちアイコン・狐 |
+
+#### Layer_Continent バイオーム／TMP フォルダ（確定）
+
+| 項目 | 内容 |
+| --- | --- |
+| 配置 | 本線 `World/WorldLayers/Layer_Continent` **直下**。既存 `Region_*` は残す |
+| 初期フォルダ | `ステップ`／`サバンナ`／`砂漠`／`沼`／`海岸`／`キノコ`／`雪山`／`浮島`／`断層`／`TMP1`／`TMP2` |
+| 画像アセット | `Assets/Sprites/terrain/<フォルダ名>/`。未紐づけ PNG は子オブジェクト名 **`OJ`**（重複は `OJ (1)`…）で配置。既に紐づいているアセットは飛ばす |
+| 環境デカル（地表と別） | 周期透過・フリップブック向けは **`Amb_*`** 接頭辞＋`KCContinentAmbientSprite`（OJ／`KCContinentOverlaySprite` と混在させない）。同じく Layer_Continent 配下なので WASD 追従する |
+| 地図 FX（Amb と別） | 雲影・胞子雲・間欠泉・砂漠砂嵐・海上風筋・**西海岸白波**などは **`Layer_Effects`**（`WorldEffect`）。`KomayamaMapAmbienceController` 駆動。詳細は地図演出コントローラー仕様 |
+| WASD 追従 | カメラ移動のため、`Layer_Continent` 配下にあれば地域マスと同じく追従する。**フォルダ名はコードに固定しない**（改名しても可）。Sorting は `KomayamaWorldLayerDrawOrder` の `Layer_Continent` 規則が配下全体に効く |
+| 画像コンポーネント | 地表: `KCContinentOverlaySprite`。環境小物: `KCContinentAmbientSprite`（地域マスの `KCWorldRegionCell` とは**別**） |
+| 自動サイズ（OJ） | **既定 OFF**（`autoFitToDisplaySize`）。OFF 時は Scale／回転を自由編集（矩形ツール可）。ON または ContextMenu「Fit To Display Size Now」のときだけ枠 **19.2 × 10.8**（変更可）へ合わせる |
+| 自動サイズ（Amb） | **既定 ON**・枠は小さめ（例 1.5×1.5）。`preserveAspect` で contain／引き伸ばしを選択可 |
+| Amb 周期透過 | `pulseAlpha`＋周期秒＋αmin/max。ゲーム時間連動は `useGameClock`（ポーズで止まる） |
+| Amb フリップブック | 任意で `flipbookFrames`（未設定なら単枚のまま） |
+| アスペクト | 枠フィット時のみ `preserveAspect` が効く。ON=contain／OFF=引き伸ばし |
+| 位置・回転 | **自動調整しない** |
+| 見本 | `ステップ/見本` 等。ベース地形は各フォルダの `ベース`。環境サンプルは `沼/Amb_heat_sac_grass_01` 等 |
 
 #### 画面 UI 帯（Screen Space - Camera・シーン直下）
 
@@ -248,17 +273,52 @@
 
 | 項目 | 現行値 |
 | --- | --- |
-| WASD速度 | 24（`KCConfigValues / ワールド設定`） |
+| WASD横速度 | 24（`KCConfigValues`／`KCWorldSettings.wasdMoveSpeedX`。ワールド単位／秒） |
+| WASD縦速度 | 24（`wasdMoveSpeedY`。大陸は横が広いので、横断時間を寄せたいときは縦を上げる等で調整） |
+| WASD斜め | 下表「斜め移動」 |
+| 画面端スクロール | 任意（`enableEdgeScroll`）。有効時は WASD と同じ速度モデルで合成 |
 | ホイール上 | ズームイン |
 | ホイール下 | ズームアウト |
 | 1ノッチ | 直交サイズ 0.6 |
 | ズーム下限 | 5（`KCConfigValues / ワールド設定`。カメラ演出もここを正本） |
 | ズーム上限 | 9（同上） |
 | 1倍 | 5.4 |
-| 空ドラッグ移動 | イベント中以外。何もない位置を左ドラッグすると、下の土地を引っ張るようにカメラが逆向きへ動く。強さは `KCConfigValues / ワールド設定` の引っ張り強さ（現行 1） |
+| 空ドラッグ移動 | イベント中以外。何もない位置を左ドラッグすると、下の土地を引っ張るようにカメラが逆向きへ動く。強さは `KCConfigValues / ワールド設定` の引っ張り強さ（現行 1）。**縦横同一のドラッグ距離**（軸別 WASD 速度は使わない） |
 | 移動範囲 | 大陸の内側。現行クランプ (-55.5, -34.6) 〜 (40.5, 41.0)。1倍画面の半分を大陸端から引いた値 |
-| 段階開放 | 初期＋**3回**拡大（計4段階）。カメラ**中心** Clamp。未開放外は止めのみ（霧なし）。クエスト連動は後続。デバッグは `KomayamaCraftDebugManager` の「地域開放（カメラ）」0〜4 | 確定（仮範囲値は Inspector） |
+| 段階開放（Tier 相当） | **カメラ移動範囲の段階**で実装する（`KomayamaRegion`／Tier2〜4Region／PhaseHazard オブジェクトは**使わない・削除済み**）。デバッグ／登録は **0〜10**（**0=全開放**、**1=ゲーム開始の初期**、2〜10=段階拡大）。進行用配列は初期〜計10枠（Inspector。未設定枠は全開放範囲で埋める）。カメラ**中心** Clamp。未開放外は止めのみ（霧なし）。クエスト連動は後続。デバッグは `KomayamaCraftDebugManager` の「地域開放（カメラ）」 | 確定（仮範囲値は Inspector） |
 | セーブ | カメラ位置（x, y）とズーム（orthographicSize）を保存する。`CameraViewSaveDto`。旧セーブに無い場合は上書きしない | 確定 |
+
+#### WASD／端スクロールの速度モデル（確定）
+
+| 項目 | 内容 |
+| --- | --- |
+| 正本 | `KCWorldSettings`（`KCConfigValues`）。カメラ側フォールバックは `moveSpeedX`／`moveSpeedY` |
+| 直交 | 左右＝横速度のみ、上下＝縦速度のみ |
+| 斜め | 入力ベクトルを**正規化**した単位方向 `(ux, uy)` に対し、変位 `=(ux×横速度, uy×縦速度)×Δt`。両軸にフル速度を同時加算しない（√2 倍速を避ける） |
+| 近似 | 斜めのユークリッド速さは `√((ux·sx)²+(uy·sy)²)`。45°かつ sx=sy なら直交とほぼ同じ速さ |
+| 変更しない | マップドラッグ引っ張り、ズーム、Clamp 範囲の式（速度とは独立） |
+
+### 5.3.1 論理船と旧ワールドオブジェクト
+
+| 項目 | 内容 |
+| --- | --- |
+| 論理船 | `World/CrashedShip`（`KomayamaShip`）。見た目は `Layer_Objects/宇宙船`。HUD／脱出／クエスト等が参照。**残す** |
+| 削除済み | `FieldBackground`／`Tier2Region`／`Tier3Region`／`Tier4Region`／`PhaseHazard`（地域コライダー解放は採用しない） |
+
+### 5.3.2 Layer_Objects 採集発生点（クリック採集）
+
+鉄鱗獣と同系統（`KomayamaResourceNode`＋子 `見た目`＋`KCSpriteFrame`、Layer=`NativeLife`）。
+
+| オブジェクト名 | place スプライト | ResourceNode 定義 | 産出（概要） |
+| --- | --- | --- | --- |
+| 鉄鱗獣 | `place_鉄鱗獣` | `IronScaleBeast` | 鉄鱗 |
+| 熱嚢草 | （既存） | `HeatSacHerb` | 熱嚢 |
+| 磁角獣 | `place_磁角獣` | `MagneticHornBeast` | 磁角 |
+| 星紋結晶 | `place_星紋結晶` | `StarCrestCrystal` | 星紋晶 |
+| 位相断層 | `place_位相断層` | `PhaseShard` | 位相片 |
+| 軌道繭 | `place_軌道繭` | `OrbitCocoon` | 軌道絹 |
+
+旧 `World` 直下の同種オブジェクトは削除し、`Layer_Objects` へ置き直済み。枠サイズは配置値（鉄鱗獣系は現行 **4×4** など。製品固定ではない）。
 
 ### 5.4 建設ブロック（建設メニュー仕様への参照）
 
@@ -271,7 +331,7 @@
 - 根の Scale は 1 のままにする。大きさは表示枠で決める。
 - 子 `見た目` が `SpriteRenderer` を持つ。絵は枠へ contain（縦横比維持、はみ出しなし）。
 - 当たり判定は枠に合わせる（`KCSpriteFrame` が親のコライダーを枠へ同期）。
-- 鉄鱗獣・熱嚢草の枠は現行 **2 × 2**。製品値としての固定ではなく、いまの配置値。
+- 鉄鱗獣・熱嚢草・磁角獣・星紋結晶・位相断層・軌道繭などの枠は配置値（現行採集はおおむね **4 × 4**）。製品値としての固定ではない。
 - 発生点の絵の内側はドロップ自動禁止にしない。禁止は `NoDropPaint` で塗る。
 
 ---
@@ -284,20 +344,20 @@
 
 | 設備 | 建設費 | 入力 | 出力 | 燃料枠 | 保管 |
 | --- | --- | --- | --- | --- | --- |
-| 鱗圧延作業台 | 検証用原料 5（初期ライン） | 8 | 8 | 8 | — |
+| 基礎加工台（`facility.prep_bench`） | 鉄鱗 ×5 | 8 | 8 | 8（蓄電触腕） | — |
 | 検証用保管 | 検証用原料 2 | — | — | — | 20 |
-| 結晶培養炉 | 鉄鱗板 3 | 8 | 8 | 8 | — |
-| 位相接合機 | 星紋回路 2（培養炉ラインの出力） | 8 | 8 | 8 | — |
-| 真空紡績機 | 位相継手 2 | 8 | 8 | 8 | — |
+| 熱嚢選別機／共生組立槽／位相工作機／跳躍機関架台 | 生産レシピデータ詳細仕様の Source CSV 正本 | （同左） | （同左） | 8 | — |
+
+旧称「鱗圧延作業台／結晶培養炉／位相接合機／真空紡績機」の加工カタログは廃止。建設プレハブは当面 `ScaleRollingWorkbench`（基礎加工台見た目）を共用してよい。
 
 加工レシピは「ほぼ1個ずつ」を基本とする。Tier 4 の入力・燃料は `KomayamaCraft_Tier4詳細.md` のとおり。加工完了 SE は `ProcessingComplete`（現行 `シャキーン2`）。
 
-#### チュートリアル初期レシピ（確定・2026-09-19）
+#### チュートリアル初期レシピ（確定・2026-09-22 更新）
 
 | 項目 | 内容 |
 | --- | --- |
-| 鱗鉄板（`recipe.iron_scale_rolling`） | 入力 **鉄鱗 ×2** → 出力 鱗鉄板 ×1 |
-| 鱗圧延作業台の初期対応レシピ | 上記のみ（他レシピは後続解放） |
+| 鱗鉄板（`recipe.scale_plate`） | 入力 **鉄鱗 ×3** → 出力 鱗鉄板 ×1（`item.scale_plate`） |
+| 基礎加工台の初期対応 | Tier1 レシピは開放（メニューは未開放枠対応済み）。チュートリアルは鱗鉄板を使う |
 | 作業台建設費 | 鉄鱗 ×5（仮組へ右クリック投入） |
 | 現状把握 WASD | 各キー **0.1** 秒長押し（4キー合計 **0.4** 秒）。表示はキー画像（TMP Sprite） |
 
@@ -306,6 +366,8 @@ NPC 納品・頭上マーカーは `spec/KomayamaCraft_NPCインタラクトと�
 完成施設のメニュー分岐・自動生産・排出・ワールド常時表示・完成品の地面排出は `spec/KomayamaCraft_施設加工操作_詳細仕様.md` が正本。内部出力スロット／`WaitingForOutput` は使わない。
 
 完成施設上の左クリック優先は **地面ドロップ拾い ＞ 施設メニュー**（同詳細仕様 §2.0）。
+
+施設メニュー／ワールド燃料メーター／本体稼働スプライトの詳細は 2026-09-22 時点で `KomayamaCraft_施設加工操作_詳細仕様.md` §2.1.1・§2.3・§7 に同期済み。
 
 チェストの左クリック取出は、押し続けると最後の1個を残す。改めて左クリックしたとき空になる（要素設計書の確定を維持）。
 
@@ -329,6 +391,23 @@ NPC 納品・頭上マーカーは `spec/KomayamaCraft_NPCインタラクトと�
 | 初期例 | シーンの `納入ゴミ箱` |
 
 NPC 納品口（見た目なし `DepositBin`）も同様に、成功／失敗 SE は**右クリック押下あたり1回**（長押し連打でビープし続けない）。
+
+### 7.1.1 蓄電クラゲ（ワールド）と蓄電触腕（燃料）
+
+**別系統（明示）**: 蓄電クラゲは鉄鱗獣・熱嚢草などの**クリック採集オブジェクト（`KomayamaResourceNode`）とは別系統**とする。専用スクリプトのみを使い、採集入力・発生点定義・`KCSpriteFrame`・Outline 既定材の共有経路を**書き換えない／乗せない**。実装時に既存共有コードへ寄せた変更は禁止（戻す）。
+
+| 項目 | 内容 |
+| --- | --- |
+| ワールド物体 | シーンに **1体のみ**。プレハブなし。`World / WorldLayers / Layer_Objects` 直下。Layer は `NativeLife` |
+| 専用スクリプト | 根: `KomayamaVoltJellySpawner`（自動ドロップ）。子 `見た目`: `KomayamaVoltJellyVisual`（枠・半透明）。**`KomayamaResourceNode` / `KCSpriteFrame` は付けない** |
+| 構造 | 根（`BoxCollider2D` + Spawner）＋子 `見た目`（`SpriteRenderer` + Visual + `place_蓄電クラゲ`）＋子 `DropZone`（`BoxCollider2D` isTrigger） |
+| 見た目・透過 | 海に溶ける半透明。`見た目` に `KomayamaPreserveSpriteMaterial`＋`SpriteUnlitDefault`。**Layer_Objects 既定の `SpriteOutline` は付けない**（Outline の Body Alpha カットオフと半透明 tint が両立しない）。alpha は `SpriteRenderer.color`（Visual が維持） |
+| クリック | ヒットは取るが **現状 no-op**。採集ホールド・`TryGather`・Ghost 割当の対象にならない |
+| 自動ドロップ | `item.volt_jelly`（表示名 **蓄電触腕**）。`DropZone` 矩形内の同アイテム数が `maxItemsInZone`（初期 **2**）未満のとき、間隔ごとに `KomayamaDropArea.TrySpawnAt` |
+| 分布 | ゾーン中央の縦線（高さの **7割**・上下均等余白）を軸にしたラグビーボール型（横方向ガウス） |
+| 燃料利用 | 拾う／落とせる通常アイテム。施設上で右クリック投入（既存 `acceptedFuelItems` → `item.volt_jelly`） |
+| 旧物 | `World/蓄電クラゲ`（ResourceNode）および `ChargeJellyfish` 資源定義／プレハブ／`_Obsolete/ChargeJelly` は削除済み |
+| 他オブジェクトへの影響 | 鉄鱗獣等の `KCSpriteFrame`／`KomayamaResourceNode`／入力採集ロジックは**変更しない** |
 
 ### 7.2 カーソル追従狐（`FoxCursorFollower`）
 
@@ -496,11 +575,11 @@ NPC 納品口（見た目なし `DepositBin`）も同様に、成功／失敗 SE
 | 新規開始 | 空きスロットはそのまま開始。使用中は初期化確認（ConfirmPanel）。見出し「はじめから」。入口で ConfigToggle SE。確定後は TransitionStart＋フェード→LoadCanvas |
 | 続きから | セーブが1つでもあるときだけボタン表示。使用中スロットだけ選べる。前回遊んだスロットに「前回のプレイ」を付記。見出し「続きから」。入口で ConfigToggle SE |
 | スロット UI | `SlotCanvas` 配下の `SlotPanel`。名前／スクショ／セーブ時刻・プレイ時間（`gameplayElapsedSeconds`＝**秒**保存、表示は `時:分:秒`・時は最低2桁〜最大9999）。選択中もタイトルボタンは消さない |
-| クラフト遷移 | タイトル `LoadCanvas`＋`LoadSceneAsync`。専用ロードシーンは作らない。ロード中は timeScale=0、完了後にゲーム時間再開 |
+| クラフト遷移 | タイトル `LoadCanvas`＋`LoadSceneAsync`。専用ロードシーンは作らない。ロード中は timeScale=0。`LoadAnimController` で ImageString 左→右2秒ループ／Image1〜3を2秒切替。Save／QuestLog／Ambience Ready 後に暗転→ロード破棄→黒からフェードイン→ゲート解放（OP はゲート後）。デバッグは `TitleDebugManager.debugPreviewLoadAnimation`（表示＋アニメのみ・遷移なし）。詳細はタイトル画面仕様 §3 |
 | タイトル | 既存 `title_scene`。詳細は `KomayamaCraft_タイトル画面_詳細仕様.md`（SlotCanvas、LoadCanvas、HoverOverlay、駒山・工具・星） |
 | 案内 | 段階案内＋スキップ（T） |
 | Ghost案内 | すでに稼働していれば、そのステップは飛ばしてよい |
-| Tier 3 危険領域 | 位相安定芯を一度作るまで、採集も建設もできない |
+| Tier／地域解放 | **カメラ移動範囲の段階（0〜10）**で制御。旧 `KomayamaRegion` コライダー方式は使わない |
 | 離陸表示 | 慣性相殺環を船へ入れたとき |
 | 脱出開始 | Tier 4 完了後。確認してから開始 |
 | クリア後 | フィールドへ戻る。在庫と配置は維持。再脱出できる |
@@ -512,4 +591,17 @@ NPC 納品口（見た目なし `DepositBin`）も同様に、成功／失敗 SE
 
 - `spec/KomayamaCraft_ゲーム基本仕様.md` の本文。
 - 要素設計書・作成前資料の原文。矛盾する場合は基本仕様と本書を使う。
+- 例外（本書が優先）: 基本仕様 §16 の「Tier 2 地域／位相危険領域で採集・建設不可」は、**カメラ移動範囲の段階開放（§5.3）**に置き換える。`KomayamaRegion` コライダー方式は採用しない。
+- 例外（本書が優先）: 基本仕様の「WASDでカメラを移動」は、**縦・横で別速度**＋斜めは正規化後に軸別速度（§5.3）とする。単一速度ではない。
 - 鉄鱗獣・熱嚢草など、ユーザーが置いたフィールド座標。本書は中心と大陸サイズだけを固定する。
+
+---
+
+## 10. パフォーマンス・FPS（メモ）
+
+| 項目 | 内容 |
+| --- | --- |
+| 地図アンビエント軽量化 | **保留**。案一覧は `spec/KomayamaCraft_地図演出コントローラー_詳細仕様.md` **§8**。「重い」と言われたらそこを見返す |
+| FPS 切替 | **実装済**（無制限／60／30・既定60）。一般タブ Dropdown → `SoundSettingsManager.SetFrameRateMode` |
+| RestrictionGrid 起動 | Play 開始で両グリッド＋Paint を強制アクティブ（`KomayamaRestrictionGridBoot`） |
+| 新チャット入口 | `spec/KomayamaCraft_作業引継_2026-09-26.md` |

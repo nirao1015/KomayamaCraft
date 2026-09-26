@@ -17,5 +17,5 @@ MonoBehaviour:
   description: 
   icon: {fileID: 0}
   category: 0
-  maxStack: 8
+  maxStack: 99
   traitIds: []

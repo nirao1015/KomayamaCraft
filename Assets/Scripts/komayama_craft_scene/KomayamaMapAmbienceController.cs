@@ -14,7 +14,7 @@ namespace KomayamaCraft
         [SerializeField, Min(0.5f)] private float tickIntervalSeconds = 5f;
 
         [Header("予算")]
-        [SerializeField, Min(1)] private int maxConcurrentCost = 4;
+        [SerializeField, Min(1)] private int maxConcurrentCost = 8;
         [SerializeField, Min(1)] private int maxStartsPerTick = 2;
 
         [Header("地図チャンネル")]
@@ -27,6 +27,12 @@ namespace KomayamaCraft
         private int usedCost;
 
         public int UsedCost => usedCost;
+
+        private void Start()
+        {
+            // 雲の出現自体は待たない。スケジューラ起動時点で Ready。
+            KomayamaCraftBootReady.NotifyAmbienceReady();
+        }
 
         public bool TryReserveCost(int cost)
         {

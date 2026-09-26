@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ConfigCanvas のタブ切替と一般設定（言語 ID・非アクティブ挙動）。
+/// ConfigCanvas のタブ切替と一般設定（言語 ID・非アクティブ挙動・FPS）。
 /// キー設定は表示のみ（変更・セーブ・ゲーム内ショートカットは未実装）。
 /// </summary>
 [DisallowMultipleComponent]
@@ -25,6 +25,9 @@ public sealed class TitleConfigPanelController : MonoBehaviour
     private const string DefaultKeyDrop = "Space";
     private const string DefaultKeyItemSwitch = "E";
 
+    // TMP_Dropdown の index は GameFrameRateMode と一致（0=無制限 / 1=60 / 2=30）
+    private const int FrameRateOptionCount = 3;
+
     [Header("タブ")]
     [SerializeField] private Button generalTabButton;
     [SerializeField] private Button volumeTabButton;
@@ -41,6 +44,8 @@ public sealed class TitleConfigPanelController : MonoBehaviour
 
     [Header("一般")]
     [SerializeField] private TMP_Dropdown languageDropdown;
+    [SerializeField, Tooltip("FPS無制限 / 60FPS / 30FPS。既定は 60。")]
+    private TMP_Dropdown frameRateDropdown;
     [SerializeField] private Toggle pauseWhenInactiveToggle;
     [SerializeField] private Toggle playAudioWhenInactiveToggle;
 
@@ -115,6 +120,11 @@ public sealed class TitleConfigPanelController : MonoBehaviour
             languageDropdown.onValueChanged.AddListener(OnLanguageDropdownChanged);
         }
 
+        if (frameRateDropdown != null)
+        {
+            frameRateDropdown.onValueChanged.AddListener(OnFrameRateDropdownChanged);
+        }
+
         if (pauseWhenInactiveToggle != null)
         {
             pauseWhenInactiveToggle.onValueChanged.AddListener(OnPauseWhenInactiveChanged);
@@ -151,6 +161,11 @@ public sealed class TitleConfigPanelController : MonoBehaviour
         if (languageDropdown != null)
         {
             languageDropdown.onValueChanged.RemoveListener(OnLanguageDropdownChanged);
+        }
+
+        if (frameRateDropdown != null)
+        {
+            frameRateDropdown.onValueChanged.RemoveListener(OnFrameRateDropdownChanged);
         }
 
         if (pauseWhenInactiveToggle != null)
@@ -278,6 +293,13 @@ public sealed class TitleConfigPanelController : MonoBehaviour
                 languageDropdown.RefreshShownValue();
             }
 
+            if (frameRateDropdown != null)
+            {
+                EnsureFrameRateOptions();
+                frameRateDropdown.value = FrameRateModeToDropdownIndex(settings.GetFrameRateMode());
+                frameRateDropdown.RefreshShownValue();
+            }
+
             if (pauseWhenInactiveToggle != null)
             {
                 pauseWhenInactiveToggle.isOn = settings.GetPauseWhenInactive();
@@ -314,6 +336,48 @@ public sealed class TitleConfigPanelController : MonoBehaviour
         });
     }
 
+    private void EnsureFrameRateOptions()
+    {
+        if (frameRateDropdown == null)
+        {
+            return;
+        }
+
+        if (frameRateDropdown.options != null && frameRateDropdown.options.Count >= FrameRateOptionCount)
+        {
+            return;
+        }
+
+        frameRateDropdown.ClearOptions();
+        frameRateDropdown.AddOptions(new System.Collections.Generic.List<string>
+        {
+            "FPS無制限",
+            "60FPS",
+            "30FPS"
+        });
+    }
+
+    private static int FrameRateModeToDropdownIndex(GameFrameRateMode mode)
+    {
+        int index = (int)mode;
+        if (index < 0 || index >= FrameRateOptionCount)
+        {
+            return (int)GameFrameRate.DefaultMode;
+        }
+
+        return index;
+    }
+
+    private static GameFrameRateMode DropdownIndexToFrameRateMode(int index)
+    {
+        if (index < 0 || index >= FrameRateOptionCount)
+        {
+            return GameFrameRate.DefaultMode;
+        }
+
+        return (GameFrameRateMode)index;
+    }
+
     private void OnLanguageDropdownChanged(int index)
     {
         if (suppressUiCallbacks)
@@ -323,6 +387,16 @@ public sealed class TitleConfigPanelController : MonoBehaviour
 
         string id = index == 1 ? LanguageEn : LanguageJa;
         SoundSettingsManager.Instance?.SetLanguageId(id);
+    }
+
+    private void OnFrameRateDropdownChanged(int index)
+    {
+        if (suppressUiCallbacks)
+        {
+            return;
+        }
+
+        SoundSettingsManager.Instance?.SetFrameRateMode(DropdownIndexToFrameRateMode(index));
     }
 
     private void OnPauseWhenInactiveChanged(bool isOn)

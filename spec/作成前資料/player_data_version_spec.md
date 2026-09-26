@@ -39,6 +39,7 @@
 | `languageId` | string | 設定の言語 ID（`ja` / `en`）。文言反映は後日。**全体セーブ**（スロット非依存）。変更瞬間に保存 |
 | `pauseWhenInactive` | bool | 非アクティブ時にクラフトをポーズ（既定 false）。全体セーブ・変更瞬間保存 |
 | `playAudioWhenInactive` | bool | 非アクティブ時も音を出す（既定 false＝ミュート）。全体セーブ・変更瞬間保存 |
+| `frameRateMode` | string | フレームレート上限。`unlimited` / `60` / `30`（既定・空欄は `60`）。全体セーブ・変更瞬間保存。一般タブ Dropdown |
 
 音量（`master` / `bgm` / `se`）および上記一般設定は、いずれも **セーブスロットとは別の `playerData.json`（全体）** に書き、**値を変えた瞬間に保存**する。
 

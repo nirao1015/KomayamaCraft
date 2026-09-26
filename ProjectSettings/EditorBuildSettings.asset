@@ -11,25 +11,25 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/title_scene.unity
     guid: da7b7b18a03b64b44aa5477b92d57e53
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/dialogue_scene.unity
     guid: ecf566e375549be4bbeecac73cc0ce4f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/menu_scene.unity
     guid: d3a81d680ac91dd478f89f6a1db0ad75
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/game_stage_scene.unity
     guid: 93d3f530c01203b4a8bef979e1b525bb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/menu02_scene.unity
     guid: a8b522a09a180f640b6feaa52c09d5ef
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/game02_scene.unity
     guid: d8f9def33e154a94087113c48c66839e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/menu03_scene.unity
     guid: ba2b6920d86d71340a3dd4606c26c520
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/game03_scene.unity
     guid: 57fe650ff7300dd489e333e0f9d61a31
   - enabled: 1

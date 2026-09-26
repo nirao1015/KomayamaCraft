@@ -34,6 +34,11 @@ public sealed class TitleDebugManager : MonoBehaviour
     [SerializeField]
     private Vector2 debugClickableHoverCursorHotspot = new Vector2(8f, 8f);
 
+    [SerializeField, Tooltip(
+        "ON のときタイトル起動時点で LoadCanvas を表示し、ロードアニメだけ再生する。" +
+        " 画面遷移はしない。本番マスター ON では無効。")]
+    private bool debugPreviewLoadAnimation;
+
     public bool MasterProductionReleaseBuild => masterProductionReleaseBuild;
 
     public bool SteamLogFileMode => steamLogFileMode;
@@ -43,6 +48,8 @@ public sealed class TitleDebugManager : MonoBehaviour
     public Texture2D DebugClickableHoverCursorTexture => debugClickableHoverCursorTexture;
 
     public Vector2 DebugClickableHoverCursorHotspot => debugClickableHoverCursorHotspot;
+
+    public bool DebugPreviewLoadAnimation => debugPreviewLoadAnimation;
 
     public static bool IsSteamLogFileModeActive =>
         Instance != null && Instance.steamLogFileMode;
@@ -57,6 +64,14 @@ public sealed class TitleDebugManager : MonoBehaviour
         Instance != null
         && !Instance.masterProductionReleaseBuild
         && Instance.debugClickableHoverCursor;
+
+    /// <summary>
+    /// ロードアニメのタイトル上プレビュー。本番マスター ON では必ず false。
+    /// </summary>
+    public static bool IsDebugPreviewLoadAnimationActive =>
+        Instance != null
+        && !Instance.masterProductionReleaseBuild
+        && Instance.debugPreviewLoadAnimation;
 
     /// <summary>
     /// シーン個別の本番フラグとマスターを合成した実効値。

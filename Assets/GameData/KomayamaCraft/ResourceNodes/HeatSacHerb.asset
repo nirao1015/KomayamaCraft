@@ -19,7 +19,7 @@ MonoBehaviour:
   prefab: {fileID: 807263411731524248, guid: 19571e3fc42e73f459cef835900e3488, type: 3}
   kind: 1
   yields:
-  - item: {fileID: 11400000, guid: 72596a7d22f290f4582c439e6bf7dbff, type: 2}
+  - item: {fileID: 11400000, guid: 8eeac3a57c1895840905f0193a74403c, type: 2}
     amount: 1
   gatheringSeconds: 0
   reharvestMode: 3
