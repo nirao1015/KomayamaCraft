@@ -1,0 +1,6 @@
+type,speaker,text,slot,sprite_key,mode,audio_key
+dim,,,,,0,
+stand,,,L,unit05,lean_in,
+line,？？？,では材料を入れてみよう、生産完了まで少し時間かかるからね。,,,,
+line,？？？,そうだな鱗鉄板3枚もあれば治るかな,,,,
+end,,,,,,

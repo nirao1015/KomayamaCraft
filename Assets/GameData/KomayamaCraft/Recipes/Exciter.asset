@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41c702d84ccedf34e4a6e264283ac2b, type: 3}
+  m_Name: Exciter
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeDefinition
+  definitionId: recipe.exciter
+  displayName: "\u52B1\u8D77\u7089"
+  inputs:
+  - item: {fileID: 11400000, guid: fed0752b89672fd4a901551c5fe5ef91, type: 2}
+    amount: 4
+  - item: {fileID: 11400000, guid: 789149aa80960e44c8cbc6aff3e2dc6d, type: 2}
+    amount: 2
+  - item: {fileID: 11400000, guid: 272096a0b59f7d542a07036aa2d9d314, type: 2}
+    amount: 5
+  requiredFacilityId: facility.phase_mill
+  requiredUnlockId: 
+  processingSeconds: 6
+  usesFuel: 1
+  outputMode: 0
+  outputs:
+  - item: {fileID: 11400000, guid: f68c639a9c068f14c9036d3e0a115f84, type: 2}
+    amount: 1
+    weight: 1

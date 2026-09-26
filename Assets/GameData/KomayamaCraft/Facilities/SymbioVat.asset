@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a103b17c9d2e4f5086a7b8c9d0e1f201, type: 3}
+  m_Name: SymbioVat
+  m_EditorClassIdentifier: Assembly-CSharp::FacilityDefinition
+  definitionId: facility.symbio_vat
+  displayName: "\u5171\u751F\u7D44\u7ACB\u69FD"
+  description: 
+  icon: {fileID: 0}
+  prefab: {fileID: 100000, guid: 187a28e36495a6c7f3a4b5c6d7e8f978, type: 3}
+  capabilities: 1
+  supportedRecipes:
+  - {fileID: 11400000, guid: f3fe194445cf62247aa36011ed66535e, type: 2}
+  - {fileID: 11400000, guid: b03314bc95c16124db170e3bce9aa30e, type: 2}
+  - {fileID: 11400000, guid: b77e83794903bea468fcc9b67ba9a776, type: 2}
+  - {fileID: 11400000, guid: 331f5c38c3d5d95439ac739b83e2f36a, type: 2}
+  - {fileID: 11400000, guid: 95f764b32c475c049b6ae64a2f4a39eb, type: 2}
+  - {fileID: 11400000, guid: fd7e7dc2890f0b24386d6b8e03821a4f, type: 2}
+  constructionCost:
+  - item: {fileID: 11400000, guid: e28f7e461ffd90f4dba8257c970b7e63, type: 2}
+    amount: 3
+  footprintWidthBlocks: 10
+  footprintHeightBlocks: 8
+  inputCapacity: 8
+  outputCapacity: 8
+  storageCapacity: 0
+  usesFuel: 1
+  acceptedFuelItems:
+  - {fileID: 11400000, guid: ea659ed528b728440bec8bd34bce38e9, type: 2}
+  fuelCapacity: 8
+  requiredUnlockId: 

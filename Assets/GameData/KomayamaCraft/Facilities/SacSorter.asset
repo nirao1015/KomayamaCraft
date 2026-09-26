@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a103b17c9d2e4f5086a7b8c9d0e1f201, type: 3}
+  m_Name: SacSorter
+  m_EditorClassIdentifier: Assembly-CSharp::FacilityDefinition
+  definitionId: facility.sac_sorter
+  displayName: "\u71B1\u56A2\u9078\u5225\u6A5F"
+  description: 
+  icon: {fileID: 0}
+  prefab: {fileID: 100000, guid: 187a28e36495a6c7f3a4b5c6d7e8f978, type: 3}
+  capabilities: 1
+  supportedRecipes:
+  - {fileID: 11400000, guid: 1221c49c67c130a4b99c9e73dc526e0e, type: 2}
+  constructionCost:
+  - item: {fileID: 11400000, guid: 70d83ce94088a9f90a062ae20e4f7687, type: 2}
+    amount: 4
+  footprintWidthBlocks: 8
+  footprintHeightBlocks: 6
+  inputCapacity: 8
+  outputCapacity: 8
+  storageCapacity: 0
+  usesFuel: 1
+  acceptedFuelItems:
+  - {fileID: 11400000, guid: ea659ed528b728440bec8bd34bce38e9, type: 2}
+  fuelCapacity: 8
+  requiredUnlockId: 

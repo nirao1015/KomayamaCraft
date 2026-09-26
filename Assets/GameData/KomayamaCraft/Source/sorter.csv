@@ -1,0 +1,4 @@
+recipe_id,input_item_id,input_amount,output_item_id,weight
+recipe.heat_sac_sort,item.heat_sac,1,item.sac_skin,95
+recipe.heat_sac_sort,item.heat_sac,1,item.core_seed,5
+recipe.heat_sac_sort,item.heat_sac,1,item.heat_filament,0

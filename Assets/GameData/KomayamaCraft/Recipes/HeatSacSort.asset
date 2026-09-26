@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41c702d84ccedf34e4a6e264283ac2b, type: 3}
+  m_Name: HeatSacSort
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeDefinition
+  definitionId: recipe.heat_sac_sort
+  displayName: "\u71B1\u56A2\u9078\u5225"
+  inputs:
+  - item: {fileID: 11400000, guid: 8eeac3a57c1895840905f0193a74403c, type: 2}
+    amount: 1
+  requiredFacilityId: facility.sac_sorter
+  requiredUnlockId: 
+  processingSeconds: 1.5
+  usesFuel: 1
+  outputMode: 1
+  outputs:
+  - item: {fileID: 11400000, guid: 272096a0b59f7d542a07036aa2d9d314, type: 2}
+    amount: 1
+    weight: 95
+  - item: {fileID: 11400000, guid: a43ade1e512fdb545a2c91fcc0f38077, type: 2}
+    amount: 1
+    weight: 5
+  - item: {fileID: 11400000, guid: d420e094162a17b479d5cbf3c0216bbd, type: 2}
+    amount: 1
+    weight: 0

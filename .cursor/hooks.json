@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "prompt",
+        "timeout": 15,
+        "prompt": "This project asks agents to warn when the chat is too long and a new conversation would be safer (rule: warn-long-conversation.mdc). Check whether this session already had context overflow / memory snapshot / huge multi-topic history. If yes, return additional_context telling the agent to warn the user once at the start of the next reply that they should move to a new chat. If no, return empty additional_context. Do not block the session. Input: $ARGUMENTS"
+      }
+    ]
+  }
+}

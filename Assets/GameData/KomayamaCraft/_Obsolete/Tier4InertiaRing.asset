@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c425d39e1f465718e5f60718293a4bc9, type: 3}
+  m_Name: Tier4InertiaRing
+  m_EditorClassIdentifier: Assembly-CSharp::UnlockDefinition
+  definitionId: unlock.tier4_inertia_ring
+  displayName: "\u96E2\u9678\u6E96\u5099\u5B8C\u4E86"
+  description: 
+  icon: {fileID: 0}
+  anyOfConditionGroups:
+  - allConditions:
+    - conditionType: 2
+      requiredUnlockId: 
+      requiredTier: 0
+      deliveredItem: {fileID: 11400000, guid: 66197cb2c5692e14ca768a5bca248194, type: 2}
+      deliveredAmount: 1
+      builtFacility: {fileID: 0}
+      builtFacilityCount: 0
+  targets:
+  - targetType: 6
+    item: {fileID: 0}
+    recipe: {fileID: 0}
+    facility: {fileID: 0}
+    resourceNode: {fileID: 0}
+    identifier: 
+    tier: 4
+  - targetType: 5
+    item: {fileID: 0}
+    recipe: {fileID: 0}
+    facility: {fileID: 0}
+    resourceNode: {fileID: 0}
+    identifier: tier4
+    tier: 0

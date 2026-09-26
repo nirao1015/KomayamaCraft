@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41c702d84ccedf34e4a6e264283ac2b, type: 3}
+  m_Name: PhaseWeave
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeDefinition
+  definitionId: recipe.phase_weave
+  displayName: "\u4F4D\u76F8\u7E54\u819C"
+  inputs:
+  - item: {fileID: 11400000, guid: 4590f228348689f44a8a1db4b691cca7, type: 2}
+    amount: 2
+  - item: {fileID: 11400000, guid: 8a7ee7baf565f5e43a3d2e3e61861f57, type: 2}
+    amount: 2
+  - item: {fileID: 11400000, guid: d420e094162a17b479d5cbf3c0216bbd, type: 2}
+    amount: 1
+  requiredFacilityId: facility.symbio_vat
+  requiredUnlockId: 
+  processingSeconds: 4
+  usesFuel: 1
+  outputMode: 0
+  outputs:
+  - item: {fileID: 11400000, guid: 1724210b82a80c64e83157924d95501c, type: 2}
+    amount: 1
+    weight: 1

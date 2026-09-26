@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41c702d84ccedf34e4a6e264283ac2b, type: 3}
+  m_Name: ReinforceFrame 1
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeDefinition
+  definitionId: recipe.reinforce_frame
+  displayName: "\u88DC\u5F37\u30D5\u30EC\u30FC\u30E0\u7D44\u7ACB"
+  inputs:
+  - item: {fileID: 11400000, guid: 81e94dfa5199bac01b173bf31f508798, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 45aa4e34a73c3924ea5348b69e372d26, type: 2}
+    amount: 1
+  requiredFacilityId: facility.scale_rolling_workbench
+  requiredUnlockId: 
+  processingSeconds: 2
+  usesFuel: 1
+  outputMode: 0
+  outputs:
+  - item: {fileID: 11400000, guid: 00fb9e8a44973bd4ca7ffb06dba2960f, type: 2}
+    amount: 1
+    weight: 1

@@ -1,0 +1,6 @@
+type,speaker,text,slot,sprite_key,mode,audio_key
+dim,,,,,0,
+stand,,,L,unit05,lean_in,
+line,？？？,ではそれを使って作業台を作ろう,,,,
+line,？？？,右メニューから基礎加工台を選択して地面に配置して,,,,
+end,,,,,,

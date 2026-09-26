@@ -1,0 +1,7 @@
+type,speaker,text,slot,sprite_key,mode,audio_key
+dim,,,,,0,
+stand,,,L,unit05,lean_in,
+line,？？？,設置場所はそこでいいかね？,,,,
+line,？？？,設置場所は編集モードで変えられるぞ,,,,
+line,？？？,では作業台の材料を投入しよう,,,,
+end,,,,,,

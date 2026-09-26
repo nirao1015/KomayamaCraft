@@ -1,0 +1,6 @@
+facility_id,display_name,construction_item_id,construction_amount,footprint_w,footprint_h,input_cap,output_cap,fuel_cap,prefab_hint
+facility.prep_bench,基礎加工台,item.iron_scale,5,10,8,8,8,8,ScaleRollingWorkbench
+facility.sac_sorter,熱嚢選別機,item.iron_scale,4,8,6,8,8,8,ScaleRollingWorkbench
+facility.symbio_vat,共生組立槽,item.scale_plate,3,10,8,8,8,8,ScaleRollingWorkbench
+facility.phase_mill,位相工作機,item.frame_beam,2,10,8,8,8,8,ScaleRollingWorkbench
+facility.jump_rig,跳躍機関架台,item.mount_frame,1,12,10,8,8,8,ScaleRollingWorkbench

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41c702d84ccedf34e4a6e264283ac2b, type: 3}
+  m_Name: StarjumpDrive
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeDefinition
+  definitionId: recipe.starjump_drive
+  displayName: "\u661F\u9593\u8DF3\u8E8D\u6A5F\u95A2"
+  inputs:
+  - item: {fileID: 11400000, guid: fef1a60301eb0064b9989b967e881b64, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 1d892e28d4f57e2499e847a0eebfd308, type: 2}
+    amount: 2
+  - item: {fileID: 11400000, guid: f68c639a9c068f14c9036d3e0a115f84, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 1bf48eaece1493846abb4674cc8dfe9f, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 3f16e54673d9042489b60ed0cbc314af, type: 2}
+    amount: 1
+  requiredFacilityId: facility.jump_rig
+  requiredUnlockId: 
+  processingSeconds: 10
+  usesFuel: 1
+  outputMode: 0
+  outputs:
+  - item: {fileID: 11400000, guid: 5d5949a168a01114cb1245da34654410, type: 2}
+    amount: 1
+    weight: 1

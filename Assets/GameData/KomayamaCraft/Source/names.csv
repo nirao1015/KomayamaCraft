@@ -1,0 +1,34 @@
+category,english,japanese,item_id,item_category
+facility,Prep Bench,基礎加工台,facility.prep_bench,
+facility,Sac Sorter,熱嚢選別機,facility.sac_sorter,
+facility,Symbio Vat,共生組立槽,facility.symbio_vat,
+facility,Phase Mill,位相工作機,facility.phase_mill,
+facility,Jump Rig,跳躍機関架台,facility.jump_rig,
+raw,Iron Scale,鉄鱗,item.iron_scale,RawMaterial
+raw,Heat Sac,熱嚢,item.heat_sac,RawMaterial
+fuel,Volt Tentacle,蓄電触腕,item.volt_jelly,Fuel
+raw,Flux Horn,磁角,item.flux_horn,RawMaterial
+raw,Star Crystal,星紋晶,item.star_crystal,RawMaterial
+raw,Phase Shard,位相片,item.phase_shard,RawMaterial
+raw,Orbit Silk,軌道絹,item.orbit_silk,RawMaterial
+sorted,Sac Skin,嚢皮,item.sac_skin,IntermediateMaterial
+sorted,Core Seed,芯種,item.core_seed,IntermediateMaterial
+sorted,Heat Filament,熱糸,item.heat_filament,IntermediateMaterial
+mid,Scale Plate,鱗鉄板,item.scale_plate,IntermediateMaterial
+mid,Flux Wire,磁束線,item.flux_wire,IntermediateMaterial
+mid,Flux Core,磁芯,item.flux_core,IntermediateMaterial
+mid,Star Chip,晶片,item.star_chip,IntermediateMaterial
+mid,Phase Dust,位相粉,item.phase_dust,IntermediateMaterial
+mid,Orbit Cloth,軌道布,item.orbit_cloth,IntermediateMaterial
+mid,Bio Wire,生体配線,item.bio_wire,Component
+mid,Flux Coil,磁束コイル,item.flux_coil,Component
+mid,Star Circuit,星紋回路,item.star_circuit,Component
+mid,Phase Weave,位相織膜,item.phase_weave,Component
+mid,Charge Cell,蓄電胞,item.charge_cell,Component
+mid,Frame Beam,骨格梁,item.frame_beam,Component
+high,Nav Core,航法核,item.nav_core,RepairPart
+high,Phase Ring,位相環,item.phase_ring,RepairPart
+high,Exciter,励起炉,item.exciter,RepairPart
+high,Boundary Unit,界面制御器,item.boundary_unit,RepairPart
+high,Mount Frame,固定架,item.mount_frame,RepairPart
+final,Starjump Drive,星間跳躍機関,item.starjump_drive,RepairPart

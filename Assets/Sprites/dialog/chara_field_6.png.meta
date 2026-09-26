@@ -1,0 +1,1495 @@
+fileFormatVersion: 2
+guid: 825a782429ce517478cb1e494a6b549b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 589687373428388950
+    second: chara_field_6_0
+  - first:
+      213: 2025891803888143086
+    second: chara_field_6_1
+  - first:
+      213: 6805037380361356203
+    second: chara_field_6_2
+  - first:
+      213: -7211546645170786781
+    second: chara_field_6_3
+  - first:
+      213: -650907292608728818
+    second: chara_field_6_4
+  - first:
+      213: 3191609668848447209
+    second: chara_field_6_5
+  - first:
+      213: 1647089380633413316
+    second: chara_field_6_6
+  - first:
+      213: -2234652983917845823
+    second: chara_field_6_7
+  - first:
+      213: -5545538314591592518
+    second: chara_field_6_8
+  - first:
+      213: -9096520234679083005
+    second: chara_field_6_9
+  - first:
+      213: -3190440149544790858
+    second: chara_field_6_10
+  - first:
+      213: 1210555737013354868
+    second: chara_field_6_11
+  - first:
+      213: 3045105005867782009
+    second: chara_field_6_12
+  - first:
+      213: 3387335270500202745
+    second: chara_field_6_13
+  - first:
+      213: -4746784003644661696
+    second: chara_field_6_14
+  - first:
+      213: 8388099910186994214
+    second: chara_field_6_15
+  - first:
+      213: -6746297135762874823
+    second: chara_field_6_16
+  - first:
+      213: -6974242721091212102
+    second: chara_field_6_17
+  - first:
+      213: 6375617135955169382
+    second: chara_field_6_18
+  - first:
+      213: -3674489838889341786
+    second: chara_field_6_19
+  - first:
+      213: 4335603013633209474
+    second: chara_field_6_20
+  - first:
+      213: -6149619295226144213
+    second: chara_field_6_21
+  - first:
+      213: -1275383252803592715
+    second: chara_field_6_22
+  - first:
+      213: -7778731890408255586
+    second: chara_field_6_23
+  - first:
+      213: 3839918202683116805
+    second: chara_field_6_24
+  - first:
+      213: 7862187093663640363
+    second: chara_field_6_25
+  - first:
+      213: 5061049440212565629
+    second: chara_field_6_26
+  - first:
+      213: 8425112894019345666
+    second: chara_field_6_27
+  - first:
+      213: 1354390368747038269
+    second: chara_field_6_28
+  - first:
+      213: -8465192656525213981
+    second: chara_field_6_29
+  - first:
+      213: 4058114810235052202
+    second: chara_field_6_30
+  - first:
+      213: -8680423900972581794
+    second: chara_field_6_31
+  - first:
+      213: -5483489476468074657
+    second: chara_field_6_32
+  - first:
+      213: -5800628738202855884
+    second: chara_field_6_33
+  - first:
+      213: 5262983644006198657
+    second: chara_field_6_34
+  - first:
+      213: 6564558441175722505
+    second: chara_field_6_35
+  - first:
+      213: -1579570357489525485
+    second: chara_field_6_36
+  - first:
+      213: 2533830651294655998
+    second: chara_field_6_37
+  - first:
+      213: -8621618674728953831
+    second: chara_field_6_38
+  - first:
+      213: -4219280000775409690
+    second: chara_field_6_39
+  - first:
+      213: -5312122701003804136
+    second: chara_field_6_40
+  - first:
+      213: -4539054206593616851
+    second: chara_field_6_41
+  - first:
+      213: 7677501799056418979
+    second: chara_field_6_42
+  - first:
+      213: -2928890841218418690
+    second: chara_field_6_43
+  - first:
+      213: 6077262527472997323
+    second: chara_field_6_44
+  - first:
+      213: -967657623428066820
+    second: chara_field_6_45
+  - first:
+      213: -4796257037982821155
+    second: chara_field_6_46
+  - first:
+      213: -8780603299095360915
+    second: chara_field_6_47
+  - first:
+      213: -9025133337289861569
+    second: chara_field_6_48
+  - first:
+      213: -3264748706721350914
+    second: chara_field_6_49
+  - first:
+      213: -6840964436197774782
+    second: chara_field_6_50
+  - first:
+      213: -1626878791148323714
+    second: chara_field_6_51
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: chara_field_6_0
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 1223
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6547bb5ba8dfe2800800000000000000
+      internalID: 589687373428388950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_1
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 0
+        width: 885
+        height: 1208
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eeac02cacd96d1c10800000000000000
+      internalID: 2025891803888143086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_2
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 998
+        width: 31
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba381bb5179507e50800000000000000
+      internalID: 6805037380361356203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_3
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 787
+        width: 273
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32e6f6dd8807beb90800000000000000
+      internalID: -7211546645170786781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_4
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 970
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e01785a144387f6f0800000000000000
+      internalID: -650907292608728818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_5
+      rect:
+        serializedVersion: 2
+        x: 930
+        y: 980
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eee96d7510ea4c20800000000000000
+      internalID: 3191609668848447209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_6
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 966
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c609f5a013abd610800000000000000
+      internalID: 1647089380633413316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_7
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 873
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c26f4963faecf0e0800000000000000
+      internalID: -2234652983917845823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_8
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 843
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abf137ec84a4a03b0800000000000000
+      internalID: -5545538314591592518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_9
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 787
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 300eccfba0ba2c180800000000000000
+      internalID: -9096520234679083005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_10
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 706
+        width: 33
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b41d31769749b3d0800000000000000
+      internalID: -3190440149544790858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_11
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 762
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4710e7d6702ccc010800000000000000
+      internalID: 1210555737013354868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_12
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 755
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97f43828ed2624a20800000000000000
+      internalID: 3045105005867782009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_13
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 677
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f8f05d4b7b320f20800000000000000
+      internalID: 3387335270500202745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_14
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 652
+        width: 29
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 040e0452919002eb0800000000000000
+      internalID: -4746784003644661696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_15
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 658
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62a8e2f1d64886470800000000000000
+      internalID: 8388099910186994214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_16
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 103
+        width: 333
+        height: 520
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93e5e999f765062a0800000000000000
+      internalID: -6746297135762874823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_17
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 622
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abc21004233863f90800000000000000
+      internalID: -6974242721091212102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_18
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 560
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6605084710eba7850800000000000000
+      internalID: 6375617135955169382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_19
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 580
+        width: 29
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ace736b5f6910dc0800000000000000
+      internalID: -3674489838889341786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_20
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 500
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28478ba48f72b2c30800000000000000
+      internalID: 4335603013633209474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_21
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 502
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2a582445d928aaa0800000000000000
+      internalID: -6149619295226144213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_22
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 493
+        width: 40
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fdd82850bdec4ee0800000000000000
+      internalID: -1275383252803592715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_23
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 463
+        width: 12
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9f86352f846c0490800000000000000
+      internalID: -7778731890408255586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_24
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 489
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50dcb75b2412a4530800000000000000
+      internalID: 3839918202683116805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_25
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 465
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2b6b7b81891c1d60800000000000000
+      internalID: 7862187093663640363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_26
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 441
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7e3f8ab6a57c3640800000000000000
+      internalID: 5061049440212565629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_27
+      rect:
+        serializedVersion: 2
+        x: 953
+        y: 439
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20d1698f9830ce470800000000000000
+      internalID: 8425112894019345666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_28
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 278
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d36a0605dd2cbc210800000000000000
+      internalID: 1354390368747038269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_29
+      rect:
+        serializedVersion: 2
+        x: 878
+        y: 240
+        width: 39
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3eeb1902128958a80800000000000000
+      internalID: -8465192656525213981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_30
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 254
+        width: 10
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa0efc94be1515830800000000000000
+      internalID: 4058114810235052202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_31
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 210
+        width: 16
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5cf7b2f370f88780800000000000000
+      internalID: -8680423900972581794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_32
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 222
+        width: 29
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f571789bf5bb6e3b0800000000000000
+      internalID: -5483489476468074657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_33
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 206
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4361f7945e6008fa0800000000000000
+      internalID: -5800628738202855884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_34
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 169
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18d2eaf5dbfd90940800000000000000
+      internalID: 5262983644006198657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_35
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 160
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90a22992f1ff91b50800000000000000
+      internalID: 6564558441175722505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_36
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 152
+        width: 22
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31d9918f02d341ae0800000000000000
+      internalID: -1579570357489525485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_37
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 128
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef52a637d89f92320800000000000000
+      internalID: 2533830651294655998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_38
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 128
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91818ef9e7bd95880800000000000000
+      internalID: -8621618674728953831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_39
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 136
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ef2fd9a13b1275c0800000000000000
+      internalID: -4219280000775409690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_40
+      rect:
+        serializedVersion: 2
+        x: 943
+        y: 143
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 812316b5c8c8746b0800000000000000
+      internalID: -5312122701003804136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_41
+      rect:
+        serializedVersion: 2
+        x: 916
+        y: 122
+        width: 34
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d24bebf7f3a0201c0800000000000000
+      internalID: -4539054206593616851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_42
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 134
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a82e278537fb8a60800000000000000
+      internalID: 7677501799056418979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_43
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 117
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef7f74f3c4d7a57d0800000000000000
+      internalID: -2928890841218418690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_44
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 95
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc312dce116c65450800000000000000
+      internalID: 6077262527472997323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_45
+      rect:
+        serializedVersion: 2
+        x: 930
+        y: 101
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf11f53b4803292f0800000000000000
+      internalID: -967657623428066820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_46
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 110
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd41197b2a5407db0800000000000000
+      internalID: -4796257037982821155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_47
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 102
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6a4cc332d7052680800000000000000
+      internalID: -8780603299095360915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_48
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 97
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f365d440c0940c280800000000000000
+      internalID: -9025133337289861569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_49
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 97
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efa35fe395841b2d0800000000000000
+      internalID: -3264748706721350914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_50
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 71
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24ae95b17130011a0800000000000000
+      internalID: -6840964436197774782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chara_field_6_51
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 71
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7cbcf8eb5a2c69e0800000000000000
+      internalID: -1626878791148323714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      chara_field_6_0: 589687373428388950
+      chara_field_6_1: 2025891803888143086
+      chara_field_6_10: -3190440149544790858
+      chara_field_6_11: 1210555737013354868
+      chara_field_6_12: 3045105005867782009
+      chara_field_6_13: 3387335270500202745
+      chara_field_6_14: -4746784003644661696
+      chara_field_6_15: 8388099910186994214
+      chara_field_6_16: -6746297135762874823
+      chara_field_6_17: -6974242721091212102
+      chara_field_6_18: 6375617135955169382
+      chara_field_6_19: -3674489838889341786
+      chara_field_6_2: 6805037380361356203
+      chara_field_6_20: 4335603013633209474
+      chara_field_6_21: -6149619295226144213
+      chara_field_6_22: -1275383252803592715
+      chara_field_6_23: -7778731890408255586
+      chara_field_6_24: 3839918202683116805
+      chara_field_6_25: 7862187093663640363
+      chara_field_6_26: 5061049440212565629
+      chara_field_6_27: 8425112894019345666
+      chara_field_6_28: 1354390368747038269
+      chara_field_6_29: -8465192656525213981
+      chara_field_6_3: -7211546645170786781
+      chara_field_6_30: 4058114810235052202
+      chara_field_6_31: -8680423900972581794
+      chara_field_6_32: -5483489476468074657
+      chara_field_6_33: -5800628738202855884
+      chara_field_6_34: 5262983644006198657
+      chara_field_6_35: 6564558441175722505
+      chara_field_6_36: -1579570357489525485
+      chara_field_6_37: 2533830651294655998
+      chara_field_6_38: -8621618674728953831
+      chara_field_6_39: -4219280000775409690
+      chara_field_6_4: -650907292608728818
+      chara_field_6_40: -5312122701003804136
+      chara_field_6_41: -4539054206593616851
+      chara_field_6_42: 7677501799056418979
+      chara_field_6_43: -2928890841218418690
+      chara_field_6_44: 6077262527472997323
+      chara_field_6_45: -967657623428066820
+      chara_field_6_46: -4796257037982821155
+      chara_field_6_47: -8780603299095360915
+      chara_field_6_48: -9025133337289861569
+      chara_field_6_49: -3264748706721350914
+      chara_field_6_5: 3191609668848447209
+      chara_field_6_50: -6840964436197774782
+      chara_field_6_51: -1626878791148323714
+      chara_field_6_6: 1647089380633413316
+      chara_field_6_7: -2234652983917845823
+      chara_field_6_8: -5545538314591592518
+      chara_field_6_9: -9096520234679083005
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

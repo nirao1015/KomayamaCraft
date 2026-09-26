@@ -1,0 +1,6 @@
+type,speaker,text,slot,sprite_key,mode,audio_key
+dim,,,,,0,
+stand,,,L,unit05,lean_in,
+stand,,,R,main_unit,lean_in,
+line,？？？,やったねとりあえず雨漏りの心配はしないですむようになったな,,,,
+end,,,,,,

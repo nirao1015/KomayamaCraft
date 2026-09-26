@@ -1,0 +1,9 @@
+type,speaker,text,slot,sprite_key,mode,audio_key
+dim,,,,,0,
+stand,,,L,unit05,lean_in,
+line,？？？,（仮）大丈夫？　聞こえる？,,,,
+line,？？？,（仮）ここは……墜落地点の近くみたい。,,,,
+stand,,,R,main_unit,lean_in,
+line,駒山キリ,（仮）……うん。目が覚めた。,,,,
+line,駒山キリ,（仮）まずは周りを確認しないと。,,,,
+end,,,,,,

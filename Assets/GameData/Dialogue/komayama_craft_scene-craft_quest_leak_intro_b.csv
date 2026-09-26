@@ -1,0 +1,7 @@
+type,speaker,text,slot,sprite_key,mode,audio_key
+dim,,,,,0,
+stand,,,L,unit05,instant,
+stand,,,R,main_unit,lean_in,
+line,？？？,こわーい,,,,
+line,？？？,大丈夫。まずは素材を確保だ,,,,
+end,,,,,,

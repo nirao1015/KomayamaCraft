@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41c702d84ccedf34e4a6e264283ac2b, type: 3}
+  m_Name: FluxCoil
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeDefinition
+  definitionId: recipe.flux_coil
+  displayName: "\u78C1\u675F\u30B3\u30A4\u30EB"
+  inputs:
+  - item: {fileID: 11400000, guid: 3790b2f5043af034aafa17d584d3eea3, type: 2}
+    amount: 2
+  - item: {fileID: 11400000, guid: 59b9d26dfb54dcc43a9262845756cd42, type: 2}
+    amount: 1
+  requiredFacilityId: facility.symbio_vat
+  requiredUnlockId: 
+  processingSeconds: 4
+  usesFuel: 1
+  outputMode: 0
+  outputs:
+  - item: {fileID: 11400000, guid: 5409b4a0c733cc74eb0db00e17de7ef1, type: 2}
+    amount: 1
+    weight: 1

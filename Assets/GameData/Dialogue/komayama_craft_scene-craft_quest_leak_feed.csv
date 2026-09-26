@@ -1,0 +1,5 @@
+type,speaker,text,slot,sprite_key,mode,audio_key
+dim,,,,,0,
+stand,,,L,unit05,lean_in,
+line,？？？,材料を拾って投入だ,,,,
+end,,,,,,

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41c702d84ccedf34e4a6e264283ac2b, type: 3}
+  m_Name: StarChip
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeDefinition
+  definitionId: recipe.star_chip
+  displayName: "\u6676\u7247"
+  inputs:
+  - item: {fileID: 11400000, guid: 83fff6ce7376e3142a228eb6b507aa26, type: 2}
+    amount: 2
+  requiredFacilityId: facility.prep_bench
+  requiredUnlockId: 
+  processingSeconds: 2
+  usesFuel: 1
+  outputMode: 0
+  outputs:
+  - item: {fileID: 11400000, guid: b068fdbc462730344805a4b9e98fe105, type: 2}
+    amount: 1
+    weight: 1
